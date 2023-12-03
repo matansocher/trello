@@ -3,6 +3,7 @@ import App from './App/App';
 import Board from './Board/Board';
 import BoardHeader from './BoardHeader/BoardHeader';
 import Card from './Card/Card';
+import CardDetails from './CardDetails/CardDetails';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import Header from './Header/Header';
 import List from './List/List';
@@ -15,6 +16,7 @@ export {
   Board,
   BoardHeader,
   Card,
+  CardDetails,
   DropdownMenu,
   Header,
   List,

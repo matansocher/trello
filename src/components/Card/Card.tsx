@@ -5,7 +5,7 @@ import { ICard, ITag } from '../../models';
 import { useTags } from '../../context/tags-context';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IDropdownItem } from '../../models/DropdownItem.tsx';
-import { ModalWrapper } from '../';
+import { CardDetails, ModalWrapper } from '../';
 
 interface ICardProps {
   card: ICard;
@@ -61,17 +61,7 @@ function Card({ card, archiveCard }: ICardProps) {
         </div>
       </div>
       <ModalWrapper modalOpen={modalOpen} setModalOpen={setModalOpen}>
-        <p>ddsacsdcasdc</p>
-        <p>ddsacsdcasdc</p>
-        <p>ddsacsdcasdc</p>
-        <p>ddsacsdcasdc</p>
-        <p>ddsacsdcasdc</p>
-        <p>ddsacsdcasdc</p>
-        <p>ddsacsdcasdc</p>
-        <p>ddsacsdcasdc</p>
-        <p>ddsacsdcasdc</p>
-        <p>ddsacsdcasdc</p>
-        <p>ddsacsdcasdc</p>
+        <CardDetails card={card} setModalOpen={setModalOpen} />
       </ModalWrapper>
     </>
   )
