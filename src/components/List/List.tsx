@@ -1,16 +1,11 @@
-import { useState, MouseEvent } from 'react';
-import { Card } from '../index';
+import { Card, DropdownMenu } from '../index';
 import AddNewCard from '../AddNewCard/AddNewCard';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Typography from '@mui/material/Typography';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './List.scss'
-import {IBoard, ICard, IList} from '../../models';
+import { IBoard, ICard, IList } from '../../models';
 import { useBoard } from '../../context/board-context.tsx';
 import { addCardToList, removeCardFromList } from '../../services/data.service.tsx';
+import { IDropdownItem } from '../../models/DropdownItem.tsx';
 
 interface IListProps {
   list: IList;
@@ -19,20 +14,9 @@ interface IListProps {
 function List({ list }: IListProps) {
   const { boardState: board, updateBoardState } = useBoard();
   const { cards } = list;
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
 
-  const handleOpenMenuClick = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleArchiveListClick = () => {
+  const archiveList = () => {
     console.log('handleArchiveListClick');
-    handleClose();
   }
 
   const addNewCard = (card: ICard) => {
@@ -46,6 +30,12 @@ function List({ list }: IListProps) {
     updateBoardState(newBoard);
   }
 
+  const getDropdownMenuItems = (): IDropdownItem[] => {
+    return [
+      { label: 'Archive List', icon: <DeleteIcon fontSize='small' />, onClick: archiveList }
+    ];
+  }
+
   const renderCards = () => {
     return cards.map((card: ICard) => {
       return <Card key={card.id} card={card} archiveCard={archiveCard} />;
@@ -57,21 +47,7 @@ function List({ list }: IListProps) {
       <div className='list-wrapper__content'>
         <div className='list-wrapper__content__header'>
           <p className='header'>{list.title}</p>
-          <MoreHorizIcon onClick={handleOpenMenuClick} />
-          <Menu
-            id='basic-menu'
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-            }}
-          >
-            <MenuItem onClick={handleArchiveListClick}>
-              <ListItemIcon><DeleteIcon fontSize='small' /></ListItemIcon>
-              <Typography variant='inherit'>Archive List</Typography>
-            </MenuItem>
-          </Menu>
+          <DropdownMenu menuItems={getDropdownMenuItems()} />
         </div>
         <div className='list-wrapper__cards'>
           {renderCards()}
