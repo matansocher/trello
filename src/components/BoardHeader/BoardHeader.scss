@@ -1,5 +1,5 @@
 .board-header {
-  background-color: #b8dcfe;
+  background-color: #0000003d;
   height: 50px;
   display: flex;
   align-items: center;
@@ -13,6 +13,7 @@
     &-title {
       font-size: 20px;
       font-weight: 600;
+      color: #ffffff;
     }
   }
   &__right {
