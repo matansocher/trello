@@ -53,7 +53,7 @@ function DropdownMenu({ menuItems }: IDropdownMenuProps) {
       >
         {renderItems()}
       </Menu>
-      </>
+    </>
   )
 }
 

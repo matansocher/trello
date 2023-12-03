@@ -5,6 +5,7 @@ import { ICard, ITag } from '../../models';
 import { useTags } from '../../context/tags-context';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IDropdownItem } from '../../models/DropdownItem.tsx';
+import { ModalWrapper } from '../';
 
 interface ICardProps {
   card: ICard;
@@ -15,6 +16,9 @@ function Card({ card, archiveCard }: ICardProps) {
   const { tagsState: tags } = useTags();
   // dropdown hover
   const [showMoreIcon, setShowMoreIcon] = useState(false);
+  // modal
+  const [modalOpen, setModalOpen] = useState(false);
+
 
   const renderTags = () => {
     return card.tags.map((tag: string) => {
@@ -33,26 +37,43 @@ function Card({ card, archiveCard }: ICardProps) {
     ];
   }
 
-  // const handleClick = () => {
-  //   console.log('handleClick');
-  //   console.log(card);
-  // }
+  const handleCardClick = () => {
+    console.log('handleCardClick');
+    console.log(card);
+    setModalOpen(true)
+  }
 
   return (
-    <div className='card-wrapper'
-         onMouseEnter={() => handleHover(true)}
-         onMouseLeave={() => handleHover(false)}
-    >
-      {showMoreIcon && <div className='card-wrapper__more-icon'>
-        <DropdownMenu menuItems={getDropdownMenuItems()} />
-      </div>}
-      <div className='card-wrapper__tags'>
-        {renderTags()}
+    <>
+      <div className='card-wrapper'
+           onClick={handleCardClick}
+           onMouseEnter={() => handleHover(true)}
+           onMouseLeave={() => handleHover(false)}
+      >
+        {showMoreIcon && <div className='card-wrapper__more-icon'>
+          <DropdownMenu menuItems={getDropdownMenuItems()} />
+        </div>}
+        <div className='card-wrapper__tags'>
+          {renderTags()}
+        </div>
+        <div className='card-wrapper__content'>
+          <p className='header'>{card.title}</p>
+        </div>
       </div>
-      <div className='card-wrapper__content'>
-        <p className='header'>{card.title}</p>
-      </div>
-    </div>
+      <ModalWrapper modalOpen={modalOpen} setModalOpen={setModalOpen}>
+        <p>ddsacsdcasdc</p>
+        <p>ddsacsdcasdc</p>
+        <p>ddsacsdcasdc</p>
+        <p>ddsacsdcasdc</p>
+        <p>ddsacsdcasdc</p>
+        <p>ddsacsdcasdc</p>
+        <p>ddsacsdcasdc</p>
+        <p>ddsacsdcasdc</p>
+        <p>ddsacsdcasdc</p>
+        <p>ddsacsdcasdc</p>
+        <p>ddsacsdcasdc</p>
+      </ModalWrapper>
+    </>
   )
 }
 
