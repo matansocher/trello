@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {MouseEvent, useState} from 'react';
 import './Card.scss'
 import { Tag } from '../index';
 import Box from '@mui/material/Box';
@@ -7,6 +7,10 @@ import Modal from '@mui/material/Modal';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ICard, ITag } from '../../models';
 import { useTags } from '../../context/tags-context';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Menu from '@mui/material/Menu';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -23,14 +27,27 @@ const style = {
 
 interface ICardProps {
   card: ICard;
+  archiveCard: (cardId: string) => void;
 }
 
-function Card({ card }: ICardProps) {
+function Card({ card, archiveCard }: ICardProps) {
   const { tagsState: tags } = useTags();
+  // modal
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
+  // dropdown
   const [showMoreIcon, setShowMoreIcon] = useState(false);
-  const [open, setOpen] = useState(false);
-  // const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const menuOpen = Boolean(anchorEl);
+
+  const handleOpenMenuClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
   const renderTags = () => {
     return card.tags.map((tag: string) => {
@@ -43,6 +60,11 @@ function Card({ card }: ICardProps) {
     setShowMoreIcon(isHovered);
   }
 
+  const handleArchiveCardClick = () => {
+    archiveCard(card.id);
+    handleCloseMenu();
+  };
+
   // const handleClick = () => {
   //   console.log('handleClick');
   //   console.log(card);
@@ -50,11 +72,27 @@ function Card({ card }: ICardProps) {
 
   return (
     <div className='card-wrapper'
-         onClick={() => setOpen(!'$$$$$$$$$$$$$$$$$$$$')}
-         onMouseEnter={() => handleHover(true)}
-         onMouseLeave={() => handleHover(false)}
+     onClick={() => setModalOpen(!'$$$$$$$$$$$$$$$$$$$$')}
+     onMouseEnter={() => handleHover(true)}
+     onMouseLeave={() => handleHover(false)}
     >
-      {showMoreIcon && <ExpandMoreIcon className='card-wrapper__more-icon' />}
+      {showMoreIcon && <>
+        <ExpandMoreIcon className='card-wrapper__more-icon' onClick={handleOpenMenuClick} />
+        <Menu
+          id='basic-menu'
+          anchorEl={anchorEl}
+          open={menuOpen}
+          onClose={handleCloseMenu}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+        >
+          <MenuItem onClick={handleArchiveCardClick}>
+            <ListItemIcon><DeleteIcon fontSize='small' /></ListItemIcon>
+            <Typography variant='inherit'>Archive Card</Typography>
+          </MenuItem>
+        </Menu>
+      </>}
       <div className='card-wrapper__tags'>
         {renderTags()}
       </div>
@@ -63,8 +101,8 @@ function Card({ card }: ICardProps) {
       </div>
 
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={modalOpen}
+        onClose={handleModalClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >

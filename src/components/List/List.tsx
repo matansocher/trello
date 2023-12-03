@@ -9,8 +9,8 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './List.scss'
 import {IBoard, ICard, IList} from '../../models';
-import {useBoard} from "../../context/board-context.tsx";
-import {addCardToList} from "../../services/data.service.tsx";
+import { useBoard } from '../../context/board-context.tsx';
+import { addCardToList, removeCardFromList } from '../../services/data.service.tsx';
 
 interface IListProps {
   list: IList;
@@ -40,9 +40,15 @@ function List({ list }: IListProps) {
     updateBoardState(newBoard);
   }
 
+  const archiveCard = (cardId: string) => {
+    console.log('archiveCard', cardId);
+    const newBoard = removeCardFromList(board, list, cardId) as IBoard;
+    updateBoardState(newBoard);
+  }
+
   const renderCards = () => {
     return cards.map((card: ICard) => {
-      return <Card key={card.id} card={card} />;
+      return <Card key={card.id} card={card} archiveCard={archiveCard} />;
     })
   }
 
@@ -51,9 +57,7 @@ function List({ list }: IListProps) {
       <div className='list-wrapper__content'>
         <div className='list-wrapper__content__header'>
           <p className='header'>{list.title}</p>
-          <div onClick={handleOpenMenuClick}>
-            <MoreHorizIcon />
-          </div>
+          <MoreHorizIcon onClick={handleOpenMenuClick} />
           <Menu
             id='basic-menu'
             anchorEl={anchorEl}

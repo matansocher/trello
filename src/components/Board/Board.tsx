@@ -1,9 +1,9 @@
+import { useEffect } from 'react';
 import './Board.scss'
 import { List, BoardHeader } from '../index';
 import { IList } from '../../models';
 import { useBoard } from '../../context/board-context';
-import {useEffect} from "react";
-import {BOARD_INITIAL_STATE} from "../../constants/initial-data.tsx";
+import { BOARD_INITIAL_STATE } from '../../constants/initial-data.tsx';
 
 function Board() {
   const { boardState: board, updateBoardState } = useBoard();
