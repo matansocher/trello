@@ -26,7 +26,7 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
   const renderOpened = () => {
     return (
       <div className='add-new-card add-new-card-open'>
-        <textarea rows={4} value={input} onInput={e => setInput(e.target.value)} />
+        <textarea placeholder='Enter a title for this card…' rows={4} value={input} onInput={e => setInput(e.target.value)} />
         <div className='add-new-card-open__actions'>
           <div className='save'>
             <p onClick={() => handleSaveClick()}>Save</p>

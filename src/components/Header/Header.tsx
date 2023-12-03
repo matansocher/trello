@@ -9,15 +9,11 @@ function Header() {
           <div className='logo'>LOGO</div>
           <div className='menu'>
             <div className='menu__item'>
-              <p>Workspaces</p>
+              <p>Recents</p>
               <ExpandMoreIcon />
             </div>
             <div className='menu__item'>
-              <p>Workspaces</p>
-              <ExpandMoreIcon />
-            </div>
-            <div className='menu__item'>
-              <p>Workspaces</p>
+              <p>Starred</p>
               <ExpandMoreIcon />
             </div>
           </div>

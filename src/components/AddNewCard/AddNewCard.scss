@@ -8,9 +8,6 @@
     border-radius: 5px;
     padding: 5px;
     cursor: pointer;
-    p {
-        margin: 0;
-    }
 }
 
 .add-new-card-open {
@@ -19,7 +16,14 @@
     flex-direction: column;
     justify-content: flex-start;
     textarea {
-        padding: 4px;
+        resize: none;
+        border: none;
+        outline: none;
+        padding: 6px;
+        background-color: #21272b;
+        color: white;
+        font-size: 16;
+        font-weight: 600;
     }
     &__actions {
         display: flex;
@@ -27,11 +31,33 @@
         justify-content: flex-start;
         align-items: center;
         gap: 4px;
+        margin-top: 6px;
         .save {
-
+            background-color: #85b8ff;
+            color: #1d2125;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            cursor: pointer;
+            padding: 6px 12px;
+            &:hover {
+                opacity: 0.7;
+            }
         }
         .close {
-
+            line-height: 0;
+            border-radius: 3px;
+            padding: 5px 3px;
+            &:hover {
+                background-color: #a6c5e229;
+            }
+            svg {
+                //margin-top: 6px;
+                //line-height: 0;
+            }
         }
     }
 }
