@@ -1,0 +1,27 @@
+.board-header {
+  background-color: #b8dcfe;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: black;
+    &-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: black;
+    &-icon {
+      cursor: pointer;
+    }
+  }
+}

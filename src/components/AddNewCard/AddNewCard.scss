@@ -1,0 +1,48 @@
+.add-new-card {
+    position: relative;
+    background: green;
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    p {
+        margin: 0;
+    }
+}
+
+.add-new-card-open {
+    background: #21272b;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    textarea {
+        padding: 4px;
+    }
+    &__actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 4px;
+        .save {
+
+        }
+        .close {
+
+        }
+    }
+}
+
+.add-new-card-closed {
+    background: #21272b;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    p {
+        font-weight: 600;
+    }
+}
