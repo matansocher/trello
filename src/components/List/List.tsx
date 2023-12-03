@@ -1,5 +1,4 @@
 import { useState, MouseEvent } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
 import { Card } from '../index';
 import AddNewCard from '../AddNewCard/AddNewCard';
 import Menu from '@mui/material/Menu';
