@@ -48,11 +48,7 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
     )
   }
 
-  return (
-    <>
-      {isOpen ? renderOpened() : renderClosed()}
-    </>
-  )
+  return isOpen ? renderOpened() : renderClosed();
 }
 
 export default AddNewCard;
