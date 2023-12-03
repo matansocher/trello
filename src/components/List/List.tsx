@@ -1,10 +1,14 @@
 import { Card, DropdownMenu } from '../index';
 import AddNewCard from '../AddNewCard/AddNewCard';
+import AddIcon from '@mui/icons-material/Add';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
+import WatchIcon from '@mui/icons-material/Watch';
+import SortIcon from '@mui/icons-material/Sort';
 import './List.scss'
 import { IBoard, ICard, IList } from '../../models';
 import { useBoard } from '../../context/board-context.tsx';
-import { addCardToList, removeCardFromList } from '../../services/data.service.tsx';
+import { archiveList, sortList, addCardToList, removeCardFromList } from '../../services/data.service.tsx';
 import { IDropdownItem } from '../../models/DropdownItem.tsx';
 
 interface IListProps {
@@ -15,8 +19,16 @@ function List({ list }: IListProps) {
   const { boardState: board, updateBoardState } = useBoard();
   const { cards } = list;
 
-  const archiveList = () => {
+  const handleArchiveList = () => {
     console.log('handleArchiveListClick');
+    const newBoard = archiveList(board, list.id) as IBoard;
+    updateBoardState(newBoard);
+  }
+
+  const handleSortList = () => {
+    console.log('handleSortList');
+    const newBoard = sortList(board, list) as IBoard;
+    updateBoardState(newBoard);
   }
 
   const addNewCard = (card: ICard) => {
@@ -32,7 +44,12 @@ function List({ list }: IListProps) {
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
-      { label: 'Archive List', icon: <DeleteIcon fontSize='small' />, onClick: archiveList }
+      { label: 'Add card...', icon: <AddIcon fontSize='small' />, onClick: () => handleSortList(card.id) },
+      { label: 'Copy list...', icon: <ContentCopyIcon fontSize='small' />, onClick: () => handleSortList(card.id) },
+      { label: 'Move List...', icon: <DeleteIcon fontSize='small' />, onClick: () => handleSortList(card.id) },
+      { label: 'Watch', icon: <WatchIcon fontSize='small' />, onClick: () => handleSortList(card.id) },
+      { label: 'Sort by...', icon: <SortIcon fontSize='small' />, onClick: () => handleSortList(card.id) },
+      { label: 'Archive list', icon: <DeleteIcon fontSize='small' />, onClick: handleArchiveList },
     ];
   }
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import './Card.scss'
 import { DropdownMenu, Tag } from '../index';
 import { ICard, ITag } from '../../models';
@@ -37,10 +37,15 @@ function Card({ card, archiveCard }: ICardProps) {
     ];
   }
 
-  const handleCardClick = () => {
-    console.log('handleCardClick');
-    console.log(card);
-    setModalOpen(true)
+  const handleCardClick = (event: MouseEvent<HTMLDivElement>) => {
+    const clickedElement = event.target;
+    const isClickedOnMoreIcon = clickedElement.classList.contains('card-wrapper__more-icon') || clickedElement.closest('.card-wrapper__more-icon');
+    const isClickedOutsideOfCard = !clickedElement.classList.contains('card-wrapper') && !clickedElement.closest('.card-wrapper');
+    if (isClickedOnMoreIcon || isClickedOutsideOfCard) { // on more icon
+      return;
+    }
+    // on card and not on more icon
+    setModalOpen(true);
   }
 
   return (

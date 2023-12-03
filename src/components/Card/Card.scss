@@ -9,6 +9,9 @@
     border-radius: 5px;
     padding: 5px;
     cursor: pointer;
+    &:hover {
+        background: #2c3338;
+    }
     &__more-icon {
         position: absolute;
         top: 4px;
