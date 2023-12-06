@@ -1,2 +1,4 @@
-drag and drop
+drag and drop function to save state
 open modal with details
+save to backend in 10 seconds window
+get back the old styling to cards

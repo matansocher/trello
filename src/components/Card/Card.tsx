@@ -51,9 +51,9 @@ function Card({ card, archiveCard }: ICardProps) {
   return (
     <>
       <div className='card-wrapper'
-           onClick={handleCardClick}
-           onMouseEnter={() => handleHover(true)}
-           onMouseLeave={() => handleHover(false)}
+        onClick={handleCardClick}
+        onMouseEnter={() => handleHover(true)}
+        onMouseLeave={() => handleHover(false)}
       >
         {showMoreIcon && <div className='card-wrapper__more-icon'>
           <DropdownMenu menuItems={getDropdownMenuItems()} />

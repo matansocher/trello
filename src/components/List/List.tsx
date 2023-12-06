@@ -1,3 +1,4 @@
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Card, DropdownMenu } from '../index';
 import AddNewCard from '../AddNewCard/AddNewCard';
 import AddIcon from '@mui/icons-material/Add';
@@ -25,6 +26,30 @@ function List({ list }: IListProps) {
     updateBoardState(newBoard);
   }
 
+  const handleCopyList = () => {
+    console.log('handleCopyList');
+    // const newBoard = board;
+    // updateBoardState(newBoard);
+  }
+
+  const handleMoveList = () => {
+    console.log('handleMoveList');
+    // const newBoard = board;
+    // updateBoardState(newBoard);
+  }
+
+  const handleWatch = () => {
+    console.log('handleWatch');
+    // const newBoard = board;
+    // updateBoardState(newBoard);
+  }
+
+  const handleAddCard = () => {
+    console.log('handleAddCard');
+    // const newBoard = board;
+    // updateBoardState(newBoard);
+  }
+
   const handleSortList = () => {
     console.log('handleSortList');
     const newBoard = sortList(board, list) as IBoard;
@@ -44,18 +69,26 @@ function List({ list }: IListProps) {
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
-      { label: 'Add card...', icon: <AddIcon fontSize='small' />, onClick: () => handleSortList(card.id) },
-      { label: 'Copy list...', icon: <ContentCopyIcon fontSize='small' />, onClick: () => handleSortList(card.id) },
-      { label: 'Move List...', icon: <DeleteIcon fontSize='small' />, onClick: () => handleSortList(card.id) },
-      { label: 'Watch', icon: <WatchIcon fontSize='small' />, onClick: () => handleSortList(card.id) },
-      { label: 'Sort by...', icon: <SortIcon fontSize='small' />, onClick: () => handleSortList(card.id) },
-      { label: 'Archive list', icon: <DeleteIcon fontSize='small' />, onClick: handleArchiveList },
+      { label: 'Add card...', icon: <AddIcon fontSize='small' />, onClick: () => handleAddCard() },
+      { label: 'Copy list...', icon: <ContentCopyIcon fontSize='small' />, onClick: () => handleCopyList() },
+      { label: 'Move List...', icon: <DeleteIcon fontSize='small' />, onClick: () => handleMoveList() },
+      { label: 'Watch', icon: <WatchIcon fontSize='small' />, onClick: () => handleWatch() },
+      { label: 'Sort by...', icon: <SortIcon fontSize='small' />, onClick: () => handleSortList() },
+      { label: 'Archive list', icon: <DeleteIcon fontSize='small' />, onClick: () => handleArchiveList() },
     ];
   }
 
   const renderCards = () => {
-    return cards.map((card: ICard) => {
-      return <Card key={card.id} card={card} archiveCard={archiveCard} />;
+    return cards.map((card: ICard, index: number) => {
+      return (
+        <Draggable key={card.id} draggableId={card.id} index={index}>
+          {(provided) => (
+            <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+              <Card card={card} archiveCard={archiveCard} />
+            </div>
+          )}
+        </Draggable>
+      );
     })
   }
 
@@ -66,8 +99,16 @@ function List({ list }: IListProps) {
           <p className='header'>{list.title}</p>
           <DropdownMenu menuItems={getDropdownMenuItems()} />
         </div>
-        <div className='list-wrapper__cards'>
-          {renderCards()}
+        <div className='list-wrapper__content__cards'>
+          <Droppable droppableId={list.id} direction='vertical' type='group'>
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {renderCards()}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+
           <AddNewCard addNewCard={addNewCard} />
         </div>
       </div>

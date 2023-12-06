@@ -8,39 +8,39 @@ export const TAGS_INITIAL_STATE: ITag[] = [
 ];
 
 export const BOARD_INITIAL_STATE: IBoard = {
-  id: '12345678',
+  id: 'board_id12345678',
   title: 'Matan Personal Board',
   lists: [
     {
       title: 'Backlog',
       dataIndex: 'backlog',
-      id: '1234',
+      id: 'listId_1234',
       cards: [
-        { id: '1', title: 'some title to the card', date: '11-11-2023', tags: ['1'] },
+        { id: 'cardId__1', title: 'some title to the card', date: '11-11-2023', tags: ['1'] },
       ]
     },
     {
       title: 'In Progress',
       dataIndex: 'inProgress',
-      id: '2345',
+      id: 'listId_2345',
       cards: [
-        { id: '1', title: 'some title to the card', date: '11-11-2023', tags: ['4'] },
-        { id: '2', title: 'some title to the card', date: '11-11-2023', tags: ['1', '4'] },
-        { id: '3', title: 'some title to the card', date: '11-11-2023', tags: ['1', '2'] },
-        { id: '4', title: 'some title to the card', date: '11-11-2023', tags: ['3', '4'] },
-        { id: '5', title: 'some title to the card', date: '11-11-2023', tags: ['1', '3', '4'] },
-        { id: '6', title: 'some title to the card', date: '11-11-2023', tags: ['1'] },
+        { id: 'cardId__2', title: 'some title to the card', date: '11-11-2023', tags: ['4'] },
+        { id: 'cardId__3', title: 'some title to the card', date: '11-11-2023', tags: ['1', '4'] },
+        { id: 'cardId__4', title: 'some title to the card', date: '11-11-2023', tags: ['1', '2'] },
+        { id: 'cardId__5', title: 'some title to the card', date: '11-11-2023', tags: ['3', '4'] },
+        { id: 'cardId__6', title: 'some title to the card', date: '11-11-2023', tags: ['1', '3', '4'] },
+        { id: 'cardId__7', title: 'some title to the card', date: '11-11-2023', tags: ['1'] },
       ]
     },
     {
       title: 'Done',
       dataIndex: 'done',
-      id: '3456',
+      id: 'listId_3456',
       cards: [
-        { id: '1', title: 'some title to the card', date: '11-11-2023', tags: ['2', '3', '4'] },
-        { id: '2', title: 'some title to the card', date: '11-11-2023', tags: ['1', '4'] },
-        { id: '3', title: 'some title to the card', date: '11-11-2023', tags: ['1', '2', '4'] },
-        { id: '4', title: 'some title to the card', date: '11-11-2023', tags: ['1', '2',] },
+        { id: 'cardId__8', title: 'some title to the card', date: '11-11-2023', tags: ['2', '3', '4'] },
+        { id: 'cardId__9', title: 'some title to the card', date: '11-11-2023', tags: ['1', '4'] },
+        { id: 'cardId__10', title: 'some title to the card', date: '11-11-2023', tags: ['1', '2', '4'] },
+        { id: 'cardId__11', title: 'some title to the card', date: '11-11-2023', tags: ['1', '2',] },
       ]
     },
   ],

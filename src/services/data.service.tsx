@@ -6,7 +6,7 @@ function archiveList(board: IBoard, listId: string): IBoard {
 }
 
 function sortList(board: IBoard, list: IList): IBoard {
-  // $$$$$$$$$$$$$$$$$$$$$$$$$$$
+  console.log(list);
   return structuredClone(board);
 }
 

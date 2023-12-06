@@ -5,6 +5,10 @@
     border-radius: 5px;
     margin: 2px;
     height: 16px;
+    &:hover {
+        opacity: .7;
+        transition: opacity .3s ease-in-out;
+    }
     .tag {
         margin: 0;
         font-size: 12px;
