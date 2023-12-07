@@ -4,7 +4,8 @@ import './Board.scss'
 import { List, BoardHeader } from '../index';
 import { IList } from '../../models';
 import { useBoard } from '../../context/board-context';
-import { BOARD_INITIAL_STATE } from '../../constants/initial-data.tsx';
+import { BOARD_INITIAL_STATE } from '../../constants/initial-data';
+import { getPostDragBoard } from '../../services/dnd.service';
 
 function Board() {
   const { boardState: board, updateBoardState } = useBoard();
@@ -15,19 +16,8 @@ function Board() {
 
 
   const onDragEnd = (result: any) => {
-    console.log('onDragEnd', result);
-    // handle the drag end function
-    const { source, destination, draggableId } = result;
-    if (!destination) {
-      return;
-    }
-    if (destination.droppableId === source.droppableId && destination.index === source.index) {
-      return;
-    }
-    // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-    // const newBoard = board;
-    // updateBoardState(newBoard);
+    const newBoard = getPostDragBoard(board, result);
+    updateBoardState(newBoard);
   }
 
   const renderLists = () => {

@@ -1,0 +1,32 @@
+.card-details {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__left {
+      margin: 0;
+      font-weight: 600;
+    }
+    &__right {
+      margin: 0;
+      font-weight: 600;
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
+  &__content {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+    &__left {
+      width: 75%;
+    }
+    &__right {
+      width: 25%;
+    }
+  }
+}

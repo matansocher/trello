@@ -8,7 +8,7 @@ export const TAGS_INITIAL_STATE: ITag[] = [
 ];
 
 export const BOARD_INITIAL_STATE: IBoard = {
-  id: 'board_id12345678',
+  id: 'boardId_12345678',
   title: 'Matan Personal Board',
   lists: [
     {

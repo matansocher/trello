@@ -1,0 +1,14 @@
+.card-details__content__right__sections {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .subheader {
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+}

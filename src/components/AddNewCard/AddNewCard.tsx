@@ -16,7 +16,11 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
     setIsOpen(open);
   }
 
-  const handleSaveClick = () => {
+  const handleAddCardClick = () => {
+    if (!input?.length) {
+      setIsOpen(false);
+      return;
+    }
     const newCard: ICard = { id: '5', title: input, date: '11-11-2023', tags: ['2'] };
     addNewCard(newCard);
     setIsOpen(false);
@@ -29,7 +33,7 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
         <textarea placeholder='Enter a title for this card…' rows={4} value={input} onInput={e => setInput(e.target.value)} />
         <div className='add-new-card-open__actions'>
           <div className='save'>
-            <p onClick={() => handleSaveClick()}>Save</p>
+            <p onClick={() => handleAddCardClick()}>Add Card</p>
           </div>
           <div className='close'>
             <CloseIcon onClick={() => handleOpenOrClose(false)} />
@@ -42,8 +46,10 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
   const renderClosed = () => {
     return (
       <div className='add-new-card add-new-card-closed' onClick={() => handleOpenOrClose(true)}>
-        <AddIcon />
-        <p>Add Card</p>
+        <div className='add-new-card-closed__wrapper'>
+          <AddIcon />
+          <p>Add Card</p>
+        </div>
       </div>
     )
   }

@@ -8,9 +8,9 @@ import WatchIcon from '@mui/icons-material/Watch';
 import SortIcon from '@mui/icons-material/Sort';
 import './List.scss'
 import { IBoard, ICard, IList } from '../../models';
-import { useBoard } from '../../context/board-context.tsx';
-import { archiveList, sortList, addCardToList, removeCardFromList } from '../../services/data.service.tsx';
-import { IDropdownItem } from '../../models/DropdownItem.tsx';
+import { useBoard } from '../../context/board-context';
+import { archiveList, sortList, addCardToList, removeCardFromList } from '../../services/data.service';
+import { IDropdownItem } from '../../models/DropdownItem';
 
 interface IListProps {
   list: IList;
@@ -84,7 +84,7 @@ function List({ list }: IListProps) {
         <Draggable key={card.id} draggableId={card.id} index={index}>
           {(provided) => (
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-              <Card card={card} archiveCard={archiveCard} />
+              <Card card={card} list={list} archiveCard={archiveCard} />
             </div>
           )}
         </Draggable>

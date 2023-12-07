@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    background-color: #1c1c13;
     textarea {
         resize: none;
         border: none;
@@ -22,7 +23,7 @@
         padding: 6px;
         background-color: #21272b;
         color: white;
-        font-size: 16;
+        font-size: 16px;
         font-weight: 600;
     }
     &__actions {
@@ -31,9 +32,9 @@
         justify-content: flex-start;
         align-items: center;
         gap: 4px;
-        margin-top: 6px;
+        margin: 0 6px 8px 6px;
         .save {
-            background-color: #85b8ff;
+            background-color: #579dff;
             color: #1d2125;
             font-weight: 600;
             font-size: 14px;
@@ -61,10 +62,14 @@
 .add-new-card-closed {
     background: #21272b;
     display: flex;
-    flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
-    p {
-        font-weight: 600;
+    align-items: flex-start;
+    &__wrapper {
+        display: flex;
+        gap: 10px;
+        padding: 5px 10px;
+        p {
+            font-weight: 600;
+        }
     }
 }

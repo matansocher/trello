@@ -1,18 +1,19 @@
 import { useState, MouseEvent } from 'react';
 import './Card.scss'
-import { DropdownMenu, Tag } from '../index';
-import { ICard, ITag } from '../../models';
+import { ICard, IList, ITag } from '../../models';
 import { useTags } from '../../context/tags-context';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { IDropdownItem } from '../../models/DropdownItem.tsx';
-import { CardDetails, ModalWrapper } from '../';
+import { IDropdownItem } from '../../models/DropdownItem';
+import { DropdownMenu, ModalWrapper } from '../';
+import { CardDetails, Tag } from './';
 
 interface ICardProps {
   card: ICard;
+  list: IList
   archiveCard: (cardId: string) => void;
 }
 
-function Card({ card, archiveCard }: ICardProps) {
+function Card({ card, archiveCard, list }: ICardProps) {
   const { tagsState: tags } = useTags();
   // dropdown hover
   const [showMoreIcon, setShowMoreIcon] = useState(false);
@@ -66,7 +67,7 @@ function Card({ card, archiveCard }: ICardProps) {
         </div>
       </div>
       <ModalWrapper modalOpen={modalOpen} setModalOpen={setModalOpen}>
-        <CardDetails card={card} setModalOpen={setModalOpen} />
+        <CardDetails card={card} list={list} setModalOpen={setModalOpen} archiveCard={archiveCard} />
       </ModalWrapper>
     </>
   )

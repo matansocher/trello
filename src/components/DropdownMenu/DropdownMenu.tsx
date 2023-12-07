@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
-import { IDropdownItem } from '../../models/DropdownItem.tsx';
+import { IDropdownItem } from '../../models/DropdownItem';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 interface IDropdownMenuProps {

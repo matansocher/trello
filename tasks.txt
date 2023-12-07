@@ -1,4 +1,4 @@
-drag and drop function to save state
-open modal with details
+card activity
+card description
+fix styling of card list
 save to backend in 10 seconds window
-get back the old styling to cards
