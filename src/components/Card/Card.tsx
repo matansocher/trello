@@ -39,7 +39,7 @@ function Card({ card, archiveCard, list }: ICardProps) {
   }
 
   const handleCardClick = (event: MouseEvent<HTMLDivElement>) => {
-    const clickedElement = event.target;
+    const clickedElement = event.target as any;
     const isClickedOnMoreIcon = clickedElement.classList.contains('card-wrapper__more-icon') || clickedElement.closest('.card-wrapper__more-icon');
     const isClickedOutsideOfCard = !clickedElement.classList.contains('card-wrapper') && !clickedElement.closest('.card-wrapper');
     if (isClickedOnMoreIcon || isClickedOutsideOfCard) { // on more icon

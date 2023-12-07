@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 import './DropdownMenu.scss'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -31,7 +31,7 @@ function DropdownMenu({ menuItems }: IDropdownMenuProps) {
     handleCloseMenu();
   }
 
-  const handleOpenMenuClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleOpenMenuClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -41,7 +41,9 @@ function DropdownMenu({ menuItems }: IDropdownMenuProps) {
 
   return (
     <>
-      <MoreHorizIcon onClick={handleOpenMenuClick} />
+      <div className='dropdown-menu__icon' onClick={handleOpenMenuClick}>
+        <MoreHorizIcon />
+      </div>
       <Menu
         id='basic-menu'
         anchorEl={anchorEl}
