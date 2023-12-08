@@ -1,10 +1,13 @@
-.board-wrapper {
+@import '../../styles/colors.scss';
 
+.board-wrapper {
   &__columns {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 10px;
     padding: 10px;
+    & > div {
+      margin-right: 10px;
+    }
   }
 }

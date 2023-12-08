@@ -1,3 +1,5 @@
+@import '../../../styles/colors.scss';
+
 .card-preview {
     position: relative;
     background: #21272b;
@@ -8,6 +10,7 @@
     border-radius: 5px;
     padding: 5px;
     cursor: pointer;
+    margin-top: 8px;
     &:hover {
         background: #2c3338;
     }
