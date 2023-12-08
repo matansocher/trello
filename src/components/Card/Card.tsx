@@ -3,9 +3,14 @@ import './Card.scss'
 import { ICard, IList, ITag } from '../../models';
 import { useTags } from '../../context/tags-context';
 import DeleteIcon from '@mui/icons-material/Delete';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import { IDropdownItem } from '../../models/DropdownItem';
 import { DropdownMenu, ModalWrapper } from '../';
-import { CardDetails, Tag } from './';
+import { CardDetails, FooterIcon, Tag } from './';
+import { IFooterIcon } from '../../models/FooterIcon';
 
 interface ICardProps {
   card: ICard;
@@ -20,13 +25,6 @@ function Card({ card, archiveCard, list }: ICardProps) {
   // modal
   const [modalOpen, setModalOpen] = useState(false);
 
-
-  const renderTags = () => {
-    return card.tags.map((tag: string) => {
-      const relevantTag: ITag = tags.find((originalTag: ITag) => originalTag.id === tag) || tags[0]
-      return <Tag key={tag} tag={relevantTag}/>;
-    });
-  }
 
   const handleHover = (isHovered: boolean) => {
     setShowMoreIcon(isHovered);
@@ -49,6 +47,35 @@ function Card({ card, archiveCard, list }: ICardProps) {
     setModalOpen(true);
   }
 
+  const renderDropdownMenu = () => {
+    if (showMoreIcon) {
+      return (
+        <div className='card-wrapper__more-icon'>
+          <DropdownMenu menuItems={getDropdownMenuItems()} />
+        </div>
+      );
+    }
+  }
+
+  const renderTags = () => {
+    return card.tags.map((tag: string) => {
+      const relevantTag: ITag = tags.find((originalTag: ITag) => originalTag.id === tag) || tags[0];
+      return <Tag key={tag} tag={relevantTag}/>;
+    });
+  }
+
+  const renderFooterIcons = () => {
+    const footerIcons: IFooterIcon[] = [
+      { id: 'footerIcon__1', icon: <VisibilityOutlinedIcon/>, tooltipText: 'You are watching this card' },
+      { id: 'footerIcon__2', icon: <FormatAlignLeftIcon/>, tooltipText: 'This card has a description' },
+      { id: 'footerIcon__3', icon: <ChatBubbleOutlineIcon/>, tooltipText: 'Comments' },
+      { id: 'footerIcon__4', icon: <CheckBoxOutlinedIcon/>, tooltipText: 'Checklist items' },
+    ];
+    return footerIcons.map((footerIcon) => {
+      return <FooterIcon key={footerIcon.id} card={card} footerIcon={footerIcon} />;
+    });
+  }
+
   return (
     <>
       <div className='card-wrapper'
@@ -56,14 +83,15 @@ function Card({ card, archiveCard, list }: ICardProps) {
         onMouseEnter={() => handleHover(true)}
         onMouseLeave={() => handleHover(false)}
       >
-        {showMoreIcon && <div className='card-wrapper__more-icon'>
-          <DropdownMenu menuItems={getDropdownMenuItems()} />
-        </div>}
+        {renderDropdownMenu()}
         <div className='card-wrapper__tags'>
           {renderTags()}
         </div>
         <div className='card-wrapper__content'>
           <p className='header'>{card.title}</p>
+        </div>
+        <div className='card-wrapper__footer'>
+          {renderFooterIcons()}
         </div>
       </div>
       <ModalWrapper modalOpen={modalOpen} setModalOpen={setModalOpen}>

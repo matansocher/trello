@@ -13,6 +13,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-left: 8px;
             .header {
                 margin: 0;
                 font-weight: 600;
@@ -28,10 +29,8 @@
             align-items: center;
             justify-content: space-between;
             gap: 8px;
-            margin-top: 15px;
-            flex-grow: 1;
+            margin-top: 12px;
             min-height: 100px;
-            overflow: scroll;
             & > div {
                 width: 100%;
                 display: flex;

@@ -4,6 +4,7 @@ import CardContent from './CardContent/CardContent';
 import CardDescription from './CardDescription/CardDescription';
 import CardDetails from './CardDetails/CardDetails';
 import Tag from './Tag/Tag';
+import FooterIcon from './FooterIcon/FooterIcon';
 
 export {
   CardActions,
@@ -11,5 +12,6 @@ export {
   CardContent,
   CardDescription,
   CardDetails,
+  FooterIcon,
   Tag,
 }

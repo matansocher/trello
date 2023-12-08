@@ -1,9 +1,9 @@
 import './CardDetails.scss'
 import { ICard, IList } from '../../../models';
 import CloseIcon from '@mui/icons-material/Close';
-import { useBoard } from '../../../context/board-context.tsx';
-import { addCardToList } from "../../../services/data.service.tsx";
-import { CardActions, CardContent } from "../";
+import { useBoard } from '../../../context/board-context';
+import { addCardToList } from '../../../services/data.service';
+import { CardActions, CardContent } from '../';
 
 interface ICardDetailsProps {
   card: ICard;

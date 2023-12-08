@@ -1,0 +1,15 @@
+
+.card-wrapper__footer__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    &:hover {
+        background: #9fadbc;
+    }
+    svg {
+        font-size: 16px;
+    }
+}

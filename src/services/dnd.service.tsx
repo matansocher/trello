@@ -5,11 +5,15 @@ function getPostDragBoard(board: IBoard, result: any): IBoard {
   if (!destination) return board;
   if (destination.droppableId === source.droppableId && destination.index === source.index) return board;
 
-  // const example = {
-  //   draggableId: 'cardId__9',
-  //   source: { 'droppableId': 'listId_3456', 'index': 1 },
-  //   destination: { 'droppableId': 'listId_3456', 'index': 2 },
-  // };
+  // switch lists
+  if (draggableId.startsWith('listId')) {
+    const list = board.lists.find((list: IList) => list.id === draggableId);
+    if (!list) return board;
+
+    board.lists.splice(source.index, 1);
+    board.lists.splice(destination.index, 0, list);
+    return board;
+  }
 
   // move to the same list
   if (destination.droppableId === source.droppableId) {
