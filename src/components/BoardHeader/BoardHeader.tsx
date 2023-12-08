@@ -2,8 +2,8 @@ import StarIcon from '@mui/icons-material/Star';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { useBoard } from '@context';
 import './BoardHeader.scss'
-import { useBoard } from '../../context/board-context';
 
 function BoardHeader() {
   const { boardState: board } = useBoard();

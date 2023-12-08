@@ -1,6 +1,6 @@
-import { IBoard, IList } from '../models';
+import { IBoard, IList } from '@models';
 
-function getPostDragBoard(board: IBoard, result: any): IBoard {
+export function getPostDragBoard(board: IBoard, result: any): IBoard {
   const { source, destination, draggableId } = result;
   if (!destination) return board;
   if (destination.droppableId === source.droppableId && destination.index === source.index) return board;
@@ -39,8 +39,4 @@ function getPostDragBoard(board: IBoard, result: any): IBoard {
   sourceList.cards.splice(source.index, 1);
   destinationList.cards.splice(destination.index, 0, card);
   return board;
-}
-
-export {
-  getPostDragBoard,
 }

@@ -1,8 +1,7 @@
 import './App.scss'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Header, Board } from '../index';
-import { BoardContextProvider } from '../../context/board-context';
-import { TagsContextProvider } from '../../context/tags-context';
+import { Header, Board } from '@components';
+import { BoardContextProvider, TagsContextProvider } from '@context';
 
 const muiDarkTheme = createTheme({
   palette: {

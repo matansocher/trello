@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import './Board.scss'
-import { List, BoardHeader } from '../index';
-import { IList } from '../../models';
-import { useBoard } from '../../context/board-context';
-import { BOARD_INITIAL_STATE } from '../../constants/initial-data';
-import { getPostDragBoard } from '../../services/dnd.service';
+import { List, BoardHeader } from '@components';
+import { BOARD_INITIAL_STATE } from '@constants';
+import { useBoard } from '@context';
+import { IList } from '@models';
+import { getPostDragBoard } from '@services';
 
 function Board() {
   const { boardState: board, updateBoardState } = useBoard();
