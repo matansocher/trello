@@ -5,7 +5,7 @@ import { List, BoardHeader } from '@components';
 import { BOARD_INITIAL_STATE } from '@constants';
 import { useBoard } from '@context';
 import { IList } from '@models';
-import { getPostDragBoard } from '@services';
+import { getDragUpdateBoard, getDragEndBoard } from '@services';
 
 function Board() {
   const { boardState: board, updateBoardState } = useBoard();
@@ -15,8 +15,13 @@ function Board() {
   }, []);
 
 
+  const onDragUpdate = (result: any) => {
+    console.log('onDragUpdate');
+    console.log(result);
+  }
+
   const onDragEnd = (result: any) => {
-    const newBoard = getPostDragBoard(board, result);
+    const newBoard = getDragEndBoard(board, result);
     updateBoardState(newBoard);
   }
 
@@ -40,7 +45,7 @@ function Board() {
   return (
       <div className='board-wrapper'>
         <BoardHeader />
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
           <Droppable droppableId='ROOT' direction='horizontal' index={1}>
             {(provided) => (
               <div className='board-wrapper__columns' ref={provided.innerRef} {...provided.droppableProps}>

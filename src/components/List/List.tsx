@@ -107,7 +107,8 @@ function List({ list }: IListProps) {
               </div>
             )}
           </Droppable>
-
+        </div>
+        <div className='list-wrapper__content__add-new'>
           <AddNewCard addNewCard={addNewCard} />
         </div>
       </div>

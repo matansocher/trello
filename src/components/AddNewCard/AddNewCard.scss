@@ -2,12 +2,9 @@
 
 .add-new-card {
     position: relative;
-    max-width: 100%;
-    width: 100%;
     display: flex;
     justify-content: center;
     border-radius: 5px;
-    padding: 5px;
     cursor: pointer;
 }
 
@@ -62,7 +59,7 @@
     background-color: $dark-4;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     &__wrapper {
         display: flex;
         gap: 10px;

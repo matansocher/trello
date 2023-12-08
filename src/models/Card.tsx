@@ -7,6 +7,6 @@ export interface ICard {
   date: string;
   tags: string[];
   isWatching?: boolean;
-  comments?: IComment[]; // create a type and add to initial data
-  checklistItems?: IChecklistItem[]; // create a type and add to initial data
+  comments?: IComment[];
+  checklistItems?: IChecklistItem[];
 }

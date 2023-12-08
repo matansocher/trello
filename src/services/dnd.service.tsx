@@ -1,11 +1,16 @@
 import { IBoard, IList } from '@models';
 
-export function getPostDragBoard(board: IBoard, result: any): IBoard {
+export function getDragUpdateBoard(board: IBoard, result: any): IBoard {
+  const { source, destination, draggableId } = result;
+  return structuredClone(board);
+}
+
+export function getDragEndBoard(board: IBoard, result: any): IBoard {
   const { source, destination, draggableId } = result;
   if (!destination) return board;
   if (destination.droppableId === source.droppableId && destination.index === source.index) return board;
 
-  // switch lists
+  // switch between lists
   if (draggableId.startsWith('listId')) {
     const list = board.lists.find((list: IList) => list.id === draggableId);
     if (!list) return board;
@@ -38,5 +43,5 @@ export function getPostDragBoard(board: IBoard, result: any): IBoard {
 
   sourceList.cards.splice(source.index, 1);
   destinationList.cards.splice(destination.index, 0, card);
-  return board;
+  return structuredClone(board);
 }

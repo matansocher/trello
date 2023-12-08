@@ -6,9 +6,8 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
-import { DropdownMenu, ModalWrapper } from '@components';
+import { CardModal, DropdownMenu, ModalWrapper } from '@components';
 import { IDropdownItem, IFooterIcon } from '@models';
-import CardModal from '../CardModal/CardModal';
 import FooterIcon from './FooterIcon/FooterIcon';
 import Tag from './Tag/Tag';
 import './CardPreview.scss'
@@ -33,7 +32,7 @@ function CardPreview({ card, archiveCard, list }: ICardProps) {
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
-      { label: 'Archive CardPreview', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card.id) }
+      { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card.id) }
     ];
   }
 
@@ -41,10 +40,10 @@ function CardPreview({ card, archiveCard, list }: ICardProps) {
     const clickedElement = event.target as any;
     const isClickedOnMoreIcon = clickedElement.classList.contains('card-preview__more-icon') || clickedElement.closest('.card-preview__more-icon');
     const isClickedOutsideOfCard = !clickedElement.classList.contains('card-preview') && !clickedElement.closest('.card-preview');
-    if (isClickedOnMoreIcon || isClickedOutsideOfCard) { // on more icon
+    if (isClickedOnMoreIcon || isClickedOutsideOfCard) { // clicked on more icon
       return;
     }
-    // on card and not on more icon
+    // clicked on card and not on more icon
     setModalOpen(true);
   }
 

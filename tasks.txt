@@ -1,4 +1,3 @@
 card activity
 card description
-fix styling of card list
 save to backend in 10 seconds window
