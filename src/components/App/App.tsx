@@ -1,7 +1,7 @@
 import './App.scss'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Header, Board } from '@components';
-import { BoardContextProvider, TagsContextProvider } from '@context';
+import { BoardContextProvider, LabelsContextProvider } from '@context';
 
 const muiDarkTheme = createTheme({
   palette: {
@@ -12,7 +12,7 @@ const muiDarkTheme = createTheme({
 function App() {
   return (
     <BoardContextProvider>
-      <TagsContextProvider>
+      <LabelsContextProvider>
         <ThemeProvider theme={muiDarkTheme}>
           <div className='app-wrapper'>
             <div className='app-wrapper__header'>
@@ -23,7 +23,7 @@ function App() {
             </div>
           </div>
         </ThemeProvider>
-      </TagsContextProvider>
+      </LabelsContextProvider>
     </BoardContextProvider>
   )
 }

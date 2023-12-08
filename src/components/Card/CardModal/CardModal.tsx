@@ -62,8 +62,8 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
     <div className='card-modal'>
       <div className='card-modal__header'>
         <div className='card-modal__header__left'>
-          <p>{card.id}</p>
-          <p>{card.title}</p>
+          <p className='card-modal__header__left__title'>{card.title}</p>
+          <p className='card-modal__header__left__list'>list: {list.title}</p>
         </div>
         <div className='card-modal__header__right'>
           <CloseIcon onClick={() => setModalOpen(false) } />
@@ -71,7 +71,7 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
       </div>
       <div className='card-modal__content'>
         <div className='card-modal__content__left'>
-          <CardContent card={card} />
+          <CardContent list={list} card={card} />
         </div>
         <div className='card-modal__content__right'>
           <CardActions

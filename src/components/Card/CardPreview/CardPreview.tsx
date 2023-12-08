@@ -1,6 +1,6 @@
 import { useState, MouseEvent } from 'react';
-import { ICard, IList, ITag } from '@models';
-import { useTags } from '@context';
+import { ICard, IList, ILabel } from '@models';
+import { useLabels } from '@context';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
@@ -9,7 +9,7 @@ import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import { CardModal, DropdownMenu, ModalWrapper } from '@components';
 import { IDropdownItem, IFooterIcon } from '@models';
 import FooterIcon from './FooterIcon/FooterIcon';
-import Tag from './Tag/Tag';
+import Label from './Label/Label';
 import './CardPreview.scss'
 
 interface ICardProps {
@@ -19,7 +19,7 @@ interface ICardProps {
 }
 
 function CardPreview({ card, archiveCard, list }: ICardProps) {
-  const { tagsState: tags } = useTags();
+  const { labelsState: labels } = useLabels();
   // dropdown hover
   const [showMoreIcon, setShowMoreIcon] = useState(false);
   // modal
@@ -57,10 +57,10 @@ function CardPreview({ card, archiveCard, list }: ICardProps) {
     }
   }
 
-  const renderTags = () => {
-    return card.tags.map((tag: string) => {
-      const relevantTag: ITag = tags.find((originalTag: ITag) => originalTag.id === tag) || tags[0];
-      return <Tag key={tag} tag={relevantTag}/>;
+  const renderLabels = () => {
+    return card.labels.map((label: string) => {
+      const relevantLabel: ILabel = labels.find((originalLabel: ILabel) => originalLabel.id === label) || labels[0];
+      return <Label key={label} label={relevantLabel}/>;
     });
   }
 
@@ -94,8 +94,8 @@ function CardPreview({ card, archiveCard, list }: ICardProps) {
         onMouseLeave={() => handleHover(false)}
       >
         {renderDropdownMenu()}
-        <div className='card-preview__tags'>
-          {renderTags()}
+        <div className='card-preview__labels'>
+          {renderLabels()}
         </div>
         <div className='card-preview__content'>
           <p className='header'>{card.title}</p>

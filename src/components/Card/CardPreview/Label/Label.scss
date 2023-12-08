@@ -1,6 +1,10 @@
 @import 'src/styles/colors.scss';
 
-.tag-wrapper {
+.label-wrapper {
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 2px 4px;
     border-radius: 5px;
     margin: 2px;
@@ -9,7 +13,7 @@
         opacity: .7;
         transition: opacity .3s ease-in-out;
     }
-    .tag {
+    .label {
         margin: 0;
         font-size: 12px;
         font-weight: 600;

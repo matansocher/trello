@@ -7,7 +7,7 @@ interface ICardActivityProps {
 
 function CardActivity({ card }: ICardActivityProps) {
   return (
-    <div>
+    <div className='card-activity'>
       <p>{card.title}</p>
     </div>
   )

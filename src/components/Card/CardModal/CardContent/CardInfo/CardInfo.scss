@@ -1,0 +1,18 @@
+@import 'src/styles/colors.scss';
+
+.card-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  &__labels {
+
+    &__wrapper {
+      display: flex;
+    }
+  }
+  &__notifications {
+    &__notification {
+
+    }
+  }
+}

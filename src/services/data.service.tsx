@@ -40,3 +40,20 @@ export function removeCardFromList(board: IBoard, list: IList, cardId: string): 
 
   return { ...board, lists: newLists };
 }
+
+export function saveCard(board: IBoard, listId: string, newCard: ICard): IBoard {
+  const newLists = board.lists.map((list: IList) => {
+    if (list.id === listId) {
+      const newCards = list.cards.map((card: ICard) => {
+        if (card.id === card.id) {
+          return newCard;
+        }
+        return card;
+      });
+      return { ...list, cards: newCards };
+    }
+    return list;
+  });
+
+  return { ...board, lists: newLists };
+}

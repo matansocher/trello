@@ -1,6 +1,7 @@
 @import 'src/styles/colors.scss';
 
 .card-modal {
+  padding-left: 40px;
   &__header {
     display: flex;
     justify-content: space-between;
@@ -8,6 +9,12 @@
     &__left {
       margin: 0;
       font-weight: 600;
+      &__title {
+        font-size: 20px;
+      }
+      &__list {
+        font-size: 13px;
+      }
     }
     &__right {
       margin: 0;

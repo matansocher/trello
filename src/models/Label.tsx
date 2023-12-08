@@ -1,4 +1,4 @@
-export interface ITag {
+export interface ILabel {
   id: string;
   displayName: string;
   backgroundColor: string;

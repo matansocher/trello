@@ -1,1 +1,44 @@
 @import 'src/styles/colors.scss';
+
+.card-description {
+  &-open {
+    textarea {
+      width: 100%;
+      resize: none;
+      border: none;
+      outline: none;
+      padding: 6px;
+      background-color: $dark-4;
+      color: $light-main;
+      font-size: 16px;
+      font-weight: 600;
+      box-sizing: border-box;
+      border-radius: 6px;
+    }
+    &__actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 4px;
+      margin: 8px 0;
+      .save {
+        background-color: $light-blue;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+      .cancel {
+        background-color: transparent;
+        &:hover {
+          transition: 0.3s;
+          background-color: #a6c5e229;
+        }
+      }
+    }
+  }
+  &-closed {
+
+  }
+}
+

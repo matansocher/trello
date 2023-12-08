@@ -5,7 +5,7 @@ export interface ICard {
   title: string;
   description?: string;
   date: string;
-  tags: string[];
+  labels: string[];
   isWatching?: boolean;
   comments?: IComment[];
   checklistItems?: IChecklistItem[];
