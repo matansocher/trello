@@ -1,8 +1,8 @@
 import {createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, FC} from 'react';
-import { TAGS_INITIAL_STATE } from '@constants';
 import { ITag } from '@models';
+import { TAGS_INITIAL_STATE } from '../constants/initial-data';
 
-interface TagsContextType {
+export interface TagsContextType {
   tagsState: ITag[];
   updateTagsState: Dispatch<SetStateAction<ITag[]>>;
 }

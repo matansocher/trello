@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import { Box, Modal } from '@mui/material';
 import './ModalWrapper.scss'
+import { Box, Modal } from '@mui/material';
 
 interface IModalProps {
   modalOpen: boolean;
