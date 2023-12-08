@@ -4,15 +4,31 @@
   display: flex;
   align-items: flex-start;
   gap: 16px;
+
+  .subheader {
+    font-weight: 500;
+  }
+
   &__labels {
 
     &__wrapper {
       display: flex;
+      margin-top: 4px;
     }
   }
   &__notifications {
     &__notification {
-
+      &__button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 4px;
+        margin-top: 4px;
+        padding: 6px 8px;
+        svg {
+          font-size: 16px;
+        }
+      }
     }
   }
 }

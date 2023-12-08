@@ -1,4 +1,4 @@
-card activity
+comment
 save to backend in 10 seconds window
 
 bug - when saving description - the card is updated but the card preview is not

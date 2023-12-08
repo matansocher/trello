@@ -19,10 +19,10 @@ function CardContent({ list, card }: ICardContentProps) {
         <p className='subheader'>Description</p>
         <CardDescription list={list} card={card} />
       </div>
-      <div className='card-modal__content__right__sections__section'>
+      {card.comments ? <div className='card-modal__content__right__sections__section'>
         <p className='subheader'>Activity</p>
         <CardActivity card={card} />
-      </div>
+      </div> : null}
     </div>
   )
 }

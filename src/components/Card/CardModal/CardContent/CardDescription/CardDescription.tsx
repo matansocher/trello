@@ -43,6 +43,14 @@ function CardDescription({ list, card }: ICardDescriptionProps) {
   }
 
   const renderClosed = () => {
+    if (!card.description) {
+      handleOpenOrClose(true);
+      return (
+        <div className='card-description card-description-closed' onClick={() => handleOpenOrClose(true)}>
+          <p>Add a more detailed description…</p>
+        </div>
+      )
+    }
     return (
       <div className='card-description card-description-closed' onClick={() => handleOpenOrClose(true)}>
         <p>{card.description}</p>
