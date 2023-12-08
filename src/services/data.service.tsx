@@ -1,4 +1,4 @@
-import { IBoard, ICard, IList } from '../models';
+import { IBoard, ICard, IList } from '@models';
 
 function archiveList(board: IBoard, listId: string): IBoard {
   const newLists: IList[] = board.lists.filter((list: IList) => list.id !== listId);

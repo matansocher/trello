@@ -7,10 +7,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import WatchIcon from '@mui/icons-material/Watch';
 import SortIcon from '@mui/icons-material/Sort';
 import './List.scss'
-import { IBoard, ICard, IList } from '../../models';
+import { IBoard, ICard, IList } from '@models';
 import { useBoard } from '../../context/board-context';
 import { archiveList, sortList, addCardToList, removeCardFromList } from '../../services/data.service';
-import { IDropdownItem } from '../../models/DropdownItem';
+import { IDropdownItem } from '@models';
 
 interface IListProps {
   list: IList;
