@@ -1,5 +1,5 @@
 import './CardDetails.scss'
-import { ICard, IList } from '@models';
+import { ICard, IList } from '../../../models';
 import CloseIcon from '@mui/icons-material/Close';
 import { useBoard } from '../../../context/board-context';
 import { addCardToList } from '../../../services/data.service';

@@ -1,5 +1,5 @@
 import './CardContent.scss'
-import { ICard } from '@models';
+import { ICard } from '../../../models';
 import { CardDescription, CardActivity } from '../';
 
 interface ICardContentProps {

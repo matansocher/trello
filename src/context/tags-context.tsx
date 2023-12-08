@@ -1,5 +1,5 @@
 import {createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, FC} from 'react';
-import { ITag } from '@models';
+import { ITag } from '../models';
 import { TAGS_INITIAL_STATE } from '../constants/initial-data';
 
 export interface TagsContextType {

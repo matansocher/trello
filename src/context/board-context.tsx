@@ -1,5 +1,5 @@
 import {createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, FC} from 'react';
-import { IBoard } from '@models';
+import { IBoard } from '../models';
 import { BOARD_INITIAL_STATE } from '../constants/initial-data';
 
 export interface BoardContextType {

@@ -1,4 +1,4 @@
-import { IBoard, ITag } from '@models';
+import { IBoard, ITag } from '../models';
 
 export const TAGS_INITIAL_STATE: ITag[] = [
   { id: '1', displayName: 'Stop', backgroundColor: '#ae2e24', textColor: '#ffd5d2'},

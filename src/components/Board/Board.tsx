@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import './Board.scss'
 import { List, BoardHeader } from '../index';
-import { IList } from '@models';
+import { IList } from '../../models';
 import { useBoard } from '../../context/board-context';
 import { BOARD_INITIAL_STATE } from '../../constants/initial-data';
 import { getPostDragBoard } from '../../services/dnd.service';
