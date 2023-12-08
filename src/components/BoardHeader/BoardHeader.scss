@@ -11,18 +11,16 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    color: black;
     &-title {
       font-size: 20px;
       font-weight: 600;
-      color: $light-text-color;
+      color: $light-main;
     }
   }
   &__right {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: black;
     &-icon {
       cursor: pointer;
     }

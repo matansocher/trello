@@ -2,7 +2,7 @@
 
 .card-preview {
     position: relative;
-    background: $dark-4;
+    background-color: $dark-4;
     max-width: 100%;
     display: flex;
     flex-direction: column;
@@ -12,7 +12,7 @@
     cursor: pointer;
     margin-top: 8px;
     &:hover {
-        background: $dark-5;
+        background-color: $dark-5;
     }
     &__more-icon {
         position: absolute;
