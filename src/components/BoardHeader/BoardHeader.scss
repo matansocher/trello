@@ -1,7 +1,7 @@
 @import '../../styles/colors.scss';
 
 .board-header {
-  background-color: #0000003d;
+  background-color: $dark-3;
   height: 50px;
   display: flex;
   align-items: center;
@@ -15,7 +15,7 @@
     &-title {
       font-size: 20px;
       font-weight: 600;
-      color: #ffffff;
+      color: $light-text-color;
     }
   }
   &__right {

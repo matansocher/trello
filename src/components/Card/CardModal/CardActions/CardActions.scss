@@ -39,7 +39,7 @@
     }
     &__action {
       box-sizing: border-box;
-      background-color: #3e474f;
+      background-color: $grey-1;
       width: 100%;
       display: flex;
       align-items: center;
@@ -48,7 +48,7 @@
       padding: 6px 10px;
       cursor: pointer;
       &:hover {
-        background-color: #4e5a63;
+        background-color: $grey-3;
       }
     }
   }

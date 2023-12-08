@@ -13,18 +13,17 @@
 }
 
 .add-new-card-open {
-    background: #21272b;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background-color: #1c1c13;
+    background-color: $dark-1;
     textarea {
         resize: none;
         border: none;
         outline: none;
         padding: 6px;
-        background-color: #21272b;
-        color: white;
+        background-color: $dark-4;
+        color: $light-text-color;
         font-size: 16px;
         font-weight: 600;
     }
@@ -34,10 +33,9 @@
         justify-content: flex-start;
         align-items: center;
         gap: 4px;
-        margin: 0 6px 8px 6px;
+        margin: 8px 6px;
         .save {
-            background-color: #579dff;
-            color: #1d2125;
+            background-color: $light-blue;
             font-weight: 600;
             font-size: 14px;
             display: flex;
@@ -55,14 +53,14 @@
             border-radius: 3px;
             padding: 5px 3px;
             &:hover {
-                background-color: #a6c5e229;
+                background-color: $grey-2;
             }
         }
     }
 }
 
 .add-new-card-closed {
-    background: #21272b;
+    background: $dark-4;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
