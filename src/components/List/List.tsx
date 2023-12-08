@@ -1,16 +1,15 @@
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { Card, DropdownMenu } from '../index';
 import AddNewCard from '../AddNewCard/AddNewCard';
 import AddIcon from '@mui/icons-material/Add';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import WatchIcon from '@mui/icons-material/Watch';
 import SortIcon from '@mui/icons-material/Sort';
+import { Card, DropdownMenu } from '@components';
+import { useBoard } from '@context';
+import { IBoard, ICard, IList, IDropdownItem } from '@models';
+import { archiveList, sortList, addCardToList, removeCardFromList } from '@services';
 import './List.scss'
-import { IBoard, ICard, IList } from '@models';
-import { useBoard } from '../../context/board-context';
-import { archiveList, sortList, addCardToList, removeCardFromList } from '../../services/data.service';
-import { IDropdownItem } from '@models';
 
 interface IListProps {
   list: IList;

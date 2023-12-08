@@ -1,5 +1,5 @@
-import './Tag.scss'
 import { ITag } from '@models';
+import './Tag.scss'
 
 interface ITagProps {
   tag: ITag

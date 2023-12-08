@@ -1,5 +1,5 @@
-// @ts-ignore
-import { IBoard, IList } from '@/models';
+import { IBoard, IList } from '@models';
+
 
 function getPostDragBoard(board: IBoard, result: any): IBoard {
   const { source, destination, draggableId } = result;
