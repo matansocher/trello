@@ -67,7 +67,7 @@ function CardActions({
   const renderActions = (actions: ICardAction[]) => {
     return actions.map((action: ICardAction) => {
       return (
-        <div className='card-details__content__right__actions__section__action' key={action.label} onClick={action.onClick}>
+        <div className='card-modal__content__right__actions__section__action' key={action.label} onClick={action.onClick}>
           {action.icon}
           <p>{action.label}</p>
         </div>
@@ -76,12 +76,12 @@ function CardActions({
   }
 
   return (
-    <div className='card-details__content__right__actions'>
-      <div className='card-details__content__right__actions__section'>
+    <div className='card-modal__content__right__actions'>
+      <div className='card-modal__content__right__actions__section'>
         <p>Add to Card</p>
         {renderActionsTop()}
       </div>
-      <div className='card-details__content__right__actions__section'>
+      <div className='card-modal__content__right__actions__section'>
         <p>Actions</p>
         {renderActionsBottom()}
       </div>

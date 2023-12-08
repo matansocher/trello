@@ -8,7 +8,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import { useBoard } from '@context';
 import { IBoard, ICard, IList, IDropdownItem } from '@models';
 import { archiveList, sortList, addCardToList, removeCardFromList } from '@services';
-import { Card, DropdownMenu } from '../index';
+import { CardPreview, DropdownMenu } from '../index';
 import './List.scss'
 
 interface IListProps {
@@ -83,7 +83,7 @@ function List({ list }: IListProps) {
         <Draggable key={card.id} draggableId={card.id} index={index}>
           {(provided) => (
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-              <Card card={card} list={list} archiveCard={archiveCard} />
+              <CardPreview card={card} list={list} archiveCard={archiveCard} />
             </div>
           )}
         </Draggable>

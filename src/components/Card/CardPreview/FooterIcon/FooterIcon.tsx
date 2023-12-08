@@ -11,7 +11,7 @@ function FooterIcon({ footerIcon, card }: IFooterIconProps) {
   const uniqueClassId = `${card.id}_${footerIcon.id}`;
   return (
     <>
-    <div className={`card-wrapper__footer__icon ${uniqueClassId}`}>
+    <div className={`card-preview__footer__icon ${uniqueClassId}`}>
       {footerIcon.icon}
     </div>
     <Tooltip

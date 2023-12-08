@@ -1,18 +1,19 @@
-import './CardDetails.scss'
-import { ICard, IList } from '@models';
 import CloseIcon from '@mui/icons-material/Close';
+import { ICard, IList } from '@models';
 import { useBoard } from '@context';
 import { addCardToList } from '@services';
-import { CardActions, CardContent } from '../';
+import CardActions from './CardActions/CardActions';
+import CardContent from './CardContent/CardContent';
+import './CardModal.scss'
 
-interface ICardDetailsProps {
+interface ICardModalProps {
   card: ICard;
   list: IList;
   setModalOpen: (modalOpen: boolean) => void;
   archiveCard: (cardId: string) => void;
 }
 
-function CardDetails({ card, list, setModalOpen, archiveCard }: ICardDetailsProps) {
+function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
 
   const { boardState: board, updateBoardState } = useBoard();
 
@@ -58,21 +59,21 @@ function CardDetails({ card, list, setModalOpen, archiveCard }: ICardDetailsProp
   }
 
   return (
-    <div className='card-details'>
-      <div className='card-details__header'>
-        <div className='card-details__header__left'>
+    <div className='card-modal'>
+      <div className='card-modal__header'>
+        <div className='card-modal__header__left'>
           <p>{card.id}</p>
           <p>{card.title}</p>
         </div>
-        <div className='card-details__header__right'>
+        <div className='card-modal__header__right'>
           <CloseIcon onClick={() => setModalOpen(false) } />
         </div>
       </div>
-      <div className='card-details__content'>
-        <div className='card-details__content__left'>
+      <div className='card-modal__content'>
+        <div className='card-modal__content__left'>
           <CardContent card={card} />
         </div>
-        <div className='card-details__content__right'>
+        <div className='card-modal__content__right'>
           <CardActions
             handleMembersClick={handleMembersClick}
             handleLabelsClick={handleLabelsClick}
@@ -91,4 +92,4 @@ function CardDetails({ card, list, setModalOpen, archiveCard }: ICardDetailsProp
   )
 }
 
-export default CardDetails;
+export default CardModal;

@@ -8,8 +8,10 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import { DropdownMenu, ModalWrapper } from '@components';
 import { IDropdownItem, IFooterIcon } from '@models';
-import { CardDetails, FooterIcon, Tag } from './';
-import './Card.scss'
+import CardModal from '../CardModal/CardModal';
+import FooterIcon from './FooterIcon/FooterIcon';
+import Tag from './Tag/Tag';
+import './CardPreview.scss'
 
 interface ICardProps {
   card: ICard;
@@ -17,7 +19,7 @@ interface ICardProps {
   archiveCard: (cardId: string) => void;
 }
 
-function Card({ card, archiveCard, list }: ICardProps) {
+function CardPreview({ card, archiveCard, list }: ICardProps) {
   const { tagsState: tags } = useTags();
   // dropdown hover
   const [showMoreIcon, setShowMoreIcon] = useState(false);
@@ -31,14 +33,14 @@ function Card({ card, archiveCard, list }: ICardProps) {
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
-      { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card.id) }
+      { label: 'Archive CardPreview', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card.id) }
     ];
   }
 
   const handleCardClick = (event: MouseEvent<HTMLDivElement>) => {
     const clickedElement = event.target as any;
-    const isClickedOnMoreIcon = clickedElement.classList.contains('card-wrapper__more-icon') || clickedElement.closest('.card-wrapper__more-icon');
-    const isClickedOutsideOfCard = !clickedElement.classList.contains('card-wrapper') && !clickedElement.closest('.card-wrapper');
+    const isClickedOnMoreIcon = clickedElement.classList.contains('card-preview__more-icon') || clickedElement.closest('.card-preview__more-icon');
+    const isClickedOutsideOfCard = !clickedElement.classList.contains('card-preview') && !clickedElement.closest('.card-preview');
     if (isClickedOnMoreIcon || isClickedOutsideOfCard) { // on more icon
       return;
     }
@@ -49,7 +51,7 @@ function Card({ card, archiveCard, list }: ICardProps) {
   const renderDropdownMenu = () => {
     if (showMoreIcon) {
       return (
-        <div className='card-wrapper__more-icon'>
+        <div className='card-preview__more-icon'>
           <DropdownMenu menuItems={getDropdownMenuItems()} />
         </div>
       );
@@ -64,12 +66,22 @@ function Card({ card, archiveCard, list }: ICardProps) {
   }
 
   const renderFooterIcons = () => {
-    const footerIcons: IFooterIcon[] = [
-      { id: 'footerIcon__1', icon: <VisibilityOutlinedIcon/>, tooltipText: 'You are watching this card' },
-      { id: 'footerIcon__2', icon: <FormatAlignLeftIcon/>, tooltipText: 'This card has a description' },
-      { id: 'footerIcon__3', icon: <ChatBubbleOutlineIcon/>, tooltipText: 'Comments' },
-      { id: 'footerIcon__4', icon: <CheckBoxOutlinedIcon/>, tooltipText: 'Checklist items' },
-    ];
+    const footerIcons: IFooterIcon[] = [];
+    if (card?.isWatching) {
+      footerIcons.push({ id: 'footerIcon__1', icon: <VisibilityOutlinedIcon/>, tooltipText: 'You are watching this card' });
+    }
+    if (card?.description) {
+      footerIcons.push({ id: 'footerIcon__2', icon: <FormatAlignLeftIcon/>, tooltipText: 'This card has a description' });
+    }
+    if (card?.comments && card.comments?.length > 0) {
+      footerIcons.push({ id: 'footerIcon__3', icon: <ChatBubbleOutlineIcon/>, tooltipText: 'Comments' });
+    }
+    if (card?.checklistItems && card.checklistItems?.length > 0) {
+      footerIcons.push({ id: 'footerIcon__4', icon: <CheckBoxOutlinedIcon/>, tooltipText: 'Checklist items' });
+    }
+    if (footerIcons.length === 0) {
+      return;
+    }
     return footerIcons.map((footerIcon) => {
       return <FooterIcon key={footerIcon.id} card={card} footerIcon={footerIcon} />;
     });
@@ -77,27 +89,27 @@ function Card({ card, archiveCard, list }: ICardProps) {
 
   return (
     <>
-      <div className='card-wrapper'
+      <div className='card-preview'
         onClick={handleCardClick}
         onMouseEnter={() => handleHover(true)}
         onMouseLeave={() => handleHover(false)}
       >
         {renderDropdownMenu()}
-        <div className='card-wrapper__tags'>
+        <div className='card-preview__tags'>
           {renderTags()}
         </div>
-        <div className='card-wrapper__content'>
+        <div className='card-preview__content'>
           <p className='header'>{card.title}</p>
         </div>
-        <div className='card-wrapper__footer'>
+        <div className='card-preview__footer'>
           {renderFooterIcons()}
         </div>
       </div>
       <ModalWrapper modalOpen={modalOpen} setModalOpen={setModalOpen}>
-        <CardDetails card={card} list={list} setModalOpen={setModalOpen} archiveCard={archiveCard} />
+        <CardModal card={card} list={list} setModalOpen={setModalOpen} archiveCard={archiveCard} />
       </ModalWrapper>
     </>
   )
 }
 
-export default Card;
+export default CardPreview;

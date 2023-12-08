@@ -2,7 +2,7 @@ import AddNewCard from './AddNewCard/AddNewCard';
 import App from './App/App';
 import Board from './Board/Board';
 import BoardHeader from './BoardHeader/BoardHeader';
-import Card from './Card/Card';
+import CardPreview from './Card/CardPreview/CardPreview.tsx';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import Header from './Header/Header';
 import List from './List/List';
@@ -13,7 +13,7 @@ export {
   App,
   Board,
   BoardHeader,
-  Card,
+  CardPreview,
   DropdownMenu,
   Header,
   List,
