@@ -1,10 +1,5 @@
 import { IBoard, IList } from '@models';
 
-export function getDragUpdateBoard(board: IBoard, result: any): IBoard {
-  const { source, destination, draggableId } = result;
-  return structuredClone(board);
-}
-
 export function getDragEndBoard(board: IBoard, result: any): IBoard {
   const { source, destination, draggableId } = result;
   if (!destination) return board;

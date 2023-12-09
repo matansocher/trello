@@ -7,7 +7,16 @@ export function archiveList(board: IBoard, listId: string): IBoard {
 
 export function sortList(board: IBoard, list: IList): IBoard {
   console.log(list);
-  return structuredClone(board);
+  return board;
+  // const sortedList = structuredClone(list).cards.sort((a: ICard, b: ICard) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  // const relevantList = board.lists.find((list: IList) => list.id === list.id);
+  // const newLists = board.lists.map((list: IList) => {
+  //   if (list.id === list.id) {
+  //     return { ...relevantList, cards: sortedList };
+  //   }
+  //   return list;
+  // });
+  // return { ...board, lists: newLists };
 }
 
 export function addListToBoard(board: IBoard, list: IList): IBoard {

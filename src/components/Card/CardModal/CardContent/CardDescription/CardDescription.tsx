@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useBoard } from '@context';
 import { ICard, IList } from '@models';
-import { saveCard } from '@services';
+import { dataService } from '@services';
 import './CardDescription.scss';
 
 interface ICardDescriptionProps {
@@ -20,7 +20,7 @@ function CardDescription({ list, card }: ICardDescriptionProps) {
 
   const handleSaveClick = () => {
     const newCard = { ...card, description: input };
-    const newBoard = saveCard(board, list.id, newCard);
+    const newBoard = dataService.saveCard(board, list.id, newCard);
     updateBoardState(newBoard);
     handleOpenOrClose(false);
   }

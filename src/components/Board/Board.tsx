@@ -4,7 +4,7 @@ import { List, BoardHeader, AddNewList } from '@components';
 import { BOARD_INITIAL_STATE } from '@constants';
 import { useBoard } from '@context';
 import { IBoard, IList } from '@models';
-import { addListToBoard, getDragEndBoard } from '@services';
+import { dataService, dndService } from '@services';
 import './Board.scss';
 
 function Board() {
@@ -15,7 +15,7 @@ function Board() {
   }, []);
 
   const addNewList = (list: IList) => {
-    const newBoard = addListToBoard(board, list) as IBoard;
+    const newBoard = dataService.addListToBoard(board, list) as IBoard;
     updateBoardState(newBoard);
   }
 
@@ -25,7 +25,7 @@ function Board() {
   }
 
   const onDragEnd = (result: any) => {
-    const newBoard = getDragEndBoard(board, result);
+    const newBoard = dndService.getDragEndBoard(board, result);
     updateBoardState(newBoard);
   }
 
@@ -51,10 +51,11 @@ function Board() {
         <BoardHeader />
         <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
           <div className='board-wrapper__main'>
-            <Droppable droppableId='ROOT' direction='horizontal' index={1}>
+            <Droppable droppableId='ROOT' direction='horizontal'>
               {(provided: DroppableProvided) => (
                 <div className='board-wrapper__main__lists' ref={provided.innerRef} {...provided.droppableProps}>
                   {renderLists()}
+                  {provided.placeholder}
                 </div>
               )}
             </Droppable>

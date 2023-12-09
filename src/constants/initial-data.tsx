@@ -20,7 +20,7 @@ export const BOARD_INITIAL_STATE: IBoard = {
   title: 'Matan Personal Board',
   lists: [
     {
-      title: 'Backlog',
+      title: 'To Do',
       id: 'listId_1234',
       cards: [
         {

@@ -1,15 +1,7 @@
-import { archiveList, sortList, addListToBoard, addCardToList, removeCardFromList, saveCard } from './data.service';
-import { getDragUpdateBoard, getDragEndBoard } from './dnd.service';
+import * as dataService from './data.service';
+import * as dndService from './dnd.service';
 
 export {
-  // data.service
-  archiveList,
-  sortList,
-  addListToBoard,
-  addCardToList,
-  removeCardFromList,
-  saveCard,
-  //dnd.service
-  getDragUpdateBoard,
-  getDragEndBoard,
+  dataService,
+  dndService,
 }

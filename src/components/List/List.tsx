@@ -7,7 +7,7 @@ import WatchIcon from '@mui/icons-material/Watch';
 import SortIcon from '@mui/icons-material/Sort';
 import { useBoard } from '@context';
 import { IBoard, ICard, IList, IDropdownItem } from '@models';
-import { archiveList, sortList, addCardToList, removeCardFromList } from '@services';
+import { dataService } from '@services';
 import { CardPreview, DropdownMenu } from '../index';
 import './List.scss';
 
@@ -21,7 +21,7 @@ function List({ list }: IListProps) {
 
   const handleArchiveList = () => {
     console.log('handleArchiveListClick');
-    const newBoard = archiveList(board, list.id) as IBoard;
+    const newBoard = dataService.archiveList(board, list.id) as IBoard;
     updateBoardState(newBoard);
   }
 
@@ -51,18 +51,18 @@ function List({ list }: IListProps) {
 
   const handleSortList = () => {
     console.log('handleSortList');
-    const newBoard = sortList(board, list) as IBoard;
+    const newBoard = dataService.sortList(board, list) as IBoard;
     updateBoardState(newBoard);
   }
 
   const addNewCard = (card: ICard) => {
-    const newBoard = addCardToList(board, list, card) as IBoard;
+    const newBoard = dataService.addCardToList(board, list, card) as IBoard;
     updateBoardState(newBoard);
   }
 
   const archiveCard = (cardId: string) => {
     console.log('archiveCard', cardId);
-    const newBoard = removeCardFromList(board, list, cardId) as IBoard;
+    const newBoard = dataService.removeCardFromList(board, list, cardId) as IBoard;
     updateBoardState(newBoard);
   }
 
