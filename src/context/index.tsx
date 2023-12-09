@@ -1,5 +1,5 @@
-import { BoardContextProvider, useBoard } from './board-context.tsx';
-import { LabelsContextProvider, useLabels } from './labels-context.tsx';
+import { BoardContextProvider, useBoard } from './board-context';
+import { LabelsContextProvider, useLabels } from './labels-context';
 
 export {
   BoardContextProvider,

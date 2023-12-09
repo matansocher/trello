@@ -1,12 +1,12 @@
 import { ICard, IComment } from '@models';
 import Comment from './Comment/Comment';
-import './CardActivity.scss'
+import './CardComments.scss'
 
-interface ICardActivityProps {
+interface ICardCommentsProps {
   card: ICard;
 }
 
-function CardActivity({ card }: ICardActivityProps) {
+function CardComments({ card }: ICardCommentsProps) {
 
   const renderComments = () => {
     return card?.comments?.map((comment: IComment) => {
@@ -15,12 +15,12 @@ function CardActivity({ card }: ICardActivityProps) {
   }
 
   return (
-    <div className='card-activity'>
-      <div className='card-activity__comments'>
+    <div className='card-comments'>
+      <div className='card-comments__comments'>
         {renderComments()}
       </div>
     </div>
   )
 }
 
-export default CardActivity;
+export default CardComments;

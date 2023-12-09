@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useBoard } from '@context';
-import {IBoard, ICard, IList} from '@models';
-import {removeCardFromList, saveCard} from '@services';
+import { ICard, IList } from '@models';
+import { saveCard} from '@services';
 import './CardDescription.scss'
 
 interface ICardDescriptionProps {

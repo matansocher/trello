@@ -1,5 +1,5 @@
 import { ICard, IList } from '@models';
-import CardActivity from './CardActivity/CardActivity';
+import CardComments from './CardComments/CardComments';
 import CardDescription from './CardDescription/CardDescription';
 import CardInfo from './CardInfo/CardInfo';
 import './CardContent.scss'
@@ -20,8 +20,8 @@ function CardContent({ list, card }: ICardContentProps) {
         <CardDescription list={list} card={card} />
       </div>
       {card.comments ? <div className='card-modal__content__right__sections__section'>
-        <p className='subheader'>Activity</p>
-        <CardActivity card={card} />
+        <p className='subheader'>Comments</p>
+        <CardComments card={card} />
       </div> : null}
     </div>
   )
