@@ -2,7 +2,7 @@ import { createContext, useContext, useState, ReactNode, Dispatch, SetStateActio
 import { TAGS_INITIAL_STATE } from '@constants';
 import { ILabel } from '@models';
 
-export interface LabelsContextType {
+interface LabelsContextType {
   labelsState: ILabel[];
   updateLabelsState: Dispatch<SetStateAction<ILabel[]>>;
 }

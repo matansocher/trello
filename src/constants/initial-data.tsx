@@ -1,5 +1,13 @@
 import { IBoard, ILabel } from '@models';
 
+export const USER_INITIAL_STATE = {
+  id: 'userId_12345678',
+  firstName: 'Matan',
+  lastName: 'Socher',
+  email: 'matansocher@gmail.com',
+
+}
+
 export const TAGS_INITIAL_STATE: ILabel[] = [
   { id: '1', displayName: 'Stop', backgroundColor: '#ae2e24', textColor: '#ffd5d2' },
   { id: '2', displayName: 'Waiting', backgroundColor: '#0055cc', textColor: '#cce0ff' },

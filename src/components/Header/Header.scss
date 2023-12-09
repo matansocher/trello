@@ -75,10 +75,16 @@
         }
       }
       .notifications {
-
+        display: flex;
+        align-items: center;
       }
       .info {
-
+        display: flex;
+        align-items: center;
+      }
+      .user {
+        display: flex;
+        align-items: center;
       }
     }
   }

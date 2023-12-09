@@ -1,4 +1,5 @@
 import Avatar from '@mui/material/Avatar';
+import { IUser } from '@models';
 import './UserAvatar.scss';
 
 export enum UserAvatarSize {
@@ -7,13 +8,13 @@ export enum UserAvatarSize {
   L = 'large',
 }
 
-interface Props {
-  user: any,
-  onClick?: () => void | null,
+interface UserAvatarProps {
+  user: IUser,
+  onClick?: any,
   size?: UserAvatarSize,
 }
 
-function UserAvatar({ user, onClick = null, size = UserAvatarSize.S }: Props) {
+function UserAvatar({ user, onClick = null, size = UserAvatarSize.S }: UserAvatarProps) {
 
   const getStyleObj = () => {
     const style: any = { ...getSizeAttributes(size) };
@@ -32,24 +33,24 @@ function UserAvatar({ user, onClick = null, size = UserAvatarSize.S }: Props) {
       case UserAvatarSize.L:
         return { width: '100px', height: '100px', fontSize: '50px' };
       default:
-        return getSizeAttributes(UserAvatarSize.M);
+        return getSizeAttributes(UserAvatarSize.S);
     }
   }
 
   const renderAvatar = () => {
     const styles = getStyleObj();
-    return <Avatar style={styles} alt='user avatar' src={user.avatar} />
+    return <Avatar style={styles} alt='user avatar' src={user.avatarUrl} />
   }
 
   const renderLetter = () => {
     const styles = getStyleObj()
-    const letter = user.name.charAt(0).toUpperCase();
+    const letter = user.firstName.charAt(0).toUpperCase();
     return <Avatar style={styles} sx={{ width: 24, height: 24 }}>{letter}</Avatar>
   }
 
   return (
     <div className='avatar-wrapper'>
-      { user.avatar ? renderAvatar() : renderLetter() }
+      { user.avatarUrl ? renderAvatar() : renderLetter() }
     </div>
   )
 }

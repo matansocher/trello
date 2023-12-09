@@ -2,11 +2,19 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { UserAvatar } from '@components';
+import { useUser } from '@context';
 import './Header.scss';
 
 function Header() {
 
+  const { userState: user } = useUser();
+
   const createBoard = () => {
+    console.log('createBoard');
+  }
+
+  const handleSomething = () => {
     console.log('createBoard');
   }
 
@@ -39,6 +47,9 @@ function Header() {
           </div>
           <div className='info'>
             <InfoOutlinedIcon />
+          </div>
+          <div className='user'>
+            <UserAvatar user={user} onClick={handleSomething} />
           </div>
         </div>
       </div>

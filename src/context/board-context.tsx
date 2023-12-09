@@ -1,8 +1,8 @@
-import {createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, FC} from 'react';
+import { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, FC } from 'react';
 import { BOARD_INITIAL_STATE } from '@constants';
 import { IBoard } from '@models';
 
-export interface BoardContextType {
+interface BoardContextType {
   boardState: IBoard;
   updateBoardState: Dispatch<SetStateAction<IBoard>>;
 }
