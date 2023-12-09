@@ -1,6 +1,6 @@
 import { ICard, IComment } from '@models';
 import Comment from './Comment/Comment';
-import './CardComments.scss'
+import './CardComments.scss';
 
 interface ICardCommentsProps {
   card: ICard;

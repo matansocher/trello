@@ -1,7 +1,7 @@
 @import 'src/styles/colors.scss';
 
 .header-wrapper {
-  background-color: $dark-blue;
+  background-color: $dark-3;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -13,12 +13,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 20px;
     &__left {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       width: 50%;
-      padding: 0 20px;
       color: $light-main;
       .logo {
         display: flex;
@@ -41,11 +41,45 @@
           &:hover {
 
           }
+          .create {
+            background-color: $light-blue;
+          }
         }
       }
     }
     &__right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      .search {
+        position: relative;
+        svg {
+          position: absolute;
+          top: 50%;
+          left: 10px;
+          transform: translateY(-50%);
+        }
+        input {
+            //background-color: rgba(13, 42, 71, .3);
+            width: 200px;
+            height: 32px;
+            padding: 0 40px;
+            border-radius: 5px;
+            border: 1px solid rgba(164, 153, 137, .6);
+            outline: none;
+            font-size: 16px;
+            &:focus {
+                border: 1px solid red;
+            }
+        }
+      }
+      .notifications {
 
+      }
+      .info {
+
+      }
     }
   }
 }

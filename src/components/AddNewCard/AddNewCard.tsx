@@ -2,7 +2,7 @@ import { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { ICard } from '@models';
-import './AddNewCard.scss'
+import './AddNewCard.scss';
 
 interface IAddNewCardProps {
   addNewCard: (card: ICard) => void
@@ -21,7 +21,7 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
       setIsOpen(false);
       return;
     }
-    const newCard: ICard = { id: '5', title: input, date: '11-11-2023', labels: ['2'] };
+    const newCard: ICard = { id: 'cardId__5', title: input, date: '11-11-2023', labels: ['2'] };
     addNewCard(newCard);
     setIsOpen(false);
     setInput('');

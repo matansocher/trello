@@ -20,12 +20,13 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
+      "@assets": ["./src/assets/index"],
       "@components": ["./src/components/index"],
-      "@models": ["./src/models/index"],
-      "@context": ["./src/context/index"],
-      "@services": ["./src/services/index"],
-      "@hooks": ["./src/hooks/index"],
       "@constants": ["./src/constants/initial-data"],
+      "@context": ["./src/context/index"],
+      "@hooks": ["./src/hooks/index"],
+      "@models": ["./src/models/index"],
+      "@services": ["./src/services/index"],
     }
   },
   "include": ["src"],

@@ -2,7 +2,7 @@ import { ICard, IList } from '@models';
 import CardComments from './CardComments/CardComments';
 import CardDescription from './CardDescription/CardDescription';
 import CardInfo from './CardInfo/CardInfo';
-import './CardContent.scss'
+import './CardContent.scss';
 
 interface ICardContentProps {
   list: IList;

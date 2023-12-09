@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import './Board.scss'
-import { List, BoardHeader } from '@components';
+import { DragDropContext, Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
+import { List, BoardHeader, AddNewList } from '@components';
 import { BOARD_INITIAL_STATE } from '@constants';
 import { useBoard } from '@context';
-import { IList } from '@models';
-import { getDragUpdateBoard, getDragEndBoard } from '@services';
+import { IBoard, IList } from '@models';
+import { addListToBoard, getDragEndBoard } from '@services';
+import './Board.scss';
 
 function Board() {
   const { boardState: board, updateBoardState } = useBoard();
@@ -14,6 +14,10 @@ function Board() {
     updateBoardState(BOARD_INITIAL_STATE);
   }, []);
 
+  const addNewList = (list: IList) => {
+    const newBoard = addListToBoard(board, list) as IBoard;
+    updateBoardState(newBoard);
+  }
 
   const onDragUpdate = (result: any) => {
     console.log('onDragUpdate');
@@ -46,13 +50,18 @@ function Board() {
       <div className='board-wrapper'>
         <BoardHeader />
         <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
-          <Droppable droppableId='ROOT' direction='horizontal' index={1}>
-            {(provided) => (
-              <div className='board-wrapper__columns' ref={provided.innerRef} {...provided.droppableProps}>
-                {renderLists()}
-              </div>
-            )}
-          </Droppable>
+          <div className='board-wrapper__main'>
+            <Droppable droppableId='ROOT' direction='horizontal' index={1}>
+              {(provided: DroppableProvided) => (
+                <div className='board-wrapper__main__lists' ref={provided.innerRef} {...provided.droppableProps}>
+                  {renderLists()}
+                </div>
+              )}
+            </Droppable>
+            <div className='board-wrapper__add-new'>
+              <AddNewList addNewList={addNewList} />
+            </div>
+          </div>
         </DragDropContext>
       </div>
   )

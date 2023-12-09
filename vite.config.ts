@@ -6,12 +6,13 @@ import path from 'path';
 export default defineConfig({
   resolve: {
     alias: {
+      '@assets': path.resolve(__dirname, 'src/assets/index'),
       '@components': path.resolve(__dirname, 'src/components/index'),
-      '@models': path.resolve(__dirname, 'src/models/index'),
-      '@context': path.resolve(__dirname, 'src/context/index'),
-      '@services': path.resolve(__dirname, 'src/services/index'),
       '@constants': path.resolve(__dirname, 'src/constants/initial-data'),
+      '@context': path.resolve(__dirname, 'src/context/index'),
       '@hooks': path.resolve(__dirname, 'src/hooks/index'),
+      '@models': path.resolve(__dirname, 'src/models/index'),
+      '@services': path.resolve(__dirname, 'src/services/index'),
     }
   },
   plugins: [react()],

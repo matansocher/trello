@@ -1,6 +1,6 @@
 import { Tooltip } from 'react-tooltip';
 import { ICard, IFooterIcon } from '@models';
-import './FooterIcon.scss'
+import './FooterIcon.scss';
 
 interface IFooterIconProps {
   footerIcon: IFooterIcon;

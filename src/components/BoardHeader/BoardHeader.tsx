@@ -3,7 +3,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { useBoard } from '@context';
-import './BoardHeader.scss'
+import './BoardHeader.scss';
 
 function BoardHeader() {
   const { boardState: board } = useBoard();

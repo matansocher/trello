@@ -5,7 +5,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { IDropdownItem } from '@models';
-import './DropdownMenu.scss'
+import './DropdownMenu.scss';
 
 interface IDropdownMenuProps {
   menuItems: IDropdownItem[];

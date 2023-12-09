@@ -1,4 +1,3 @@
-import './CardActions.scss'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,6 +8,7 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import './CardActions.scss';
 
 interface ICardAction {
   label: string;

@@ -1,4 +1,4 @@
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
 import AddNewCard from '../AddNewCard/AddNewCard';
 import AddIcon from '@mui/icons-material/Add';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -9,7 +9,7 @@ import { useBoard } from '@context';
 import { IBoard, ICard, IList, IDropdownItem } from '@models';
 import { archiveList, sortList, addCardToList, removeCardFromList } from '@services';
 import { CardPreview, DropdownMenu } from '../index';
-import './List.scss'
+import './List.scss';
 
 interface IListProps {
   list: IList;
@@ -100,7 +100,7 @@ function List({ list }: IListProps) {
         </div>
         <div className='list-wrapper__content__cards'>
           <Droppable droppableId={list.id} direction='vertical' type='group'>
-            {(provided) => (
+            {(provided: DroppableProvided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {renderCards()}
                 {provided.placeholder}

@@ -4,7 +4,7 @@ import { useBoard } from '@context';
 import { addCardToList } from '@services';
 import CardActions from './CardActions/CardActions';
 import CardContent from './CardContent/CardContent';
-import './CardModal.scss'
+import './CardModal.scss';
 
 interface ICardModalProps {
   card: ICard;

@@ -1,5 +1,5 @@
 import { IComment } from '@models';
-import './Comment.scss'
+import './Comment.scss';
 
 interface ICommentProps {
   comment: IComment

@@ -13,11 +13,10 @@ export const BOARD_INITIAL_STATE: IBoard = {
   lists: [
     {
       title: 'Backlog',
-      dataIndex: 'backlog',
       id: 'listId_1234',
       cards: [
         {
-          id: 'cardId__1',
+          id: 'cardId_1',
           title: 'some title to the card',
           description: 'some descriptions to describe this card',
           date: '11-11-2023',
@@ -28,13 +27,12 @@ export const BOARD_INITIAL_STATE: IBoard = {
     },
     {
       title: 'In Progress',
-      dataIndex: 'inProgress',
       id: 'listId_2345',
       cards: [
-        { id: 'cardId__2', title: 'some title to the card', date: '11-11-2023', labels: ['4']},
-        { id: 'cardId__3', title: 'some title to the card', date: '11-11-2023', labels: ['1', '4'], isWatching: true},
+        { id: 'cardId_2', title: 'some title to the card', date: '11-11-2023', labels: ['4']},
+        { id: 'cardId_3', title: 'some title to the card', date: '11-11-2023', labels: ['1', '4'], isWatching: true},
         {
-          id: 'cardId__4',
+          id: 'cardId_4',
           title: 'some title to the card',
           date: '11-11-2023',
           labels: ['1', '2'],
@@ -43,11 +41,11 @@ export const BOARD_INITIAL_STATE: IBoard = {
             { checklistItemDescription: 'this is a checklist item', isChecked: false },
           ],
           comments: [
-            { userId: '', commentDescription: 'this is a comment description', timestamp: '11-11-2023' },
+            { id: 'commentId_1', userId: '', commentDescription: 'this is a comment description', timestamp: '11-11-2023' },
           ],
         },
         {
-          id: 'cardId__5',
+          id: 'cardId_5',
           title: 'some title to the card',
           date: '11-11-2023',
           labels: ['3', '4'],
@@ -56,11 +54,11 @@ export const BOARD_INITIAL_STATE: IBoard = {
             { checklistItemDescription: 'this is a checklist item', isChecked: false },
           ],
           comments: [
-            { userId: '', commentDescription: 'this is a comment description', timestamp: '11-11-2023' }
+            { id: 'commentId_2', userId: '', commentDescription: 'this is a comment description', timestamp: '11-11-2023' }
           ],
         },
         {
-          id: 'cardId__6',
+          id: 'cardId_6',
           title: 'some title to the card',
           description: 'some descriptions to describe this card',
           date: '11-11-2023',
@@ -68,7 +66,7 @@ export const BOARD_INITIAL_STATE: IBoard = {
           isWatching: true
         },
         {
-          id: 'cardId__7',
+          id: 'cardId_7',
           title: 'some title to the card',
           description: 'some descriptions to describe this card',
           date: '11-11-2023',
@@ -78,11 +76,10 @@ export const BOARD_INITIAL_STATE: IBoard = {
     },
     {
       title: 'Done',
-      dataIndex: 'done',
       id: 'listId_3456',
       cards: [
         {
-          id: 'cardId__8',
+          id: 'cardId_8',
           title: 'some title to the card',
           description: 'some descriptions to describe this card',
           date: '11-11-2023',
@@ -90,7 +87,7 @@ export const BOARD_INITIAL_STATE: IBoard = {
           isWatching: true
         },
         {
-          id: 'cardId__9',
+          id: 'cardId_9',
           title: 'some title to the card',
           description: 'some descriptions to describe this card',
           date: '11-11-2023',
@@ -101,11 +98,11 @@ export const BOARD_INITIAL_STATE: IBoard = {
             { checklistItemDescription: 'this is a checklist item', isChecked: false },
           ],
           comments: [
-            { userId: '', commentDescription: 'this is a comment description', timestamp: '11-11-2023' }
+            { id: 'commentId_3', userId: '', commentDescription: 'this is a comment description', timestamp: '11-11-2023' }
           ],
         },
         {
-          id: 'cardId__10',
+          id: 'cardId_10',
           title: 'some title to the card',
           description: 'some descriptions to describe this card',
           date: '11-11-2023',
@@ -115,11 +112,11 @@ export const BOARD_INITIAL_STATE: IBoard = {
             { checklistItemDescription: 'this is a checklist item', isChecked: false },
           ],
           comments: [
-            { userId: '', commentDescription: 'this is a comment description', timestamp: '11-11-2023' }
+            { id: 'commentId_4', userId: '', commentDescription: 'this is a comment description', timestamp: '11-11-2023' }
           ],
         },
         {
-          id: 'cardId__11',
+          id: 'cardId_11',
           title: 'some title to the card',
           date: '11-11-2023',
           labels: ['1', '2', '4'],
@@ -128,7 +125,7 @@ export const BOARD_INITIAL_STATE: IBoard = {
             { checklistItemDescription: 'this is a checklist item', isChecked: false },
           ],
           comments: [
-            { userId: '', commentDescription: 'this is a comment description', timestamp: '11-11-2023' }
+            { id: 'commentId_5', userId: '', commentDescription: 'this is a comment description', timestamp: '11-11-2023' }
           ],
         },
       ]

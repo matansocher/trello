@@ -24,5 +24,8 @@ body {
     height: calc(100vh - 50px);
     position: relative;
     overflow-y: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
   }
 }

@@ -1,7 +1,15 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import './Header.scss'
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import './Header.scss';
 
 function Header() {
+
+  const createBoard = () => {
+    console.log('createBoard');
+  }
+
   return (
     <header className='header-wrapper'>
       <div className='header-wrapper__content'>
@@ -16,10 +24,22 @@ function Header() {
               <p>Starred</p>
               <ExpandMoreIcon />
             </div>
+            <div className='menu__item'>
+              <button className='create' onClick={createBoard}>Create</button>
+            </div>
           </div>
         </div>
         <div className='header-wrapper__content__right'>
-          <div className='logo'></div>
+          <div className='search'>
+            <SearchOutlinedIcon />
+            <input placeholder='Search'/>
+          </div>
+          <div className='notifications'>
+            <NotificationsNoneOutlinedIcon />
+          </div>
+          <div className='info'>
+            <InfoOutlinedIcon />
+          </div>
         </div>
       </div>
     </header>

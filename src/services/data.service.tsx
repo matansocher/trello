@@ -10,6 +10,11 @@ export function sortList(board: IBoard, list: IList): IBoard {
   return structuredClone(board);
 }
 
+export function addListToBoard(board: IBoard, list: IList): IBoard {
+  const newLists = [...board.lists, list];
+  return { ...board, lists: newLists };
+}
+
 export function addCardToList(board: IBoard, list: IList, card: ICard): IBoard {
   // const boardId = board.id;
   const listId = list.id;

@@ -10,7 +10,7 @@ import { CardModal, DropdownMenu, ModalWrapper } from '@components';
 import { IDropdownItem, IFooterIcon } from '@models';
 import FooterIcon from './FooterIcon/FooterIcon';
 import Label from './Label/Label';
-import './CardPreview.scss'
+import './CardPreview.scss';
 
 interface ICardProps {
   card: ICard;

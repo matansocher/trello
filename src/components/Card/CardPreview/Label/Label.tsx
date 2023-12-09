@@ -1,5 +1,5 @@
 import { ILabel } from '@models';
-import './Label.scss'
+import './Label.scss';
 
 interface ILabelProps {
   label: ILabel
