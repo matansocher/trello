@@ -1,9 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
+import { CardActions, CardContent } from '@components';
 import { ICard, IList } from '@models';
-import { useBoard } from '@context';
-import { addCardToList } from '@services';
-import CardActions from './CardActions/CardActions';
-import CardContent from './CardContent/CardContent';
 import './CardModal.scss';
 
 interface ICardModalProps {
@@ -15,15 +12,12 @@ interface ICardModalProps {
 
 function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
 
-  const { boardState: board, updateBoardState } = useBoard();
-
   const handleMoveClick = () => {
     console.log('handleMoveClick');
   }
 
   const handleCopyClick = () => {
     console.log('handleCopyClick');
-    // addCardToList(board, list, card);
   }
 
   const handleArchiveClick = () => {

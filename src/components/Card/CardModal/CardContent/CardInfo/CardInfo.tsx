@@ -1,7 +1,7 @@
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import { ICard, ILabel } from '@models';
+import { Label } from '@components';
 import { useLabels } from '@context';
-import Label from '../../../CardPreview/Label/Label';
+import { ICard, ILabel } from '@models';
 import './CardInfo.scss';
 
 interface ICardDescriptionProps {

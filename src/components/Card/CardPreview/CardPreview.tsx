@@ -1,15 +1,13 @@
 import { useState, MouseEvent } from 'react';
 import { ICard, IList, ILabel } from '@models';
-import { useLabels } from '@context';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
-import { CardModal, DropdownMenu, ModalWrapper } from '@components';
+import { CardModal, DropdownMenu, ModalWrapper, FooterIcon, Label } from '@components';
+import { useLabels } from '@context';
 import { IDropdownItem, IFooterIcon } from '@models';
-import FooterIcon from './FooterIcon/FooterIcon';
-import Label from './Label/Label';
 import './CardPreview.scss';
 
 interface ICardProps {

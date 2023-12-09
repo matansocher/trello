@@ -1,5 +1,5 @@
+import { Comment } from '@components';
 import { ICard, IComment } from '@models';
-import Comment from './Comment/Comment';
 import './CardComments.scss';
 
 interface ICardCommentsProps {
