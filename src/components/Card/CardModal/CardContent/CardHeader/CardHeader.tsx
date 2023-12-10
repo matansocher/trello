@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { VisibilityOutlined as VisibilityOutlinedIcon, Close as CloseIcon } from '@mui/icons-material';
+import { useState, useEffect } from 'react';
+import { Close as CloseIcon, VisibilityOutlined as VisibilityOutlinedIcon } from '@mui/icons-material';
 import { useBoard } from '@context';
 import { useToggleOnFocus } from '@hooks';
 import { ICard, IList } from '@models';
@@ -47,7 +47,7 @@ function CardHeader({ list, card, setModalOpen }: ICardHeaderProps) {
       <div className='card-header__left'>
         <div className='card-header__left__title'>
           <input
-            {...eventHandlers}
+            {...(eventHandlers as Object)}
             className={ !isOpen ? 'closed-input' : '' }
             type='text'
             value={input}

@@ -11,6 +11,7 @@ import CardHeader from './Card/CardModal/CardContent/CardHeader/CardHeader';
 import CardInfo from './Card/CardModal/CardContent/CardInfo/CardInfo'
 import CardModal from './Card/CardModal/CardModal';
 import CardPreview from './Card/CardPreview/CardPreview';
+import ColorPicker from './ColorPicker/ColorPicker';
 import Comment from './Card/CardModal/CardContent/CardComments/Comment/Comment';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import EllipsisText from './EllipsisText/EllipsisText';
@@ -36,6 +37,7 @@ export {
   CardInfo,
   CardModal,
   CardPreview,
+  ColorPicker,
   Comment,
   DropdownMenu,
   EllipsisText,

@@ -1,0 +1,30 @@
+@import 'src/styles/colors.scss';
+
+.color-picker {
+  background-color: $dark-5;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 12px 7px 9px 7px;
+  max-width: 300px;
+  p {
+    font-size: 12px;
+    color: $light-main;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  &__colors {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    &__color {
+      width: 52px;
+      height: 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        opacity: .7;
+        transition: opacity .3s ease-in-out;
+      }
+    }
+  }
+}

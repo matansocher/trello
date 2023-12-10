@@ -1,10 +1,10 @@
 import { useState, MouseEvent } from 'react';
 import {
-  Delete as DeleteIcon,
-  VisibilityOutlined as VisibilityOutlinedIcon,
-  FormatAlignLeft as FormatAlignLeftIcon,
   ChatBubbleOutline as ChatBubbleOutlineIcon,
-  CheckBoxOutlined as CheckBoxOutlinedIcon,
+  CheckBoxOutlined as CheckBoxOutlinedIcon, ExpandMore as ExpandMoreIcon,
+  Delete as DeleteIcon,
+  FormatAlignLeft as FormatAlignLeftIcon,
+  VisibilityOutlined as VisibilityOutlinedIcon,
 } from '@mui/icons-material';
 import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label } from '@components';
 import { useLabels } from '@context';
@@ -50,7 +50,7 @@ function CardPreview({ card, archiveCard, list }: ICardProps) {
     if (showMoreIcon) {
       return (
         <div className='card-preview__more-icon'>
-          <DropdownMenu menuItems={getDropdownMenuItems()} />
+          <DropdownMenu menuHeader='' menuIcon={<ExpandMoreIcon/>} menuItems={getDropdownMenuItems()} />
         </div>
       );
     }
@@ -59,7 +59,7 @@ function CardPreview({ card, archiveCard, list }: ICardProps) {
   const renderLabels = () => {
     return card.labels.map((label: string) => {
       const relevantLabel: ILabel = labels.find((originalLabel: ILabel) => originalLabel.id === label) || labels[0];
-      return <Label key={label} label={relevantLabel}/>;
+      return <Label key={label} label={relevantLabel} isBigLabel={false} />;
     });
   }
 

@@ -3,8 +3,8 @@ import {
   Add as AddIcon,
   ContentCopy as ContentCopyIcon,
   Delete as DeleteIcon,
-  Watch as WatchIcon,
   Sort as SortIcon, MoreHoriz as MoreHorizIcon,
+  Watch as WatchIcon,
 } from '@mui/icons-material';
 import { AddNewCard } from '@components';
 import { useBoard } from '@context';

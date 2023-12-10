@@ -11,7 +11,7 @@ function EllipsisText({ children, maxLines = 1 }: EllipsisTextProps) {
   const containerRef = useRef();
 
   useEffect(() => {
-    const container = containerRef.current;
+    const container = containerRef.current as any;
 
     if (container) {
       const containerStyles = window.getComputedStyle(container);

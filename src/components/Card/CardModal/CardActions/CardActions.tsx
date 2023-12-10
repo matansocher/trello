@@ -1,14 +1,14 @@
 import {
   ArrowForward as ArrowForwardIcon,
+  AttachFile as AttachFileIcon,
+  Checklist as ChecklistIcon,
   ContentCopy as ContentCopyIcon,
   Delete as DeleteIcon,
-  Share as ShareIcon,
-  PersonOutline as PersonOutlineIcon,
-  Label as LabelIcon,
-  Checklist as ChecklistIcon,
-  Schedule as ScheduleIcon,
-  AttachFile as AttachFileIcon,
   Inventory as InventoryIcon,
+  Label as LabelIcon,
+  PersonOutline as PersonOutlineIcon,
+  Schedule as ScheduleIcon,
+  Share as ShareIcon,
 } from '@mui/icons-material';
 import './CardActions.scss';
 
@@ -79,8 +79,8 @@ function CardActions({
 
   return (
     <div className='card-modal__content__right__actions'>
+      <p className='card-modal__content__right__actions__title'>Add to Card</p>
       <div className='card-modal__content__right__actions__section'>
-        <p>Add to Card</p>
         {renderActionsTop()}
       </div>
       <div className='card-modal__content__right__actions__section'>

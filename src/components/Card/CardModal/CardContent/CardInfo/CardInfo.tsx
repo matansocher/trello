@@ -14,7 +14,7 @@ function CardInfo({ card }: ICardDescriptionProps) {
   const renderLabels = () => {
     return card.labels.map((label: string) => {
       const relevantLabel: ILabel = labels.find((originalLabel: ILabel) => originalLabel.id === label) || labels[0];
-      return <Label key={label} label={relevantLabel}/>;
+      return <Label key={label} label={relevantLabel} isBigLabel={true}/>;
     });
   }
 

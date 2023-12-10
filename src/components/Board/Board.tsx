@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
+import { earth } from '@assets';
 import { List, BoardHeader, AddNewList } from '@components';
 import { useBoard } from '@context';
 import { IBoard, IList } from '@models';
@@ -44,7 +45,8 @@ function Board() {
   }
 
   return (
-      <div className='board-wrapper'>
+      // <div className='board-wrapper' style={{ backgroundImage: `url(${board.background})` }}>
+      <div className='board-wrapper' style={{ backgroundImage: `url(${earth})` }}>
         <BoardHeader />
         <DragDropContext onDragEnd={onDragEnd}>
           <div className='board-wrapper__main'>

@@ -1,6 +1,12 @@
 @import 'src/styles/colors.scss';
 
 .board-wrapper {
+  height: calc(100vh - 50px);
+  position: relative;
+  overflow-y: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   &__main {
     display: flex;
     padding: 10px;

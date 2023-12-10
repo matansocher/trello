@@ -1,6 +1,7 @@
 export type { IBoard } from './Board';
 export type { ICard } from './Card';
 export type { IChecklistItem } from './ChecklistItem';
+export type { IColorTile } from './ColorTile.tsx';
 export type { IComment } from './Comment';
 export type { IDropdownItem } from './DropdownItem';
 export type { IFooterIcon } from './FooterIcon';

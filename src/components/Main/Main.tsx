@@ -1,6 +1,7 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import { earth } from '@assets';
-import { Header, Board } from '@components';
+import { lazy } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Header } from '@components';
+const Board = lazy(() => import('../Board/Board'));
 import { BoardContextProvider, LabelsContextProvider } from '@context';
 import './Main.scss';
 
@@ -13,7 +14,7 @@ function Main() {
             <div className='main-wrapper__header'>
               <Header />
             </div>
-            <div className='main-wrapper__board' style={{ backgroundImage: `url(${earth})` }}>
+            <div className='main-wrapper__board'>
               <Routes>
                 <Route path='/boards/:boardId' element={<Board />} />
                 <Route path='*' element={<p>FUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCK</p>} />

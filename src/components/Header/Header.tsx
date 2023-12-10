@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import {
   ExpandMore as ExpandMoreIcon,
-  NotificationsNoneOutlined as NotificationsNoneOutlinedIcon,
   InfoOutlined as InfoOutlinedIcon,
+  NotificationsNoneOutlined as NotificationsNoneOutlinedIcon,
   SearchOutlined as SearchOutlinedIcon,
 } from '@mui/icons-material';
 import { DropdownMenu, UserAvatar } from '@components';
