@@ -1,7 +1,11 @@
 @import 'src/styles/colors.scss';
 
-.dropdown-menu__icon {
+.dropdown-menu {
   display: flex;
-  justify-content: center;
   align-items: center;
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

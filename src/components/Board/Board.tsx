@@ -14,7 +14,7 @@ function Board() {
   useEffect(() => {
     const board = dataService.getBoard(boardId);
     updateBoardState(board);
-  }, []);
+  }, [boardId]);
 
   const addNewList = (list: IList) => {
     const newBoard = dataService.addListToBoard(board, list) as IBoard;
