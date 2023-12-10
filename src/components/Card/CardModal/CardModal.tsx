@@ -1,5 +1,4 @@
-import CloseIcon from '@mui/icons-material/Close';
-import { CardActions, CardContent } from '@components';
+import { CardActions, CardContent, CardHeader } from '@components';
 import { ICard, IList } from '@models';
 import './CardModal.scss';
 
@@ -54,15 +53,7 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
 
   return (
     <div className='card-modal'>
-      <div className='card-modal__header'>
-        <div className='card-modal__header__left'>
-          <p className='card-modal__header__left__title'>{card.title}</p>
-          <p className='card-modal__header__left__list'>list: {list.title}</p>
-        </div>
-        <div className='card-modal__header__right'>
-          <CloseIcon onClick={() => setModalOpen(false) } />
-        </div>
-      </div>
+      <CardHeader list={list} card={card} setModalOpen={setModalOpen} />
       <div className='card-modal__content'>
         <div className='card-modal__content__left'>
           <CardContent list={list} card={card} />

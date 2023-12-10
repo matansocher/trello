@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import AddIcon from '@mui/icons-material/Add';
-import CloseIcon from '@mui/icons-material/Close';
+import { Add as AddIcon, Close as CloseIcon } from '@mui/icons-material';
 import { ICard } from '@models';
 import './AddNewCard.scss';
 
@@ -12,8 +11,8 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
   const [input, setInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpenOrClose = (open: boolean) => {
-    setIsOpen(open);
+  const handleOpenOrClose = (isOpen: boolean) => {
+    setIsOpen(isOpen);
   }
 
   const handleAddCardClick = () => {

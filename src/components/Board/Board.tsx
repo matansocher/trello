@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
 import { List, BoardHeader, AddNewList } from '@components';
-import { BOARD_INITIAL_STATE } from '@constants';
 import { useBoard } from '@context';
 import { IBoard, IList } from '@models';
 import { dataService, dndService } from '@services';
@@ -11,17 +10,14 @@ function Board() {
   const { boardState: board, updateBoardState } = useBoard();
 
   useEffect(() => {
-    updateBoardState(BOARD_INITIAL_STATE);
+    const boardId = '1';
+    const board = dataService.getBoard(boardId);
+    updateBoardState(board);
   }, []);
 
   const addNewList = (list: IList) => {
     const newBoard = dataService.addListToBoard(board, list) as IBoard;
     updateBoardState(newBoard);
-  }
-
-  const onDragUpdate = (result: any) => {
-    console.log('onDragUpdate');
-    console.log(result);
   }
 
   const onDragEnd = (result: any) => {
@@ -49,7 +45,7 @@ function Board() {
   return (
       <div className='board-wrapper'>
         <BoardHeader />
-        <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
+        <DragDropContext onDragEnd={onDragEnd}>
           <div className='board-wrapper__main'>
             <Droppable droppableId='ROOT' direction='horizontal'>
               {(provided: DroppableProvided) => (

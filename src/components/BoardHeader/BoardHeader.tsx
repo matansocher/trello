@@ -1,7 +1,5 @@
-import StarIcon from '@mui/icons-material/Star';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import FilterListIcon from '@mui/icons-material/FilterList';
+import { Star as StarIcon, MoreHoriz as MoreHorizIcon, CalendarMonth as CalendarMonthIcon, FilterList as FilterListIcon } from '@mui/icons-material';
+import { EllipsisText } from '@components';
 import { useBoard } from '@context';
 import './BoardHeader.scss';
 
@@ -14,7 +12,7 @@ function BoardHeader() {
   return (
     <div className='board-header'>
       <div className='board-header__left'>
-        <p className='board-header__left-title'>{ board.title }</p>
+        <EllipsisText maxLines={1}>{board.title}</EllipsisText>
         <StarIcon />
       </div>
       <div className='board-header__right'>

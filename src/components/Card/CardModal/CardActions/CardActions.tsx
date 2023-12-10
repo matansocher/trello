@@ -1,13 +1,15 @@
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ShareIcon from '@mui/icons-material/Share';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import LabelIcon from '@mui/icons-material/Label';
-import ChecklistIcon from '@mui/icons-material/Checklist';
-import ScheduleIcon from '@mui/icons-material/Schedule';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import InventoryIcon from '@mui/icons-material/Inventory';
+import {
+  ArrowForward as ArrowForwardIcon,
+  ContentCopy as ContentCopyIcon,
+  Delete as DeleteIcon,
+  Share as ShareIcon,
+  PersonOutline as PersonOutlineIcon,
+  Label as LabelIcon,
+  Checklist as ChecklistIcon,
+  Schedule as ScheduleIcon,
+  AttachFile as AttachFileIcon,
+  Inventory as InventoryIcon,
+} from '@mui/icons-material';
 import './CardActions.scss';
 
 interface ICardAction {

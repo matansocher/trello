@@ -1,13 +1,14 @@
 import { useState, MouseEvent } from 'react';
-import { ICard, IList, ILabel } from '@models';
-import DeleteIcon from '@mui/icons-material/Delete';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
-import { CardModal, DropdownMenu, ModalWrapper, FooterIcon, Label } from '@components';
+import {
+  Delete as DeleteIcon,
+  VisibilityOutlined as VisibilityOutlinedIcon,
+  FormatAlignLeft as FormatAlignLeftIcon,
+  ChatBubbleOutline as ChatBubbleOutlineIcon,
+  CheckBoxOutlined as CheckBoxOutlinedIcon,
+} from '@mui/icons-material';
+import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label } from '@components';
 import { useLabels } from '@context';
-import { IDropdownItem, IFooterIcon } from '@models';
+import { ICard, IList, ILabel, IDropdownItem, IFooterIcon } from '@models';
 import './CardPreview.scss';
 
 interface ICardProps {
@@ -96,7 +97,7 @@ function CardPreview({ card, archiveCard, list }: ICardProps) {
           {renderLabels()}
         </div>
         <div className='card-preview__content'>
-          <p className='header'>{card.title}</p>
+          <EllipsisText maxLines={3}>{card.title}</EllipsisText>
         </div>
         <div className='card-preview__footer'>
           {renderFooterIcons()}

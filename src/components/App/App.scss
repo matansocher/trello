@@ -9,23 +9,3 @@ body {
   font-size: 16px;
   margin: 0;
 }
-
-.app-wrapper {
-  position: relative;
-  height: 100%;
-  &__header {
-    width: 100%;
-    height: 50px;
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  &__board {
-    height: calc(100vh - 50px);
-    position: relative;
-    overflow-y: auto;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
-}

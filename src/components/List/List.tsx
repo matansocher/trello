@@ -1,14 +1,16 @@
 import { Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
-import AddNewCard from '../AddNewCard/AddNewCard';
-import AddIcon from '@mui/icons-material/Add';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import DeleteIcon from '@mui/icons-material/Delete';
-import WatchIcon from '@mui/icons-material/Watch';
-import SortIcon from '@mui/icons-material/Sort';
+import {
+  Add as AddIcon,
+  ContentCopy as ContentCopyIcon,
+  Delete as DeleteIcon,
+  Watch as WatchIcon,
+  Sort as SortIcon,
+} from '@mui/icons-material';
+import { AddNewCard } from '@components';
 import { useBoard } from '@context';
 import { IBoard, ICard, IList, IDropdownItem } from '@models';
 import { dataService } from '@services';
-import { CardPreview, DropdownMenu } from '../index';
+import {CardPreview, DropdownMenu, EllipsisText} from '../index';
 import './List.scss';
 
 interface IListProps {
@@ -95,7 +97,7 @@ function List({ list }: IListProps) {
     <div className='list-wrapper'>
       <div className='list-wrapper__content'>
         <div className='list-wrapper__content__header'>
-          <p className='header'>{list.title}</p>
+          <EllipsisText maxLines={3}>{list.title}</EllipsisText>
           <DropdownMenu menuItems={getDropdownMenuItems()} />
         </div>
         <div className='list-wrapper__content__cards'>

@@ -3,7 +3,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { MoreHoriz as MoreHorizIcon } from '@mui/icons-material';
 import { IDropdownItem } from '@models';
 import './DropdownMenu.scss';
 

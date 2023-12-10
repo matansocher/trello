@@ -1,4 +1,3 @@
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { Label } from '@components';
 import { useLabels } from '@context';
 import { ICard, ILabel } from '@models';
@@ -10,10 +9,7 @@ interface ICardDescriptionProps {
 
 function CardInfo({ card }: ICardDescriptionProps) {
   const { labelsState: labels } = useLabels();
-
-  const handleWatchClick = () => {
-    console.log('handleWatchClick');
-  }
+  const isOverdue = card.date && new Date(card.date) < new Date();
 
   const renderLabels = () => {
     return card.labels.map((label: string) => {
@@ -30,13 +26,13 @@ function CardInfo({ card }: ICardDescriptionProps) {
           {renderLabels()}
         </div>
       </div>
-      <div className='card-info__notifications'>
-        <div className='card-info__notifications__notification'>
-          <p className='subheader'>Notifications</p>
-          <button className='card-info__notifications__notification__button' onClick={handleWatchClick}>
-            <VisibilityOutlinedIcon />
-            Watch
-          </button>
+      <div className='card-info__due'>
+        <div className='card-info__due__section'>
+          <p className='subheader'>Due date</p>
+          <div className='card-info__due__section__indicator'>
+            <p className='date'>{card.date}</p>
+            {isOverdue ? <p className='overdue'>Overdue</p> : null}
+          </div>
         </div>
       </div>
     </div>

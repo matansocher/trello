@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, FC } from 'react';
-import { TAGS_INITIAL_STATE } from '@constants';
+import { LABELS_INITIAL_STATE } from '@constants';
 import { ILabel } from '@models';
 
 interface LabelsContextType {
@@ -14,7 +14,7 @@ type LabelsContextProviderProps = {
 }
 
 export const LabelsContextProvider: FC<LabelsContextProviderProps> = ({ children }) => {
-  const [labelsState, setLabelsState] = useState<ILabel[]>(TAGS_INITIAL_STATE);
+  const [labelsState, setLabelsState] = useState<ILabel[]>(LABELS_INITIAL_STATE);
 
   const updateLabelsState: LabelsContextType['updateLabelsState'] = (newState) => {
     setLabelsState(newState);

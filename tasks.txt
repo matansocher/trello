@@ -2,6 +2,6 @@ comment
 save to backend in 10 seconds window
 
 bug - when saving description - the card is updated but the card preview is not
+bug - card header bug with clicking outside, and then isOpen is still false
 
-services imports
-components imports
+text that becomes one line with ellipsis (3 dots)

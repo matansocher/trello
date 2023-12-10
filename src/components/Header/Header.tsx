@@ -1,7 +1,9 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import {
+  ExpandMore as ExpandMoreIcon,
+  NotificationsNoneOutlined as NotificationsNoneOutlinedIcon,
+  InfoOutlined as InfoOutlinedIcon,
+  SearchOutlined as SearchOutlinedIcon,
+} from '@mui/icons-material';
 import { UserAvatar } from '@components';
 import { useUser } from '@context';
 import './Header.scss';

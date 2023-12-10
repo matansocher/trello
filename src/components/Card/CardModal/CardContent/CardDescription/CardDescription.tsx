@@ -14,8 +14,8 @@ function CardDescription({ list, card }: ICardDescriptionProps) {
   const [input, setInput] = useState(card.description || '');
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpenOrClose = (open: boolean) => {
-    setIsOpen(open);
+  const handleOpenOrClose = (isOpen: boolean) => {
+    setIsOpen(isOpen);
   }
 
   const handleSaveClick = () => {
