@@ -4,13 +4,13 @@ import {
   ContentCopy as ContentCopyIcon,
   Delete as DeleteIcon,
   Watch as WatchIcon,
-  Sort as SortIcon,
+  Sort as SortIcon, MoreHoriz as MoreHorizIcon,
 } from '@mui/icons-material';
 import { AddNewCard } from '@components';
 import { useBoard } from '@context';
 import { IBoard, ICard, IList, IDropdownItem } from '@models';
 import { dataService } from '@services';
-import {CardPreview, DropdownMenu, EllipsisText} from '../index';
+import { CardPreview, DropdownMenu, EllipsisText } from '../index';
 import './List.scss';
 
 interface IListProps {
@@ -98,7 +98,7 @@ function List({ list }: IListProps) {
       <div className='list-wrapper__content'>
         <div className='list-wrapper__content__header'>
           <EllipsisText maxLines={3}>{list.title}</EllipsisText>
-          <DropdownMenu menuItems={getDropdownMenuItems()} />
+          <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon/>} menuItems={getDropdownMenuItems()} />
         </div>
         <div className='list-wrapper__content__cards'>
           <Droppable droppableId={list.id} direction='vertical' type='group'>

@@ -18,7 +18,7 @@ export const LABELS_INITIAL_STATE: ILabel[] = [
 export const BOARDS_INITIAL_STATE: IBoard[] = [
   {
     id: 'boardId_12345678',
-    title: 'Matan Personal Board',
+    title: 'Matan Personal Board 1',
     lists: [
       {
         title: 'To Do',
@@ -165,7 +165,27 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
         ]
       },
     ],
-  }
+  },
+  {
+    id: 'boardId_23456789',
+    title: 'Matan Personal Board 2',
+    lists: [
+      {
+        title: 'To Do',
+        id: 'listId_1234',
+        cards: [
+          {
+            id: 'cardId_1',
+            title: 'some title to the card',
+            description: 'some descriptions to describe this card',
+            date: '2023-11-11',
+            labels: [],
+            isWatching: true
+          },
+        ]
+      },
+    ],
+  },
 ];
 
 export const BOARD_INITIAL_STATE: IBoard = BOARDS_INITIAL_STATE.find(board => board.id === 'boardId_12345678')!;

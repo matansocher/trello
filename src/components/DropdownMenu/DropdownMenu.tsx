@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -8,10 +8,12 @@ import { IDropdownItem } from '@models';
 import './DropdownMenu.scss';
 
 interface IDropdownMenuProps {
+  menuHeader: string;
+  menuIcon: JSX.Element;
   menuItems: IDropdownItem[];
 }
 
-function DropdownMenu({ menuItems }: IDropdownMenuProps) {
+function DropdownMenu({ menuHeader, menuIcon, menuItems }: IDropdownMenuProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
 
@@ -41,8 +43,9 @@ function DropdownMenu({ menuItems }: IDropdownMenuProps) {
 
   return (
     <>
+      <p>{menuHeader}</p>
       <div className='dropdown-menu__icon' onClick={handleOpenMenuClick}>
-        <MoreHorizIcon />
+        {menuIcon ? menuIcon : <MoreHorizIcon/>}
       </div>
       <Menu
         id='basic-menu'

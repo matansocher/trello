@@ -1,16 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import {
   ExpandMore as ExpandMoreIcon,
   NotificationsNoneOutlined as NotificationsNoneOutlinedIcon,
   InfoOutlined as InfoOutlinedIcon,
   SearchOutlined as SearchOutlinedIcon,
 } from '@mui/icons-material';
-import { UserAvatar } from '@components';
+import { DropdownMenu, UserAvatar } from '@components';
+import { BOARDS_INITIAL_STATE } from '@constants';
 import { useUser } from '@context';
+import { IBoard, IDropdownItem } from '@models';
 import './Header.scss';
 
 function Header() {
-
   const { userState: user } = useUser();
+  const navigate = useNavigate();
 
   const createBoard = () => {
     console.log('createBoard');
@@ -20,6 +23,15 @@ function Header() {
     console.log('createBoard');
   }
 
+  const getDropdownMenuItems = (): IDropdownItem[] => {
+    return BOARDS_INITIAL_STATE.map((board: IBoard) => {
+      return {
+        label: board.title,
+        onClick: () => navigate(`/boards/${board.id}`),
+      }
+    });
+  }
+
   return (
     <header className='header-wrapper'>
       <div className='header-wrapper__content'>
@@ -27,12 +39,7 @@ function Header() {
           <div className='logo'>LOGO</div>
           <div className='menu'>
             <div className='menu__item'>
-              <p>Recents</p>
-              <ExpandMoreIcon />
-            </div>
-            <div className='menu__item'>
-              <p>Starred</p>
-              <ExpandMoreIcon />
+              <DropdownMenu menuHeader='boards' menuIcon={<ExpandMoreIcon />} menuItems={getDropdownMenuItems()} />
             </div>
             <div className='menu__item'>
               <button className='create' onClick={createBoard}>Create</button>
