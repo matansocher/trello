@@ -1,4 +1,9 @@
+import { BOARDS_INITIAL_STATE } from '@constants';
 import { IBoard, ICard, IList } from '@models';
+
+export function getBoard(boardId: string | undefined): IBoard {
+  return BOARDS_INITIAL_STATE.find(board => board.id === boardId)!;
+}
 
 export function archiveList(board: IBoard, listId: string): IBoard {
   const newLists: IList[] = board.lists.filter((list: IList) => list.id !== listId);

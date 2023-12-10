@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
 import { List, BoardHeader, AddNewList } from '@components';
 import { useBoard } from '@context';
@@ -7,10 +8,10 @@ import { dataService, dndService } from '@services';
 import './Board.scss';
 
 function Board() {
+  const { boardId } = useParams<{ boardId: string }>();
   const { boardState: board, updateBoardState } = useBoard();
 
   useEffect(() => {
-    const boardId = '1';
     const board = dataService.getBoard(boardId);
     updateBoardState(board);
   }, []);
