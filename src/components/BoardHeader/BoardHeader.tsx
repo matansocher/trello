@@ -13,7 +13,7 @@ import {
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
 import { earth } from '@assets';
-import {DropdownMenu, EllipsisText} from '@components';
+import { DropdownMenu, EllipsisText } from '@components';
 import { useBoard } from '@context';
 import { IDropdownItem } from '@models';
 import './BoardHeader.scss';

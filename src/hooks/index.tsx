@@ -1,5 +1,5 @@
-import useLocalStorage from './useLocalStorage';
-import {useToggleOnFocus} from './useToggleOnFocus';
+import { useLocalStorage } from './useLocalStorage';
+import { useToggleOnFocus } from './useToggleOnFocus';
 
 export {
   useLocalStorage,

@@ -1,11 +1,11 @@
-import {CardActions, CardContent, CardHeader, ModalWrapper} from '@components';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import {ICard, IList, IModalStyles} from '@models';
+import { CardActions, CardContent, CardHeader, ModalWrapper } from '@components';
+import { ICard, IList, IModalStyles } from '@models';
 import './CardModal.scss';
-import {useState} from 'react';
 
 const datePickerModalStyles: IModalStyles = {
   width: 320,
