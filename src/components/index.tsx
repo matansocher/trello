@@ -19,7 +19,6 @@ import FooterIcon from './Card/CardPreview/FooterIcon/FooterIcon';
 import Header from './Header/Header';
 import Label from './Card/CardPreview/Label/Label';
 import List from './List/List';
-import Main from './Main/Main';
 import ModalWrapper from './ModalWrapper/ModalWrapper';
 import UserAvatar from './UserAvatar/UserAvatar';
 
@@ -45,7 +44,6 @@ export {
   Header,
   Label,
   List,
-  Main,
   ModalWrapper,
   UserAvatar,
 }

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   ExpandMore as ExpandMoreIcon,
   InfoOutlined as InfoOutlinedIcon,
@@ -36,7 +36,7 @@ function Header() {
     <header className='header-wrapper'>
       <div className='header-wrapper__content'>
         <div className='header-wrapper__content__left'>
-          <div className='logo'>LOGO</div>
+          <Link to='/' className='logo'>LOGO</Link>
           <div className='menu'>
             <div className='menu__item'>
               <DropdownMenu menuHeader='boards' menuIcon={<ExpandMoreIcon />} menuItems={getDropdownMenuItems()} />

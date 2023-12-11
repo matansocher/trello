@@ -1,25 +1,23 @@
 import { lazy } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { Header } from '@components';
-const Board = lazy(() => import('../../screens/Board/Board'));
-const Home = lazy(() => import('../../screens/Home/Home'));
+const Board = lazy(() => import('../Board/Board'));
+const Home = lazy(() => import('../Home/Home'));
 import { BoardContextProvider, LabelsContextProvider } from '@context';
-import './Main.scss';
+import './AppWrapper.scss';
 
-function Main() {
+function AppWrapper() {
   return (
     <BoardContextProvider>
       <LabelsContextProvider>
         <BrowserRouter>
           <div className='main-wrapper'>
-            <div className='main-wrapper__header'>
-              <Header />
-            </div>
+            <Header />
             <div className='main-wrapper__board'>
               <Routes>
                 <Route path='/boards/:boardId' element={<Board />} />
                 <Route path='/' element={<Home />} />
-                <Route path='*' element={<p>FUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCK</p>} />
+                <Route path='*' element={<Navigate to='/' />} />
               </Routes>
             </div>
           </div>
@@ -29,4 +27,4 @@ function Main() {
   )
 }
 
-export default Main;
+export default AppWrapper;

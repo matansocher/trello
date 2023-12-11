@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PaletteMode } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Main } from '@components';
+import { AppWrapper } from '@screens';
 import { UserContextProvider } from '@context';
 import './App.scss';
 
@@ -17,7 +17,7 @@ function App() {
   return (
     <ThemeProvider theme={muiDarkTheme}>
       <UserContextProvider>
-        <Main />
+        <AppWrapper />
       </UserContextProvider>
     </ThemeProvider>
   )
