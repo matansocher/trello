@@ -22,7 +22,7 @@ interface ICardActionsProps {
   handleMembersClick: () => void;
   handleLabelsClick: () => void;
   handleChecklistClick: () => void;
-  handleDatesClick: () => void,
+  handleDueDateClick: () => void,
   handleAttachmentClick: () => void,
   handleCoverClick: () => void,
   handleMoveClick: () => void,
@@ -35,7 +35,7 @@ function CardActions({
   handleMembersClick,
   handleLabelsClick,
   handleChecklistClick,
-  handleDatesClick,
+  handleDueDateClick,
   handleAttachmentClick,
   handleCoverClick,
   handleMoveClick,
@@ -49,7 +49,7 @@ function CardActions({
       { label: 'Members', icon: <PersonOutlineIcon fontSize='small' />, onClick: () => handleMembersClick() },
       { label: 'Labels', icon: <LabelIcon fontSize='small' />, onClick: () => handleLabelsClick() },
       { label: 'Checklist', icon: <ChecklistIcon fontSize='small' />, onClick: () => handleChecklistClick() },
-      { label: 'Due Date', icon: <ScheduleIcon fontSize='small' />, onClick: () => handleDatesClick() },
+      { label: 'Due Date', icon: <ScheduleIcon fontSize='small' />, onClick: () => handleDueDateClick() },
       { label: 'Attachment', icon: <AttachFileIcon fontSize='small' />, onClick: () => handleAttachmentClick() },
       { label: 'Cover', icon: <InventoryIcon fontSize='small' />, onClick: () => handleCoverClick() },
     ];

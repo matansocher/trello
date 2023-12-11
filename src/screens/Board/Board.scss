@@ -11,6 +11,11 @@
     display: flex;
     padding: 10px;
     overflow-x: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    &::-webkit-scrollbar {
+      display: none;
+    }
     &__lists {
       display: flex;
       align-items: flex-start;

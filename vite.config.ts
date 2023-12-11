@@ -20,6 +20,8 @@ export default defineConfig({
       '@models': path.resolve(__dirname, 'src/models/index'),
       // @ts-ignore
       '@services': path.resolve(__dirname, 'src/services/index'),
+      // @ts-ignore
+      '@screens': path.resolve(__dirname, 'src/screens/index'),
     }
   },
   plugins: [react()],

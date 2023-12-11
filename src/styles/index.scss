@@ -51,3 +51,18 @@ button {
     opacity: 0.7;
   }
 }
+
+.side-label {
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 600;
+  &.overdue {
+    color: #ae2e24;
+    background: #ffd5d2;
+  }
+  &.today {
+    color: #f8e6a0;
+    background: #7f5f01;
+  }
+}

@@ -33,7 +33,7 @@ function CardDescription({ list, card }: ICardDescriptionProps) {
   const renderOpened = () => {
     return (
       <div className='card-description card-description-open'>
-        <textarea placeholder='Add a more detailed description…' rows={4} value={input} onInput={e => setInput((e.target as HTMLInputElement).value)} />
+        <textarea placeholder='Add a more detailed description…' rows={8} value={input} onInput={e => setInput((e.target as HTMLInputElement).value)} />
         <div className='card-description-open__actions'>
           <button className='save' onClick={handleSaveClick}>Save</button>
           <button className='cancel' onClick={handleCancelClick}>Cancel</button>

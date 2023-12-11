@@ -1,4 +1,4 @@
-import { CardComments, CardDescription, CardInfo } from '@components';
+import { CardActivity, CardComments, CardDescription, CardInfo } from '@components';
 import { ICard, IList } from '@models';
 import './CardContent.scss';
 
@@ -20,6 +20,10 @@ function CardContent({ list, card }: ICardContentProps) {
       {card.comments ? <div className='card-modal__content__right__sections__section'>
         <p className='subheader'>Comments</p>
         <CardComments card={card} />
+      </div> : null}
+      {card.activity ? <div className='card-modal__content__right__sections__section'>
+        <p className='subheader'>Activity</p>
+        <CardActivity card={card} />
       </div> : null}
     </div>
   )

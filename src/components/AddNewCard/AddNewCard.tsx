@@ -20,7 +20,7 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
       setIsOpen(false);
       return;
     }
-    const newCard: ICard = { id: 'cardId__5', title: input, date: '11-11-2023', labels: ['2'] };
+    const newCard: ICard = { id: 'cardId__5', title: input, dueDate: '11-11-2023', createdDate: '2023-12-11', labels: ['2'] };
     addNewCard(newCard);
     setIsOpen(false);
     setInput('');

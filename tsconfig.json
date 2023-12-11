@@ -26,6 +26,7 @@
       "@context": ["./src/context/index"],
       "@hooks": ["./src/hooks/index"],
       "@models": ["./src/models/index"],
+      "@screens": ["./src/screens/index"],
       "@services": ["./src/services/index"],
     }
   },

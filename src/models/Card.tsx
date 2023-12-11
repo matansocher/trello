@@ -4,9 +4,11 @@ export interface ICard {
   id: string;
   title: string;
   description?: string;
-  date: string;
-  labels: string[];
+  createdDate: string;
+  dueDate?: string;
+  labels?: string[];
   isWatching?: boolean;
   comments?: IComment[];
+  activity?: any;
   checklistItems?: IChecklistItem[];
 }

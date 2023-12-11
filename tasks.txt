@@ -1,11 +1,11 @@
 comment
 save to backend in 10 seconds window
 
-feat - add date picker as a due date under due date action in card actions (card modal)
+feat - add another query param for the modal to automatically open
 feat - add labels picker to card modal in 2 places
 feat - add option to add cover to a ticket
+feat - add checklist to card info in card modal
 
-bug - when saving description - the card is updated but the card preview is not
-bug - card header bug with clicking outside, and then isOpen is still false
+bug - when saving description or due date or probably anything - the card is updated but the card preview is not
 bug - from home page click on one of the boards links in the header
 bug - click outside a dropdown and it stays open

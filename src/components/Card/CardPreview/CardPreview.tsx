@@ -4,12 +4,26 @@ import {
   CheckBoxOutlined as CheckBoxOutlinedIcon, ExpandMore as ExpandMoreIcon,
   Delete as DeleteIcon,
   FormatAlignLeft as FormatAlignLeftIcon,
+  Schedule as ScheduleIcon,
   VisibilityOutlined as VisibilityOutlinedIcon,
 } from '@mui/icons-material';
 import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label } from '@components';
 import { useLabels } from '@context';
-import { ICard, IList, ILabel, IDropdownItem, IFooterIcon } from '@models';
+import { ICard, IList, ILabel, IDropdownItem, IFooterIcon, IModalStyles } from '@models';
 import './CardPreview.scss';
+
+const modalWrapperModalStyles: IModalStyles = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 800,
+  height: 700,
+  bgcolor: '#333b41',
+  outline: 'none',
+  p: 2,
+  borderRadius: '10px',
+};
 
 interface ICardProps {
   card: ICard;
@@ -57,7 +71,7 @@ function CardPreview({ card, archiveCard, list }: ICardProps) {
   }
 
   const renderLabels = () => {
-    return card.labels.map((label: string) => {
+    return card?.labels?.map((label: string) => {
       const relevantLabel: ILabel = labels.find((originalLabel: ILabel) => originalLabel.id === label) || labels[0];
       return <Label key={label} label={relevantLabel} isBigLabel={false} />;
     });
@@ -77,10 +91,24 @@ function CardPreview({ card, archiveCard, list }: ICardProps) {
     if (card?.checklistItems && card.checklistItems?.length > 0) {
       footerIcons.push({ id: 'footerIcon__4', icon: <CheckBoxOutlinedIcon/>, tooltipText: 'Checklist items' });
     }
+    if (card?.dueDate && card.dueDate?.length > 0) {
+      const numOfDaysDueAfterToday = new Date(card.dueDate).getDate() - new Date().getDate();
+      let component = null;
+      if (numOfDaysDueAfterToday === 0) { // today
+        component = <p className='side-label today'>Today</p>;
+      }
+      else if (numOfDaysDueAfterToday > 0) { // overdue
+        component = <p className='side-label overdue'>Overdue</p>;
+      } else {
+        component = <ScheduleIcon/>;
+      }
+      footerIcons.push({ id: 'footerIcon__5', icon: component, tooltipText: 'Due date' });
+    }
     if (footerIcons.length === 0) {
       return;
     }
-    return footerIcons.map((footerIcon) => {
+
+    return footerIcons.map((footerIcon: IFooterIcon) => {
       return <FooterIcon key={footerIcon.id} card={card} footerIcon={footerIcon} />;
     });
   }
@@ -103,7 +131,7 @@ function CardPreview({ card, archiveCard, list }: ICardProps) {
           {renderFooterIcons()}
         </div>
       </div>
-      <ModalWrapper modalOpen={modalOpen} setModalOpen={setModalOpen}>
+      <ModalWrapper modalOpen={modalOpen} setModalOpen={setModalOpen} modalStyle={modalWrapperModalStyles} >
         <CardModal card={card} list={list} setModalOpen={setModalOpen} archiveCard={archiveCard} />
       </ModalWrapper>
     </>

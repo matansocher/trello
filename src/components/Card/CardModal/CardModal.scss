@@ -17,3 +17,11 @@
     }
   }
 }
+
+.date-picker-wrapper {
+  & > div {
+    box-sizing: border-box;
+    border: 1px solid $dark-1;
+    width: 100%;
+  }
+}

@@ -1,7 +1,8 @@
 import { lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Header } from '@components';
-const Board = lazy(() => import('../Board/Board'));
+const Board = lazy(() => import('../../screens/Board/Board'));
+const Home = lazy(() => import('../../screens/Home/Home'));
 import { BoardContextProvider, LabelsContextProvider } from '@context';
 import './Main.scss';
 
@@ -17,6 +18,7 @@ function Main() {
             <div className='main-wrapper__board'>
               <Routes>
                 <Route path='/boards/:boardId' element={<Board />} />
+                <Route path='/' element={<Home />} />
                 <Route path='*' element={<p>FUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCK</p>} />
               </Routes>
             </div>

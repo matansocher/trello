@@ -1,9 +1,9 @@
 import AddNewCard from './AddNewCard/AddNewCard';
 import AddNewList from './AddNewList/AddNewList';
 import App from './App/App';
-import Board from './Board/Board';
 import BoardHeader from './BoardHeader/BoardHeader';
 import CardActions from './Card/CardModal/CardActions/CardActions';
+import CardActivity from './Card/CardModal/CardContent/CardActivity/CardActivity';
 import CardComments from './Card/CardModal/CardContent/CardComments/CardComments';
 import CardContent from './Card/CardModal/CardContent/CardContent';
 import CardDescription from './Card/CardModal/CardContent/CardDescription/CardDescription'
@@ -27,9 +27,9 @@ export {
   AddNewCard,
   AddNewList,
   App,
-  Board,
   BoardHeader,
   CardActions,
+  CardActivity,
   CardComments,
   CardContent,
   CardDescription,

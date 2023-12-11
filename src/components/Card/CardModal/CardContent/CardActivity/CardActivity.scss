@@ -1,0 +1,9 @@
+@import 'src/styles/colors.scss';
+
+.card-activities {
+  &__activity {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
