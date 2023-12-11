@@ -49,7 +49,7 @@ function CardActions({
       { label: 'Members', icon: <PersonOutlineIcon fontSize='small' />, onClick: () => handleMembersClick() },
       { label: 'Labels', icon: <LabelIcon fontSize='small' />, onClick: () => handleLabelsClick() },
       { label: 'Checklist', icon: <ChecklistIcon fontSize='small' />, onClick: () => handleChecklistClick() },
-      { label: 'Dates', icon: <ScheduleIcon fontSize='small' />, onClick: () => handleDatesClick() },
+      { label: 'Due Date', icon: <ScheduleIcon fontSize='small' />, onClick: () => handleDatesClick() },
       { label: 'Attachment', icon: <AttachFileIcon fontSize='small' />, onClick: () => handleAttachmentClick() },
       { label: 'Cover', icon: <InventoryIcon fontSize='small' />, onClick: () => handleCoverClick() },
     ];
@@ -79,12 +79,12 @@ function CardActions({
 
   return (
     <div className='card-modal__content__right__actions'>
-      <p className='card-modal__content__right__actions__title'>Add to Card</p>
       <div className='card-modal__content__right__actions__section'>
+        <p className='card-modal__content__right__actions__title'>Add to Card</p>
         {renderActionsTop()}
       </div>
       <div className='card-modal__content__right__actions__section'>
-        <p>Actions</p>
+        <p className='card-modal__content__right__actions__title'>Actions</p>
         {renderActionsBottom()}
       </div>
     </div>

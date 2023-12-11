@@ -1,9 +1,8 @@
 import { Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
 import {
-  Add as AddIcon,
   ContentCopy as ContentCopyIcon,
   Delete as DeleteIcon,
-  Sort as SortIcon, MoreHoriz as MoreHorizIcon,
+  MoreHoriz as MoreHorizIcon,
   Watch as WatchIcon,
 } from '@mui/icons-material';
 import { AddNewCard } from '@components';
@@ -29,32 +28,14 @@ function List({ list }: IListProps) {
 
   const handleCopyList = () => {
     console.log('handleCopyList');
-    // const newBoard = board;
-    // updateBoardState(newBoard);
-  }
-
-  const handleMoveList = () => {
-    console.log('handleMoveList');
-    // const newBoard = board;
-    // updateBoardState(newBoard);
+    const newBoard = dataService.copyList(board, list.id) as IBoard;
+    updateBoardState(newBoard);
   }
 
   const handleWatch = () => {
     console.log('handleWatch');
     // const newBoard = board;
     // updateBoardState(newBoard);
-  }
-
-  const handleAddCard = () => {
-    console.log('handleAddCard');
-    // const newBoard = board;
-    // updateBoardState(newBoard);
-  }
-
-  const handleSortList = () => {
-    console.log('handleSortList');
-    const newBoard = dataService.sortList(board, list) as IBoard;
-    updateBoardState(newBoard);
   }
 
   const addNewCard = (card: ICard) => {
@@ -70,11 +51,8 @@ function List({ list }: IListProps) {
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
-      { label: 'Add card...', icon: <AddIcon fontSize='small' />, onClick: () => handleAddCard() },
       { label: 'Copy list...', icon: <ContentCopyIcon fontSize='small' />, onClick: () => handleCopyList() },
-      { label: 'Move List...', icon: <DeleteIcon fontSize='small' />, onClick: () => handleMoveList() },
       { label: 'Watch', icon: <WatchIcon fontSize='small' />, onClick: () => handleWatch() },
-      { label: 'Sort by...', icon: <SortIcon fontSize='small' />, onClick: () => handleSortList() },
       { label: 'Archive list', icon: <DeleteIcon fontSize='small' />, onClick: () => handleArchiveList() },
     ];
   }

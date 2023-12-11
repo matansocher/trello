@@ -5,6 +5,14 @@ export function getBoard(boardId: string | undefined): IBoard {
   return BOARDS_INITIAL_STATE.find(board => board.id === boardId)!;
 }
 
+export function copyList(board: IBoard, listId: string): IBoard {
+  const list = board.lists.find((list: IList) => list.id === listId);
+  const newList = { ...list, id: 'listId_4567', title: `Copy of ${list?.title}` };
+  const newLists = [...board.lists, newList];
+  return { ...board, lists: newLists };
+
+}
+
 export function archiveList(board: IBoard, listId: string): IBoard {
   const newLists: IList[] = board.lists.filter((list: IList) => list.id !== listId);
   return { ...board, lists: newLists };
