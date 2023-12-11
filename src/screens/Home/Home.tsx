@@ -1,9 +1,9 @@
 import './Home.scss';
-import {BOARDS_INITIAL_STATE} from "@constants";
-import {IBoard} from "@models";
-import {useNavigate} from "react-router-dom";
-import {earth} from "@assets";
-import {EllipsisText} from "@components";
+import { BOARDS_INITIAL_STATE } from '@constants';
+import { IBoard } from '@models';
+import { useNavigate } from 'react-router-dom';
+import { earth } from '@assets';
+import { EllipsisText } from '@components';
 
 interface IHomeProps {
 
