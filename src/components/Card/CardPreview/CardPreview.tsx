@@ -13,16 +13,8 @@ import { ICard, IList, ILabel, IDropdownItem, IFooterIcon, IModalStyles } from '
 import './CardPreview.scss';
 
 const modalWrapperModalStyles: IModalStyles = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
   width: 800,
   height: 700,
-  bgcolor: '#333b41',
-  outline: 'none',
-  p: 2,
-  borderRadius: '10px',
 };
 
 interface ICardProps {

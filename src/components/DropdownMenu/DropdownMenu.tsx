@@ -42,9 +42,9 @@ function DropdownMenu({ menuHeader, menuIcon, menuItems }: IDropdownMenuProps) {
   };
 
   return (
-    <div className='dropdown-menu' onClick={handleOpenMenuClick}>
+    <div className='dropdown-menu'>
       <p>{menuHeader}</p>
-      <div className='dropdown-menu__icon'>
+      <div className='dropdown-menu__icon' onClick={handleOpenMenuClick}>
         {menuIcon ? menuIcon : <MoreHorizIcon/>}
       </div>
       <Menu
