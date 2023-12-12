@@ -9,15 +9,12 @@ import { DropdownMenu, UserAvatar } from '@components';
 import { BOARDS_INITIAL_STATE } from '@constants';
 import { useUser } from '@context';
 import { IBoard, IDropdownItem } from '@models';
+import { dataService } from '@services';
 import './Header.scss';
 
 function Header() {
   const { userState: user } = useUser();
   const navigate = useNavigate();
-
-  const createBoard = () => {
-    console.log('createBoard');
-  }
 
   const handleSomething = () => {
     console.log('createBoard');
@@ -32,6 +29,11 @@ function Header() {
     });
   }
 
+  const handleCreateBoardClick = () => {
+    const newBoard = dataService.createBoard('New Board');
+    navigate(`/boards/${newBoard.id}`); // $$$$$$$$$$$$$$$$$$
+  }
+
   return (
     <header className='header-wrapper'>
       <div className='header-wrapper__content'>
@@ -42,7 +44,7 @@ function Header() {
               <DropdownMenu menuHeader='boards' menuIcon={<ExpandMoreIcon />} menuItems={getDropdownMenuItems()} />
             </div>
             <div className='menu__item'>
-              <button className='create' onClick={createBoard}>Create</button>
+              <button className='create' onClick={handleCreateBoardClick}>Create</button>
             </div>
           </div>
         </div>

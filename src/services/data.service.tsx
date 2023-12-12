@@ -4,7 +4,7 @@ import { IBoard, ICard, IList } from '@models';
 export function createBoard(title: string): IBoard {
   const id = `board_${Date.now()}`;
   const lists: IList[] = [];
-  return { id, title, lists };
+  return { id, title, lists }; // $$$$$$$$$$$$$$$ you are on create board, you need to return the board, or boards
 }
 
 export function getBoard(boardId: string | undefined): IBoard {
@@ -14,28 +14,13 @@ export function getBoard(boardId: string | undefined): IBoard {
 export function copyList(board: IBoard, listId: string): IBoard {
   const list = board.lists.find((list: IList) => list.id === listId);
   const newList = { ...list, id: 'listId_4567', title: `Copy of ${list?.title}` };
-  const newLists = [...board.lists, newList];
+  const newLists = [...board.lists, newList] as IList[];
   return { ...board, lists: newLists };
-
 }
 
 export function archiveList(board: IBoard, listId: string): IBoard {
   const newLists: IList[] = board.lists.filter((list: IList) => list.id !== listId);
   return { ...board, lists: newLists };
-}
-
-export function sortList(board: IBoard, list: IList): IBoard {
-  console.log(list);
-  return board;
-  // const sortedList = structuredClone(list).cards.sort((a: ICard, b: ICard) => new Date(a.date).getTime() - new Date(b.date).getTime());
-  // const relevantList = board.lists.find((list: IList) => list.id === list.id);
-  // const newLists = board.lists.map((list: IList) => {
-  //   if (list.id === list.id) {
-  //     return { ...relevantList, cards: sortedList };
-  //   }
-  //   return list;
-  // });
-  // return { ...board, lists: newLists };
 }
 
 export function addListToBoard(board: IBoard, list: IList): IBoard {
@@ -44,12 +29,10 @@ export function addListToBoard(board: IBoard, list: IList): IBoard {
 }
 
 export function addCardToList(board: IBoard, list: IList, card: ICard): IBoard {
-  // const boardId = board.id;
   const listId = list.id;
   const newList = structuredClone(board.lists.find((list: IList) => list.id === listId)) || {} as IList;
   newList.cards.push(card);
   const newLists = board.lists.map((list: IList) => list.id === listId ? newList : list);
-
   return { ...board, lists: newLists };
 }
 

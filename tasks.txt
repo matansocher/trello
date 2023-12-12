@@ -1,7 +1,7 @@
 comment
 save to backend in 10 seconds window
 
-feat - create new board in home page
+feat - create new board in home page - in progress
 feat - add option to add cover to a ticket
 feat - add checklist to card info in card modal
 
