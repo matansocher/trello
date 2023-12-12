@@ -2,14 +2,14 @@ import { useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import {DatePicker, StaticDatePicker} from '@mui/x-date-pickers';
 import { CardActions, CardContent, CardHeader, ModalWrapper } from '@components';
 import { ICard, IList, IModalStyles } from '@models';
 import './CardModal.scss';
 
 const datePickerModalStyles: IModalStyles = {
   width: 320,
-  height: 390,
+  height: 375,
   p: 2,
 };
 
@@ -96,7 +96,9 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
       <ModalWrapper modalOpen={datePickerModalOpen} setModalOpen={setDatePickerModalOpen} modalStyle={datePickerModalStyles}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <div className='date-picker-wrapper'>
-            <DatePicker value={datePickerValue} onChange={(newValue) => handleDueDateChange(newValue)} />
+            <StaticDatePicker displayStaticWrapperAs='desktop' value={datePickerValue} onChange={(newValue) => handleDueDateChange(newValue)} />
+            {/*<DatePicker value={datePickerValue} onChange={(newValue) => handleDueDateChange(newValue)} />*/}
+            <button className='save-button' onClick={() => setDatePickerModalOpen(false)}>Save</button>
           </div>
         </LocalizationProvider>
       </ModalWrapper>
