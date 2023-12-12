@@ -13,11 +13,13 @@ import CardModal from './Card/CardModal/CardModal';
 import CardPreview from './Card/CardPreview/CardPreview';
 import ColorPicker from './ColorPicker/ColorPicker';
 import Comment from './Card/CardModal/CardContent/CardComments/Comment/Comment';
+import DatePicker from './DatePicker/DatePicker';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import EllipsisText from './EllipsisText/EllipsisText';
 import FooterIcon from './Card/CardPreview/FooterIcon/FooterIcon';
 import Header from './Header/Header';
 import Label from './Card/CardPreview/Label/Label';
+import LabelsPicker from './LabelsPicker/LabelsPicker';
 import List from './List/List';
 import ModalWrapper from './ModalWrapper/ModalWrapper';
 import UserAvatar from './UserAvatar/UserAvatar';
@@ -38,11 +40,13 @@ export {
   CardPreview,
   ColorPicker,
   Comment,
+  DatePicker,
   DropdownMenu,
   EllipsisText,
   FooterIcon,
   Header,
   Label,
+  LabelsPicker,
   List,
   ModalWrapper,
   UserAvatar,

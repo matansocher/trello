@@ -18,19 +18,9 @@
   }
 }
 
-.date-picker-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  & > div {
-    background: $dark-5;
-    box-sizing: border-box;
-    border-radius: 4px;
-    width: 100%;
-  }
-  .save-button {
-    margin-top: 12px;
-    background-color: $light-blue;
-    font-size: 14px;
-  }
+.save-button {
+  margin-top: 12px;
+  background-color: $light-blue;
+  font-size: 14px;
 }
+

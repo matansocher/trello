@@ -16,6 +16,7 @@
     &:hover {
         opacity: .7;
         transition: opacity .3s ease-in-out;
+        cursor: default;
     }
     .label {
         margin: 0;

@@ -42,13 +42,7 @@ export function addCardToList(board: IBoard, list: IList, card: ICard): IBoard {
   const listId = list.id;
   const newList = structuredClone(board.lists.find((list: IList) => list.id === listId)) || {} as IList;
   newList.cards.push(card);
-
-  const newLists = board.lists.map((list: IList) => {
-    if (list.id === listId) {
-      return newList;
-    }
-    return list;
-  });
+  const newLists = board.lists.map((list: IList) => list.id === listId ? newList : list);
 
   return { ...board, lists: newLists };
 }
@@ -58,12 +52,7 @@ export function removeCardFromList(board: IBoard, list: IList, cardId: string): 
   const listId = list.id;
   const newList = structuredClone(list) || {} as IList;
   newList.cards = newList.cards.filter((card: ICard) => card.id !== cardId);
-  const newLists = board.lists.map((list: IList) => {
-    if (list.id === listId) {
-      return newList;
-    }
-    return list;
-  });
+  const newLists = board.lists.map((list: IList) => list.id === listId ? newList : list);
 
   return { ...board, lists: newLists };
 }
@@ -71,12 +60,19 @@ export function removeCardFromList(board: IBoard, list: IList, cardId: string): 
 export function saveCard(board: IBoard, listId: string, newCard: ICard): IBoard {
   const newLists = board.lists.map((list: IList) => {
     if (list.id === listId) {
-      const newCards = list.cards.map((card: ICard) => {
-        if (card.id === card.id) {
-          return newCard;
-        }
-        return card;
-      });
+      const newCards = list.cards.map((card: ICard) => card.id === newCard.id ? newCard : card);
+      return { ...list, cards: newCards };
+    }
+    return list;
+  });
+
+  return { ...board, lists: newLists };
+}
+
+export function updateCard(board: IBoard, listId: string, cardToSave: ICard): IBoard {
+  const newLists = board.lists.map((list: IList) => {
+    if (list.id === listId) {
+      const newCards = list.cards.map((card: ICard) => card.id === cardToSave.id ? cardToSave : card);
       return { ...list, cards: newCards };
     }
     return list;

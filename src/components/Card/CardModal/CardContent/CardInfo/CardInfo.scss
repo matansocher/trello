@@ -17,6 +17,20 @@
       display: flex;
       gap: 4px;
       margin-top: 4px;
+      &__plus {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 5px;
+        background: $grey-1;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.7;
+          transition: opacity 0.2s ease-in-out;
+        }
+      }
     }
   }
   &__due {
@@ -30,8 +44,13 @@
         font-size: 14px;
         padding: 8px 12px;
         margin-top: 4px;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.7;
+          transition: opacity 0.2s ease-in-out;
+        }
         .date {
-
+          font-weight: 500;
         }
       }
     }

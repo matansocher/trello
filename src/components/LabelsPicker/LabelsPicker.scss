@@ -1,0 +1,23 @@
+@import 'src/styles/colors.scss';
+
+.labels-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 20px;
+  .label-select {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    .label-color {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+  }
+}

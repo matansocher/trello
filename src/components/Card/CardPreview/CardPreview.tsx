@@ -20,10 +20,11 @@ const modalWrapperModalStyles: IModalStyles = {
 interface ICardProps {
   card: ICard;
   list: IList
+  copyCard: (card: ICard) => void;
   archiveCard: (cardId: string) => void;
 }
 
-function CardPreview({ card, archiveCard, list }: ICardProps) {
+function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
   const { labelsState: labels } = useLabels();
   // dropdown hover
   const [showMoreIcon, setShowMoreIcon] = useState(false);
@@ -37,7 +38,8 @@ function CardPreview({ card, archiveCard, list }: ICardProps) {
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
-      { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card.id) }
+      { label: 'Copy Card', icon: <DeleteIcon fontSize='small' />, onClick: () => copyCard(card) },
+      { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card.id) },
     ];
   }
 

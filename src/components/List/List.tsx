@@ -43,8 +43,13 @@ function List({ list }: IListProps) {
     updateBoardState(newBoard);
   }
 
+  const copyCard = (card: ICard) => {
+    const newCard = { ...card, id: `cardId_${Math.random()}`, title: `Copy of ${card.title}` };
+    const newBoard = dataService.addCardToList(board, list, newCard) as IBoard;
+    updateBoardState(newBoard);
+  }
+
   const archiveCard = (cardId: string) => {
-    console.log('archiveCard', cardId);
     const newBoard = dataService.removeCardFromList(board, list, cardId) as IBoard;
     updateBoardState(newBoard);
   }
@@ -63,7 +68,7 @@ function List({ list }: IListProps) {
         <Draggable key={card.id} draggableId={card.id} index={index}>
           {(provided) => (
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-              <CardPreview card={card} list={list} archiveCard={archiveCard} />
+              <CardPreview card={card} list={list} copyCard={copyCard} archiveCard={archiveCard} />
             </div>
           )}
         </Draggable>

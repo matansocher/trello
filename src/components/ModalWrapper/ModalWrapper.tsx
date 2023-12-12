@@ -9,7 +9,6 @@ const DEFAULT_MODAL_STYLE = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 800,
-  height: 700,
   bgcolor: '#333b41',
   outline: 'none',
   p: 2,
