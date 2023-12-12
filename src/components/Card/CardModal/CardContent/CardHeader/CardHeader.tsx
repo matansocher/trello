@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
 import { Close as CloseIcon, VisibilityOutlined as VisibilityOutlinedIcon } from '@mui/icons-material';
+import { EditableInput } from '@components';
 import { useBoard } from '@context';
-import { useToggleOnFocus } from '@hooks';
 import { ICard, IList } from '@models';
 import { dataService } from '@services';
 import './CardHeader.scss';
@@ -14,26 +13,9 @@ interface ICardHeaderProps {
 
 function CardHeader({ list, card, setModalOpen }: ICardHeaderProps) {
   const { boardState: board, updateBoardState } = useBoard();
-  const [input, setInput] = useState(card.title || '');
-  const [isOpen, setIsOpen] = useState(false);
-  const [isFocused, eventHandlers] = useToggleOnFocus(false);
 
-  useEffect(() => {
-    if (!isFocused) { // outside clicked
-      if (isOpen) {
-        handleSaveClick();
-        setIsOpen(false);
-      }
-    } else { // inside clicked
-      if (!isOpen) {
-        setIsOpen(true);
-      }
-    }
-  }, [isFocused]);
-
-  const handleSaveClick = () => {
-    if (card.title === input) return; // text was not changed
-    const newCard = { ...card, title: input };
+  const handleSave = (newValue: string) => {
+    const newCard = { ...card, title: newValue };
     const newBoard = dataService.saveCard(board, list.id, newCard);
     updateBoardState(newBoard);
   }
@@ -46,13 +28,7 @@ function CardHeader({ list, card, setModalOpen }: ICardHeaderProps) {
     <div className='card-header'>
       <div className='card-header__left'>
         <div className='card-header__left__title'>
-          <input
-            {...(eventHandlers as Object)}
-            className={ !isOpen ? 'closed-input' : '' }
-            type='text'
-            value={input}
-            onInput={e => setInput((e.target as HTMLInputElement).value)}
-          />
+          <EditableInput handleSave={handleSave} initialValue={card.title} />
         </div>
         <p className='card-header__left__list'>list: {list.title}</p>
       </div>

@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import {DatePicker, Label, LabelsPicker} from '@components';
-import {useBoard, useLabels} from '@context';
+import dayjs, { Dayjs } from 'dayjs';
+import { DatePicker, Label, LabelsPicker } from '@components';
+import { useBoard, useLabels } from '@context';
 import { ICard, ILabel, IList } from '@models';
+import { dataService } from '@services';
 import './CardInfo.scss';
-import dayjs, {Dayjs} from "dayjs";
-import {dataService} from "@services";
 
 interface ICardDescriptionProps {
   list: IList;

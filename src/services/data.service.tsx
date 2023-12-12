@@ -1,6 +1,12 @@
 import { BOARDS_INITIAL_STATE } from '@constants';
 import { IBoard, ICard, IList } from '@models';
 
+export function createBoard(title: string): IBoard {
+  const id = `board_${Date.now()}`;
+  const lists: IList[] = [];
+  return { id, title, lists };
+}
+
 export function getBoard(boardId: string | undefined): IBoard {
   return BOARDS_INITIAL_STATE.find(board => board.id === boardId)!;
 }

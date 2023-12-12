@@ -9,11 +9,10 @@ import {
   MoreHoriz as MoreHorizIcon,
   NotInterestedOutlined as NotInterestedOutlinedIcon,
   SettingsOutlined as SettingsOutlinedIcon,
-  Star as StarIcon,
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
 import { earth } from '@assets';
-import { DropdownMenu, EllipsisText } from '@components';
+import { DropdownMenu, EditableInput } from '@components';
 import { useBoard } from '@context';
 import { IDropdownItem } from '@models';
 import './BoardHeader.scss';
@@ -57,6 +56,10 @@ function BoardHeader() {
     console.log('handleCloseBoardClick');
   }
 
+  const handleTitleSave = (newValue: string) => {
+    console.log('handleTitleSave', newValue);
+  }
+
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
       { label: 'Activity', icon: <FormatListBulletedOutlinedIcon fontSize='small' />, onClick: () => handleActivityClick() },
@@ -77,10 +80,7 @@ function BoardHeader() {
   return (
     <div className='board-header'>
       <div className='board-header__left'>
-        <EllipsisText maxLines={1}>{board.title}</EllipsisText>
-        <div className='board-header-icon'>
-          <StarIcon />
-        </div>
+        <EditableInput handleSave={handleTitleSave} initialValue={board.title} />
       </div>
       <div className='board-header__right'>
         <div className='board-header-icon'>

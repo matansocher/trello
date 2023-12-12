@@ -1,0 +1,25 @@
+@import 'src/styles/colors.scss';
+
+.editable-input-wrapper {
+  width: 100%;
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 32px;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(164, 153, 137, .6);
+    outline: none;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: -10px;
+    color: $light-main;
+    &:focus {
+      border: 1px solid $light-blue;
+    }
+  }
+  .closed-input {
+    background: transparent;
+    border: 1px solid transparent;
+  }
+}

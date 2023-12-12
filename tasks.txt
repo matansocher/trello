@@ -2,7 +2,6 @@ comment
 save to backend in 10 seconds window
 
 feat - create new board in home page
-feat - add another query param for the modal to automatically open
 feat - add option to add cover to a ticket
 feat - add checklist to card info in card modal
 

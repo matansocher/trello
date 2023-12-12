@@ -15,6 +15,7 @@ import ColorPicker from './ColorPicker/ColorPicker';
 import Comment from './Card/CardModal/CardContent/CardComments/Comment/Comment';
 import DatePicker from './DatePicker/DatePicker';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
+import EditableInput from './EditableInput/EditableInput';
 import EllipsisText from './EllipsisText/EllipsisText';
 import FooterIcon from './Card/CardPreview/FooterIcon/FooterIcon';
 import Header from './Header/Header';
@@ -42,6 +43,7 @@ export {
   Comment,
   DatePicker,
   DropdownMenu,
+  EditableInput,
   EllipsisText,
   FooterIcon,
   Header,
