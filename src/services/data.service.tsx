@@ -4,7 +4,9 @@ import { IBoard, ICard, IList } from '@models';
 export function createBoard(title: string): IBoard {
   const id = `board_${Date.now()}`;
   const lists: IList[] = [];
-  return { id, title, lists }; // $$$$$$$$$$$$$$$ you are on create board, you need to return the board, or boards
+  const newBoard = { id, title, lists }; // $$$$$$$$$$$$$$$ you are on create board, you need to return the board, or boards
+  // here we need to add the board to the database, navigate to the board, and then return the board
+  return newBoard;
 }
 
 export function getBoard(boardId: string | undefined): IBoard {

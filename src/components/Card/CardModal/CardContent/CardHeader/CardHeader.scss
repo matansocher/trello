@@ -1,9 +1,16 @@
 @import 'src/styles/colors.scss';
 
 .card-header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-left: 40px;
+  .header-icon {
+    position: absolute;
+    top: 6px;
+    left: -40px;
+  }
   &__left {
     margin: 0;
     width: 70%;

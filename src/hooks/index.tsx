@@ -1,7 +1,9 @@
 import { useLocalStorage } from './useLocalStorage';
-import { useToggleOnFocus } from './useToggleOnFocus';
+import { useToggleFocus } from './useToggleFocus';
+import { useToggleHover } from './useToggleHover';
 
 export {
   useLocalStorage,
-  useToggleOnFocus,
+  useToggleFocus,
+  useToggleHover,
 }

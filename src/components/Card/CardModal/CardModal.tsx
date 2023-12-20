@@ -56,10 +56,6 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
     updateBoardState(newBoard);
   }
 
-  const handleChecklistClick = () => {
-    console.log('handleChecklistClick');
-  }
-
   const handleDueDateClick = () => {
     setDatePickerModalOpen(true);
   }
@@ -90,7 +86,6 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
           <CardActions
             handleMembersClick={handleMembersClick}
             handleLabelsClick={handleLabelsClick}
-            handleChecklistClick={handleChecklistClick}
             handleDueDateClick={handleDueDateClick}
             handleAttachmentClick={handleAttachmentClick}
             handleCoverClick={handleCoverClick}

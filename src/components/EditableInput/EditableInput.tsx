@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useToggleOnFocus } from '@hooks';
+import { useToggleFocus } from '@hooks';
 import './EditableInput.scss';
 
 interface EditableInputProps {
@@ -10,12 +10,15 @@ interface EditableInputProps {
 function EditableInput({ handleSave, initialValue = '' }: EditableInputProps) {
   const [input, setInput] = useState(initialValue);
   const [isOpen, setIsOpen] = useState(false);
-  const [isFocused, eventHandlers] = useToggleOnFocus(false);
+  const [isFocused, eventHandlers] = useToggleFocus(false);
 
   useEffect(() => {
     if (!isFocused) { // outside clicked
       if (isOpen) {
-        if (initialValue === input) return; // text was not changed
+        if (initialValue === input) {
+          setIsOpen(false);
+          return; // text was not changed
+        }
         handleSave(input);
         setIsOpen(false);
       }

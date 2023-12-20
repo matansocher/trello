@@ -10,5 +10,6 @@ export interface ICard {
   isWatching?: boolean;
   comments?: IComment[];
   activity?: any;
+  checklistTitle?: string;
   checklistItems?: IChecklistItem[];
 }

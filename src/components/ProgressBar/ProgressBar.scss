@@ -1,0 +1,17 @@
+@import 'src/styles/colors.scss';
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  &__left {
+    min-width: 30px;
+    .percent-num {
+      font-size: 11px;
+      font-weight: 600;
+    }
+  }
+  &__right {
+    width: 90%;
+  }
+}

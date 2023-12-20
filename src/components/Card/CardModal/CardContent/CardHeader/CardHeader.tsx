@@ -1,4 +1,8 @@
-import { Close as CloseIcon, VisibilityOutlined as VisibilityOutlinedIcon } from '@mui/icons-material';
+import {
+  CreditCardOutlined as CreditCardOutlinedIcon,
+  Close as CloseIcon,
+  VisibilityOutlined as VisibilityOutlinedIcon
+} from '@mui/icons-material';
 import { EditableInput } from '@components';
 import { useBoard } from '@context';
 import { ICard, IList } from '@models';
@@ -26,6 +30,7 @@ function CardHeader({ list, card, setModalOpen }: ICardHeaderProps) {
 
   return (
     <div className='card-header'>
+      <div className='header-icon'><CreditCardOutlinedIcon /></div>
       <div className='card-header__left'>
         <div className='card-header__left__title'>
           <EditableInput handleSave={handleSave} initialValue={card.title} />

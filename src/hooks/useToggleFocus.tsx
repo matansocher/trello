@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 
-export const useToggleOnFocus = (initialState = false) => {
+export const useToggleFocus = (initialState = false) => {
   const [isFocused, setIsFocused] = useState(initialState);
 
   const eventHandlers = useMemo(() => ({

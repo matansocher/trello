@@ -1,5 +1,6 @@
 
 export interface IChecklistItem {
-  checklistItemDescription: string;
+  id: string;
+  description: string;
   isChecked?: boolean;
 }

@@ -48,8 +48,8 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             createdDate: '2023-11-11',
             labels: ['1', '2'],
             checklistItems: [
-              {checklistItemDescription: 'this is a checklist item', isChecked: true},
-              {checklistItemDescription: 'this is a checklist item', isChecked: false},
+              { id: 'checklist_1', description: 'this is a checklist item', isChecked: true},
+              { id: 'checklist_2', description: 'this is a checklist item', isChecked: false},
             ],
             comments: [
               {
@@ -67,8 +67,8 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             createdDate: '2023-11-11',
             labels: ['3', '4'],
             checklistItems: [
-              {checklistItemDescription: 'this is a checklist item', isChecked: true},
-              {checklistItemDescription: 'this is a checklist item', isChecked: false},
+              { id: 'checklist_3', description: 'this is a checklist item', isChecked: true},
+              { id: 'checklist_4', description: 'this is a checklist item', isChecked: false},
             ],
             comments: [
               {
@@ -120,8 +120,8 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             labels: ['1', '4'],
             isWatching: true,
             checklistItems: [
-              {checklistItemDescription: 'this is a checklist item', isChecked: true},
-              {checklistItemDescription: 'this is a checklist item', isChecked: false},
+              { id: 'checklist_5', description: 'this is a checklist item', isChecked: true},
+              { id: 'checklist_6', description: 'this is a checklist item', isChecked: false},
             ],
             comments: [
               {
@@ -140,8 +140,8 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             createdDate: '2023-11-11',
             labels: [],
             checklistItems: [
-              {checklistItemDescription: 'this is a checklist item', isChecked: true},
-              {checklistItemDescription: 'this is a checklist item', isChecked: false},
+              { id: 'checklist_7', description: 'this is a checklist item', isChecked: true},
+              { id: 'checklist_8', description: 'this is a checklist item', isChecked: false},
             ],
             comments: [
               {
@@ -159,8 +159,8 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             createdDate: '2023-11-11',
             labels: ['1', '2', '4'],
             checklistItems: [
-              {checklistItemDescription: 'this is a checklist item', isChecked: true},
-              {checklistItemDescription: 'this is a checklist item', isChecked: false},
+              { id: 'checklist_9', description: 'this is a checklist item', isChecked: true},
+              { id: 'checklist_10', description: 'this is a checklist item', isChecked: false},
             ],
             comments: [
               {

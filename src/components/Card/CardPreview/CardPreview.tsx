@@ -11,10 +11,13 @@ import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label 
 import { useLabels } from '@context';
 import { ICard, IList, ILabel, IDropdownItem, IFooterIcon, IModalStyles } from '@models';
 import './CardPreview.scss';
+import { useToggleHover } from '@hooks';
 
 const modalWrapperModalStyles: IModalStyles = {
   width: 800,
   height: 700,
+  // @ts-ignore
+  overflow: 'scroll',
 };
 
 interface ICardProps {
@@ -26,15 +29,9 @@ interface ICardProps {
 
 function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
   const { labelsState: labels } = useLabels();
-  // dropdown hover
-  const [showMoreIcon, setShowMoreIcon] = useState(false);
+  const [isHovered, eventHandlers] = useToggleHover(false);
   // modal
   const [modalOpen, setModalOpen] = useState(false);
-
-
-  const handleHover = (isHovered: boolean) => {
-    setShowMoreIcon(isHovered);
-  }
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
@@ -55,7 +52,7 @@ function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
   }
 
   const renderDropdownMenu = () => {
-    if (showMoreIcon) {
+    if (isHovered) {
       return (
         <div className='card-preview__more-icon'>
           <DropdownMenu menuHeader='' menuIcon={<ExpandMoreIcon/>} menuItems={getDropdownMenuItems()} />
@@ -109,11 +106,7 @@ function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
 
   return (
     <>
-      <div className='card-preview'
-        onClick={handleCardClick}
-        onMouseEnter={() => handleHover(true)}
-        onMouseLeave={() => handleHover(false)}
-      >
+      <div className='card-preview' onClick={handleCardClick} {...(eventHandlers as Object)}>
         {renderDropdownMenu()}
         <div className='card-preview__labels'>
           {renderLabels()}
