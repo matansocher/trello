@@ -29,7 +29,7 @@ interface ICardProps {
 
 function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
   const { labelsState: labels } = useLabels();
-  const [isHovered, eventHandlers] = useToggleHover(false);
+  const [isHovered, hoverEventHandlers] = useToggleHover(false);
   // modal
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -106,7 +106,7 @@ function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
 
   return (
     <>
-      <div className='card-preview' onClick={handleCardClick} {...(eventHandlers as Object)}>
+      <div className='card-preview' onClick={handleCardClick} {...(hoverEventHandlers as Object)}>
         {renderDropdownMenu()}
         <div className='card-preview__labels'>
           {renderLabels()}

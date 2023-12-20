@@ -11,11 +11,11 @@ interface ICardCheckListItemProps {
 }
 
 function CardChecklistItem({ checklistItem, handleChecklistItemChange }: ICardCheckListItemProps) {
-  const [isHovered, eventHandlers] = useToggleHover(false);
+  const [isHovered, hoverEventHandlers] = useToggleHover(false);
   const { description, isChecked } = checklistItem;
 
   return (
-  <div className='card-checklist__items__item' {...(eventHandlers as Object)}>
+  <div className='card-checklist__items__item' {...(hoverEventHandlers as Object)}>
     <Checkbox
       checked={isChecked}
       onChange={(event) => handleChecklistItemChange({ ...checklistItem, isChecked: event.target.checked } )}
