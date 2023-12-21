@@ -11,10 +11,6 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
   const [input, setInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpenOrClose = (isOpen: boolean) => {
-    setIsOpen(isOpen);
-  }
-
   const handleAddCardClick = () => {
     if (!input?.length) {
       setIsOpen(false);
@@ -32,7 +28,7 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
         <textarea placeholder='Enter a title for this card…' rows={4} value={input} onInput={e => setInput((e.target as HTMLInputElement).value)} />
         <div className='add-new-card-open__actions'>
           <button className='save' onClick={() => handleAddCardClick()}>Add Card</button>
-          <button className='close' onClick={() => handleOpenOrClose(false)}><CloseIcon /></button>
+          <button className='close' onClick={() => setIsOpen(false)}><CloseIcon /></button>
         </div>
       </div>
     )
@@ -40,7 +36,7 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
 
   const renderClosed = () => {
     return (
-      <div className='add-new-card add-new-card-closed' onClick={() => handleOpenOrClose(true)}>
+      <div className='add-new-card add-new-card-closed' onClick={() => setIsOpen(true)}>
         <div className='add-new-card-closed__wrapper'>
           <AddIcon />
           <p>Add Card</p>

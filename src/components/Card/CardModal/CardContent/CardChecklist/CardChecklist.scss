@@ -4,7 +4,8 @@
   &__items {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 3px;
+    margin-bottom: 16px;
     &__item {
       display: flex;
       align-items: center;

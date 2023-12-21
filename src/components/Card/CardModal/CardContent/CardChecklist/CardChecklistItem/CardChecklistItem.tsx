@@ -8,9 +8,10 @@ import './CardChecklistItem.scss';
 interface ICardCheckListItemProps {
   checklistItem: IChecklistItem;
   handleChecklistItemChange: (checklistItem: IChecklistItem) => void;
+  handleChecklistItemDelete: (checklistItem: IChecklistItem) => void;
 }
 
-function CardChecklistItem({ checklistItem, handleChecklistItemChange }: ICardCheckListItemProps) {
+function CardChecklistItem({ checklistItem, handleChecklistItemChange, handleChecklistItemDelete }: ICardCheckListItemProps) {
   const [isHovered, hoverEventHandlers] = useToggleHover(false);
   const { description, isChecked } = checklistItem;
 
@@ -21,8 +22,8 @@ function CardChecklistItem({ checklistItem, handleChecklistItemChange }: ICardCh
       onChange={(event) => handleChecklistItemChange({ ...checklistItem, isChecked: event.target.checked } )}
       inputProps={{ 'aria-label': 'controlled' }} />
     <EditableInput handleSave={(newValue: string) => handleChecklistItemChange({ ...checklistItem, description: newValue })} initialValue={description} />
-    {isHovered ? <div className='delete-icon'>
-      <DeleteIcon/>
+    {isHovered ? <div className='delete-icon' onClick={() => handleChecklistItemDelete(checklistItem)}>
+      <DeleteIcon />
     </div> : null}
   </div>
   )

@@ -1,0 +1,70 @@
+@import 'src/styles/colors.scss';
+
+.add-new-checklist-item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 40px;
+}
+
+.add-new-checklist-item-open {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  textarea {
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 6px;
+    background-color: $dark-4;
+    color: $light-main;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+  }
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+    margin: 8px 0 0;
+    .save {
+      background-color: $light-blue;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    .close {
+      border-radius: 3px;
+      padding: 2px 3px;
+      background-color: transparent;
+      &:hover {
+        background-color: $grey-2;
+      }
+    }
+  }
+}
+
+.add-new-checklist-item-closed {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  &:hover {
+    background-color: #2c3431;
+  }
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    p {
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .add {
+      background-color: $light-blue;
+    }
+  }
+}

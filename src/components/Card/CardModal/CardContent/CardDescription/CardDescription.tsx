@@ -14,20 +14,16 @@ function CardDescription({ list, card }: ICardDescriptionProps) {
   const [input, setInput] = useState(card.description || '');
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpenOrClose = (isOpen: boolean) => {
-    setIsOpen(isOpen);
-  }
-
   const handleSaveClick = () => {
     const newCard = { ...card, description: input };
     const newBoard = dataService.saveCard(board, list.id, newCard);
     updateBoardState(newBoard);
-    handleOpenOrClose(false);
+    setIsOpen(false);
   }
 
   const handleCancelClick = () => {
     setInput(card.description || '');
-    handleOpenOrClose(false);
+    setIsOpen(false);
   }
 
   const renderOpened = () => {
@@ -44,15 +40,14 @@ function CardDescription({ list, card }: ICardDescriptionProps) {
 
   const renderClosed = () => {
     if (!card.description) {
-      handleOpenOrClose(true);
       return (
-        <div className='card-description card-description-closed' onClick={() => handleOpenOrClose(true)}>
+        <div className='card-description card-description-closed' onClick={() => setIsOpen(true)}>
           <p>Add a more detailed description…</p>
         </div>
       )
     }
     return (
-      <div className='card-description card-description-closed' onClick={() => handleOpenOrClose(true)}>
+      <div className='card-description card-description-closed' onClick={() => setIsOpen(true)}>
         <p>{card.description}</p>
       </div>
     )

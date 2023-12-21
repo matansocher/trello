@@ -4,9 +4,10 @@ import App from './App/App';
 import BoardHeader from './BoardHeader/BoardHeader';
 import CardActions from './Card/CardModal/CardActions/CardActions';
 import CardActivity from './Card/CardModal/CardContent/CardActivity/CardActivity';
-import CardComments from './Card/CardModal/CardContent/CardComments/CardComments';
 import CardCheckList from './Card/CardModal/CardContent/CardChecklist/CardChecklist';
+import CardChecklistAdd from './Card/CardModal/CardContent/CardChecklist/CardChecklistAdd/CardChecklistAdd';
 import CardChecklistItem from './Card/CardModal/CardContent/CardChecklist/CardChecklistItem/CardChecklistItem';
+import CardComments from './Card/CardModal/CardContent/CardComments/CardComments';
 import CardContent from './Card/CardModal/CardContent/CardContent';
 import CardDescription from './Card/CardModal/CardContent/CardDescription/CardDescription'
 import CardHeader from './Card/CardModal/CardContent/CardHeader/CardHeader';
@@ -35,9 +36,10 @@ export {
   BoardHeader,
   CardActions,
   CardActivity,
-  CardComments,
   CardCheckList,
+  CardChecklistAdd,
   CardChecklistItem,
+  CardComments,
   CardContent,
   CardDescription,
   CardHeader,

@@ -3,7 +3,5 @@ save to backend in 10 seconds window
 
 feat - create new board in home page - blocked, we need DB for it
 feat - add option to add cover to a ticket
-feat - add checklist to card info in card modal - in progress, need to add the add new section
-feat - add icon on each section in the modal
+feat - comments section
 
-bug - when saving description or due date or probably anything - the card is updated but the card preview is not
