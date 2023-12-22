@@ -1,5 +1,6 @@
 import { useState, MouseEvent } from 'react';
 import {
+  AccessTimeOutlined as AccessTimeOutlinedIcon,
   ChatBubbleOutline as ChatBubbleOutlineIcon,
   CheckBoxOutlined as CheckBoxOutlinedIcon, ExpandMore as ExpandMoreIcon,
   Delete as DeleteIcon,
@@ -12,6 +13,7 @@ import { useLabels } from '@context';
 import { ICard, IList, ILabel, IDropdownItem, IFooterIcon, IModalStyles } from '@models';
 import './CardPreview.scss';
 import { useToggleHover } from '@hooks';
+import { utilsService } from '@services';
 
 const modalWrapperModalStyles: IModalStyles = {
   width: 800,
@@ -83,13 +85,14 @@ function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
       footerIcons.push({ id: 'footerIcon__4', icon: <CheckBoxOutlinedIcon/>, tooltipText: 'Checklist items' });
     }
     if (card?.dueDate && card.dueDate?.length > 0) {
-      const numOfDaysDueAfterToday = new Date(card.dueDate).getDate() - new Date().getDate();
+      const numOfDaysDueAfterToday = utilsService.getNumOfDaysDueAfterToday(card.dueDate)
       let component = null;
       if (numOfDaysDueAfterToday === 0) { // today
         component = <p className='side-label today'>Today</p>;
       }
-      else if (numOfDaysDueAfterToday > 0) { // overdue
-        component = <p className='side-label overdue'>Overdue</p>;
+      else if (numOfDaysDueAfterToday < 0) { // overdue
+        const date = utilsService.getOverdueDate(card.dueDate);
+        component = (<p className='side-label overdue'><AccessTimeOutlinedIcon /> {date}</p>)
       } else {
         component = <ScheduleIcon/>;
       }

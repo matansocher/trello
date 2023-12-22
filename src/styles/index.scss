@@ -56,15 +56,30 @@ button {
 .side-label {
   padding: 2px 4px;
   border-radius: 3px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  &.overdue, &.today {
+    svg {
+      font-size: 14px;
+    }
+  }
   &.overdue {
     color: #ae2e24;
     background: #ffd5d2;
+    svg {
+      color: #ae2e24;
+    }
   }
   &.today {
     color: #f8e6a0;
     background: #7f5f01;
+    svg {
+      color: #f8e6a0;
+    }
   }
 }
 

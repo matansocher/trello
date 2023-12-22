@@ -3,7 +3,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker, Label, LabelsPicker } from '@components';
 import { useBoard, useLabels } from '@context';
 import { ICard, ILabel, IList } from '@models';
-import { dataService } from '@services';
+import { dataService, utilsService } from '@services';
 import './CardInfo.scss';
 
 interface ICardDescriptionProps {
@@ -66,11 +66,11 @@ function CardInfo({ list, card }: ICardDescriptionProps) {
   }
 
   const getDueDateSideLabel = () => {
-    const numOfDaysDueAfterToday = new Date(card.dueDate as any).getDate() - new Date().getDate();
+    const numOfDaysDueAfterToday = utilsService.getNumOfDaysDueAfterToday(card.dueDate as string)
     if (numOfDaysDueAfterToday === 0) { // today
       return <p className='side-label today'>Today</p>;
     }
-    if (numOfDaysDueAfterToday > 0) { // overdue
+    if (numOfDaysDueAfterToday < 0) { // overdue
       return <p className='side-label overdue'>Overdue</p>;
     }
   }
