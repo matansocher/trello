@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import './EllipsisText.scss';
 
 interface EllipsisTextProps {
-  maxLines: number,
-  children: string,
+  maxLines: number;
+  children: string;
 }
 
 function EllipsisText({ children, maxLines = 1 }: EllipsisTextProps) {
@@ -33,7 +33,7 @@ function EllipsisText({ children, maxLines = 1 }: EllipsisTextProps) {
   };
 
   return (
-    <p className='ellipsis-text' ref={containerRef} style={containerStyle}>
+    <p className='ellipsis-text' ref={containerRef as any} style={containerStyle as any}>
       {children}
       {isOverflowed && '...'}
     </p>

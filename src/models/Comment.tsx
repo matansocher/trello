@@ -2,6 +2,6 @@
 export interface IComment {
   id: string;
   userId: string;
-  commentDescription: string;
+  description: string;
   timestamp: string;
 }

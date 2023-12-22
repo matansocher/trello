@@ -1,0 +1,71 @@
+@import 'src/styles/colors.scss';
+
+.comment__items__item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    &__left {
+        .avatar-wrapper {
+
+        }
+    }
+    &__right {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex-grow: 1;
+        &__author {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            .name {
+                font-size: 16px;
+                font-weight: 600;
+            }
+            .date {
+                font-size: 12px;
+                font-weight: 400;
+            }
+        }
+        .ellipsis-text {
+            display: flex;
+            align-items: center;
+            background-color: $dark-4;
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 36px;
+            padding: 6px 10px;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+            font-weight: 400;
+            color: $light-main;
+            cursor: default;
+        }
+        &__actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            p {
+                font-size: 12px;
+                font-weight: 400;
+                cursor: pointer;
+            }
+            .edit-btn {
+
+            }
+            .delete-btn {
+
+            }
+        }
+    }
+
+
+    .delete-icon {
+        position: absolute;
+        top: 30px;
+        right: 0;
+        cursor: pointer;
+    }
+}

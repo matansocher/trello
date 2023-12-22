@@ -4,6 +4,18 @@
   &__comments {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
+    margin-top: 16px;
+    &__item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      .delete-icon {
+        cursor: pointer;
+        svg {
+          font-size: 22px;
+        }
+      }
+    }
   }
 }

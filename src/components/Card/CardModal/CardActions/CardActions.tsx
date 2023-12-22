@@ -20,13 +20,13 @@ interface ICardAction {
 interface ICardActionsProps {
   handleMembersClick: () => void;
   handleLabelsClick: () => void;
-  handleDueDateClick: () => void,
-  handleAttachmentClick: () => void,
-  handleCoverClick: () => void,
-  handleMoveClick: () => void,
-  handleCopyClick: () => void,
-  handleArchiveClick: () => void,
-  handleShareClick: () => void,
+  handleDueDateClick: () => void;
+  handleAttachmentClick: () => void;
+  handleCoverClick: () => void;
+  handleMoveClick: () => void;
+  handleCopyClick: () => void;
+  handleArchiveClick: () => void;
+  handleShareClick: () => void;
 }
 
 function CardActions({

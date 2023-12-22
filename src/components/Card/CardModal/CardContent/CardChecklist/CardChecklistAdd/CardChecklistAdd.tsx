@@ -25,7 +25,7 @@ function CardChecklistAdd({ addNewChecklistItem }: ICardCheckListAddProps) {
   const renderOpened = () => {
     return (
       <div className='add-new-checklist-item add-new-checklist-item-open'>
-        <textarea placeholder='Add an item' rows={2} value={input} onInput={e => setInput((e.target as HTMLInputElement).value)} />
+        <textarea placeholder='Add an item' rows={2} value={input} className='editable-text-area' onInput={e => setInput((e.target as HTMLInputElement).value)} />
         <div className='add-new-checklist-item-open__actions'>
           <button className='save' onClick={() => handleAddChecklistItemClick()}>Add</button>
           <button className='close' onClick={() => setIsOpen(false)}><CloseIcon /></button>

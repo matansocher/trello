@@ -7,15 +7,16 @@ import CardActivity from './Card/CardModal/CardContent/CardActivity/CardActivity
 import CardCheckList from './Card/CardModal/CardContent/CardChecklist/CardChecklist';
 import CardChecklistAdd from './Card/CardModal/CardContent/CardChecklist/CardChecklistAdd/CardChecklistAdd';
 import CardChecklistItem from './Card/CardModal/CardContent/CardChecklist/CardChecklistItem/CardChecklistItem';
+import CardComment from './Card/CardModal/CardContent/CardComments/CardComment/CardComment';
+import CardCommentAdd from './Card/CardModal/CardContent/CardComments/CardCommentAdd/CardCommentAdd';
 import CardComments from './Card/CardModal/CardContent/CardComments/CardComments';
 import CardContent from './Card/CardModal/CardContent/CardContent';
 import CardDescription from './Card/CardModal/CardContent/CardDescription/CardDescription'
-import CardHeader from './Card/CardModal/CardContent/CardHeader/CardHeader';
+import CardHeader from './Card/CardModal/CardHeader/CardHeader';
 import CardInfo from './Card/CardModal/CardContent/CardInfo/CardInfo'
 import CardModal from './Card/CardModal/CardModal';
 import CardPreview from './Card/CardPreview/CardPreview';
 import ColorPicker from './ColorPicker/ColorPicker';
-import Comment from './Card/CardModal/CardContent/CardComments/Comment/Comment';
 import DatePicker from './DatePicker/DatePicker';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import EditableInput from './EditableInput/EditableInput';
@@ -39,6 +40,8 @@ export {
   CardCheckList,
   CardChecklistAdd,
   CardChecklistItem,
+  CardComment,
+  CardCommentAdd,
   CardComments,
   CardContent,
   CardDescription,
@@ -47,7 +50,6 @@ export {
   CardModal,
   CardPreview,
   ColorPicker,
-  Comment,
   DatePicker,
   DropdownMenu,
   EditableInput,

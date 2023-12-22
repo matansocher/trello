@@ -4,7 +4,7 @@ import { IList } from '@models';
 import './AddNewList.scss';
 
 interface IAddNewListProps {
-  addNewList: (list: IList) => void
+  addNewList: (list: IList) => void;
 }
 
 function AddNewList({ addNewList }: IAddNewListProps) {
@@ -29,7 +29,7 @@ function AddNewList({ addNewList }: IAddNewListProps) {
   const renderOpened = () => {
     return (
       <div className='add-new-list add-new-list-open'>
-        <textarea placeholder='Enter list title…' rows={4} value={input} onInput={e => setInput((e.target as HTMLInputElement).value)} />
+        <textarea placeholder='Enter list title…' rows={4} className='editable-text-area' value={input} onInput={e => setInput((e.target as HTMLInputElement).value)} />
         <div className='add-new-list-open__actions'>
           <button className='save' onClick={() => handleAddListClick()}>Add list</button>
           <button className='close' onClick={() => handleOpenOrClose(false)}><CloseIcon /></button>

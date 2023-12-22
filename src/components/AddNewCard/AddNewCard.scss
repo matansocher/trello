@@ -13,16 +13,8 @@
     flex-direction: column;
     justify-content: flex-start;
     background-color: $dark-1;
-    textarea {
-        resize: none;
-        border: none;
-        outline: none;
-        padding: 6px;
-        background-color: $dark-4;
-        color: $light-main;
+    .editable-text-area {
         font-size: 16px;
-        font-weight: 600;
-        border-radius: 6px;
     }
     &__actions {
         display: flex;

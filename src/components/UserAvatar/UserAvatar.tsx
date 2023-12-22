@@ -1,4 +1,5 @@
 import Avatar from '@mui/material/Avatar';
+import { matan } from '@assets';
 import { IUser } from '@models';
 import './UserAvatar.scss';
 
@@ -9,9 +10,9 @@ export enum UserAvatarSize {
 }
 
 interface UserAvatarProps {
-  user: IUser,
-  onClick?: any,
-  size?: UserAvatarSize,
+  user: IUser | null;
+  onClick?: Function | null;
+  size?: UserAvatarSize;
 }
 
 function UserAvatar({ user, onClick = null, size = UserAvatarSize.S }: UserAvatarProps) {
@@ -39,18 +40,19 @@ function UserAvatar({ user, onClick = null, size = UserAvatarSize.S }: UserAvata
 
   const renderAvatar = () => {
     const styles = getStyleObj();
-    return <Avatar style={styles} alt='user avatar' src={user.avatarUrl} />
+    return <Avatar style={styles} alt='user avatar' src={user?.avatarUrl} />
   }
 
   const renderLetter = () => {
-    const styles = getStyleObj()
-    const letter = user.firstName.charAt(0).toUpperCase();
-    return <Avatar style={styles} sx={{ width: 24, height: 24 }}>{letter}</Avatar>
+    const styles = getStyleObj();
+    // const letter = user.firstName.charAt(0).toUpperCase();
+    // return <Avatar style={styles} sx={{ width: 24, height: 24 }}>{letter}</Avatar>
+    return <img src={matan} alt='matan' className='user-image' style={styles} />
   }
 
   return (
     <div className='avatar-wrapper'>
-      { user.avatarUrl ? renderAvatar() : renderLetter() }
+      { user?.avatarUrl ? renderAvatar() : renderLetter() }
     </div>
   )
 }

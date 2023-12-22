@@ -1,0 +1,48 @@
+@import 'src/styles/colors.scss';
+
+.add-new-comment {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 0 10px;
+  //margin-left: 40px;
+  &__left {
+    .avatar-wrapper {
+
+    }
+  }
+  &__right {
+    flex-grow: 1;
+    margin-left: 10px;
+    .editable-input {
+      resize: none;
+      background-color: $dark-4;
+      width: 100%;
+      box-sizing: border-box;
+      //height: 36px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      border: 1px solid rgba(164, 153, 137, .6);
+      outline: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: $light-main;
+      &:focus {
+        border: 1px solid $light-blue;
+      }
+    }
+    &__actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      .save-btn {
+        background-color: $light-blue;
+      }
+      .cancel-btn {
+        height: 100%;
+      }
+    }
+  }
+}

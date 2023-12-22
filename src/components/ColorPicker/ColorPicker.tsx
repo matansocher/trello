@@ -3,7 +3,7 @@ import { TILES } from './ColorPicker.config';
 import './ColorPicker.scss';
 
 interface ColorPickerProps {
-  handleColorClick: (tile: IColorTile) => void,
+  handleColorClick: (tile: IColorTile) => void;
 }
 
 function ColorPicker({ handleColorClick }: ColorPickerProps) {

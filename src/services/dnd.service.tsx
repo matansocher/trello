@@ -1,4 +1,4 @@
-import { IBoard, IList } from '@models';
+import { IBoard, ICard, IList } from '@models';
 
 export function getDragEndBoard(board: IBoard, result: any): IBoard {
   const { source, destination, draggableId } = result;
@@ -20,7 +20,7 @@ export function getDragEndBoard(board: IBoard, result: any): IBoard {
     const list = board.lists.find((list: IList) => list.id === source.droppableId);
     if (!list) return board;
 
-    const card = list.cards.find((card: any) => card.id === draggableId);
+    const card = list.cards.find((card: ICard) => card.id === draggableId);
     if (!card) return board;
 
     list.cards.splice(source.index, 1);
@@ -33,7 +33,7 @@ export function getDragEndBoard(board: IBoard, result: any): IBoard {
   const destinationList = board.lists.find((list: IList) => list.id === destination.droppableId);
   if (!sourceList || !destinationList) return board;
 
-  const card = sourceList.cards.find((card: any) => card.id === draggableId);
+  const card = sourceList.cards.find((card: ICard) => card.id === draggableId);
   if (!card) return board;
 
   sourceList.cards.splice(source.index, 1);

@@ -43,11 +43,11 @@ function CardContent({ list, card }: ICardContentProps) {
         <ProgressBar value={amountOfCheckListChecked} total={card.checklistItems.length} />
         <CardCheckList list={list} card={card} />
       </div> : null}
-      {card.comments ? <div className='card-modal__content__right__sections__section comments-section'>
+      <div className='card-modal__content__right__sections__section comments-section'>
         <div className='header-icon'><ChecklistIcon /></div>
         <p className='subheader'>Comments</p>
-        <CardComments card={card} />
-      </div> : null}
+        <CardComments list={list} card={card} />
+      </div>
       {card.activity ? <div className='card-modal__content__right__sections__section activity-section'>
         <div className='header-icon'><CommentOutlinedIcon /></div>
         <p className='subheader'>Activity</p>

@@ -16,16 +16,16 @@ function CardChecklistItem({ checklistItem, handleChecklistItemChange, handleChe
   const { description, isChecked } = checklistItem;
 
   return (
-  <div className='card-checklist__items__item' {...(hoverEventHandlers as Object)}>
-    <Checkbox
-      checked={isChecked}
-      onChange={(event) => handleChecklistItemChange({ ...checklistItem, isChecked: event.target.checked } )}
-      inputProps={{ 'aria-label': 'controlled' }} />
-    <EditableInput handleSave={(newValue: string) => handleChecklistItemChange({ ...checklistItem, description: newValue })} initialValue={description} />
-    {isHovered ? <div className='delete-icon' onClick={() => handleChecklistItemDelete(checklistItem)}>
-      <DeleteIcon />
-    </div> : null}
-  </div>
+    <div className='card-checklist__items__item' {...(hoverEventHandlers as Object)}>
+      <Checkbox
+        checked={isChecked}
+        onChange={(event) => handleChecklistItemChange({ ...checklistItem, isChecked: event.target.checked } )}
+        inputProps={{ 'aria-label': 'controlled' }} />
+      <EditableInput handleSave={(newValue: string) => handleChecklistItemChange({ ...checklistItem, description: newValue })} initialValue={description} />
+      {isHovered ? <div className='delete-icon' onClick={() => handleChecklistItemDelete(checklistItem)}>
+        <DeleteIcon />
+      </div> : null}
+    </div>
   )
 }
 

@@ -2,18 +2,9 @@
 
 .card-description {
   &-open {
-    textarea {
+    .editable-text-area {
       width: 100%;
-      resize: none;
-      border: none;
-      outline: none;
-      padding: 6px;
-      background-color: $dark-4;
-      color: $light-main;
       font-size: 16px;
-      font-weight: 600;
-      box-sizing: border-box;
-      border-radius: 6px;
     }
     &__actions {
       display: flex;

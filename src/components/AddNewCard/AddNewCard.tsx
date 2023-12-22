@@ -4,7 +4,7 @@ import { ICard } from '@models';
 import './AddNewCard.scss';
 
 interface IAddNewCardProps {
-  addNewCard: (card: ICard) => void
+  addNewCard: (card: ICard) => void;
 }
 
 function AddNewCard({ addNewCard }: IAddNewCardProps) {
@@ -25,7 +25,7 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
   const renderOpened = () => {
     return (
       <div className='add-new-card add-new-card-open'>
-        <textarea placeholder='Enter a title for this card…' rows={4} value={input} onInput={e => setInput((e.target as HTMLInputElement).value)} />
+        <textarea placeholder='Enter a title for this card…' rows={4} className='editable-text-area' value={input} onInput={e => setInput((e.target as HTMLInputElement).value)} />
         <div className='add-new-card-open__actions'>
           <button className='save' onClick={() => handleAddCardClick()}>Add Card</button>
           <button className='close' onClick={() => setIsOpen(false)}><CloseIcon /></button>

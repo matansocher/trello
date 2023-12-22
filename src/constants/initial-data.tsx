@@ -54,8 +54,8 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             comments: [
               {
                 id: 'commentId_1',
-                userId: '',
-                commentDescription: 'this is a comment description',
+                userId: 'userId',
+                description: 'this is a comment description',
                 timestamp: '2023-11-11'
               },
             ],
@@ -73,8 +73,8 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             comments: [
               {
                 id: 'commentId_2',
-                userId: '',
-                commentDescription: 'this is a comment description',
+                userId: 'userId',
+                description: 'this is a comment description',
                 timestamp: '2023-11-11'
               }
             ],
@@ -126,8 +126,8 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             comments: [
               {
                 id: 'commentId_3',
-                userId: '',
-                commentDescription: 'this is a comment description',
+                userId: 'userId',
+                description: 'this is a comment description',
                 timestamp: '2023-11-11'
               }
             ],
@@ -146,8 +146,8 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             comments: [
               {
                 id: 'commentId_4',
-                userId: '',
-                commentDescription: 'this is a comment description',
+                userId: 'userId',
+                description: 'this is a comment description',
                 timestamp: '2023-11-11'
               }
             ],
@@ -165,8 +165,8 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             comments: [
               {
                 id: 'commentId_5',
-                userId: '',
-                commentDescription: 'this is a comment description',
+                userId: 'userId',
+                description: 'this is a comment descriptionn this is a comment descriptionn this is a comment descriptionn this is a comment descriptionn this is a comment descriptionn',
                 timestamp: '2023-11-11'
               }
             ],
