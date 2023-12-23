@@ -1,7 +1,8 @@
-import { IComment } from '@models';
-import './CardComment.scss';
+import { useRef, useState } from 'react';
 import { EllipsisText, UserAvatar } from '@components';
+import { IComment } from '@models';
 import { UserAvatarSize } from '../../../../../UserAvatar/UserAvatar';
+import './CardComment.scss';
 
 interface ICardCommentProps {
   comment: IComment;
@@ -10,15 +11,66 @@ interface ICardCommentProps {
 }
 
 function CardComment({ comment, handleCommentEdit, handleCommentDelete }: ICardCommentProps) {
+  const [commentText, setCommentText] = useState(comment.description);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const textareaRef = useRef();
   const { description, userId, timestamp } = comment;
 
-  const handleEditCommentClick = () => {
+  const handleSaveEditedComment = () => {
     console.log('edit comment');
-    handleCommentEdit(comment, 'new description');
+    handleCommentEdit(comment, commentText);
+    setIsEditMode(false);
+    adjustTextareaHeight();
+  }
+
+  const handleInputChange = () => {
+    const textarea = textareaRef.current as any;
+    setCommentText(textarea.value);
+    adjustTextareaHeight();
+  }
+
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current as any;
+    textarea.style.height = `${textarea.scrollHeight}px`;
   }
 
   const handleDeleteCommentClick = () => {
     handleCommentDelete(comment);
+  }
+
+  const renderComment = () => {
+    if (isEditMode) {
+      return (
+        <textarea
+          ref={textareaRef as any}
+          rows={1}
+          placeholder='Write a comment'
+          value={commentText}
+          className='editable-input'
+          onInput={handleInputChange}
+        />
+      );
+    }
+    return (
+      <EllipsisText maxLines={10}>{description}</EllipsisText>
+    )
+  }
+
+  const renderActionsSection = () => {
+    if (isEditMode) {
+      return (
+        <div className='comment__items__item__right__actions'>
+          <button className='save-btn' onClick={() => handleSaveEditedComment()}>Save</button>
+          <button className='cancel-btn' onClick={() => setIsEditMode(false)}>Cancel</button>
+        </div>
+      );
+    }
+    return (
+      <div className='comment__items__item__right__actions'>
+        <p className='edit-btn' onClick={() => setIsEditMode(true)}>Edit</p>
+        <p className='delete-btn' onClick={() => handleDeleteCommentClick()}>Delete</p>
+      </div>
+    );
   }
 
   return (
@@ -32,12 +84,9 @@ function CardComment({ comment, handleCommentEdit, handleCommentDelete }: ICardC
           <p className='date'>{timestamp}</p>
         </div>
 
-        <EllipsisText maxLines={10}>{description}</EllipsisText>
+        {renderComment()}
 
-        <div className='comment__items__item__right__actions'>
-          <p className='edit-btn' onClick={() => handleEditCommentClick()}>Edit</p>
-          <p className='delete-btn' onClick={() => handleDeleteCommentClick()}>Delete</p>
-        </div>
+        {renderActionsSection()}
       </div>
     </div>
   )
