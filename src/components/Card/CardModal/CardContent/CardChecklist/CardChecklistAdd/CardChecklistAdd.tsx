@@ -2,6 +2,7 @@ import { Close as CloseIcon } from '@mui/icons-material';
 import { IChecklistItem } from '@models';
 import { useState } from 'react';
 import './CardChecklistAdd.scss';
+import { Textarea } from '@components';
 
 interface ICardCheckListAddProps {
   addNewChecklistItem: (checklistItem: IChecklistItem) => void;
@@ -22,13 +23,18 @@ function CardChecklistAdd({ addNewChecklistItem }: ICardCheckListAddProps) {
     setInput('');
   }
 
+  const handleCancelClick = () => {
+    setIsOpen(false);
+    setInput('');
+  }
+
   const renderOpened = () => {
     return (
       <div className='add-new-checklist-item add-new-checklist-item-open'>
-        <textarea placeholder='Add an item' rows={2} value={input} className='editable-text-area' onInput={e => setInput((e.target as HTMLInputElement).value)} />
+        <Textarea placeholder='Add an item' text={input} handleFocusChange={setIsOpen} handleInputChange={setInput} />
         <div className='add-new-checklist-item-open__actions'>
           <button className='save' onClick={() => handleAddChecklistItemClick()}>Add</button>
-          <button className='close' onClick={() => setIsOpen(false)}><CloseIcon /></button>
+          <button className='close' onClick={() => handleCancelClick()}><CloseIcon /></button>
         </div>
       </div>
     )

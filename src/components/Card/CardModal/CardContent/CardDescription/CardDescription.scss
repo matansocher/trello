@@ -2,10 +2,6 @@
 
 .card-description {
   &-open {
-    .editable-text-area {
-      width: 100%;
-      font-size: 16px;
-    }
     &__actions {
       display: flex;
       flex-direction: row;

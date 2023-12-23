@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Add as AddIcon, Close as CloseIcon } from '@mui/icons-material';
 import { IList } from '@models';
 import './AddNewList.scss';
+import { Textarea } from '@components';
 
 interface IAddNewListProps {
   addNewList: (list: IList) => void;
@@ -13,6 +14,10 @@ function AddNewList({ addNewList }: IAddNewListProps) {
 
   const handleOpenOrClose = (isOpen: boolean) => {
     setIsOpen(isOpen);
+  }
+
+  const handleInputChange = (newValue: string) => {
+    setInput(newValue);
   }
 
   const handleAddListClick = () => {
@@ -29,7 +34,7 @@ function AddNewList({ addNewList }: IAddNewListProps) {
   const renderOpened = () => {
     return (
       <div className='add-new-list add-new-list-open'>
-        <textarea placeholder='Enter list title…' rows={4} className='editable-text-area' value={input} onInput={e => setInput((e.target as HTMLInputElement).value)} />
+        <Textarea placeholder='Enter list title…' text={input} handleFocusChange={handleOpenOrClose} handleInputChange={handleInputChange} />
         <div className='add-new-list-open__actions'>
           <button className='save' onClick={() => handleAddListClick()}>Add list</button>
           <button className='close' onClick={() => handleOpenOrClose(false)}><CloseIcon /></button>

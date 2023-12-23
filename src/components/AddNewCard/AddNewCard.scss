@@ -13,9 +13,6 @@
     flex-direction: column;
     justify-content: flex-start;
     background-color: $dark-1;
-    .editable-text-area {
-        font-size: 16px;
-    }
     &__actions {
         display: flex;
         flex-direction: row;

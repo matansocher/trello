@@ -3,6 +3,7 @@ import { useBoard } from '@context';
 import { ICard, IList } from '@models';
 import { dataService } from '@services';
 import './CardDescription.scss';
+import { Textarea } from '@components';
 
 interface ICardDescriptionProps {
   list: IList;
@@ -29,7 +30,7 @@ function CardDescription({ list, card }: ICardDescriptionProps) {
   const renderOpened = () => {
     return (
       <div className='card-description card-description-open'>
-        <textarea placeholder='Add a more detailed description…' rows={8} className='editable-text-area' value={input} onInput={e => setInput((e.target as HTMLInputElement).value)} />
+        <Textarea placeholder='Add a more detailed description…' text={input} handleFocusChange={setIsOpen} handleInputChange={setInput} />
         <div className='card-description-open__actions'>
           <button className='save' onClick={handleSaveClick}>Save</button>
           <button className='cancel' onClick={handleCancelClick}>Cancel</button>

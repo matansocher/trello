@@ -1,6 +1,5 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState } from 'react';
 import { Textarea, UserAvatar } from '@components';
-import { useToggleFocus } from '@hooks';
 import { IComment } from '@models';
 import { UserAvatarSize } from '../../../../../UserAvatar/UserAvatar';
 import './CardCommentAdd.scss';
@@ -12,24 +11,13 @@ interface ICardCommentAddProps {
 function CardCommentAdd({ addNewComment }: ICardCommentAddProps) {
   const [input, setInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [isFocused, focusEventHandlers] = useToggleFocus(false);
-  const textareaRef = useRef();
 
-  useEffect(() => {
-    if (isFocused) {
-      setIsOpen(true);
-    }
-  }, [isFocused]);
-
-  const handleInputChange = () => {
-    const textarea = textareaRef.current as any;
-    setInput(textarea.value);
-    adjustTextareaHeight();
+  const handleInputChange = (newValue: string) => {
+    setInput(newValue);
   }
 
-  const adjustTextareaHeight = () => {
-    const textarea = textareaRef.current as any;
-    textarea.style.height = `${textarea.scrollHeight}px`;
+  const handleFocusChange = (isFocused: boolean) => {
+    setIsOpen(isFocused);
   }
 
   const handleAddCommentClick = () => {
@@ -41,13 +29,11 @@ function CardCommentAdd({ addNewComment }: ICardCommentAddProps) {
     addNewComment(newComment);
     setIsOpen(false);
     setInput('');
-    adjustTextareaHeight();
   }
 
   const handleCancelCommentClick = () => {
     setIsOpen(false);
     setInput('');
-    adjustTextareaHeight();
   }
 
   return (
@@ -56,17 +42,7 @@ function CardCommentAdd({ addNewComment }: ICardCommentAddProps) {
         <UserAvatar user={null} size={UserAvatarSize.M} />
       </div>
       <div className='add-new-comment__right'>
-        <textarea
-          ref={textareaRef as any}
-          rows={1}
-          placeholder='Write a comment'
-          value={input}
-          className='editable-input'
-          {...(focusEventHandlers as Object)}
-          onInput={handleInputChange}
-        />
-        <p>textarea</p>
-        <Textarea maxLines={10}>{input}</Textarea>
+        <Textarea placeholder='Write a comment' text={input} handleFocusChange={handleFocusChange} handleInputChange={handleInputChange} />
         {isOpen ? <div className='add-new-comment__right__actions'>
           <button className='save-btn' onClick={() => handleAddCommentClick()}>Add</button>
           <button className='cancel-btn' onClick={() => handleCancelCommentClick()}>Cancel</button>

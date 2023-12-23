@@ -1,46 +1,40 @@
-import { useState, useEffect, useRef } from 'react';
-import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
+import { useEffect, ChangeEvent } from 'react';
+import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base';
+import { useToggleFocus } from '@hooks';
 import './Textarea.scss';
 
 interface ITextareaProps {
-  maxLines: number;
-  children: string;
+  placeholder: string;
+  text: string;
+  handleFocusChange: (isFocused: boolean) => void;
+  handleInputChange: (newValue: string) => void;
+  maxRows?: number;
 }
 
-function Textarea({ children, maxLines = 1 }: ITextareaProps) {
-  const [isOverflowed, setIsOverflowed] = useState(false);
-  const containerRef = useRef();
+function Textarea({ placeholder, text, handleFocusChange, handleInputChange, maxRows = 10 }: ITextareaProps) {
+  const [isFocused, focusEventHandlers] = useToggleFocus(false);
 
   useEffect(() => {
-    const container = containerRef.current as any;
-
-    if (container) {
-      const containerStyles = window.getComputedStyle(container);
-      const lineHeight = parseInt(containerStyles.lineHeight);
-
-      const maxHeight = lineHeight * maxLines;
-      const actualHeight = container.scrollHeight;
-
-      setIsOverflowed(actualHeight > maxHeight);
+    if (isFocused) {
+      handleFocusChange(isFocused as boolean);
     }
-  }, [children, maxLines]);
+  }, [isFocused]);
 
-  const containerStyle = {
-    overflow: 'hidden',
-    display: '-webkit-box',
-    WebkitBoxOrient: 'vertical',
-    textOverflow: 'ellipsis',
-    WebkitLineClamp: maxLines,
+  const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    handleInputChange(event.target.value)
   };
 
   return (
-    <BaseTextareaAutosize
-      maxRows={4}
-      aria-label="maximum height"
-      placeholder="Maximum 4 rows"
-      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-        ut labore et dolore magna aliqua."
-    />
+    <div className='textarea-wrapper'>
+      <BaseTextareaAutosize
+        maxRows={maxRows}
+        {...(focusEventHandlers as Object)}
+        aria-label="maximum height"
+        placeholder={placeholder}
+        value={text}
+        onChange={handleTextChange}
+      />
+    </div>
   )
 }
 

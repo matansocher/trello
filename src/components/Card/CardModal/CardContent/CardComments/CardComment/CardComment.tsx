@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
-import { EllipsisText, UserAvatar } from '@components';
+import { useState } from 'react';
+import { EllipsisText, Textarea, UserAvatar } from '@components';
 import { IComment } from '@models';
 import { UserAvatarSize } from '../../../../../UserAvatar/UserAvatar';
 import './CardComment.scss';
@@ -13,24 +13,19 @@ interface ICardCommentProps {
 function CardComment({ comment, handleCommentEdit, handleCommentDelete }: ICardCommentProps) {
   const [commentText, setCommentText] = useState(comment.description);
   const [isEditMode, setIsEditMode] = useState(false);
-  const textareaRef = useRef();
   const { description, userId, timestamp } = comment;
 
   const handleSaveEditedComment = () => {
     handleCommentEdit(comment, commentText);
     setIsEditMode(false);
-    adjustTextareaHeight();
   }
 
-  const handleInputChange = () => {
-    const textarea = textareaRef.current as any;
-    setCommentText(textarea.value);
-    adjustTextareaHeight();
+  const handleFocusChange = (isFocused: boolean) => {
+    setIsEditMode(isFocused);
   }
 
-  const adjustTextareaHeight = () => {
-    const textarea = textareaRef.current as any;
-    textarea.style.height = `${textarea.scrollHeight}px`;
+  const handleInputChange = (newValue: string) => {
+    setCommentText(newValue);
   }
 
   const handleDeleteCommentClick = () => {
@@ -38,21 +33,10 @@ function CardComment({ comment, handleCommentEdit, handleCommentDelete }: ICardC
   }
 
   const renderComment = () => {
-    if (isEditMode) {
-      return (
-        <textarea
-          ref={textareaRef as any}
-          rows={1}
-          placeholder='Write a comment'
-          value={commentText}
-          className='editable-input'
-          onInput={handleInputChange}
-        />
-      );
+    if (!isEditMode) {
+      return <EllipsisText maxLines={10}>{description}</EllipsisText>
     }
-    return (
-      <EllipsisText maxLines={10}>{description}</EllipsisText>
-    )
+    return <Textarea placeholder='Write a comment' text={commentText} handleFocusChange={handleFocusChange} handleInputChange={handleInputChange} />
   }
 
   const renderActionsSection = () => {

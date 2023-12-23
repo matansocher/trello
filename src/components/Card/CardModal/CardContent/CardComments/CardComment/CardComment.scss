@@ -43,23 +43,6 @@
             color: $light-main;
             cursor: default;
         }
-        .editable-input {
-            resize: none;
-            background-color: $dark-4;
-            width: 100%;
-            box-sizing: border-box;
-            //height: 36px;
-            padding: 4px 10px;
-            border-radius: 5px;
-            border: 1px solid rgba(164, 153, 137, .6);
-            outline: none;
-            font-size: 16px;
-            font-weight: 600;
-            color: $light-main;
-            &:focus {
-                border: 1px solid $light-blue;
-            }
-        }
         &__actions {
             display: flex;
             align-items: center;

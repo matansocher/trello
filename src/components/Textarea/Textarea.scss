@@ -1,3 +1,30 @@
-.ellipsis-text {
+@import 'src/styles/colors.scss';
 
+.textarea-wrapper {
+  textarea {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 8px 12px;
+    border-radius: 5px;
+    color: $light-main;
+    background-color: $dark-4;
+    box-sizing: border-box;
+    border: 1px solid rgba(164, 153, 137, .6);
+    resize: none;
+    outline: none;
+
+    &:hover {
+      background-color: $dark-3;
+    }
+
+    &:focus {
+      border: 1px solid $light-blue;
+    }
+
+    // firefox
+    &:focus-visible {
+      outline: 0;
+    }
+  }
 }
