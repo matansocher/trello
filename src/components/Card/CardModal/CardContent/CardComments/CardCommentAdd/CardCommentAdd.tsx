@@ -39,7 +39,7 @@ function CardCommentAdd({ addNewComment }: ICardCommentAddProps) {
   return (
     <div className='add-new-comment'>
       <div className='add-new-comment__left'>
-        <UserAvatar user={null} size={UserAvatarSize.M} />
+        <UserAvatar user={null} size={UserAvatarSize.S} />
       </div>
       <div className='add-new-comment__right'>
         <Textarea placeholder='Write a comment' text={input} handleFocusChange={handleFocusChange} handleInputChange={handleInputChange} />

@@ -26,11 +26,31 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
         cards: [
           {
             id: 'cardId_1',
-            "title": 'some title to the card',
-            "description": 'some descriptions to describe this card',
-            "dueDate": '2023-12-13',
-            "createdDate": '2023-11-11',
-            "labels": [],
+            title: 'some title to the card',
+            description: 'some descriptions to describe this card',
+            dueDate: '2023-12-13',
+            createdDate: '2023-11-11',
+            labels: ['1'],
+            activityItems: [
+              {
+                id: 'activityId_1',
+                userId: 'userId',
+                createdAt: '2023-12-23',
+                description: 'ticket created',
+              },
+              {
+                id: 'activityId_2',
+                userId: 'userId',
+                createdAt: '2023-12-24',
+                description: 'added description - some descriptions to describe this card',
+              },
+              {
+                id: 'activityId_3',
+                userId: 'userId',
+                createdAt: '2023-12-24',
+                description: 'added label - Stop',
+              },
+            ],
           },
         ]
       },
@@ -179,12 +199,12 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
         id: 'listId_1234',
         cards: [
           {
-            "id": "cardId_1",
-            "title": "some title to the card",
-            "description": "some descriptions to describe this card",
-            "dueDate": "2023-12-11",
-            "createdDate": "2023-11-11",
-            "labels": [],
+            id: 'cardId_1',
+            title: 'some title to the card',
+            description: 'some descriptions to describe this card',
+            dueDate: '2023-12-11',
+            createdDate: '2023-11-11',
+            labels: [],
           },
         ]
       },

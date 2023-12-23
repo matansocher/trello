@@ -1,3 +1,4 @@
+export type { IActivityItem } from './ActivityItem';
 export type { IBoard } from './Board';
 export type { ICard } from './Card';
 export type { IChecklistItem } from './ChecklistItem';

@@ -2,3 +2,4 @@ save to backend in 10 seconds window
 
 feat - create new board in home page
 feat - add option to add cover to a ticket
+feat - add activity support

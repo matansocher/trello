@@ -1,8 +1,7 @@
-import { CardChecklistItem } from '@components';
+import { CardChecklistAdd, CardChecklistItem } from '@components';
 import { useBoard } from '@context';
 import { ICard, IChecklistItem, IList } from '@models';
 import { dataService } from '@services';
-import CardChecklistAdd from './CardChecklistAdd/CardChecklistAdd.tsx';
 import './CardChecklist.scss';
 
 interface ICardCheckListProps {

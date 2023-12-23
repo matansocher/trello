@@ -1,4 +1,6 @@
-import { ICard } from '@models';
+import {  UserAvatar } from '@components';
+import { IActivityItem, ICard } from '@models';
+import { UserAvatarSize } from '../../../../UserAvatar/UserAvatar';
 import './CardActivity.scss';
 
 interface ICardActivityProps {
@@ -6,12 +8,26 @@ interface ICardActivityProps {
 }
 
 function CardActivity({ card }: ICardActivityProps) {
-  console.log(card);
+
+  const renderActivityItems = () => {
+    return card.activityItems?.map((activityItem: IActivityItem) => {
+      return (
+        <div className='card-activities__activity'>
+          <div className='card-activities__activity__left'>
+            <UserAvatar user={null} size={UserAvatarSize.S}/>
+          </div>
+          <div className='card-activities__activity__right'>
+            <p className='description'><span>{activityItem.userId}</span>: {activityItem.description}</p>
+            <p className='date'>{activityItem.createdAt}</p>
+          </div>
+        </div>
+      )
+    })
+  }
+
   return (
     <div className='card-activities'>
-      <div className='card-activities__activity'>
-
-      </div>
+      {renderActivityItems()}
     </div>
   )
 }

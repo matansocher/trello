@@ -59,7 +59,7 @@ function CardComment({ comment, handleCommentEdit, handleCommentDelete }: ICardC
   return (
     <div className='comment__items__item'>
       <div className='comment__items__item__left'>
-        <UserAvatar user={null} size={UserAvatarSize.M} />
+        <UserAvatar user={null} size={UserAvatarSize.S} />
       </div>
       <div className='comment__items__item__right'>
         <div className='comment__items__item__right__author'>

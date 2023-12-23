@@ -4,11 +4,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    //width: 26px;
-    height: 26px;
     border-radius: 4px;
     &:hover {
         background-color: $light-main;
+        svg {
+            color: $dark-1;
+        }
     }
     svg {
         font-size: 16px;

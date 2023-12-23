@@ -1,8 +1,8 @@
 import {
-  Checklist as ChecklistIcon,
+  ChatBubbleOutline as ChatBubbleOutlineIcon,
   CheckBoxOutlined as CheckBoxOutlinedIcon,
-  SubjectOutlined as SubjectOutlinedIcon,
   CommentOutlined as CommentOutlinedIcon,
+  SubjectOutlined as SubjectOutlinedIcon,
 } from '@mui/icons-material';
 import {
   CardActivity,
@@ -62,14 +62,18 @@ function CardContent({ list, card }: ICardContentProps) {
         <CardCheckList list={list} card={card} />
       </div> : null}
       <div className='card-modal__content__right__sections__section comments-section'>
-        <div className='header-icon'><ChecklistIcon /></div>
-        <p className='subheader'>Comments</p>
-        <CardComments list={list} card={card} />
+        <div className='comments-section__header'>
+          <div className='header-icon'><ChatBubbleOutlineIcon/></div>
+          <p className='subheader'>Comments</p>
+        </div>
+        <CardComments list={list} card={card}/>
       </div>
-      {card.activity ? <div className='card-modal__content__right__sections__section activity-section'>
-        <div className='header-icon'><CommentOutlinedIcon /></div>
-        <p className='subheader'>Activity</p>
-        <CardActivity card={card} />
+      {card.activityItems?.length ? <div className='card-modal__content__right__sections__section activity-section'>
+        <div className='activity-section__header'>
+          <div className='header-icon'><CommentOutlinedIcon/></div>
+          <p className='subheader'>Activity</p>
+        </div>
+        <CardActivity card={card}/>
       </div> : null}
     </div>
   )

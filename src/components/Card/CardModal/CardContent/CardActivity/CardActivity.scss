@@ -1,9 +1,28 @@
 @import 'src/styles/colors.scss';
 
 .card-activities {
-  &__activity {
-    display: flex;
+  display: flex;
     flex-direction: column;
     gap: 10px;
+  &__activity {
+    display: flex;
+    gap: 10px;
+    &__left {
+
+    }
+    &__right {
+      .description {
+        font-size: 16px;
+        //font-weight: 400;
+        span {
+          font-weight: 600;
+        }
+      }
+      .date {
+        font-size: 12px;
+        font-weight: 400;
+        margin-top: 3px;
+      }
+    }
   }
 }

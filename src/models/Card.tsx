@@ -1,4 +1,4 @@
-import { IComment, IChecklistItem } from '@models';
+import { IComment, IChecklistItem, IActivityItem } from '@models';
 
 export interface ICard {
   id: string;
@@ -9,7 +9,7 @@ export interface ICard {
   labels?: string[];
   isWatching?: boolean;
   comments?: IComment[];
-  activity?: any;
   checklistTitle?: string;
   checklistItems?: IChecklistItem[];
+  activityItems?: IActivityItem[];
 }
