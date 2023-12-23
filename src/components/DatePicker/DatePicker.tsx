@@ -13,14 +13,14 @@ const datePickerModalStyles: IModalStyles = {
   p: 2,
 };
 
-interface DatePickerProps {
+interface IDatePickerProps {
   handleChange: (newValue: Dayjs | null) => void;
   card: ICard;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
-function DatePicker({ card, isOpen, setIsOpen, handleChange }: DatePickerProps) {
+function DatePicker({ card, isOpen, setIsOpen, handleChange }: IDatePickerProps) {
   const dateInitialValue = card.dueDate || new Date().toISOString().slice(0, 10);
   const [datePickerValue, setDatePickerValue] = useState<Dayjs | null>(dayjs(dateInitialValue));
 

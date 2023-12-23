@@ -2,12 +2,12 @@ import { createContext, useContext, useState, ReactNode, Dispatch, SetStateActio
 import { LABELS_INITIAL_STATE } from '@constants';
 import { ILabel } from '@models';
 
-interface LabelsContextType {
+interface ILabelsContextType {
   labelsState: ILabel[];
   updateLabelsState: Dispatch<SetStateAction<ILabel[]>>;
 }
 
-const LabelsContext = createContext<LabelsContextType | null>(null);
+const LabelsContext = createContext<ILabelsContextType | null>(null);
 
 type LabelsContextProviderProps = {
   children: ReactNode;
@@ -16,7 +16,7 @@ type LabelsContextProviderProps = {
 export const LabelsContextProvider: FC<LabelsContextProviderProps> = ({ children }) => {
   const [labelsState, setLabelsState] = useState<ILabel[]>(LABELS_INITIAL_STATE);
 
-  const updateLabelsState: LabelsContextType['updateLabelsState'] = (newState) => {
+  const updateLabelsState: ILabelsContextType['updateLabelsState'] = (newState) => {
     setLabelsState(newState);
   };
 
@@ -27,7 +27,7 @@ export const LabelsContextProvider: FC<LabelsContextProviderProps> = ({ children
   );
 };
 
-export function useLabels(): LabelsContextType {
+export function useLabels(): ILabelsContextType {
   const labels = useContext(LabelsContext);
   if (!labels) {
     throw new Error('useLabels must be used within a LabelsContextProvider');

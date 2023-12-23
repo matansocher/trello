@@ -9,14 +9,14 @@ const labelsModalStyles: IModalStyles = {
   p: 2,
 };
 
-interface LabelsPickerProps {
+interface ILabelsPickerProps {
   handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
   card: ICard;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
-function LabelsPicker({ handleLabelsChange, card, isOpen, setIsOpen }: LabelsPickerProps) {
+function LabelsPicker({ handleLabelsChange, card, isOpen, setIsOpen }: ILabelsPickerProps) {
   const { labelsState } = useLabels();
 
   const renderLabels = () => {

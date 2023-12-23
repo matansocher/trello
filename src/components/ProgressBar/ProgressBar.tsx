@@ -1,12 +1,12 @@
 import LinearProgress from '@mui/material/LinearProgress';
 import './ProgressBar.scss';
 
-interface ProgressBarProps {
+interface IProgressBarProps {
   value: number;
   total: number;
 }
 
-function ProgressBar({ value, total }: ProgressBarProps) {
+function ProgressBar({ value, total }: IProgressBarProps) {
   const progress = (value / total) * 100;
   return (
     <div className='progress-bar'>

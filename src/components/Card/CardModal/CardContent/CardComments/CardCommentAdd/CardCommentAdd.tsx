@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { UserAvatar } from '@components';
+import { Textarea, UserAvatar } from '@components';
 import { useToggleFocus } from '@hooks';
 import { IComment } from '@models';
 import { UserAvatarSize } from '../../../../../UserAvatar/UserAvatar';
@@ -65,6 +65,8 @@ function CardCommentAdd({ addNewComment }: ICardCommentAddProps) {
           {...(focusEventHandlers as Object)}
           onInput={handleInputChange}
         />
+        <p>textarea</p>
+        <Textarea maxLines={10}>{input}</Textarea>
         {isOpen ? <div className='add-new-comment__right__actions'>
           <button className='save-btn' onClick={() => handleAddCommentClick()}>Add</button>
           <button className='cancel-btn' onClick={() => handleCancelCommentClick()}>Cancel</button>

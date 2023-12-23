@@ -2,11 +2,11 @@ import { IColorTile } from '@models';
 import { TILES } from './ColorPicker.config';
 import './ColorPicker.scss';
 
-interface ColorPickerProps {
+interface IColorPickerProps {
   handleColorClick: (tile: IColorTile) => void;
 }
 
-function ColorPicker({ handleColorClick }: ColorPickerProps) {
+function ColorPicker({ handleColorClick }: IColorPickerProps) {
 
   const renderColors = () => {
     return TILES.map((tile: IColorTile) => {

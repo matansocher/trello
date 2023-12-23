@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useToggleFocus } from '@hooks';
 import './EditableInput.scss';
 
-interface EditableInputProps {
+interface IEditableInputProps {
   handleSave: (newValue: string) => void;
   initialValue: string;
 }
 
-function EditableInput({ handleSave, initialValue = '' }: EditableInputProps) {
+function EditableInput({ handleSave, initialValue = '' }: IEditableInputProps) {
   const [input, setInput] = useState(initialValue);
   const [isOpen, setIsOpen] = useState(false);
   const [isFocused, focusEventHandlers] = useToggleFocus(false);

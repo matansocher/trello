@@ -17,7 +17,6 @@ function CardComment({ comment, handleCommentEdit, handleCommentDelete }: ICardC
   const { description, userId, timestamp } = comment;
 
   const handleSaveEditedComment = () => {
-    console.log('edit comment');
     handleCommentEdit(comment, commentText);
     setIsEditMode(false);
     adjustTextareaHeight();

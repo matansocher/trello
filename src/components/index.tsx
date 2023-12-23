@@ -28,6 +28,7 @@ import LabelsPicker from './LabelsPicker/LabelsPicker';
 import List from './List/List';
 import ModalWrapper from './ModalWrapper/ModalWrapper';
 import ProgressBar from './ProgressBar/ProgressBar';
+import Textarea from './Textarea/Textarea';
 import UserAvatar from './UserAvatar/UserAvatar';
 
 export {
@@ -61,5 +62,6 @@ export {
   List,
   ModalWrapper,
   ProgressBar,
+  Textarea,
   UserAvatar,
 }

@@ -9,13 +9,13 @@ export enum UserAvatarSize {
   L = 'large',
 }
 
-interface UserAvatarProps {
+interface IUserAvatarProps {
   user: IUser | null;
   onClick?: Function | null;
   size?: UserAvatarSize;
 }
 
-function UserAvatar({ user, onClick = null, size = UserAvatarSize.S }: UserAvatarProps) {
+function UserAvatar({ user, onClick = null, size = UserAvatarSize.S }: IUserAvatarProps) {
 
   const getStyleObj = () => {
     const style: any = { ...getSizeAttributes(size) };

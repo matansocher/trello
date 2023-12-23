@@ -2,12 +2,12 @@ import { createContext, useContext, useState, ReactNode, Dispatch, SetStateActio
 import { USER_INITIAL_STATE } from '@constants';
 import { IUser } from '@models';
 
-interface UserContextType {
+interface IUserContextType {
   userState: IUser;
   updateUserState: Dispatch<SetStateAction<IUser>>;
 }
 
-const UserContext = createContext<UserContextType | null>(null);
+const UserContext = createContext<IUserContextType | null>(null);
 
 type UserContextProviderProps = {
   children: ReactNode;
@@ -16,7 +16,7 @@ type UserContextProviderProps = {
 export const UserContextProvider: FC<UserContextProviderProps> = ({ children }) => {
   const [userState, setUserState] = useState<IUser>(USER_INITIAL_STATE);
 
-  const updateUserState: UserContextType['updateUserState'] = (newState: SetStateAction<IUser>) => {
+  const updateUserState: IUserContextType['updateUserState'] = (newState: SetStateAction<IUser>) => {
     setUserState(newState);
   };
 
@@ -27,7 +27,7 @@ export const UserContextProvider: FC<UserContextProviderProps> = ({ children }) 
   );
 };
 
-export function useUser(): UserContextType {
+export function useUser(): IUserContextType {
   const user = useContext(UserContext);
   if (!user) {
       throw new Error('useUser must be used within a UserContextProvider');

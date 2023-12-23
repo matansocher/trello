@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-import './EllipsisText.scss';
+import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
+import './Textarea.scss';
 
-interface IEllipsisTextProps {
+interface ITextareaProps {
   maxLines: number;
   children: string;
 }
 
-function EllipsisText({ children, maxLines = 1 }: IEllipsisTextProps) {
+function Textarea({ children, maxLines = 1 }: ITextareaProps) {
   const [isOverflowed, setIsOverflowed] = useState(false);
   const containerRef = useRef();
 
@@ -33,11 +34,14 @@ function EllipsisText({ children, maxLines = 1 }: IEllipsisTextProps) {
   };
 
   return (
-    <p className='ellipsis-text' ref={containerRef as any} style={containerStyle as any}>
-      {children}
-      {isOverflowed && '...'}
-    </p>
+    <BaseTextareaAutosize
+      maxRows={4}
+      aria-label="maximum height"
+      placeholder="Maximum 4 rows"
+      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua."
+    />
   )
 }
 
-export default EllipsisText;
+export default Textarea;
