@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { CardActions, CardContent, CardHeader, DatePicker, LabelsPicker } from '@components';
 import { useBoard } from '@context';
 import { IBoard, ICard, ILabel, IList } from '@models';
@@ -28,7 +28,6 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
     const newCard = { ...card, id: `cardId_${Math.random()}`, title: `Copy of ${card.title}` };
     const newBoard = dataService.addCardToList(board, list, newCard) as IBoard;
     updateBoardState(newBoard);
-    console.log('handleCopyClick');
   }
 
   const handleArchiveClick = () => {
@@ -48,23 +47,20 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
     setLabelsModalOpen(true);
   }
 
-  const handleLabelsChange = (isChecked: boolean, label: ILabel) => {
-    const currentLabels = card.labels || [];
-    const newLabels = isChecked ? [...currentLabels, label.id] : currentLabels.filter((labelId: string) => labelId !== label.id);
-    const cardToSave: ICard = { ...card, labels: newLabels };
+  const handleDueDateChange = (newValue: Dayjs | null) => {
+    const cardToSave = dataService.updateCardDueDate(card, newValue);
+    const newBoard = dataService.updateCard(board, list.id, cardToSave);
+    updateBoardState(newBoard);
+  }
+
+  const handleLabelsChange = (label: ILabel, isChecked: boolean) => {
+    const cardToSave = dataService.updateCardLabels(card, label, isChecked);
     const newBoard = dataService.updateCard(board, list.id, cardToSave);
     updateBoardState(newBoard);
   }
 
   const handleDueDateClick = () => {
     setDatePickerModalOpen(true);
-  }
-
-  const handleDueDateChange = (newValue: Dayjs | null) => {
-    const dueDate = newValue ? newValue.format('YYYY-MM-DD') : dayjs().format('YYYY-MM-DD');
-    const cardToSave = { ...card, dueDate };
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
   }
 
   const handleAttachmentClick = () => {

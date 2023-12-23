@@ -2,3 +2,4 @@ save to backend in 10 seconds window
 
 feat - create new board in home page - blocked, we need DB for it
 feat - add option to add cover to a ticket
+feat - support edit comment

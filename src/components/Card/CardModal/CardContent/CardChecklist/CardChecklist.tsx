@@ -13,26 +13,20 @@ interface ICardCheckListProps {
 function CardChecklist({ list, card }: ICardCheckListProps) {
   const { boardState: board, updateBoardState } = useBoard();
 
+  const addNewChecklistItem = (checklistItem: IChecklistItem) => {
+    const cardToSave = dataService.addNewChecklistItem(card, checklistItem);
+    const newBoard = dataService.updateCard(board, list.id, cardToSave);
+    updateBoardState(newBoard);
+  }
+
   const updateChecklistItem = (checklistItem: IChecklistItem) => {
-    const checklistItems = card.checklistItems || [];
-    const newChecklistItems = checklistItems.map((item: IChecklistItem) => item.id === checklistItem.id ? checklistItem : item);
-    const cardToSave = { ...card, checklistItems: newChecklistItems };
+    const cardToSave = dataService.updateChecklistItem(card, checklistItem);
     const newBoard = dataService.updateCard(board, list.id, cardToSave);
     updateBoardState(newBoard);
   }
 
   const deleteChecklistItem = (checklistItem: IChecklistItem) => {
-    const checklistItems = card.checklistItems || [];
-    const newChecklistItems = checklistItems.filter((item: IChecklistItem) => item.id !== checklistItem.id);
-    const cardToSave = { ...card, checklistItems: newChecklistItems };
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
-  }
-
-  const addNewChecklistItem = (checklistItem: IChecklistItem) => {
-    const checklistItems = card.checklistItems || [];
-    const newChecklistItems = [...checklistItems, checklistItem];
-    const cardToSave = { ...card, checklistItems: newChecklistItems };
+    const cardToSave = dataService.deleteChecklistItem(card, checklistItem);
     const newBoard = dataService.updateCard(board, list.id, cardToSave);
     updateBoardState(newBoard);
   }

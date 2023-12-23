@@ -3,6 +3,7 @@ import { ICard, IComment, IList } from '@models';
 import './CardComments.scss';
 import { dataService } from '@services';
 import { useBoard } from '@context';
+import { deleteCommentFromCard } from '../../../../../services/data.service.tsx';
 
 interface ICardCommentsProps {
   list: IList;
@@ -13,24 +14,26 @@ function CardComments({ list, card }: ICardCommentsProps) {
   const { boardState: board, updateBoardState } = useBoard();
 
   const addNewComment = (comment: IComment) => {
-    const comments = card.comments || [];
-    const newComments = [...comments, comment];
-    const cardToSave = { ...card, comments: newComments };
+    const cardToSave = dataService.addCommentToCard(card, comment);
+    const newBoard = dataService.updateCard(board, list.id, cardToSave);
+    updateBoardState(newBoard);
+  }
+
+  const editComment = (comment: IComment, newDescription: string) => {
+    const cardToSave = dataService.editComment(card, comment, newDescription);
     const newBoard = dataService.updateCard(board, list.id, cardToSave);
     updateBoardState(newBoard);
   }
 
   const deleteComment = (comment: IComment) => {
-    const comments = card.comments || [];
-    const newComments = comments.filter((item: IComment) => item.id !== comment.id);
-    const cardToSave = { ...card, comments: newComments };
+    const cardToSave = dataService.deleteCommentFromCard(card, comment);
     const newBoard = dataService.updateCard(board, list.id, cardToSave);
     updateBoardState(newBoard);
   }
 
   const renderComments = () => {
     return card?.comments?.map((comment: IComment) => {
-      return <CardComment key={comment.id} comment={comment}  handleCommentDelete={deleteComment} />
+      return <CardComment key={comment.id} comment={comment} handleCommentEdit={editComment} handleCommentDelete={deleteComment} />
     });
   }
 

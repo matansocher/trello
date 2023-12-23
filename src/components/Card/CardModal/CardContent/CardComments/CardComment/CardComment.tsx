@@ -5,14 +5,16 @@ import { UserAvatarSize } from '../../../../../UserAvatar/UserAvatar';
 
 interface ICardCommentProps {
   comment: IComment;
+  handleCommentEdit: (comment: IComment, newDescription: string) => void;
   handleCommentDelete: (comment: IComment) => void;
 }
 
-function CardComment({ comment, handleCommentDelete }: ICardCommentProps) {
+function CardComment({ comment, handleCommentEdit, handleCommentDelete }: ICardCommentProps) {
   const { description, userId, timestamp } = comment;
 
   const handleEditCommentClick = () => {
     console.log('edit comment');
+    handleCommentEdit(comment, 'new description');
   }
 
   const handleDeleteCommentClick = () => {

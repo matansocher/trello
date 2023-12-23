@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, FC } from 'react';
-import { BOARD_INITIAL_STATE } from '@constants';
 import { IBoard } from '@models';
+
+const INITIAL_BOARD_STATE: IBoard = { id: '', title: '', lists: [] }
 
 interface BoardContextType {
   boardState: IBoard;
@@ -14,14 +15,14 @@ type BoardContextProviderProps = {
 }
 
 export const BoardContextProvider: FC<BoardContextProviderProps> = ({ children }) => {
-  const [boardState, setBoardState] = useState<IBoard>(BOARD_INITIAL_STATE);
+  const [boardState, setBoardState] = useState<IBoard>(INITIAL_BOARD_STATE); // Provide an initial non-null state
+  // const [boardState, setBoardState] = useState<IBoard>(null);
 
   const updateBoardState: BoardContextType['updateBoardState'] = (newState: SetStateAction<IBoard>) => {
     setBoardState(newState);
   };
 
   return (
-    // Step 5: Provide the context value to children components
     <BoardContext.Provider value={{ boardState, updateBoardState }}>
       {children}
     </BoardContext.Provider>

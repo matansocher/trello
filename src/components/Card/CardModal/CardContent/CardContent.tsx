@@ -26,7 +26,9 @@ function CardContent({ list, card }: ICardContentProps) {
     const newBoard = dataService.updateCard(board, list.id, cardToSave);
     updateBoardState(newBoard);
   }
+
   const amountOfCheckListChecked = card.checklistItems?.filter((item) => item.isChecked).length || 0;
+
   return (
     <div className='card-modal__content__right__sections'>
       <div className='card-modal__content__right__sections__section card-info-section'>

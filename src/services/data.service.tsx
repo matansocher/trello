@@ -1,5 +1,6 @@
 import { BOARDS_INITIAL_STATE } from '@constants';
-import { IBoard, ICard, IList } from '@models';
+import { IBoard, ICard, IChecklistItem, IComment, ILabel, IList } from '@models';
+import dayjs, { Dayjs } from 'dayjs';
 
 export function createBoard(title: string): IBoard {
   const id = `board_${Date.now()}`;
@@ -71,3 +72,52 @@ export function updateCard(board: IBoard, listId: string, cardToSave: ICard): IB
 
   return { ...board, lists: newLists };
 }
+
+export function updateCardDueDate(card: ICard, newDueDate: Dayjs | null): ICard {
+  const dueDate = newDueDate ? newDueDate.format('YYYY-MM-DD') : dayjs().format('YYYY-MM-DD');
+  return { ...card, dueDate };
+}
+
+export function updateCardLabels(card: ICard, label: ILabel, isChecked: boolean): ICard {
+  const currentLabels = card.labels || [];
+  const newLabels = isChecked ? [...currentLabels, label.id] : currentLabels.filter((labelId: string) => labelId !== label.id);
+  return { ...card, labels: newLabels };
+}
+
+export function addCommentToCard(card: ICard, comment: IComment): ICard {
+  const comments = card.comments || [];
+  const newComments = [comment, ...comments];
+  return { ...card, comments: newComments };
+}
+
+export function editComment(card: ICard, comment: IComment, newDescription: string): ICard {
+  const comments = card.comments || [];
+  const updatedComment = { ...comment, description: newDescription };
+  const newComments = comments.map((item: IComment) => item.id === comment.id ? updatedComment : item);
+  return { ...card, comments: newComments };
+}
+
+export function deleteCommentFromCard(card: ICard, comment: IComment): ICard {
+  const comments = card.comments || [];
+  const newComments = comments.filter((item: IComment) => item.id !== comment.id);
+  return{ ...card, comments: newComments };
+}
+
+export function addNewChecklistItem(card: ICard, checklistItem: IChecklistItem) {
+  const checklistItems = card.checklistItems || [];
+  const newChecklistItems = [...checklistItems, checklistItem];
+  return { ...card, checklistItems: newChecklistItems };
+}
+
+export function updateChecklistItem(card: ICard, checklistItem: IChecklistItem) {
+  const checklistItems = card.checklistItems || [];
+  const newChecklistItems = checklistItems.map((item: IChecklistItem) => item.id === checklistItem.id ? checklistItem : item);
+  return { ...card, checklistItems: newChecklistItems };
+}
+
+export function deleteChecklistItem(card: ICard, checklistItem: IChecklistItem) {
+  const checklistItems = card.checklistItems || [];
+  const newChecklistItems = checklistItems.filter((item: IChecklistItem) => item.id !== checklistItem.id);
+  return { ...card, checklistItems: newChecklistItems };
+}
+

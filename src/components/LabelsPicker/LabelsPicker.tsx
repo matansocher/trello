@@ -10,7 +10,7 @@ const labelsModalStyles: IModalStyles = {
 };
 
 interface LabelsPickerProps {
-  handleLabelsChange: (isChecked: boolean, label: ILabel) => void;
+  handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
   card: ICard;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -26,12 +26,12 @@ function LabelsPicker({ handleLabelsChange, card, isOpen, setIsOpen }: LabelsPic
         <div className='label-select' key={label.id}>
           <Checkbox
             checked={isChecked}
-            onChange={(event) => handleLabelsChange(event.target.checked, label)}
+            onChange={(event) => handleLabelsChange(label, event.target.checked)}
             inputProps={{ 'aria-label': 'controlled' }} />
           <div
             className='label-color'
             style={{ backgroundColor: label.backgroundColor }}
-            onClick={() => handleLabelsChange(!isChecked, label)}>
+            onClick={() => handleLabelsChange(label, !isChecked)}>
             <p style={{ color: label.textColor }}>{label.displayName}</p>
           </div>
         </div>

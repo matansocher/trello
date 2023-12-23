@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { DatePicker, Label, LabelsPicker } from '@components';
 import { useBoard, useLabels } from '@context';
 import { ICard, ILabel, IList } from '@models';
@@ -14,22 +14,17 @@ interface ICardDescriptionProps {
 function CardInfo({ list, card }: ICardDescriptionProps) {
   const { labelsState: labels } = useLabels();
   const { boardState: board, updateBoardState } = useBoard();
-  // date picker
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
-  // labels picker
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
   const handleDueDateChange = (newValue: Dayjs | null) => {
-    const dueDate = newValue ? newValue.format('YYYY-MM-DD') : dayjs().format('YYYY-MM-DD');
-    const cardToSave = { ...card, dueDate };
+    const cardToSave = dataService.updateCardDueDate(card, newValue);
     const newBoard = dataService.updateCard(board, list.id, cardToSave);
     updateBoardState(newBoard);
   }
 
-  const handleLabelsChange = (isChecked: boolean, label: ILabel) => {
-    const currentLabels = card.labels || [];
-    const newLabels = isChecked ? [...currentLabels, label.id] : currentLabels.filter((labelId: string) => labelId !== label.id);
-    const cardToSave: ICard = { ...card, labels: newLabels };
+  const handleLabelsChange = (label: ILabel, isChecked: boolean) => {
+    const cardToSave = dataService.updateCardLabels(card, label, isChecked);
     const newBoard = dataService.updateCard(board, list.id, cardToSave);
     updateBoardState(newBoard);
   }

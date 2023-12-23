@@ -21,7 +21,6 @@ export const UserContextProvider: FC<UserContextProviderProps> = ({ children }) 
   };
 
   return (
-    // Step 5: Provide the context value to children components
     <UserContext.Provider value={{ userState, updateUserState }}>
       {children}
     </UserContext.Provider>

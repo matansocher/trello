@@ -26,12 +26,11 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
         cards: [
           {
             id: 'cardId_1',
-            title: 'some title to the card',
-            description: 'some descriptions to describe this card',
-            dueDate: '2023-12-13',
-            createdDate: '2023-11-11',
-            labels: [],
-            isWatching: true
+            "title": 'some title to the card',
+            "description": 'some descriptions to describe this card',
+            "dueDate": '2023-12-13',
+            "createdDate": '2023-11-11',
+            "labels": [],
           },
         ]
       },
@@ -40,7 +39,6 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
         id: 'listId_2345',
         cards: [
           { id: 'cardId_2', title: 'some title to the card', createdDate: '2023-11-11', labels: ['4'] },
-          { id: 'cardId_3', title: 'some title to the card', createdDate: '2023-11-11', labels: ['1', '4'], isWatching: true },
           {
             id: 'cardId_4',
             title: 'some title to the card',
@@ -86,7 +84,6 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             dueDate: '2023-12-11',
             createdDate: '2023-11-11',
             labels: ['1', '3', '4'],
-            isWatching: true
           },
           {
             id: 'cardId_7',
@@ -109,7 +106,6 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             dueDate: '2023-12-11',
             createdDate: '2023-11-11',
             labels: ['2', '3', '4'],
-            isWatching: true
           },
           {
             id: 'cardId_9',
@@ -118,7 +114,6 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             dueDate: '2023-12-11',
             createdDate: '2023-11-11',
             labels: ['1', '4'],
-            isWatching: true,
             checklistItems: [
               { id: 'checklist_5', description: 'this is a checklist item', isChecked: true},
               { id: 'checklist_6', description: 'this is a checklist item', isChecked: false},
@@ -184,18 +179,15 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
         id: 'listId_1234',
         cards: [
           {
-            id: 'cardId_1',
-            title: 'some title to the card',
-            description: 'some descriptions to describe this card',
-            dueDate: '2023-12-11',
-            createdDate: '2023-11-11',
-            labels: [],
-            isWatching: true
+            "id": "cardId_1",
+            "title": "some title to the card",
+            "description": "some descriptions to describe this card",
+            "dueDate": "2023-12-11",
+            "createdDate": "2023-11-11",
+            "labels": [],
           },
         ]
       },
     ],
   },
 ];
-
-export const BOARD_INITIAL_STATE: IBoard = BOARDS_INITIAL_STATE.find(board => board.id === 'boardId_12345678')!;

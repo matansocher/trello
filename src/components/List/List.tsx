@@ -18,7 +18,6 @@ interface IListProps {
 
 function List({ list }: IListProps) {
   const { boardState: board, updateBoardState } = useBoard();
-  const { cards } = list;
 
   const handleArchiveList = () => {
     console.log('handleArchiveListClick');
@@ -63,7 +62,7 @@ function List({ list }: IListProps) {
   }
 
   const renderCards = () => {
-    return cards.map((card: ICard, index: number) => {
+    return list?.cards?.map((card: ICard, index: number) => {
       return (
         <Draggable key={card.id} draggableId={card.id} index={index}>
           {(provided) => (
