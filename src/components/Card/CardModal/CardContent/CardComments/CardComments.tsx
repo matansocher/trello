@@ -3,7 +3,6 @@ import { ICard, IComment, IList } from '@models';
 import './CardComments.scss';
 import { dataService } from '@services';
 import { useBoard } from '@context';
-import { deleteCommentFromCard } from '../../../../../services/data.service.tsx';
 
 interface ICardCommentsProps {
   list: IList;

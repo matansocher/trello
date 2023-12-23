@@ -15,9 +15,7 @@ interface ICardModalProps {
 
 function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
   const { boardState: board, updateBoardState } = useBoard();
-  // date picker
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
-  // labels picker
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
   const handleMoveClick = () => {
@@ -63,6 +61,12 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
     setDatePickerModalOpen(true);
   }
 
+  const handleChecklistClick = () => {
+    const cardToSave = { ...card, checklistItems: [], checklistTitle: 'Checklist' };
+    const newBoard = dataService.updateCard(board, list.id, cardToSave);
+    updateBoardState(newBoard);
+  }
+
   const handleAttachmentClick = () => {
     console.log('handleAttachmentClick');
   }
@@ -83,6 +87,7 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
             handleMembersClick={handleMembersClick}
             handleLabelsClick={handleLabelsClick}
             handleDueDateClick={handleDueDateClick}
+            handleChecklistClick={handleChecklistClick}
             handleAttachmentClick={handleAttachmentClick}
             handleCoverClick={handleCoverClick}
             handleMoveClick={handleMoveClick}

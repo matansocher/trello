@@ -53,32 +53,12 @@
                 cursor: pointer;
             }
             .save-btn, .cancel-btn {
-                font-size: 12px;
-                font-weight: 400;
                 cursor: pointer;
                 color: #ffffff;
-
-            }
-            .edit-btn {
-
-            }
-            .delete-btn {
-
             }
             .save-btn {
                 background-color: $light-blue;
             }
-            .cancel-btn {
-
-            }
         }
-    }
-
-
-    .delete-icon {
-        position: absolute;
-        top: 30px;
-        right: 0;
-        cursor: pointer;
     }
 }

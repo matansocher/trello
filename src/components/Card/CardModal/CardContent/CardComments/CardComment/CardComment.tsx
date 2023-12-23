@@ -42,17 +42,17 @@ function CardComment({ comment, handleCommentEdit, handleCommentDelete }: ICardC
   const renderActionsSection = () => {
     if (isEditMode) {
       return (
-        <div className='comment__items__item__right__actions'>
+        <>
           <button className='save-btn' onClick={() => handleSaveEditedComment()}>Save</button>
           <button className='cancel-btn' onClick={() => setIsEditMode(false)}>Cancel</button>
-        </div>
+        </>
       );
     }
     return (
-      <div className='comment__items__item__right__actions'>
+      <>
         <p className='edit-btn' onClick={() => setIsEditMode(true)}>Edit</p>
         <p className='delete-btn' onClick={() => handleDeleteCommentClick()}>Delete</p>
-      </div>
+      </>
     );
   }
 
@@ -69,7 +69,9 @@ function CardComment({ comment, handleCommentEdit, handleCommentDelete }: ICardC
 
         {renderComment()}
 
-        {renderActionsSection()}
+        <div className='comment__items__item__right__actions'>
+          {renderActionsSection()}
+        </div>
       </div>
     </div>
   )

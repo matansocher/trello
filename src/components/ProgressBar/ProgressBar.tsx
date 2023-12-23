@@ -7,14 +7,20 @@ interface IProgressBarProps {
 }
 
 function ProgressBar({ value, total }: IProgressBarProps) {
-  const progress = (value / total) * 100;
+
+  const getProgress = () => {
+    if (value === 0 || total === 0) return 0;
+
+    return Math.round((value / total) * 100);
+  }
+
   return (
     <div className='progress-bar'>
       <div className='progress-bar__left'>
-        <span className='percent-num'>{`${Math.round(progress)}%`}</span>
+        <span className='percent-num'>{`${getProgress()}%`}</span>
       </div>
       <div className='progress-bar__right'>
-        <LinearProgress variant='determinate' value={progress}/>
+        <LinearProgress variant='determinate' value={getProgress()}/>
       </div>
     </div>
   )

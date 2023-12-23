@@ -1,6 +1,7 @@
 import {
   ArrowForward as ArrowForwardIcon,
   AttachFile as AttachFileIcon,
+  CheckBoxOutlined as CheckBoxOutlinedIcon,
   ContentCopy as ContentCopyIcon,
   Delete as DeleteIcon,
   Inventory as InventoryIcon,
@@ -21,6 +22,7 @@ interface ICardActionsProps {
   handleMembersClick: () => void;
   handleLabelsClick: () => void;
   handleDueDateClick: () => void;
+  handleChecklistClick: () => void;
   handleAttachmentClick: () => void;
   handleCoverClick: () => void;
   handleMoveClick: () => void;
@@ -33,6 +35,7 @@ function CardActions({
   handleMembersClick,
   handleLabelsClick,
   handleDueDateClick,
+  handleChecklistClick,
   handleAttachmentClick,
   handleCoverClick,
   handleMoveClick,
@@ -46,6 +49,7 @@ function CardActions({
       { label: 'Members', icon: <PersonOutlineIcon fontSize='small' />, onClick: () => handleMembersClick() },
       { label: 'Labels', icon: <LabelIcon fontSize='small' />, onClick: () => handleLabelsClick() },
       { label: 'Due Date', icon: <ScheduleIcon fontSize='small' />, onClick: () => handleDueDateClick() },
+      { label: 'Checklist', icon: <CheckBoxOutlinedIcon fontSize='small' />, onClick: () => handleChecklistClick() },
       { label: 'Attachment', icon: <AttachFileIcon fontSize='small' />, onClick: () => handleAttachmentClick() },
       { label: 'Cover', icon: <InventoryIcon fontSize='small' />, onClick: () => handleCoverClick() },
     ];

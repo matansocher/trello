@@ -1,5 +1,4 @@
 save to backend in 10 seconds window
 
-feat - create new board in home page - blocked, we need DB for it
+feat - create new board in home page
 feat - add option to add cover to a ticket
-feat - fix text area height (comments)

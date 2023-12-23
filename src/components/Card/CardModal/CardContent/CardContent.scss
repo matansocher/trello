@@ -29,19 +29,34 @@
   }
   .description-section {
     .subheader {
-      margin-top: 3px;
+      margin-top: 2px;
     }
   }
   .checklist-section {
     margin-left: 0;
     gap: 0;
+    &__header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 3px;
+      .header-icon {
+          position: relative;
+          top: unset;
+          left: unset;
+      }
+      .subheader {
+          font-size: 16px;
+          font-weight: 600;
+      }
+    }
     .editable-input-wrapper {
-      margin-left: 40px;
+      margin-left: 8px;
       margin-top: -3px;
     }
-    .header-icon {
-      left: 0;
-    }
+    //.header-icon {
+    //  left: 0;
+    //}
     .card-checklist {
       &__items {
         &__item {

@@ -1,4 +1,9 @@
-import { Checklist as ChecklistIcon, CheckBoxOutlined as CheckBoxOutlinedIcon, SubjectOutlined as SubjectOutlinedIcon, CommentOutlined as CommentOutlinedIcon } from '@mui/icons-material';
+import {
+  Checklist as ChecklistIcon,
+  CheckBoxOutlined as CheckBoxOutlinedIcon,
+  SubjectOutlined as SubjectOutlinedIcon,
+  CommentOutlined as CommentOutlinedIcon,
+} from '@mui/icons-material';
 import {
   CardActivity,
   CardCheckList,
@@ -27,6 +32,14 @@ function CardContent({ list, card }: ICardContentProps) {
     updateBoardState(newBoard);
   }
 
+  const handleDeleteChecklistClick = () => {
+    if (!card.checklistItems?.length) return;
+
+    const cardToSave = { ...card, checklistItems: [], checklistTitle: '' };
+    const newBoard = dataService.updateCard(board, list.id, cardToSave);
+    updateBoardState(newBoard);
+  }
+
   const amountOfCheckListChecked = card.checklistItems?.filter((item) => item.isChecked).length || 0;
 
   return (
@@ -39,10 +52,13 @@ function CardContent({ list, card }: ICardContentProps) {
         <p className='subheader'>Description</p>
         <CardDescription list={list} card={card} />
       </div>
-      {card.checklistItems?.length ? <div className='card-modal__content__right__sections__section checklist-section'>
-        <div className='header-icon'><CheckBoxOutlinedIcon /></div>
-        <EditableInput handleSave={handleChecklistTitleSave} initialValue={card.checklistTitle || 'Checklist'} />
-        <ProgressBar value={amountOfCheckListChecked} total={card.checklistItems.length} />
+      {card.checklistItems?.length || card.checklistTitle ? <div className='card-modal__content__right__sections__section checklist-section'>
+        <div className='checklist-section__header'>
+          <div className='header-icon'><CheckBoxOutlinedIcon /></div>
+          <EditableInput handleSave={handleChecklistTitleSave} initialValue={card.checklistTitle || 'Checklist'} />
+          <button className='card-header__right__watch' onClick={handleDeleteChecklistClick}>Delete</button>
+        </div>
+        <ProgressBar value={amountOfCheckListChecked} total={card.checklistItems?.length || 0}/>
         <CardCheckList list={list} card={card} />
       </div> : null}
       <div className='card-modal__content__right__sections__section comments-section'>
