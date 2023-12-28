@@ -1,12 +1,10 @@
-import { BoardContextProvider, useBoard } from './board-context';
-import { LabelsContextProvider, useLabels } from './labels-context';
+import { BoardContextProvider, useBoard, INITIAL_BOARD_STATE } from './board-context';
 import { UserContextProvider, useUser } from './user-context';
 
 export {
   BoardContextProvider,
   useBoard,
-  LabelsContextProvider,
-  useLabels,
+  INITIAL_BOARD_STATE,
   UserContextProvider,
   useUser,
 }

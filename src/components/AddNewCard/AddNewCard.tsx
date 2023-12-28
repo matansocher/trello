@@ -21,7 +21,7 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
       setIsOpen(false);
       return;
     }
-    const newCard: ICard = { id: 'cardId__5', title: input, createdDate: new Date().toISOString().slice(0, 10) };
+    const newCard: ICard = { id: 'cardId__5', title: input, createdAt: new Date().toISOString().slice(0, 10) };
     addNewCard(newCard);
     setIsOpen(false);
     setInput('');

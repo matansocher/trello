@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, FC } from 'react';
 import { IBoard } from '@models';
 
-const INITIAL_BOARD_STATE: IBoard = { id: '', title: '', lists: [] }
+export const INITIAL_BOARD_STATE: IBoard = { id: '', title: '', lists: [] }
 
 interface IBoardContextType {
   boardState: IBoard;

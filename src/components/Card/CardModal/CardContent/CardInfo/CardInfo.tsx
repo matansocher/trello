@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Dayjs } from 'dayjs';
 import { DatePicker, Label, LabelsPicker } from '@components';
-import { useBoard, useLabels } from '@context';
+import { useBoard } from '@context';
+import { useGetBoard, useGetLabels } from '@hooks';
 import { ICard, ILabel, IList } from '@models';
 import { dataService, utilsService } from '@services';
 import './CardInfo.scss';
@@ -12,8 +13,9 @@ interface ICardDescriptionProps {
 }
 
 function CardInfo({ list, card }: ICardDescriptionProps) {
-  const { labelsState: labels } = useLabels();
-  const { boardState: board, updateBoardState } = useBoard();
+  const { labels } = useGetLabels();
+  const { updateBoardState } = useBoard();
+  const { board } = useGetBoard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
@@ -30,6 +32,7 @@ function CardInfo({ list, card }: ICardDescriptionProps) {
   }
 
   const renderLabelsSection = () => {
+    if (!card.labels?.length || !labels.length) return;
     return (
       <div className='card-info__labels'>
         <p className='subheader'>Labels</p>

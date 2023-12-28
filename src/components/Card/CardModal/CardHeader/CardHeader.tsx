@@ -8,6 +8,7 @@ import { useBoard } from '@context';
 import { ICard, IList } from '@models';
 import { dataService } from '@services';
 import './CardHeader.scss';
+import { useGetBoard } from '@hooks';
 
 interface ICardHeaderProps {
   list: IList;
@@ -16,7 +17,8 @@ interface ICardHeaderProps {
 }
 
 function CardHeader({ list, card, setModalOpen }: ICardHeaderProps) {
-  const { boardState: board, updateBoardState } = useBoard();
+  const { updateBoardState } = useBoard();
+  const { board } = useGetBoard();
 
   const handleSave = (newValue: string) => {
     const newCard = { ...card, title: newValue };

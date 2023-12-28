@@ -4,6 +4,7 @@ import { ICard, IList } from '@models';
 import { dataService } from '@services';
 import './CardDescription.scss';
 import { Textarea } from '@components';
+import { useGetBoard } from '@hooks';
 
 interface ICardDescriptionProps {
   list: IList;
@@ -11,7 +12,8 @@ interface ICardDescriptionProps {
 }
 
 function CardDescription({ list, card }: ICardDescriptionProps) {
-  const { boardState: board, updateBoardState } = useBoard();
+  const { updateBoardState } = useBoard();
+  const { board } = useGetBoard();
   const [input, setInput] = useState(card.description || '');
   const [isOpen, setIsOpen] = useState(false);
 

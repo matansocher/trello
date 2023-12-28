@@ -17,6 +17,7 @@ import { useBoard } from '@context';
 import { ICard, IList } from '@models';
 import { dataService } from '@services';
 import './CardContent.scss';
+import { useGetBoard } from '@hooks';
 
 interface ICardContentProps {
   list: IList;
@@ -24,7 +25,8 @@ interface ICardContentProps {
 }
 
 function CardContent({ list, card }: ICardContentProps) {
-  const { boardState: board, updateBoardState } = useBoard();
+  const { updateBoardState } = useBoard();
+  const { board } = useGetBoard();
 
   const handleChecklistTitleSave = (newValue: string) => {
     const cardToSave = { ...card, checklistTitle: newValue };

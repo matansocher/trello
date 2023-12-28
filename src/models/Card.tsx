@@ -4,7 +4,7 @@ export interface ICard {
   id: string;
   title: string;
   description?: string;
-  createdDate: string;
+  createdAt: string;
   dueDate?: string;
   labels?: string[];
   isWatching?: boolean;

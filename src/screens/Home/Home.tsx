@@ -1,37 +1,31 @@
-import './Home.scss';
-import { BOARDS_INITIAL_STATE } from '@constants';
-import { IBoard } from '@models';
 import { useNavigate } from 'react-router-dom';
 import { earth } from '@assets';
 import { EllipsisText } from '@components';
+import { INITIAL_BOARD_STATE, useBoard } from '@context';
+import { useGetBoards } from '@hooks';
+import { IBoard } from '@models';
 import { dataService } from '@services';
+import './Home.scss';
 
-interface IHomeProps {
-
-}
-
-function Home({  }: IHomeProps) {
+function Home() {
+  const { updateBoardState } = useBoard();
+  const { boards } = useGetBoards();
   const navigate = useNavigate();
 
   const handleCreateBoardClick = () => {
-    const newBoard = dataService.createBoard('New Board');
-    navigate(`/boards/${newBoard.id}`); // $$$$$$$$$$$$$$$$$$
+    const newBoard = dataService.createBoard('New Board'); // $$$$$$$$$$$$$$$$$$
+    navigate(`/boards/${newBoard.id}`);
   }
 
-  const renderTemplates = () => {
-    return BOARDS_INITIAL_STATE.map((board: IBoard) => {
-      return (
-        <div key={board.id} className='templates-items-item' onClick={() => navigate(`/boards/${board.id}`)} style={{ backgroundImage: `url(${earth})` }}>
-          <EllipsisText maxLines={1}>{board.title}</EllipsisText>
-        </div>
-      );
-    });
+  const handleBoardClick = (boardId: string) => {
+    updateBoardState(INITIAL_BOARD_STATE);
+    navigate(`/boards/${boardId}`);
   }
 
   const renderBoards = () => {
-    return BOARDS_INITIAL_STATE.map((board: IBoard) => {
+    return boards?.map((board: IBoard) => {
       return (
-        <div key={board.id} className='templates-items-item' onClick={() => navigate(`/boards/${board.id}`)} style={{ backgroundImage: `url(${earth})` }}>
+        <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id)} style={{ backgroundImage: `url(${earth})` }}>
           <EllipsisText maxLines={1}>{board.title}</EllipsisText>
         </div>
       );
@@ -50,19 +44,19 @@ function Home({  }: IHomeProps) {
           </div>
         </div>
         <div className='home-wrapper__content__boards'>
-          <div className='templates'>
+          <div className='boards'>
             <p className='header'>Most popular templates</p>
             <p className='description'>Get going faster with a template from the Trello community</p>
-            <div className='templates-items'>
-              {renderTemplates()}
-              <div key='new' className='templates-items-item plus' onClick={handleCreateBoardClick}>+</div>
+            <div className='boards-items'>
+              {renderBoards()}
+              <div key='new' className='boards-items-item plus' onClick={handleCreateBoardClick}>+</div>
             </div>
           </div>
           <div className='boards'>
             <p className='header'>Your Boards</p>
             <div className='boards-items'>
               {renderBoards()}
-              <div key='new' className='templates-items-item plus' onClick={handleCreateBoardClick}>+</div>
+              <div key='new' className='boards-items-item plus' onClick={handleCreateBoardClick}>+</div>
             </div>
           </div>
         </div>

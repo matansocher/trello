@@ -2,18 +2,20 @@ import { useState, MouseEvent } from 'react';
 import {
   AccessTimeOutlined as AccessTimeOutlinedIcon,
   ChatBubbleOutline as ChatBubbleOutlineIcon,
-  CheckBoxOutlined as CheckBoxOutlinedIcon, ExpandMore as ExpandMoreIcon,
+  CheckBoxOutlined as CheckBoxOutlinedIcon,
+  ContentCopyOutlined as ContentCopyOutlinedIcon,
   Delete as DeleteIcon,
+  ExpandMore as ExpandMoreIcon,
   FormatAlignLeft as FormatAlignLeftIcon,
   Schedule as ScheduleIcon,
   VisibilityOutlined as VisibilityOutlinedIcon,
 } from '@mui/icons-material';
 import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label } from '@components';
-import { useLabels } from '@context';
 import { ICard, IList, ILabel, IDropdownItem, IFooterIcon, IModalStyles } from '@models';
 import './CardPreview.scss';
 import { useToggleHover } from '@hooks';
 import { utilsService } from '@services';
+import { useGetLabels } from '@hooks';
 
 const modalWrapperModalStyles: IModalStyles = {
   width: 800,
@@ -30,14 +32,14 @@ interface ICardProps {
 }
 
 function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
-  const { labelsState: labels } = useLabels();
+  const { labels } = useGetLabels();
   const [isHovered, hoverEventHandlers] = useToggleHover(false);
   // modal
   const [modalOpen, setModalOpen] = useState(false);
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
-      { label: 'Copy Card', icon: <DeleteIcon fontSize='small' />, onClick: () => copyCard(card) },
+      { label: 'Copy Card', icon: <ContentCopyOutlinedIcon fontSize='small' />, onClick: () => copyCard(card) },
       { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card.id) },
     ];
   }
@@ -65,7 +67,8 @@ function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
 
   const renderLabels = () => {
     return card?.labels?.map((label: string) => {
-      const relevantLabel: ILabel = labels.find((originalLabel: ILabel) => originalLabel.id === label) || labels[0];
+      const relevantLabel: ILabel | null = labels.find((originalLabel: ILabel) => originalLabel.id === label) || null;
+      if (!relevantLabel) return;
       return <Label key={label} label={relevantLabel} isBigLabel={false} />;
     });
   }

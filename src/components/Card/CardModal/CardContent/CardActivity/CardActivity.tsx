@@ -1,6 +1,6 @@
 import {  UserAvatar } from '@components';
 import { IActivityItem, ICard } from '@models';
-import { UserAvatarSize } from '../../../../UserAvatar/UserAvatar';
+import { UserAvatarSize } from '@constants';
 import './CardActivity.scss';
 
 interface ICardActivityProps {

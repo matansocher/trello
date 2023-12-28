@@ -3,6 +3,7 @@ import { useBoard } from '@context';
 import { ICard, IChecklistItem, IList } from '@models';
 import { dataService } from '@services';
 import './CardChecklist.scss';
+import { useGetBoard } from '@hooks';
 
 interface ICardCheckListProps {
   list: IList;
@@ -10,7 +11,8 @@ interface ICardCheckListProps {
 }
 
 function CardChecklist({ list, card }: ICardCheckListProps) {
-  const { boardState: board, updateBoardState } = useBoard();
+  const { updateBoardState } = useBoard();
+  const { board } = useGetBoard();
 
   const addNewChecklistItem = (checklistItem: IChecklistItem) => {
     const cardToSave = dataService.addNewChecklistItem(card, checklistItem);
@@ -34,7 +36,8 @@ function CardChecklist({ list, card }: ICardCheckListProps) {
     return (
       <>
         {card.checklistItems?.map((checklistItem: IChecklistItem) => {
-          return <CardChecklistItem key={checklistItem.id} checklistItem={checklistItem} handleChecklistItemChange={updateChecklistItem} handleChecklistItemDelete={deleteChecklistItem} />;
+          const key = Math.random();
+          return <CardChecklistItem key={key} checklistItem={checklistItem} handleChecklistItemChange={updateChecklistItem} handleChecklistItemDelete={deleteChecklistItem} />;
         })}
       </>
     )

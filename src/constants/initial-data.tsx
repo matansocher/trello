@@ -5,7 +5,6 @@ export const USER_INITIAL_STATE = {
   firstName: 'Matan',
   lastName: 'Socher',
   email: 'matansocher@gmail.com',
-
 }
 
 export const LABELS_INITIAL_STATE: ILabel[] = [
@@ -29,7 +28,7 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             title: 'some title to the card',
             description: 'some descriptions to describe this card',
             dueDate: '2023-12-13',
-            createdDate: '2023-11-11',
+            createdAt: '2023-11-11',
             labels: ['1'],
             activityItems: [
               {
@@ -58,12 +57,12 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
         title: 'In Progress',
         id: 'listId_2345',
         cards: [
-          { id: 'cardId_2', title: 'some title to the card', createdDate: '2023-11-11', labels: ['4'] },
+          { id: 'cardId_2', title: 'some title to the card', createdAt: '2023-11-11', labels: ['4'] },
           {
             id: 'cardId_4',
             title: 'some title to the card',
             dueDate: '2023-12-11',
-            createdDate: '2023-11-11',
+            createdAt: '2023-11-11',
             labels: ['1', '2'],
             checklistItems: [
               { id: 'checklist_1', description: 'this is a checklist item', isChecked: true},
@@ -82,7 +81,7 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             id: 'cardId_5',
             title: 'some title to the card',
             dueDate: '2023-12-11',
-            createdDate: '2023-11-11',
+            createdAt: '2023-11-11',
             labels: ['3', '4'],
             checklistItems: [
               { id: 'checklist_3', description: 'this is a checklist item', isChecked: true},
@@ -102,16 +101,8 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             title: 'some title to the card',
             description: 'some descriptions to describe this card',
             dueDate: '2023-12-11',
-            createdDate: '2023-11-11',
+            createdAt: '2023-11-11',
             labels: ['1', '3', '4'],
-          },
-          {
-            id: 'cardId_7',
-            title: 'some title to the card',
-            description: 'some descriptions to describe this card',
-            dueDate: '2023-12-11',
-            createdDate: '2023-11-11',
-            labels: ['1']
           },
         ]
       },
@@ -124,7 +115,7 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             title: 'some title to the card',
             description: 'some descriptions to describe this card',
             dueDate: '2023-12-11',
-            createdDate: '2023-11-11',
+            createdAt: '2023-11-11',
             labels: ['2', '3', '4'],
           },
           {
@@ -132,7 +123,7 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             title: 'some title to the card',
             description: 'some descriptions to describe this card',
             dueDate: '2023-12-11',
-            createdDate: '2023-11-11',
+            createdAt: '2023-11-11',
             labels: ['1', '4'],
             checklistItems: [
               { id: 'checklist_5', description: 'this is a checklist item', isChecked: true},
@@ -152,7 +143,7 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             title: 'some title to the card',
             description: 'some descriptions to describe this card',
             dueDate: '2023-12-11',
-            createdDate: '2023-11-11',
+            createdAt: '2023-11-11',
             labels: [],
             checklistItems: [
               { id: 'checklist_7', description: 'this is a checklist item', isChecked: true},
@@ -171,7 +162,7 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             id: 'cardId_11',
             title: 'some title to the card, some title to the card, some title to the card, some title to the card, some title to the card, some title to the card',
             dueDate: '2023-12-11',
-            createdDate: '2023-11-11',
+            createdAt: '2023-11-11',
             labels: ['1', '2', '4'],
             checklistItems: [
               { id: 'checklist_9', description: 'this is a checklist item', isChecked: true},
@@ -203,7 +194,7 @@ export const BOARDS_INITIAL_STATE: IBoard[] = [
             title: 'some title to the card',
             description: 'some descriptions to describe this card',
             dueDate: '2023-12-11',
-            createdDate: '2023-11-11',
+            createdAt: '2023-11-11',
             labels: [],
           },
         ]

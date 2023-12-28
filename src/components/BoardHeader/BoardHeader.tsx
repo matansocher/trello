@@ -13,12 +13,13 @@ import {
 } from '@mui/icons-material';
 import { earth } from '@assets';
 import { DropdownMenu, EditableInput } from '@components';
-import { useBoard } from '@context';
 import { IDropdownItem } from '@models';
 import './BoardHeader.scss';
+import { useGetBoard } from '@hooks';
 
 function BoardHeader() {
-  const { boardState: board } = useBoard();
+  // const { boardState: board } = useBoard();
+  const { board } = useGetBoard();
 
   const handleActivityClick = () => {
     console.log('handleActivityClick');

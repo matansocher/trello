@@ -5,6 +5,7 @@ import { useBoard } from '@context';
 import { IBoard, ICard, ILabel, IList } from '@models';
 import { dataService } from '@services';
 import './CardModal.scss';
+import { useGetBoard } from '@hooks';
 
 interface ICardModalProps {
   card: ICard;
@@ -14,7 +15,8 @@ interface ICardModalProps {
 }
 
 function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
-  const { boardState: board, updateBoardState } = useBoard();
+  const { updateBoardState } = useBoard();
+  const { board } = useGetBoard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 

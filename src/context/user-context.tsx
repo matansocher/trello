@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, FC } from 'react';
-import { USER_INITIAL_STATE } from '@constants';
 import { IUser } from '@models';
+import { USER_INITIAL_STATE } from '../constants/initial-data.tsx';
 
 interface IUserContextType {
   userState: IUser;

@@ -6,14 +6,15 @@ import {
   SearchOutlined as SearchOutlinedIcon,
 } from '@mui/icons-material';
 import { DropdownMenu, UserAvatar } from '@components';
-import { BOARDS_INITIAL_STATE } from '@constants';
 import { useUser } from '@context';
 import { IBoard, IDropdownItem } from '@models';
 import { dataService } from '@services';
 import './Header.scss';
+import { useGetBoards } from '@hooks';
 
 function Header() {
   const { userState: user } = useUser();
+  const { boards } = useGetBoards();
   const navigate = useNavigate();
 
   const handleSomething = () => {
@@ -21,7 +22,7 @@ function Header() {
   }
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
-    return BOARDS_INITIAL_STATE.map((board: IBoard) => {
+    return boards.map((board: IBoard) => {
       return {
         label: board.title,
         onClick: () => navigate(`/boards/${board.id}`),

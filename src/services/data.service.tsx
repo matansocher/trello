@@ -1,4 +1,3 @@
-import { BOARDS_INITIAL_STATE } from '@constants';
 import { IBoard, ICard, IChecklistItem, IComment, ILabel, IList } from '@models';
 import dayjs, { Dayjs } from 'dayjs';
 
@@ -8,10 +7,6 @@ export function createBoard(title: string): IBoard {
   const newBoard = { id, title, lists }; // $$$$$$$$$$$$$$$ you are on create board, you need to return the board, or boards
   // here we need to add the board to the database, navigate to the board, and then return the board
   return newBoard;
-}
-
-export function getBoard(boardId: string | undefined): IBoard {
-  return BOARDS_INITIAL_STATE.find(board => board.id === boardId)!;
 }
 
 export function copyList(board: IBoard, listId: string): IBoard {

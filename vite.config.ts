@@ -11,7 +11,7 @@ export default defineConfig({
       // @ts-ignore
       '@components': path.resolve(__dirname, 'src/components/index'),
       // @ts-ignore
-      '@constants': path.resolve(__dirname, 'src/constants/initial-data'),
+      '@constants': path.resolve(__dirname, 'src/constants/index'),
       // @ts-ignore
       '@context': path.resolve(__dirname, 'src/context/index'),
       // @ts-ignore

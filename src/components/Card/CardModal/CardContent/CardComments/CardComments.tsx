@@ -3,6 +3,7 @@ import { ICard, IComment, IList } from '@models';
 import './CardComments.scss';
 import { dataService } from '@services';
 import { useBoard } from '@context';
+import { useGetBoard } from '@hooks';
 
 interface ICardCommentsProps {
   list: IList;
@@ -10,7 +11,8 @@ interface ICardCommentsProps {
 }
 
 function CardComments({ list, card }: ICardCommentsProps) {
-  const { boardState: board, updateBoardState } = useBoard();
+  const { updateBoardState } = useBoard();
+  const { board } = useGetBoard();
 
   const addNewComment = (comment: IComment) => {
     const cardToSave = dataService.addCommentToCard(card, comment);
@@ -32,7 +34,8 @@ function CardComments({ list, card }: ICardCommentsProps) {
 
   const renderComments = () => {
     return card?.comments?.map((comment: IComment) => {
-      return <CardComment key={comment.id} comment={comment} handleCommentEdit={editComment} handleCommentDelete={deleteComment} />
+      const key = Math.random();
+      return <CardComment key={key} comment={comment} handleCommentEdit={editComment} handleCommentDelete={deleteComment} />
     });
   }
 

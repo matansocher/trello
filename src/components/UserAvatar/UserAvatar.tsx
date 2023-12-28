@@ -1,13 +1,8 @@
 import Avatar from '@mui/material/Avatar';
 import { matan } from '@assets';
+import { UserAvatarSize } from '@constants';
 import { IUser } from '@models';
 import './UserAvatar.scss';
-
-export enum UserAvatarSize {
-  S = 'small',
-  M = 'medium',
-  L = 'large',
-}
 
 interface IUserAvatarProps {
   user: IUser | null;
@@ -18,7 +13,7 @@ interface IUserAvatarProps {
 function UserAvatar({ user, onClick = null, size = UserAvatarSize.S }: IUserAvatarProps) {
 
   const getStyleObj = () => {
-    const style: any = { ...getSizeAttributes(size) };
+    const style = { ...getSizeAttributes(size) };
     if (onClick) {
       style.cursor = 'pointer';
     }

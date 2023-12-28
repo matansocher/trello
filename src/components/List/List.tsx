@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
 import {
   ContentCopy as ContentCopyIcon,
@@ -5,29 +6,52 @@ import {
   MoreHoriz as MoreHorizIcon,
   Watch as WatchIcon,
 } from '@mui/icons-material';
-import { AddNewCard } from '@components';
+import { AddNewCard, CardPreview, DropdownMenu, EllipsisText, Loader } from '@components';
 import { useBoard } from '@context';
+import { LoaderSize, LIST_INITIAL_STATE } from '@constants';
+import { useGetBoard } from '@hooks';
 import { IBoard, ICard, IList, IDropdownItem } from '@models';
-import { dataService } from '@services';
-import { CardPreview, DropdownMenu, EllipsisText } from '../index';
+import { dataService, firebaseService } from '@services';
 import './List.scss';
 
 interface IListProps {
-  list: IList;
+  listId: string;
 }
 
-function List({ list }: IListProps) {
-  const { boardState: board, updateBoardState } = useBoard();
+function List({ listId }: IListProps) {
+  const { updateBoardState } = useBoard();
+  const { board } = useGetBoard();
+  const [list, setList] = useState<IList>(LIST_INITIAL_STATE);
+  const [cards, setCards] = useState<ICard[] | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (!listId) {
+      return;
+    }
+    refreshList();
+  }, [listId]);
+
+  const refreshList = async () => {
+    setIsLoading(true);
+    firebaseService.getListListener(listId, async (querySnapshot: any) => {
+      const [list] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
+      setList(list);
+      const cards = await firebaseService.getCards(list.cards);
+      setCards(cards);
+      setIsLoading(false);
+    });
+  };
 
   const handleArchiveList = () => {
     console.log('handleArchiveListClick');
-    const newBoard = dataService.archiveList(board, list.id) as IBoard;
+    const newBoard = dataService.archiveList(board, listId) as IBoard;
     updateBoardState(newBoard);
   }
 
   const handleCopyList = () => {
     console.log('handleCopyList');
-    const newBoard = dataService.copyList(board, list.id) as IBoard;
+    const newBoard = dataService.copyList(board, listId) as IBoard;
     updateBoardState(newBoard);
   }
 
@@ -62,7 +86,7 @@ function List({ list }: IListProps) {
   }
 
   const renderCards = () => {
-    return list?.cards?.map((card: ICard, index: number) => {
+    return cards?.map((card: ICard, index: number) => {
       return (
         <Draggable key={card.id} draggableId={card.id} index={index}>
           {(provided) => (
@@ -77,25 +101,26 @@ function List({ list }: IListProps) {
 
   return (
     <div className='list-wrapper'>
-      <div className='list-wrapper__content'>
-        <div className='list-wrapper__content__header'>
-          <EllipsisText maxLines={3}>{list.title}</EllipsisText>
-          <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon/>} menuItems={getDropdownMenuItems()} />
-        </div>
-        <div className='list-wrapper__content__cards'>
-          <Droppable droppableId={list.id} direction='vertical' type='group'>
-            {(provided: DroppableProvided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                {renderCards()}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </div>
-        <div className='list-wrapper__content__add-new'>
-          <AddNewCard addNewCard={addNewCard} />
-        </div>
-      </div>
+      {!list || isLoading ? <div className='loader-container'><Loader size={LoaderSize.M} /></div> :
+        <div className='list-wrapper__content'>
+          <div className='list-wrapper__content__header'>
+            <EllipsisText maxLines={3}>{list.title}</EllipsisText>
+            <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon/>} menuItems={getDropdownMenuItems()}/>
+          </div>
+          <div className='list-wrapper__content__cards'>
+            <Droppable droppableId={list.id} direction='vertical' type='group'>
+              {(provided: DroppableProvided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  {renderCards()}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div>
+          <div className='list-wrapper__content__add-new'>
+            <AddNewCard addNewCard={addNewCard}/>
+          </div>
+        </div>}
     </div>
   )
 }

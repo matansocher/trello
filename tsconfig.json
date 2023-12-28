@@ -22,7 +22,7 @@
     "paths": {
       "@assets": ["./src/assets/index"],
       "@components": ["./src/components/index"],
-      "@constants": ["./src/constants/initial-data"],
+      "@constants": ["./src/constants/index"],
       "@context": ["./src/context/index"],
       "@hooks": ["./src/hooks/index"],
       "@models": ["./src/models/index"],

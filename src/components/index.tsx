@@ -25,6 +25,7 @@ import FooterIcon from './Card/CardPreview/FooterIcon/FooterIcon';
 import Header from './Header/Header';
 import Label from './Card/CardPreview/Label/Label';
 import LabelsPicker from './LabelsPicker/LabelsPicker';
+import Loader from './Loader/Loader';
 import List from './List/List';
 import ModalWrapper from './ModalWrapper/ModalWrapper';
 import ProgressBar from './ProgressBar/ProgressBar';
@@ -59,6 +60,7 @@ export {
   Header,
   Label,
   LabelsPicker,
+  Loader,
   List,
   ModalWrapper,
   ProgressBar,

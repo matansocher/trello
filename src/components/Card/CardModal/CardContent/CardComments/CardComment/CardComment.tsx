@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { EllipsisText, Textarea, UserAvatar } from '@components';
+import { UserAvatarSize } from '@constants';
 import { IComment } from '@models';
-import { UserAvatarSize } from '../../../../../UserAvatar/UserAvatar';
 import './CardComment.scss';
 
 interface ICardCommentProps {

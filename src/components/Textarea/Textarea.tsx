@@ -29,7 +29,7 @@ function Textarea({ placeholder, text, handleFocusChange, handleInputChange, max
       <BaseTextareaAutosize
         maxRows={maxRows}
         {...(focusEventHandlers as Object)}
-        aria-label="maximum height"
+        aria-label='maximum height'
         placeholder={placeholder}
         value={text}
         onChange={handleTextChange}
