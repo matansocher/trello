@@ -65,7 +65,7 @@ export const getList = async (id: string) => {
 
 export const getListListener = async (id: string, callback: any) => {
   const q = query(collection(db, COLLECTIONS.LIST), where(documentId(), '==', id));
-  return onSnapshot(q, callback)
+  return onSnapshot(q, callback);
 };
 
 export const getLists = async (listIds: string[]) => {
@@ -84,6 +84,11 @@ export const getCards = async (cardIds: string[]) => {
   );
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as ICard[];
+}
+
+export const getCardListener = async (id: string, callback: any) => {
+  const q = query(collection(db, COLLECTIONS.CARD), where(documentId(), '==', id));
+  return onSnapshot(q, callback)
 }
 
 export const getListCards = async (list: IList) => {

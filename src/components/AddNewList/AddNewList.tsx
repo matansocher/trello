@@ -1,8 +1,9 @@
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Add as AddIcon, Close as CloseIcon } from '@mui/icons-material';
+import { Textarea } from '@components';
 import { IList } from '@models';
 import './AddNewList.scss';
-import { Textarea } from '@components';
 
 interface IAddNewListProps {
   addNewList: (list: IList) => void;
@@ -25,7 +26,7 @@ function AddNewList({ addNewList }: IAddNewListProps) {
       setIsOpen(false);
       return;
     }
-    const newList: IList = { id: 'listId_4567', title: input, cards: [] };
+    const newList: IList = { id: 'listId_4567', title: input, cards: [], createdAt: dayjs().format('YYYY-MM-DD') };
     addNewList(newList);
     setIsOpen(false);
     setInput('');

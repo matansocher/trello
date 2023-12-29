@@ -1,8 +1,8 @@
 import Checkbox from '@mui/material/Checkbox';
 import { ModalWrapper } from '@components';
-import { ICard, ILabel, IModalStyles } from '@models';
-import './LabelsPicker.scss';
 import { useGetLabels } from '@hooks';
+import { ILabel, IModalStyles } from '@models';
+import './LabelsPicker.scss';
 
 const labelsModalStyles: IModalStyles = {
   width: 320,
@@ -11,17 +11,17 @@ const labelsModalStyles: IModalStyles = {
 
 interface ILabelsPickerProps {
   handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
-  card: ICard;
+  cardLabels: string[];
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
-function LabelsPicker({ handleLabelsChange, card, isOpen, setIsOpen }: ILabelsPickerProps) {
+function LabelsPicker({ handleLabelsChange, cardLabels, isOpen, setIsOpen }: ILabelsPickerProps) {
   const { labels } = useGetLabels();
 
   const renderLabels = () => {
     return labels.map((label: ILabel) => {
-      const isChecked = card.labels?.includes(label.id);
+      const isChecked = cardLabels?.includes(label.id);
       return (
         <div className='label-select' key={label.id}>
           <Checkbox

@@ -1,22 +1,22 @@
 import { useState } from 'react';
 import { Dayjs } from 'dayjs';
 import { CardActions, CardContent, CardHeader, DatePicker, LabelsPicker } from '@components';
-import { useBoard } from '@context';
-import { IBoard, ICard, ILabel, IList } from '@models';
+import { useBoard, useCurrentCard } from '@context';
+import { useGetBoard } from '@hooks';
+import { IBoard, ILabel, IList } from '@models';
 import { dataService } from '@services';
 import './CardModal.scss';
-import { useGetBoard } from '@hooks';
 
 interface ICardModalProps {
-  card: ICard;
   list: IList;
   setModalOpen: (modalOpen: boolean) => void;
   archiveCard: (cardId: string) => void;
 }
 
-function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
+function CardModal({ list, setModalOpen, archiveCard }: ICardModalProps) {
   const { updateBoardState } = useBoard();
   const { board } = useGetBoard();
+  const { currentCard: card } = useCurrentCard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
@@ -79,10 +79,10 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
 
   return (
     <div className='card-modal'>
-      <CardHeader list={list} card={card} setModalOpen={setModalOpen} />
+      <CardHeader list={list} setModalOpen={setModalOpen} />
       <div className='card-modal__content'>
         <div className='card-modal__content__left'>
-          <CardContent list={list} card={card} />
+          <CardContent list={list} />
         </div>
         <div className='card-modal__content__right'>
           <CardActions
@@ -100,8 +100,8 @@ function CardModal({ card, list, setModalOpen, archiveCard }: ICardModalProps) {
         </div>
       </div>
 
-      <DatePicker handleChange={handleDueDateChange} card={card} isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} />
-      <LabelsPicker handleLabelsChange={handleLabelsChange} card={card} isOpen={labelsModalOpen} setIsOpen={setLabelsModalOpen} />
+      <DatePicker dueDate={card.dueDate || ''} handleChange={handleDueDateChange} isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} />
+      <LabelsPicker cardLabels={card.labels || []} handleLabelsChange={handleLabelsChange} isOpen={labelsModalOpen} setIsOpen={setLabelsModalOpen} />
     </div>
   )
 }

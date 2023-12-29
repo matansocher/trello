@@ -3,3 +3,5 @@ feat - add option to add cover to a ticket
 feat - add activity saving support
 feat - loaders
 feat - error state
+
+bug - useGetBoard hook is not working, use context instead

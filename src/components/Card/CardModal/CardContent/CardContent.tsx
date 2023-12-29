@@ -13,20 +13,20 @@ import {
   EditableInput,
   ProgressBar
 } from '@components';
-import { useBoard } from '@context';
-import { ICard, IList } from '@models';
+import { useBoard, useCurrentCard } from '@context';
+import { useGetBoard } from '@hooks';
+import { IList } from '@models';
 import { dataService } from '@services';
 import './CardContent.scss';
-import { useGetBoard } from '@hooks';
 
 interface ICardContentProps {
   list: IList;
-  card: ICard;
 }
 
-function CardContent({ list, card }: ICardContentProps) {
+function CardContent({ list }: ICardContentProps) {
   const { updateBoardState } = useBoard();
   const { board } = useGetBoard();
+  const { currentCard: card } = useCurrentCard();
 
   const handleChecklistTitleSave = (newValue: string) => {
     const cardToSave = { ...card, checklistTitle: newValue };
@@ -47,12 +47,12 @@ function CardContent({ list, card }: ICardContentProps) {
   return (
     <div className='card-modal__content__right__sections'>
       <div className='card-modal__content__right__sections__section card-info-section'>
-        <CardInfo list={list} card={card} />
+        <CardInfo list={list} />
       </div>
       <div className='card-modal__content__right__sections__section description-section'>
         <div className='header-icon'><SubjectOutlinedIcon /></div>
         <p className='subheader'>Description</p>
-        <CardDescription list={list} card={card} />
+        <CardDescription list={list} />
       </div>
       {card.checklistItems?.length || card.checklistTitle ? <div className='card-modal__content__right__sections__section checklist-section'>
         <div className='checklist-section__header'>
@@ -61,21 +61,21 @@ function CardContent({ list, card }: ICardContentProps) {
           <button className='card-header__right__watch' onClick={handleDeleteChecklistClick}>Delete</button>
         </div>
         <ProgressBar value={amountOfCheckListChecked} total={card.checklistItems?.length || 0}/>
-        <CardCheckList list={list} card={card} />
+        <CardCheckList list={list} />
       </div> : null}
       <div className='card-modal__content__right__sections__section comments-section'>
         <div className='comments-section__header'>
           <div className='header-icon'><ChatBubbleOutlineIcon/></div>
           <p className='subheader'>Comments</p>
         </div>
-        <CardComments list={list} card={card}/>
+        <CardComments list={list}/>
       </div>
       {card.activityItems?.length ? <div className='card-modal__content__right__sections__section activity-section'>
         <div className='activity-section__header'>
           <div className='header-icon'><CommentOutlinedIcon/></div>
           <p className='subheader'>Activity</p>
         </div>
-        <CardActivity card={card}/>
+        <CardActivity/>
       </div> : null}
     </div>
   )

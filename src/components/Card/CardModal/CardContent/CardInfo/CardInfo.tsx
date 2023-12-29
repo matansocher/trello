@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import { Dayjs } from 'dayjs';
 import { DatePicker, Label, LabelsPicker } from '@components';
-import { useBoard } from '@context';
+import { useBoard, useCurrentCard } from '@context';
 import { useGetBoard, useGetLabels } from '@hooks';
-import { ICard, ILabel, IList } from '@models';
+import { ILabel, IList } from '@models';
 import { dataService, utilsService } from '@services';
 import './CardInfo.scss';
 
 interface ICardDescriptionProps {
   list: IList;
-  card: ICard;
 }
 
-function CardInfo({ list, card }: ICardDescriptionProps) {
+function CardInfo({ list }: ICardDescriptionProps) {
   const { labels } = useGetLabels();
   const { updateBoardState } = useBoard();
   const { board } = useGetBoard();
+  const { currentCard: card } = useCurrentCard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
@@ -77,8 +77,8 @@ function CardInfo({ list, card }: ICardDescriptionProps) {
     <div className='card-info'>
       {card.labels?.length ? renderLabelsSection() : null}
       {card.dueDate?.length ? renderDueDateSection(): null}
-      <DatePicker handleChange={handleDueDateChange} card={card} isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} />
-      <LabelsPicker handleLabelsChange={handleLabelsChange} card={card} isOpen={labelsModalOpen} setIsOpen={setLabelsModalOpen} />
+      <DatePicker dueDate={card.dueDate || ''} handleChange={handleDueDateChange} isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} />
+      <LabelsPicker cardLabels={card.labels || []} handleLabelsChange={handleLabelsChange} isOpen={labelsModalOpen} setIsOpen={setLabelsModalOpen} />
     </div>
   )
 }

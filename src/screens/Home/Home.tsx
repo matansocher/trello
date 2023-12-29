@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { earth } from '@assets';
 import { EllipsisText } from '@components';
-import { INITIAL_BOARD_STATE, useBoard } from '@context';
+import { BOARD_INITIAL_STATE } from '@constants';
+import { useBoard } from '@context';
 import { useGetBoards } from '@hooks';
 import { IBoard } from '@models';
 import { dataService } from '@services';
@@ -18,7 +19,7 @@ function Home() {
   }
 
   const handleBoardClick = (boardId: string) => {
-    updateBoardState(INITIAL_BOARD_STATE);
+    updateBoardState(BOARD_INITIAL_STATE);
     navigate(`/boards/${boardId}`);
   }
 

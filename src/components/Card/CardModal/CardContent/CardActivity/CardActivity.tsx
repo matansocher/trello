@@ -1,13 +1,14 @@
 import {  UserAvatar } from '@components';
-import { IActivityItem, ICard } from '@models';
 import { UserAvatarSize } from '@constants';
+import { useCurrentCard } from '@context';
+import { IActivityItem } from '@models';
 import './CardActivity.scss';
 
 interface ICardActivityProps {
-  card: ICard;
 }
 
-function CardActivity({ card }: ICardActivityProps) {
+function CardActivity({}: ICardActivityProps) {
+  const { currentCard: card } = useCurrentCard();
 
   const renderActivityItems = () => {
     return card.activityItems?.map((activityItem: IActivityItem) => {

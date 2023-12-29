@@ -4,7 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { StaticDatePicker } from '@mui/x-date-pickers';
 import { ModalWrapper } from '@components';
-import { ICard, IModalStyles } from '@models';
+import { IModalStyles } from '@models';
 import './DatePicker.scss';
 
 const datePickerModalStyles: IModalStyles = {
@@ -15,13 +15,13 @@ const datePickerModalStyles: IModalStyles = {
 
 interface IDatePickerProps {
   handleChange: (newValue: Dayjs | null) => void;
-  card: ICard;
+  dueDate: string;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
-function DatePicker({ card, isOpen, setIsOpen, handleChange }: IDatePickerProps) {
-  const dateInitialValue = card.dueDate || new Date().toISOString().slice(0, 10);
+function DatePicker({ dueDate, isOpen, setIsOpen, handleChange }: IDatePickerProps) {
+  const dateInitialValue = dueDate || new Date().toISOString().slice(0, 10);
   const [datePickerValue, setDatePickerValue] = useState<Dayjs | null>(dayjs(dateInitialValue));
 
   const handleDateChange = (newValue: Dayjs | null) => {

@@ -5,6 +5,7 @@ export interface IBoard {
   id: string;
   title: string;
   lists: IList[];
+  createdAt: string;
   background?: string;
   activityItems?: IActivityItem[];
 }

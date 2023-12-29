@@ -11,11 +11,11 @@ import {
   VisibilityOutlined as VisibilityOutlinedIcon,
 } from '@mui/icons-material';
 import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label } from '@components';
+import { useCurrentCard } from '@context';
+import { useToggleHover, useGetLabels } from '@hooks';
 import { ICard, IList, ILabel, IDropdownItem, IFooterIcon, IModalStyles } from '@models';
-import './CardPreview.scss';
-import { useToggleHover } from '@hooks';
 import { utilsService } from '@services';
-import { useGetLabels } from '@hooks';
+import './CardPreview.scss';
 
 const modalWrapperModalStyles: IModalStyles = {
   width: 800,
@@ -24,15 +24,16 @@ const modalWrapperModalStyles: IModalStyles = {
   overflow: 'scroll',
 };
 
-interface ICardProps {
+interface ICardPreviewProps {
   card: ICard;
   list: IList
   copyCard: (card: ICard) => void;
   archiveCard: (cardId: string) => void;
 }
 
-function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
+function CardPreview({ card, copyCard, archiveCard, list }: ICardPreviewProps) {
   const { labels } = useGetLabels();
+  const { updateCurrentCard } = useCurrentCard();
   const [isHovered, hoverEventHandlers] = useToggleHover(false);
   // modal
   const [modalOpen, setModalOpen] = useState(false);
@@ -52,6 +53,8 @@ function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
       return;
     }
     // clicked on card and not on more icon
+    // setCard(card);
+    updateCurrentCard(card); // set the current card state so child card modal can use it
     setModalOpen(true);
   }
 
@@ -106,7 +109,7 @@ function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
     }
 
     return footerIcons.map((footerIcon: IFooterIcon) => {
-      return <FooterIcon key={footerIcon.id} card={card} footerIcon={footerIcon} />;
+      return <FooterIcon key={footerIcon.id} footerIcon={footerIcon} />;
     });
   }
 
@@ -125,7 +128,7 @@ function CardPreview({ card, copyCard, archiveCard, list }: ICardProps) {
         </div>
       </div>
       <ModalWrapper modalOpen={modalOpen} setModalOpen={setModalOpen} modalStyle={modalWrapperModalStyles} >
-        <CardModal card={card} list={list} setModalOpen={setModalOpen} archiveCard={archiveCard} />
+        <CardModal list={list} setModalOpen={setModalOpen} archiveCard={archiveCard} />
       </ModalWrapper>
     </>
   )

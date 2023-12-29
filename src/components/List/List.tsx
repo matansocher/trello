@@ -7,7 +7,7 @@ import {
   Watch as WatchIcon,
 } from '@mui/icons-material';
 import { AddNewCard, CardPreview, DropdownMenu, EllipsisText, Loader } from '@components';
-import { useBoard } from '@context';
+import { CurrentCardContextProvider, useBoard } from '@context';
 import { LoaderSize, LIST_INITIAL_STATE } from '@constants';
 import { useGetBoard } from '@hooks';
 import { IBoard, ICard, IList, IDropdownItem } from '@models';
@@ -29,19 +29,20 @@ function List({ listId }: IListProps) {
     if (!listId) {
       return;
     }
+
+    const refreshList = async () => {
+      setIsLoading(true);
+      firebaseService.getListListener(listId, async (querySnapshot: any) => {
+        const [list] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
+        setList(list);
+        const cards = await firebaseService.getCards(list.cards);
+        setCards(cards);
+        setIsLoading(false);
+      });
+    };
+
     refreshList();
   }, [listId]);
-
-  const refreshList = async () => {
-    setIsLoading(true);
-    firebaseService.getListListener(listId, async (querySnapshot: any) => {
-      const [list] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
-      setList(list);
-      const cards = await firebaseService.getCards(list.cards);
-      setCards(cards);
-      setIsLoading(false);
-    });
-  };
 
   const handleArchiveList = () => {
     console.log('handleArchiveListClick');
@@ -100,28 +101,30 @@ function List({ listId }: IListProps) {
   }
 
   return (
-    <div className='list-wrapper'>
-      {!list || isLoading ? <div className='loader-container'><Loader size={LoaderSize.M} /></div> :
-        <div className='list-wrapper__content'>
-          <div className='list-wrapper__content__header'>
-            <EllipsisText maxLines={3}>{list.title}</EllipsisText>
-            <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon/>} menuItems={getDropdownMenuItems()}/>
-          </div>
-          <div className='list-wrapper__content__cards'>
-            <Droppable droppableId={list.id} direction='vertical' type='group'>
-              {(provided: DroppableProvided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  {renderCards()}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </div>
-          <div className='list-wrapper__content__add-new'>
-            <AddNewCard addNewCard={addNewCard}/>
-          </div>
-        </div>}
-    </div>
+    <CurrentCardContextProvider>
+      <div className='list-wrapper'>
+        {!list || isLoading ? <div className='loader-container'><Loader size={LoaderSize.M} /></div> :
+          <div className='list-wrapper__content'>
+            <div className='list-wrapper__content__header'>
+              <EllipsisText maxLines={3}>{list.title}</EllipsisText>
+              <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon/>} menuItems={getDropdownMenuItems()}/>
+            </div>
+            <div className='list-wrapper__content__cards'>
+              <Droppable droppableId={list.id} direction='vertical' type='group'>
+                {(provided: DroppableProvided) => (
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    {renderCards()}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </div>
+            <div className='list-wrapper__content__add-new'>
+              <AddNewCard addNewCard={addNewCard}/>
+            </div>
+          </div>}
+      </div>
+    </CurrentCardContextProvider>
   )
 }
 

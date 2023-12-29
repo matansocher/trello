@@ -39,28 +39,27 @@ function Board() {
   }
 
   return (
-      // <div className='board-wrapper' style={{ backgroundImage: `url(${board.background})` }}>
-      <div className='board-wrapper' style={{ backgroundImage: `url(${earth})` }}>
-        {!board || loading ? <div className='loader-container'><Loader size={LoaderSize.L} /></div> :
-        <>
-          <BoardHeader />
-          <DragDropContext onDragEnd={onDragEnd}>
-            <div className='board-wrapper__main'>
-              <Droppable droppableId='ROOT' direction='horizontal'>
-                {(provided: DroppableProvided) => (
-                  <div className='board-wrapper__main__lists' ref={provided.innerRef} {...provided.droppableProps}>
-                    {renderLists()}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-              <div className='board-wrapper__add-new'>
-                <AddNewList addNewList={addNewList} />
-              </div>
+    <div className='board-wrapper' style={{ backgroundImage: `url(${earth})` }}>
+      {!board || loading ? <div className='loader-container'><Loader size={LoaderSize.L} /></div> :
+      <>
+        <BoardHeader />
+        <DragDropContext onDragEnd={onDragEnd}>
+          <div className='board-wrapper__main'>
+            <Droppable droppableId='ROOT' direction='horizontal'>
+              {(provided: DroppableProvided) => (
+                <div className='board-wrapper__main__lists' ref={provided.innerRef} {...provided.droppableProps}>
+                  {renderLists()}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+            <div className='board-wrapper__add-new'>
+              <AddNewList addNewList={addNewList} />
             </div>
-          </DragDropContext>
-        </>}
-      </div>
+          </div>
+        </DragDropContext>
+      </>}
+    </div>
   )
 }
 

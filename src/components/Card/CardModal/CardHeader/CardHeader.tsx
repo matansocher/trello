@@ -4,21 +4,21 @@ import {
   VisibilityOutlined as VisibilityOutlinedIcon
 } from '@mui/icons-material';
 import { EditableInput } from '@components';
-import { useBoard } from '@context';
-import { ICard, IList } from '@models';
+import { useBoard, useCurrentCard } from '@context';
+import { useGetBoard } from '@hooks';
+import { IList } from '@models';
 import { dataService } from '@services';
 import './CardHeader.scss';
-import { useGetBoard } from '@hooks';
 
 interface ICardHeaderProps {
   list: IList;
-  card: ICard;
   setModalOpen: (modalOpen: boolean) => void;
 }
 
-function CardHeader({ list, card, setModalOpen }: ICardHeaderProps) {
+function CardHeader({ list, setModalOpen }: ICardHeaderProps) {
   const { updateBoardState } = useBoard();
   const { board } = useGetBoard();
+  const { currentCard: card } = useCurrentCard();
 
   const handleSave = (newValue: string) => {
     const newCard = { ...card, title: newValue };

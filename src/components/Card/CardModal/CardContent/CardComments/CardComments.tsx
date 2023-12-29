@@ -1,18 +1,18 @@
 import { CardComment, CardCommentAdd } from '@components';
-import { ICard, IComment, IList } from '@models';
-import './CardComments.scss';
-import { dataService } from '@services';
-import { useBoard } from '@context';
+import { useBoard, useCurrentCard } from '@context';
 import { useGetBoard } from '@hooks';
+import { IComment, IList } from '@models';
+import { dataService } from '@services';
+import './CardComments.scss';
 
 interface ICardCommentsProps {
   list: IList;
-  card: ICard;
 }
 
-function CardComments({ list, card }: ICardCommentsProps) {
+function CardComments({ list }: ICardCommentsProps) {
   const { updateBoardState } = useBoard();
   const { board } = useGetBoard();
+  const { currentCard: card } = useCurrentCard();
 
   const addNewComment = (comment: IComment) => {
     const cardToSave = dataService.addCommentToCard(card, comment);

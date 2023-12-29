@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import { useBoard } from '@context';
-import { ICard, IList } from '@models';
+import { Textarea } from '@components';
+import { useBoard, useCurrentCard } from '@context';
+import { useGetBoard } from '@hooks';
+import { IList } from '@models';
 import { dataService } from '@services';
 import './CardDescription.scss';
-import { Textarea } from '@components';
-import { useGetBoard } from '@hooks';
 
 interface ICardDescriptionProps {
   list: IList;
-  card: ICard;
 }
 
-function CardDescription({ list, card }: ICardDescriptionProps) {
+function CardDescription({ list }: ICardDescriptionProps) {
   const { updateBoardState } = useBoard();
   const { board } = useGetBoard();
+  const { currentCard: card } = useCurrentCard();
   const [input, setInput] = useState(card.description || '');
   const [isOpen, setIsOpen] = useState(false);
 

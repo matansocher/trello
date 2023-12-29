@@ -1,18 +1,18 @@
 import { CardChecklistAdd, CardChecklistItem } from '@components';
-import { useBoard } from '@context';
-import { ICard, IChecklistItem, IList } from '@models';
+import { useBoard, useCurrentCard } from '@context';
+import { useGetBoard } from '@hooks';
+import { IChecklistItem, IList } from '@models';
 import { dataService } from '@services';
 import './CardChecklist.scss';
-import { useGetBoard } from '@hooks';
 
 interface ICardCheckListProps {
   list: IList;
-  card: ICard;
 }
 
-function CardChecklist({ list, card }: ICardCheckListProps) {
+function CardChecklist({ list }: ICardCheckListProps) {
   const { updateBoardState } = useBoard();
   const { board } = useGetBoard();
+  const { currentCard: card } = useCurrentCard();
 
   const addNewChecklistItem = (checklistItem: IChecklistItem) => {
     const cardToSave = dataService.addNewChecklistItem(card, checklistItem);

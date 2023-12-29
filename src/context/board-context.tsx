@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, FC } from 'react';
+import { BOARD_INITIAL_STATE } from '@constants';
 import { IBoard } from '@models';
-
-export const INITIAL_BOARD_STATE: IBoard = { id: '', title: '', lists: [] }
 
 interface IBoardContextType {
   boardState: IBoard;
@@ -15,8 +14,7 @@ type BoardContextProviderProps = {
 }
 
 export const BoardContextProvider: FC<BoardContextProviderProps> = ({ children }) => {
-  const [boardState, setBoardState] = useState<IBoard>(INITIAL_BOARD_STATE); // Provide an initial non-null state
-  // const [boardState, setBoardState] = useState<IBoard>(null);
+  const [boardState, setBoardState] = useState<IBoard>(BOARD_INITIAL_STATE);
 
   const updateBoardState: IBoardContextType['updateBoardState'] = (newState: SetStateAction<IBoard>) => {
     setBoardState(newState);
