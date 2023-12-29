@@ -1,6 +1,5 @@
 import { CardComment, CardCommentAdd } from '@components';
 import { useBoard, useCurrentCard } from '@context';
-import { useGetBoard } from '@hooks';
 import { IComment, IList } from '@models';
 import { dataService } from '@services';
 import './CardComments.scss';
@@ -10,8 +9,7 @@ interface ICardCommentsProps {
 }
 
 function CardComments({ list }: ICardCommentsProps) {
-  const { updateBoardState } = useBoard();
-  const { board } = useGetBoard();
+  const { boardState: board, updateBoardState } = useBoard();
   const { currentCard: card } = useCurrentCard();
 
   const addNewComment = (comment: IComment) => {

@@ -1,6 +1,5 @@
 import { CardChecklistAdd, CardChecklistItem } from '@components';
 import { useBoard, useCurrentCard } from '@context';
-import { useGetBoard } from '@hooks';
 import { IChecklistItem, IList } from '@models';
 import { dataService } from '@services';
 import './CardChecklist.scss';
@@ -10,8 +9,7 @@ interface ICardCheckListProps {
 }
 
 function CardChecklist({ list }: ICardCheckListProps) {
-  const { updateBoardState } = useBoard();
-  const { board } = useGetBoard();
+  const { boardState: board, updateBoardState } = useBoard();
   const { currentCard: card } = useCurrentCard();
 
   const addNewChecklistItem = (checklistItem: IChecklistItem) => {

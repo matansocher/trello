@@ -9,7 +9,6 @@ import {
 import { AddNewCard, CardPreview, DropdownMenu, EllipsisText, Loader } from '@components';
 import { CurrentCardContextProvider, useBoard } from '@context';
 import { LoaderSize, LIST_INITIAL_STATE } from '@constants';
-import { useGetBoard } from '@hooks';
 import { IBoard, ICard, IList, IDropdownItem } from '@models';
 import { dataService, firebaseService } from '@services';
 import './List.scss';
@@ -19,8 +18,7 @@ interface IListProps {
 }
 
 function List({ listId }: IListProps) {
-  const { updateBoardState } = useBoard();
-  const { board } = useGetBoard();
+  const { boardState: board, updateBoardState } = useBoard();
   const [list, setList] = useState<IList>(LIST_INITIAL_STATE);
   const [cards, setCards] = useState<ICard[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);

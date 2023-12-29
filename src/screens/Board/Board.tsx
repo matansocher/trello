@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
 import { earth } from '@assets';
@@ -11,8 +12,12 @@ import './Board.scss';
 
 function Board() {
   const { boardId = '' } = useParams<{ boardId: string }>();
-  const { updateBoardState } = useBoard();
-  const { board, loading } = useGetBoard(boardId);
+  const { board: boardFromDb, loading } = useGetBoard(boardId);
+  const { boardState: board, updateBoardState } = useBoard();
+
+  useEffect(()=>{
+    updateBoardState(boardFromDb)
+  },[boardFromDb])
 
   const addNewList = (list: IList) => {
     const newBoard = dataService.addListToBoard(board, list) as IBoard;

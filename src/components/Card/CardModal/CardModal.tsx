@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Dayjs } from 'dayjs';
 import { CardActions, CardContent, CardHeader, DatePicker, LabelsPicker } from '@components';
 import { useBoard, useCurrentCard } from '@context';
-import { useGetBoard } from '@hooks';
 import { IBoard, ILabel, IList } from '@models';
 import { dataService } from '@services';
 import './CardModal.scss';
@@ -14,8 +13,7 @@ interface ICardModalProps {
 }
 
 function CardModal({ list, setModalOpen, archiveCard }: ICardModalProps) {
-  const { updateBoardState } = useBoard();
-  const { board } = useGetBoard();
+  const { boardState: board, updateBoardState } = useBoard();
   const { currentCard: card } = useCurrentCard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);

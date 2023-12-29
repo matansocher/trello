@@ -5,3 +5,4 @@ feat - loaders
 feat - error state
 
 bug - useGetBoard hook is not working, use context instead
+bug - BoardHeader component gets the board title, but it does not appear in the header EditableInput

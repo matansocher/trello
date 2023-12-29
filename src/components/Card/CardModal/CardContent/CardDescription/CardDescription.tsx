@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Textarea } from '@components';
 import { useBoard, useCurrentCard } from '@context';
-import { useGetBoard } from '@hooks';
 import { IList } from '@models';
 import { dataService } from '@services';
 import './CardDescription.scss';
@@ -11,8 +10,7 @@ interface ICardDescriptionProps {
 }
 
 function CardDescription({ list }: ICardDescriptionProps) {
-  const { updateBoardState } = useBoard();
-  const { board } = useGetBoard();
+  const { boardState: board, updateBoardState } = useBoard();
   const { currentCard: card } = useCurrentCard();
   const [input, setInput] = useState(card.description || '');
   const [isOpen, setIsOpen] = useState(false);

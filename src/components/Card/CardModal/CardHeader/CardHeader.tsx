@@ -5,7 +5,6 @@ import {
 } from '@mui/icons-material';
 import { EditableInput } from '@components';
 import { useBoard, useCurrentCard } from '@context';
-import { useGetBoard } from '@hooks';
 import { IList } from '@models';
 import { dataService } from '@services';
 import './CardHeader.scss';
@@ -16,8 +15,7 @@ interface ICardHeaderProps {
 }
 
 function CardHeader({ list, setModalOpen }: ICardHeaderProps) {
-  const { updateBoardState } = useBoard();
-  const { board } = useGetBoard();
+  const { boardState: board, updateBoardState } = useBoard();
   const { currentCard: card } = useCurrentCard();
 
   const handleSave = (newValue: string) => {

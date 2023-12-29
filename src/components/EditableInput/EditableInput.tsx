@@ -8,6 +8,7 @@ interface IEditableInputProps {
 }
 
 function EditableInput({ handleSave, initialValue = '' }: IEditableInputProps) {
+  console.log(initialValue);
   const [input, setInput] = useState(initialValue);
   const [isOpen, setIsOpen] = useState(false);
   const [isFocused, focusEventHandlers] = useToggleFocus(false);

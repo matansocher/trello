@@ -13,14 +13,14 @@ import {
 } from '@mui/icons-material';
 import { earth } from '@assets';
 import { DropdownMenu, EditableInput } from '@components';
+import { useBoard } from '@context';
 import { IDropdownItem } from '@models';
 import './BoardHeader.scss';
-import { useGetBoard } from '@hooks';
 
 function BoardHeader() {
-  // const { boardState: board } = useBoard();
-  const { board } = useGetBoard();
-
+  const { boardState: board } = useBoard();
+  console.log('board');
+  console.log(board);
   const handleActivityClick = () => {
     console.log('handleActivityClick');
   }
@@ -75,13 +75,11 @@ function BoardHeader() {
     ];
   }
 
-  if (!board) {
-    return;
-  }
   return (
     <div className='board-header'>
       <div className='board-header__left'>
         <EditableInput handleSave={handleTitleSave} initialValue={board.title} />
+        <EditableInput handleSave={handleTitleSave} initialValue={'board.title'} />
       </div>
       <div className='board-header__right'>
         <div className='board-header-icon'>
