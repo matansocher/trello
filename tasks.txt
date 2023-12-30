@@ -1,3 +1,4 @@
+feat - drag and drop save to db
 feat - make list header editable - ListHeader
 feat - add option to add cover to a ticket
 feat - add activity saving support

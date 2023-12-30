@@ -7,7 +7,7 @@ import { useBoard } from '@context';
 import { LoaderSize } from '@constants';
 import { useGetBoard } from '@hooks';
 import { IList } from '@models';
-import { dataService, dndService } from '@services';
+import { dataService, dndService, utilsService } from '@services';
 import './Board.scss';
 
 function Board() {
@@ -24,15 +24,16 @@ function Board() {
     updateBoardState(newBoard);
   }
 
-  const onDragEnd = (result: any) => {
-    const newBoard = dndService.getDragEndBoard(board, result);
-    updateBoardState(newBoard);
+  const onDragEnd = async (result: any) => {
+    // const newBoard = dndService.getDragEndBoard(board, result);
+    // updateBoardState(newBoard);
+    await dndService.dragEndHandler(board, result);
   }
 
   const renderLists = () => {
     return board.lists.map((listId: string, index: number) => {
       return (
-        <Draggable key={listId} draggableId={listId} index={index}>
+        <Draggable key={listId} draggableId={`list_${listId}`} index={index}>
           {(provided) => (
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
               <List listIdToFetch={listId} />
@@ -50,7 +51,7 @@ function Board() {
         <BoardHeader />
         <DragDropContext onDragEnd={onDragEnd}>
           <div className='board-wrapper__main'>
-            <Droppable droppableId='ROOT' direction='horizontal'>
+            <Droppable droppableId='board' type='board' direction='horizontal'>
               {(provided: DroppableProvided) => (
                 <div className='board-wrapper__main__lists' ref={provided.innerRef} {...provided.droppableProps}>
                   {renderLists()}

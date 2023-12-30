@@ -30,9 +30,9 @@ function Header() {
     });
   }
 
-  const handleCreateBoardClick = () => {
-    const newBoard = dataService.createBoard('New Board');
-    navigate(`/boards/${newBoard.id}`); // $$$$$$$$$$$$$$$$$$
+  const handleCreateBoardClick = async () => {
+    const newBoard = await dataService.createBoard('New Board');
+    navigate(`/boards/${newBoard.id}`);
   }
 
   return (

@@ -9,6 +9,10 @@ export async function createBoard(title: string): Promise<IBoard> {
   return { ...newBoard, id: createdBoardId };
 }
 
+export async function updateBoard(board: IBoard): Promise<void> {
+  await firebaseService.updateBoard(board);
+}
+
 export async function createBoardFromTemplate(boardTemplate: IBoardTemplate): Promise<string> {
   const createListPromises = boardTemplate.lists.map(async (list: string) => {
     const newList = { title: list, cards: [], createdAt: dayjs().format('YYYY-MM-DD') } as IList;
@@ -23,6 +27,18 @@ export async function createBoardFromTemplate(boardTemplate: IBoardTemplate): Pr
 }
 
 // *********************  LISTS  ********************* //
+export async function getList(listId: string): Promise<any> {
+  return firebaseService.getList(listId);
+}
+
+export async function getCleanedList(listId: string): Promise<any> {
+  return firebaseService.getCleanedList(listId);
+}
+
+export async function updateList(list: IList): Promise<void> {
+  await firebaseService.updateList(list);
+}
+
 export async function addNewList(board: IBoard, list: IList): Promise<IBoard> {
   const { id: createdListId } = await firebaseService.createList(list);
   const newBoard = { ...board, lists: [...board.lists, createdListId] } as IBoard;

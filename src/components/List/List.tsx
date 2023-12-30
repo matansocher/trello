@@ -6,16 +6,7 @@ import {
   MoreHoriz as MoreHorizIcon,
   Watch as WatchIcon,
 } from '@mui/icons-material';
-import {
-  AddNewCard,
-  CardPreview,
-  DropdownMenu,
-  EditableInput,
-  EllipsisText,
-  ListHeader,
-  Loader,
-  Textarea
-} from '@components';
+import { AddNewCard, CardPreview, DropdownMenu, ListHeader, Loader } from '@components';
 import { CurrentCardContextProvider, useBoard } from '@context';
 import { LoaderSize, LIST_INITIAL_STATE } from '@constants';
 import { ICard, IList, IDropdownItem } from '@models';
@@ -92,7 +83,7 @@ function List({ listIdToFetch }: IListProps) {
     const cardsToRender = utilsService.sortCardsByListOrder(list.cards, cards);
     return cardsToRender?.map((card: ICard, index: number) => {
       return (
-        <Draggable key={card.id} draggableId={card.id || ''} index={index}>
+        <Draggable key={card.id} draggableId={`card_${card.id}`} index={index}>
           {(provided) => (
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
               <CardPreview
@@ -119,8 +110,8 @@ function List({ listIdToFetch }: IListProps) {
               <ListHeader list={list} />
               <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon/>} menuItems={getDropdownMenuItems()}/>
             </div>
-            <div className='list-wrapper__content__cards'>
-              <Droppable droppableId={list.id || ''} direction='vertical' type='group'>
+            {list?.id ? <div className='list-wrapper__content__cards'>
+              <Droppable droppableId={`list_${list.id}`} direction='vertical' type='list'>
                 {(provided: DroppableProvided) => (
                   <div ref={provided.innerRef} {...provided.droppableProps}>
                     {renderCards()}
@@ -128,7 +119,7 @@ function List({ listIdToFetch }: IListProps) {
                   </div>
                 )}
               </Droppable>
-            </div>
+            </div> : null}
             <div className='list-wrapper__content__add-new'>
               <AddNewCard addNewCardToList={addNewCardToList}/>
             </div>

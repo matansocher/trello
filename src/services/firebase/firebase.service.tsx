@@ -63,6 +63,18 @@ export const getList = async (id: string) => {
   };
 };
 
+export const getCleanedList = async (id: string) => {
+  const listRef = doc(db, COLLECTIONS.LIST, id);
+  const listSnap = await getDoc(listRef);
+  if (!listSnap.exists()) {
+    console.log('Board Does Not Exist');
+  }
+  return {
+    ...listSnap.data(),
+    id: listSnap.id,
+  };
+}
+
 export const getListListener = async (id: string, callback: any) => {
   const q = query(collection(db, COLLECTIONS.LIST), where(documentId(), '==', id));
   return onSnapshot(q, callback);
