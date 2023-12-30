@@ -67,9 +67,9 @@ function List({ listIdToFetch }: IListProps) {
     await dataService.moveCardToBottom(list, card);
   }
 
-  const handleListTitleUpdate = async (newTitle: string) => {
-    await dataService.updateListTitle(list, newTitle);
-  }
+  // const handleListTitleUpdate = async (newTitle: string) => {
+  //   await dataService.updateListTitle(list, newTitle);
+  // }
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [

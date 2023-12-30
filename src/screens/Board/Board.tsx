@@ -7,7 +7,7 @@ import { useBoard } from '@context';
 import { LoaderSize } from '@constants';
 import { useGetBoard } from '@hooks';
 import { IList } from '@models';
-import { dataService, dndService, utilsService } from '@services';
+import { dataService, dndService } from '@services';
 import './Board.scss';
 
 function Board() {

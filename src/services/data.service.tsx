@@ -80,7 +80,7 @@ export async function moveCardToTop(list: IList, card: ICard): Promise<void> {
   const cardIds = [...list.cards];
   const indexOfCard = cardIds.indexOf(card.id|| '');
   cardIds.splice(indexOfCard, 1);
-  const newCards = [card.id, ...cardIds];
+  const newCards = [card.id, ...cardIds] as string[];
   await firebaseService.updateList({ ...list, cards: newCards });
 }
 
@@ -88,7 +88,7 @@ export async function moveCardToBottom(list: IList, card: ICard): Promise<void> 
   const cardIds = [...list.cards];
   const indexOfCard = cardIds.indexOf(card.id|| '');
   cardIds.splice(indexOfCard, 1);
-  const newCards = [...cardIds, card.id];
+  const newCards = [...cardIds, card.id] as string[];
   await firebaseService.updateList({ ...list, cards: newCards });
 }
 
