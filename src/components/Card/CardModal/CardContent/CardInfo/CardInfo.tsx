@@ -1,33 +1,32 @@
 import { useState } from 'react';
 import { Dayjs } from 'dayjs';
 import { DatePicker, Label, LabelsPicker } from '@components';
-import { useBoard, useCurrentCard } from '@context';
+import { useCurrentCard } from '@context';
 import { useGetLabels } from '@hooks';
-import { ILabel, IList } from '@models';
-import { dataService, utilsService } from '@services';
+import { ILabel } from '@models';
+import { dataService, firebaseService, utilsService } from '@services';
 import './CardInfo.scss';
 
 interface ICardDescriptionProps {
-  list: IList;
+
 }
 
-function CardInfo({ list }: ICardDescriptionProps) {
+function CardInfo({  }: ICardDescriptionProps) {
   const { labels } = useGetLabels();
-  const { boardState: board, updateBoardState } = useBoard();
-  const { currentCard: card } = useCurrentCard();
+  const { currentCard: card, updateCurrentCard } = useCurrentCard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
-  const handleDueDateChange = (newValue: Dayjs | null) => {
+  const handleDueDateChange = async (newValue: Dayjs | null) => {
     const cardToSave = dataService.updateCardDueDate(card, newValue);
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
-  const handleLabelsChange = (label: ILabel, isChecked: boolean) => {
+  const handleLabelsChange = async (label: ILabel, isChecked: boolean) => {
     const cardToSave = dataService.updateCardLabels(card, label, isChecked);
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
   const renderLabelsSection = () => {
@@ -63,7 +62,7 @@ function CardInfo({ list }: ICardDescriptionProps) {
   }
 
   const getDueDateSideLabel = () => {
-    const numOfDaysDueAfterToday = utilsService.getNumOfDaysDueAfterToday(card.dueDate as string)
+    const numOfDaysDueAfterToday = utilsService.getNumOfDaysAfterToday(card.dueDate as string)
     if (numOfDaysDueAfterToday === 0) { // today
       return <p className='side-label today'>Today</p>;
     }

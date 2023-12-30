@@ -1,13 +1,12 @@
 import { IComment, IChecklistItem, IActivityItem } from '@models';
 
 export interface ICard {
-  id: string;
+  id?: string;
   title: string;
   description?: string;
   createdAt: string;
   dueDate?: string;
   labels?: string[];
-  isWatching?: boolean;
   comments?: IComment[];
   checklistTitle?: string;
   checklistItems?: IChecklistItem[];

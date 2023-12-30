@@ -9,8 +9,8 @@ import {
 import { AddNewCard, CardPreview, DropdownMenu, EllipsisText, Loader } from '@components';
 import { CurrentCardContextProvider, useBoard } from '@context';
 import { LoaderSize, LIST_INITIAL_STATE } from '@constants';
-import { IBoard, ICard, IList, IDropdownItem } from '@models';
-import { dataService, firebaseService } from '@services';
+import { ICard, IList, IDropdownItem, IBoard } from '@models';
+import { firebaseService } from '@services';
 import './List.scss';
 
 interface IListProps {
@@ -33,7 +33,7 @@ function List({ listId }: IListProps) {
       firebaseService.getListListener(listId, async (querySnapshot: any) => {
         const [list] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
         setList(list);
-        const cards = await firebaseService.getCards(list.cards);
+        const cards = list?.cards?.length ? await firebaseService.getCards(list.cards) : [];
         setCards(cards);
         setIsLoading(false);
       });
@@ -42,44 +42,55 @@ function List({ listId }: IListProps) {
     refreshList();
   }, [listId]);
 
-  const handleArchiveList = () => {
-    console.log('handleArchiveListClick');
-    const newBoard = dataService.archiveList(board, listId) as IBoard;
+  const handleCloneList = async () => {
+    // copy the cards in the cards collection
+    // copy the list in the list collection
+    // add the list id to the board lists array
+
+    // $$$$$$$$$ we also need to copy the cards in the cards collection
+    const clonedList = { ...list, title: `Copy of ${list.title}` } as IList;
+    delete clonedList.id;
+    await firebaseService.createList(clonedList);
+    const newBoard = { ...board, lists: [...board.lists, listId] } as IBoard;
+    await firebaseService.updateBoard(newBoard);
     updateBoardState(newBoard);
   }
 
-  const handleCopyList = () => {
-    console.log('handleCopyList');
-    const newBoard = dataService.copyList(board, listId) as IBoard;
+  const handleWatchList = () => {
+    console.log('handleWatchList');
+  }
+
+  const handleArchiveList = async () => {
+    await firebaseService.archiveList(list.id);
+    const newBoard = { ...board, lists: board.lists.filter((list: string) => list !== listId) } as IBoard;
+    await firebaseService.updateBoard(newBoard);
     updateBoardState(newBoard);
   }
 
-  const handleWatch = () => {
-    console.log('handleWatch');
-    // const newBoard = board;
-    // updateBoardState(newBoard);
+  const addNewCard = async (card: ICard) => {
+    const { id: createdCardId } = await firebaseService.createCard(card);
+    const newList = { ...list, cards: [...list.cards, createdCardId] } as IList;
+    await firebaseService.updateList(newList);
   }
 
-  const addNewCard = (card: ICard) => {
-    const newBoard = dataService.addCardToList(board, list, card) as IBoard;
-    updateBoardState(newBoard);
+  const cloneCard = async (card: ICard) => {
+    const clonedCard = { ...card, title: `Copy of ${card.title}`, createdAt: new Date().toISOString().slice(0, 10) } as ICard;
+    delete clonedCard.id;
+    const { id: createdCardId } = await firebaseService.createCard(clonedCard);
+    const newList = { ...list, cards: [...list.cards, createdCardId] } as IList;
+    await firebaseService.updateList(newList);
   }
 
-  const copyCard = (card: ICard) => {
-    const newCard = { ...card, id: `cardId_${Math.random()}`, title: `Copy of ${card.title}` };
-    const newBoard = dataService.addCardToList(board, list, newCard) as IBoard;
-    updateBoardState(newBoard);
-  }
-
-  const archiveCard = (cardId: string) => {
-    const newBoard = dataService.removeCardFromList(board, list, cardId) as IBoard;
-    updateBoardState(newBoard);
+  const archiveCard = async (cardId: string) => {
+    await firebaseService.archiveCard(cardId);/**/
+    const newList = { ...list, cards: list.cards.filter((card: string) => card !== cardId) };
+    await firebaseService.updateList(newList);
   }
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
-      { label: 'Copy list...', icon: <ContentCopyIcon fontSize='small' />, onClick: () => handleCopyList() },
-      { label: 'Watch', icon: <WatchIcon fontSize='small' />, onClick: () => handleWatch() },
+      { label: 'Clone list...', icon: <ContentCopyIcon fontSize='small' />, onClick: () => handleCloneList() },
+      { label: 'Watch', icon: <WatchIcon fontSize='small' />, onClick: () => handleWatchList() },
       { label: 'Archive list', icon: <DeleteIcon fontSize='small' />, onClick: () => handleArchiveList() },
     ];
   }
@@ -90,7 +101,7 @@ function List({ listId }: IListProps) {
         <Draggable key={card.id} draggableId={card.id} index={index}>
           {(provided) => (
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-              <CardPreview card={card} list={list} copyCard={copyCard} archiveCard={archiveCard} />
+              <CardPreview card={card} list={list} cloneCard={cloneCard} archiveCard={archiveCard} />
             </div>
           )}
         </Draggable>

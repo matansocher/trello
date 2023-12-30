@@ -26,7 +26,7 @@ interface ICardActionsProps {
   handleAttachmentClick: () => void;
   handleCoverClick: () => void;
   handleMoveClick: () => void;
-  handleCopyClick: () => void;
+  handleCloneClick: () => void;
   handleArchiveClick: () => void;
   handleShareClick: () => void;
 }
@@ -39,7 +39,7 @@ function CardActions({
   handleAttachmentClick,
   handleCoverClick,
   handleMoveClick,
-  handleCopyClick,
+  handleCloneClick,
   handleArchiveClick,
   handleShareClick,
 }: ICardActionsProps) {
@@ -59,7 +59,7 @@ function CardActions({
   const renderActionsBottom = () => {
     const actions: ICardAction[] = [
       { label: 'Move', icon: <ArrowForwardIcon fontSize='small' />, onClick: () => handleMoveClick() },
-      { label: 'Copy', icon: <ContentCopyIcon fontSize='small' />, onClick: () => handleCopyClick() },
+      { label: 'Clone', icon: <ContentCopyIcon fontSize='small' />, onClick: () => handleCloneClick() },
       { label: 'Archive', icon: <DeleteIcon fontSize='small' />, onClick: () => handleArchiveClick() },
       { label: 'Share', icon: <ShareIcon fontSize='small' />, onClick: () => handleShareClick() },
     ];

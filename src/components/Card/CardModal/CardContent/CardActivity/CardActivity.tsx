@@ -12,8 +12,9 @@ function CardActivity({}: ICardActivityProps) {
 
   const renderActivityItems = () => {
     return card.activityItems?.map((activityItem: IActivityItem) => {
+      const key = `${activityItem.userId}_${activityItem.createdAt}`;
       return (
-        <div className='card-activities__activity'>
+        <div key={key} className='card-activities__activity'>
           <div className='card-activities__activity__left'>
             <UserAvatar user={null} size={UserAvatarSize.S}/>
           </div>

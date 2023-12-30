@@ -1,4 +1,4 @@
-import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, setDoc } from 'firebase/firestore';
+import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { IBoard, ICard, IList } from '@models';
 import { db } from './firebase.init';
 
@@ -17,9 +17,7 @@ export const getLabels = async () => {
 
 export const createBoard = async (board: IBoard) => {
   try {
-    const docRef = await addDoc(collection(db, COLLECTIONS.BOARD), {
-      Board: board,
-    });
+    const docRef = await addDoc(collection(db, COLLECTIONS.BOARD), board);
     return docRef
   } catch (error) {
     console.error('Error adding item: ', error);
@@ -101,6 +99,44 @@ export const getListCards = async (list: IList) => {
 }
 
 export const updateBoard = async (board: IBoard) => {
-  const boardsRef = collection(db, COLLECTIONS.BOARD);
-  await setDoc(doc(boardsRef, 'SF'), board);
+  const boardToSave = { ...board } as any;
+  delete boardToSave.id;
+  const boardRef = doc(db, COLLECTIONS.BOARD, board.id);
+  await updateDoc(boardRef, { ...boardToSave });
+};
+
+export const createCard = async (card: ICard) => {
+  const cardsRef = collection(db, COLLECTIONS.CARD);
+  const newCardRef = await addDoc(cardsRef, card);
+  return newCardRef
+};
+
+export const createList = async (list: IList) => {
+  const listssRef = collection(db, COLLECTIONS.LIST);
+  const newListRef = await addDoc(listssRef, list);
+  return newListRef
+};
+
+export const updateCard = async (card: ICard) => {
+  const cardToSave = { ...card } as any;
+  delete cardToSave.id;
+  const cardRef = doc(db, COLLECTIONS.CARD, card.id);
+  await updateDoc(cardRef, { ...cardToSave });
+};
+
+export const updateList = async (list: IList) => {
+  const listToSave = { ...list } as any;
+  delete listToSave.id;
+  const listRef = doc(db, COLLECTIONS.LIST, list.id);
+  await updateDoc(listRef, { ...listToSave });
+};
+
+export const archiveCard = async (cardId: string) => {
+  const cardToDeleteRef = doc(db, COLLECTIONS.CARD, cardId);
+  await deleteDoc(cardToDeleteRef);
+};
+
+export const archiveList = async (listId: string) => {
+  const listToDeleteRef = doc(db, COLLECTIONS.LIST, listId);
+  await deleteDoc(listToDeleteRef);
 };

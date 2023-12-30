@@ -1,3 +1,6 @@
+feat - make list header editable
+feat - clone list should also copy all the cards
+feat - move all firebase logic to a data.service.tsx
 feat - create new board in home page
 feat - add option to add cover to a ticket
 feat - add activity saving support

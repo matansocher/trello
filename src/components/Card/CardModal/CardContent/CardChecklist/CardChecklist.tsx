@@ -1,33 +1,32 @@
 import { CardChecklistAdd, CardChecklistItem } from '@components';
-import { useBoard, useCurrentCard } from '@context';
-import { IChecklistItem, IList } from '@models';
-import { dataService } from '@services';
+import { useCurrentCard } from '@context';
+import { IChecklistItem } from '@models';
+import { dataService, firebaseService } from '@services';
 import './CardChecklist.scss';
 
 interface ICardCheckListProps {
-  list: IList;
+
 }
 
-function CardChecklist({ list }: ICardCheckListProps) {
-  const { boardState: board, updateBoardState } = useBoard();
-  const { currentCard: card } = useCurrentCard();
+function CardChecklist({}: ICardCheckListProps) {
+  const { currentCard: card, updateCurrentCard } = useCurrentCard();
 
-  const addNewChecklistItem = (checklistItem: IChecklistItem) => {
+  const addNewChecklistItem = async (checklistItem: IChecklistItem) => {
     const cardToSave = dataService.addNewChecklistItem(card, checklistItem);
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
-  const updateChecklistItem = (checklistItem: IChecklistItem) => {
+  const updateChecklistItem = async (checklistItem: IChecklistItem) => {
     const cardToSave = dataService.updateChecklistItem(card, checklistItem);
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
-  const deleteChecklistItem = (checklistItem: IChecklistItem) => {
+  const deleteChecklistItem = async (checklistItem: IChecklistItem) => {
     const cardToSave = dataService.deleteChecklistItem(card, checklistItem);
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
   const renderChecklistItems = () => {

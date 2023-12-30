@@ -4,9 +4,9 @@ import {
   VisibilityOutlined as VisibilityOutlinedIcon
 } from '@mui/icons-material';
 import { EditableInput } from '@components';
-import { useBoard, useCurrentCard } from '@context';
+import { useCurrentCard } from '@context';
 import { IList } from '@models';
-import { dataService } from '@services';
+import { firebaseService } from '@services';
 import './CardHeader.scss';
 
 interface ICardHeaderProps {
@@ -15,13 +15,12 @@ interface ICardHeaderProps {
 }
 
 function CardHeader({ list, setModalOpen }: ICardHeaderProps) {
-  const { boardState: board, updateBoardState } = useBoard();
-  const { currentCard: card } = useCurrentCard();
+  const { currentCard: card, updateCurrentCard } = useCurrentCard();
 
-  const handleSave = (newValue: string) => {
-    const newCard = { ...card, title: newValue };
-    const newBoard = dataService.saveCard(board, list.id, newCard);
-    updateBoardState(newBoard);
+  const handleSave = async (title: string) => {
+    const cardToSave = { ...card, title: title };
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
   const handleWatchClick = () => {

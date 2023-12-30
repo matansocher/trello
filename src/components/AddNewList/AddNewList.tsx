@@ -26,7 +26,7 @@ function AddNewList({ addNewList }: IAddNewListProps) {
       setIsOpen(false);
       return;
     }
-    const newList: IList = { id: 'listId_4567', title: input, cards: [], createdAt: dayjs().format('YYYY-MM-DD') };
+    const newList: IList = { title: input, cards: [], createdAt: dayjs().format('YYYY-MM-DD') };
     addNewList(newList);
     setIsOpen(false);
     setInput('');

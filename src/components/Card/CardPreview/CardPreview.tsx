@@ -27,11 +27,11 @@ const modalWrapperModalStyles: IModalStyles = {
 interface ICardPreviewProps {
   card: ICard;
   list: IList
-  copyCard: (card: ICard) => void;
+  cloneCard: (card: ICard) => void;
   archiveCard: (cardId: string) => void;
 }
 
-function CardPreview({ card, copyCard, archiveCard, list }: ICardPreviewProps) {
+function CardPreview({ card, cloneCard, archiveCard, list }: ICardPreviewProps) {
   const { labels } = useGetLabels();
   const { updateCurrentCard } = useCurrentCard();
   const [isHovered, hoverEventHandlers] = useToggleHover(false);
@@ -40,7 +40,7 @@ function CardPreview({ card, copyCard, archiveCard, list }: ICardPreviewProps) {
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
-      { label: 'Copy Card', icon: <ContentCopyOutlinedIcon fontSize='small' />, onClick: () => copyCard(card) },
+      { label: 'Clone Card', icon: <ContentCopyOutlinedIcon fontSize='small' />, onClick: () => cloneCard(card) },
       { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card.id) },
     ];
   }
@@ -78,9 +78,6 @@ function CardPreview({ card, copyCard, archiveCard, list }: ICardPreviewProps) {
 
   const renderFooterIcons = () => {
     const footerIcons: IFooterIcon[] = [];
-    if (card?.isWatching) {
-      footerIcons.push({ id: 'footerIcon__1', icon: <VisibilityOutlinedIcon/>, tooltipText: 'You are watching this card' });
-    }
     if (card?.description) {
       footerIcons.push({ id: 'footerIcon__2', icon: <FormatAlignLeftIcon/>, tooltipText: 'This card has a description' });
     }
@@ -91,7 +88,7 @@ function CardPreview({ card, copyCard, archiveCard, list }: ICardPreviewProps) {
       footerIcons.push({ id: 'footerIcon__4', icon: <CheckBoxOutlinedIcon/>, tooltipText: 'Checklist items' });
     }
     if (card?.dueDate && card.dueDate?.length > 0) {
-      const numOfDaysDueAfterToday = utilsService.getNumOfDaysDueAfterToday(card.dueDate)
+      const numOfDaysDueAfterToday = utilsService.getNumOfDaysAfterToday(card.dueDate)
       let component = null;
       if (numOfDaysDueAfterToday === 0) { // today
         component = <p className='side-label today'>Today</p>;

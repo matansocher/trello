@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Dayjs } from 'dayjs';
 import { CardActions, CardContent, CardHeader, DatePicker, LabelsPicker } from '@components';
-import { useBoard, useCurrentCard } from '@context';
-import { IBoard, ILabel, IList } from '@models';
-import { dataService } from '@services';
+import { useCurrentCard } from '@context';
+import { ILabel, IList } from '@models';
+import { dataService, firebaseService } from '@services';
 import './CardModal.scss';
 
 interface ICardModalProps {
@@ -13,8 +13,7 @@ interface ICardModalProps {
 }
 
 function CardModal({ list, setModalOpen, archiveCard }: ICardModalProps) {
-  const { boardState: board, updateBoardState } = useBoard();
-  const { currentCard: card } = useCurrentCard();
+  const { currentCard: card, updateCurrentCard } = useCurrentCard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
@@ -22,10 +21,10 @@ function CardModal({ list, setModalOpen, archiveCard }: ICardModalProps) {
     console.log('handleMoveClick');
   }
 
-  const handleCopyClick = () => {
-    const newCard = { ...card, id: `cardId_${Math.random()}`, title: `Copy of ${card.title}` };
-    const newBoard = dataService.addCardToList(board, list, newCard) as IBoard;
-    updateBoardState(newBoard);
+  const handleCloneClick = async () => {
+    const cardToClone = { ...card, id: `cardId_${Math.random()}`, title: `Copy of ${card.title}` };
+    await firebaseService.createCard(cardToClone);
+    updateCurrentCard(cardToClone);
   }
 
   const handleArchiveClick = () => {
@@ -45,26 +44,26 @@ function CardModal({ list, setModalOpen, archiveCard }: ICardModalProps) {
     setLabelsModalOpen(true);
   }
 
-  const handleDueDateChange = (newValue: Dayjs | null) => {
+  const handleDueDateChange = async (newValue: Dayjs | null) => {
     const cardToSave = dataService.updateCardDueDate(card, newValue);
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
-  const handleLabelsChange = (label: ILabel, isChecked: boolean) => {
+  const handleLabelsChange = async (label: ILabel, isChecked: boolean) => {
     const cardToSave = dataService.updateCardLabels(card, label, isChecked);
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
   const handleDueDateClick = () => {
     setDatePickerModalOpen(true);
   }
 
-  const handleChecklistClick = () => {
+  const handleChecklistClick = async () => {
     const cardToSave = { ...card, checklistItems: [], checklistTitle: 'Checklist' };
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
   const handleAttachmentClick = () => {
@@ -80,7 +79,7 @@ function CardModal({ list, setModalOpen, archiveCard }: ICardModalProps) {
       <CardHeader list={list} setModalOpen={setModalOpen} />
       <div className='card-modal__content'>
         <div className='card-modal__content__left'>
-          <CardContent list={list} />
+          <CardContent />
         </div>
         <div className='card-modal__content__right'>
           <CardActions
@@ -91,7 +90,7 @@ function CardModal({ list, setModalOpen, archiveCard }: ICardModalProps) {
             handleAttachmentClick={handleAttachmentClick}
             handleCoverClick={handleCoverClick}
             handleMoveClick={handleMoveClick}
-            handleCopyClick={handleCopyClick}
+            handleCloneClick={handleCloneClick}
             handleArchiveClick={handleArchiveClick}
             handleShareClick={handleShareClick}
           />

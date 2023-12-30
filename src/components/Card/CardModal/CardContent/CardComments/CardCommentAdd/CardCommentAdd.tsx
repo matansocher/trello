@@ -25,7 +25,7 @@ function CardCommentAdd({ addNewComment }: ICardCommentAddProps) {
       setIsOpen(false);
       return;
     }
-    const newComment: IComment = { id: 'comment_11', description: input, timestamp: '2021-10-10', userId: 'user_1' };
+    const newComment: IComment = { description: input, timestamp: '2021-10-10', userId: 'user_1' };
     addNewComment(newComment);
     setIsOpen(false);
     setInput('');

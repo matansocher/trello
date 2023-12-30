@@ -1,5 +1,5 @@
 
-export function getNumOfDaysDueAfterToday(date: string): number {
+export function getNumOfDaysAfterToday(date: string): number {
   return new Date(date).getDate() - new Date().getDate();
 }
 

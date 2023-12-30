@@ -13,31 +13,29 @@ import {
   EditableInput,
   ProgressBar
 } from '@components';
-import { useBoard, useCurrentCard } from '@context';
-import { IList } from '@models';
-import { dataService } from '@services';
+import { useCurrentCard } from '@context';
+import { firebaseService } from '@services';
 import './CardContent.scss';
 
 interface ICardContentProps {
-  list: IList;
+
 }
 
-function CardContent({ list }: ICardContentProps) {
-  const { boardState: board, updateBoardState } = useBoard();
-  const { currentCard: card } = useCurrentCard();
+function CardContent({  }: ICardContentProps) {
+  const { currentCard: card, updateCurrentCard } = useCurrentCard();
 
-  const handleChecklistTitleSave = (newValue: string) => {
-    const cardToSave = { ...card, checklistTitle: newValue };
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+  const handleChecklistTitleSave = async (checklistTitle: string) => {
+    const cardToSave = { ...card, checklistTitle };
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
-  const handleDeleteChecklistClick = () => {
+  const handleDeleteChecklistClick = async () => {
     if (!card.checklistItems?.length) return;
 
     const cardToSave = { ...card, checklistItems: [], checklistTitle: '' };
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
   const amountOfCheckListChecked = card.checklistItems?.filter((item) => item.isChecked).length || 0;
@@ -45,12 +43,12 @@ function CardContent({ list }: ICardContentProps) {
   return (
     <div className='card-modal__content__right__sections'>
       <div className='card-modal__content__right__sections__section card-info-section'>
-        <CardInfo list={list} />
+        <CardInfo />
       </div>
       <div className='card-modal__content__right__sections__section description-section'>
         <div className='header-icon'><SubjectOutlinedIcon /></div>
         <p className='subheader'>Description</p>
-        <CardDescription list={list} />
+        <CardDescription />
       </div>
       {card.checklistItems?.length || card.checklistTitle ? <div className='card-modal__content__right__sections__section checklist-section'>
         <div className='checklist-section__header'>
@@ -59,14 +57,14 @@ function CardContent({ list }: ICardContentProps) {
           <button className='card-header__right__watch' onClick={handleDeleteChecklistClick}>Delete</button>
         </div>
         <ProgressBar value={amountOfCheckListChecked} total={card.checklistItems?.length || 0}/>
-        <CardCheckList list={list} />
+        <CardCheckList />
       </div> : null}
       <div className='card-modal__content__right__sections__section comments-section'>
         <div className='comments-section__header'>
           <div className='header-icon'><ChatBubbleOutlineIcon/></div>
           <p className='subheader'>Comments</p>
         </div>
-        <CardComments list={list}/>
+        <CardComments/>
       </div>
       {card.activityItems?.length ? <div className='card-modal__content__right__sections__section activity-section'>
         <div className='activity-section__header'>

@@ -1,33 +1,32 @@
 import { CardComment, CardCommentAdd } from '@components';
-import { useBoard, useCurrentCard } from '@context';
-import { IComment, IList } from '@models';
-import { dataService } from '@services';
+import { useCurrentCard } from '@context';
+import { IComment } from '@models';
+import { dataService, firebaseService } from '@services';
 import './CardComments.scss';
 
 interface ICardCommentsProps {
-  list: IList;
+
 }
 
-function CardComments({ list }: ICardCommentsProps) {
-  const { boardState: board, updateBoardState } = useBoard();
-  const { currentCard: card } = useCurrentCard();
+function CardComments({  }: ICardCommentsProps) {
+  const { currentCard: card, updateCurrentCard } = useCurrentCard();
 
-  const addNewComment = (comment: IComment) => {
+  const addNewComment = async (comment: IComment) => {
     const cardToSave = dataService.addCommentToCard(card, comment);
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
-  const editComment = (comment: IComment, newDescription: string) => {
+  const editComment = async (comment: IComment, newDescription: string) => {
     const cardToSave = dataService.editComment(card, comment, newDescription);
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
-  const deleteComment = (comment: IComment) => {
+  const deleteComment = async (comment: IComment) => {
     const cardToSave = dataService.deleteCommentFromCard(card, comment);
-    const newBoard = dataService.updateCard(board, list.id, cardToSave);
-    updateBoardState(newBoard);
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
   }
 
   const renderComments = () => {

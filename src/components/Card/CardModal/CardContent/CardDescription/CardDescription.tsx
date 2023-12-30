@@ -1,24 +1,22 @@
 import { useState } from 'react';
 import { Textarea } from '@components';
-import { useBoard, useCurrentCard } from '@context';
-import { IList } from '@models';
-import { dataService } from '@services';
+import { useCurrentCard } from '@context';
+import { firebaseService } from '@services';
 import './CardDescription.scss';
 
 interface ICardDescriptionProps {
-  list: IList;
+
 }
 
-function CardDescription({ list }: ICardDescriptionProps) {
-  const { boardState: board, updateBoardState } = useBoard();
-  const { currentCard: card } = useCurrentCard();
+function CardDescription({  }: ICardDescriptionProps) {
+  const { currentCard: card, updateCurrentCard } = useCurrentCard();
   const [input, setInput] = useState(card.description || '');
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSaveClick = () => {
-    const newCard = { ...card, description: input };
-    const newBoard = dataService.saveCard(board, list.id, newCard);
-    updateBoardState(newBoard);
+  const handleSaveClick = async () => {
+    const cardToSave = { ...card, description: input };
+    await firebaseService.updateCard(cardToSave);
+    updateCurrentCard(cardToSave);
     setIsOpen(false);
   }
 
