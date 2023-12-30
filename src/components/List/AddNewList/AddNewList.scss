@@ -1,18 +1,21 @@
-@import 'src/styles/colors.scss';
+@import '../../../styles/colors';
 
-.add-new-card {
+.add-new-list {
     position: relative;
     display: flex;
     justify-content: center;
     border-radius: 5px;
     cursor: pointer;
+    width: 300px;
+    background-color: $dark-1;
 }
 
-.add-new-card-open {
+.add-new-list-open {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     background-color: $dark-1;
+    padding: 8px;
     &__actions {
         display: flex;
         flex-direction: row;
@@ -37,11 +40,12 @@
     }
 }
 
-.add-new-card-closed {
-    background-color: $dark-4;
+.add-new-list-closed {
+    background-color: rgba(0,0,0, .4);
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    padding: 4px 0;
     &:hover {
         background-color: #2c3431;
     }
