@@ -71,8 +71,7 @@ function BoardHeader() {
   return (
     <div className='board-header'>
       <div className='board-header__left'>
-        <EditableInput handleSave={handleTitleSave} initialValue={board.title} />
-        <EditableInput handleSave={handleTitleSave} initialValue={'board.title'} />
+        <EditableInput handleSave={handleTitleSave} initialValue={board.title} fontSize={18} />
       </div>
       <div className='board-header__right'>
         <div className='board-header-icon'>

@@ -1,8 +1,5 @@
-feat - make list header editable
-feat - find a solution to what to do after cloning a card from within the card modal
+feat - make list header editable - ListHeader
 feat - add option to add cover to a ticket
 feat - add activity saving support
 feat - error state
 feat - create boards context so you won't get it twice from header and from home page - CONTEXT EXISTS, BUT NOT USED
-
-bug - BoardHeader component gets the board title, but it does not appear in the header EditableInput

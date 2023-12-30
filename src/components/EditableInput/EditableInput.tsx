@@ -14,6 +14,10 @@ function EditableInput({ handleSave, initialValue = '', fontSize = 20 }: IEditab
   const [isFocused, focusEventHandlers] = useToggleFocus(false);
 
   useEffect(() => {
+    setInput(initialValue);
+  });
+
+  useEffect(() => {
     if (!isFocused) { // outside clicked
       if (isOpen) {
         if (initialValue === input) {

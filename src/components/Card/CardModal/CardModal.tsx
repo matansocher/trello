@@ -23,6 +23,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
 
   const handleCloneClick = async () => {
     await dataService.cloneCard(list, card);
+    closeModal();
   }
 
   const handleArchiveClick = () => {
