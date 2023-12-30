@@ -15,17 +15,23 @@ import { useGetList } from '@hooks';
 import './List.scss';
 
 interface IListProps {
-  listId: string;
+  listIdToFetch: string;
 }
 
-function List({ listId }: IListProps) {
+function List({ listIdToFetch }: IListProps) {
+  const [listId, setListId] = useState(listIdToFetch);
   const { boardState: board, updateBoardState } = useBoard();
   const { list: listFromDb, cards, loading } = useGetList(listId);
   const [list, setList] = useState<IList>(LIST_INITIAL_STATE);
 
   useEffect(()=>{
-    setList(listFromDb)
+    setList(listFromDb);
   },[listFromDb])
+
+  const refreshList = async () => {
+    setListId('');
+    setTimeout(() => setListId(listIdToFetch), 0);
+  }
 
   const handleCloneList = async () => {
     const newBoard = await dataService.cloneList(board, list);
@@ -67,7 +73,7 @@ function List({ listId }: IListProps) {
         <Draggable key={card.id} draggableId={card.id || ''} index={index}>
           {(provided) => (
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-              <CardPreview card={card} list={list} cloneCard={cloneCard} archiveCard={archiveCard} />
+              <CardPreview card={card} list={list} refreshList={refreshList} cloneCard={cloneCard} archiveCard={archiveCard} />
             </div>
           )}
         </Draggable>

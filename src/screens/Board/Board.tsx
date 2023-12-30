@@ -35,7 +35,7 @@ function Board() {
         <Draggable key={listId} draggableId={listId} index={index}>
           {(provided) => (
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-              <List listId={listId} />
+              <List listIdToFetch={listId} />
             </div>
           )}
         </Draggable>

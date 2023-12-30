@@ -11,10 +11,10 @@ import './CardHeader.scss';
 
 interface ICardHeaderProps {
   list: IList;
-  setModalOpen: (modalOpen: boolean) => void;
+  handleCloseModal: () => void;
 }
 
-function CardHeader({ list, setModalOpen }: ICardHeaderProps) {
+function CardHeader({ list, handleCloseModal }: ICardHeaderProps) {
   const { currentCard: card, updateCurrentCard } = useCurrentCard();
 
   const handleSave = async (title: string) => {
@@ -40,7 +40,7 @@ function CardHeader({ list, setModalOpen }: ICardHeaderProps) {
           <VisibilityOutlinedIcon />
           Watch
         </button>
-        <CloseIcon onClick={() => setModalOpen(false) } />
+        <CloseIcon onClick={handleCloseModal} />
       </div>
     </div>
   )

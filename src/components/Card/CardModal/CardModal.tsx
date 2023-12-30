@@ -8,11 +8,11 @@ import './CardModal.scss';
 
 interface ICardModalProps {
   list: IList;
-  setModalOpen: (modalOpen: boolean) => void;
+  closeModal: () => void;
   archiveCard: (cardId: string) => void;
 }
 
-function CardModal({ list, setModalOpen, archiveCard }: ICardModalProps) {
+function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   const { currentCard: card, updateCurrentCard } = useCurrentCard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
@@ -69,9 +69,13 @@ function CardModal({ list, setModalOpen, archiveCard }: ICardModalProps) {
     console.log('handleCoverClick');
   }
 
+  const handleCloseModal = () => {
+    closeModal();
+  }
+
   return (
     <div className='card-modal'>
-      <CardHeader list={list} setModalOpen={setModalOpen} />
+      <CardHeader list={list} handleCloseModal={handleCloseModal} />
       <div className='card-modal__content'>
         <div className='card-modal__content__left'>
           <CardContent />

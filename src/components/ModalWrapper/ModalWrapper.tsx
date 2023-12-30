@@ -17,17 +17,17 @@ const DEFAULT_MODAL_STYLE = {
 
 interface IModalProps {
   modalOpen: boolean;
-  setModalOpen: (modalOpen: boolean) => void;
+  closeModal: () => void;
   modalStyle: IModalStyles;
   children: ReactNode;
 }
 
-function ModalWrapper({ modalOpen, setModalOpen, modalStyle, children }: IModalProps) {
+function ModalWrapper({ modalOpen, closeModal, modalStyle, children }: IModalProps) {
   const finalModalStyle = { ...DEFAULT_MODAL_STYLE, ...modalStyle };
   return (
     <Modal
       open={modalOpen}
-      onClose={() => setModalOpen(false)}
+      onClose={() => closeModal()}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
     >

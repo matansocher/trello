@@ -26,11 +26,12 @@ const modalWrapperModalStyles: IModalStyles = {
 interface ICardPreviewProps {
   card: ICard;
   list: IList
+  refreshList: () => void;
   cloneCard: (card: ICard) => void;
   archiveCard: (cardId: string) => void;
 }
 
-function CardPreview({ card, cloneCard, archiveCard, list }: ICardPreviewProps) {
+function CardPreview({ list, card, refreshList, cloneCard, archiveCard }: ICardPreviewProps) {
   const { labels } = useGetLabels();
   const { updateCurrentCard } = useCurrentCard();
   const [isHovered, hoverEventHandlers] = useToggleHover(false);
@@ -52,9 +53,13 @@ function CardPreview({ card, cloneCard, archiveCard, list }: ICardPreviewProps) 
       return;
     }
     // clicked on card and not on more icon
-    // setCard(card);
     updateCurrentCard(card); // set the current card state so child card modal can use it
     setModalOpen(true);
+  }
+
+  const closeModal = () => {
+    setModalOpen(false);
+    refreshList();
   }
 
   const renderDropdownMenu = () => {
@@ -123,8 +128,8 @@ function CardPreview({ card, cloneCard, archiveCard, list }: ICardPreviewProps) 
           {renderFooterIcons()}
         </div>
       </div>
-      <ModalWrapper modalOpen={modalOpen} setModalOpen={setModalOpen} modalStyle={modalWrapperModalStyles} >
-        <CardModal list={list} setModalOpen={setModalOpen} archiveCard={archiveCard} />
+      <ModalWrapper modalOpen={modalOpen} closeModal={closeModal} modalStyle={modalWrapperModalStyles} >
+        <CardModal list={list} closeModal={closeModal} archiveCard={archiveCard} />
       </ModalWrapper>
     </>
   )

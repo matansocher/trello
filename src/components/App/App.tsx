@@ -4,7 +4,7 @@ import { PaletteMode } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {  Header } from '@components';
 import { Board, Home } from '@screens';
-import { BoardContextProvider, UserContextProvider } from '@context';
+import { BoardsContextProvider, BoardContextProvider, UserContextProvider } from '@context';
 import './App.scss';
 
 function App() {
@@ -19,20 +19,22 @@ function App() {
   return (
     <ThemeProvider theme={muiDarkTheme}>
       <UserContextProvider>
-        <BoardContextProvider>
-          <BrowserRouter>
-            <div className='main-wrapper'>
-              <Header />
-              <div className='main-wrapper__board'>
-                <Routes>
-                  <Route path='/boards/:boardId' element={<Board />} />
-                  <Route path='/' element={<Home />} />
-                  <Route path='*' element={<Navigate to='/' />} />
-                </Routes>
+        <BoardsContextProvider>
+          <BoardContextProvider>
+            <BrowserRouter>
+              <div className='main-wrapper'>
+                <Header />
+                <div className='main-wrapper__board'>
+                  <Routes>
+                    <Route path='/boards/:boardId' element={<Board />} />
+                    <Route path='/' element={<Home />} />
+                    <Route path='*' element={<Navigate to='/' />} />
+                  </Routes>
+                </div>
               </div>
-            </div>
-          </BrowserRouter>
-        </BoardContextProvider>
+            </BrowserRouter>
+          </BoardContextProvider>
+        </BoardsContextProvider>
       </UserContextProvider>
     </ThemeProvider>
   )
