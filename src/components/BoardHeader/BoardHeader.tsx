@@ -1,7 +1,6 @@
 import {
   ArchiveOutlined as ArchiveOutlinedIcon,
   CalendarMonth as CalendarMonthIcon,
-  ContentCopy as ContentCopyIcon,
   EmailOutlined as EmailOutlinedIcon,
   FilterList as FilterListIcon,
   FormatListBulletedOutlined as FormatListBulletedOutlinedIcon,
@@ -19,8 +18,7 @@ import './BoardHeader.scss';
 
 function BoardHeader() {
   const { boardState: board } = useBoard();
-  console.log('board');
-  console.log(board);
+
   const handleActivityClick = () => {
     console.log('handleActivityClick');
   }
@@ -45,10 +43,6 @@ function BoardHeader() {
     console.log('handleWatchClick');
   }
 
-  const handleCopyBoardClick = () => {
-    console.log('handleCopyBoardClick');
-  }
-
   const handlePrintExportShareClick = () => {
     console.log('handlePrintExportShareClick');
   }
@@ -69,7 +63,6 @@ function BoardHeader() {
       { label: 'Change background', icon: <div className='change-bg' style={{ backgroundImage: `url(${earth})` }} />, onClick: () => handleChangeBackgroundClick() },
       { label: 'Labels', icon: <LabelIcon fontSize='small' />, onClick: () => handleLabelsClick() },
       { label: 'Watch', icon: <WatchOutlinedIcon fontSize='small' />, onClick: () => handleWatchClick() },
-      { label: 'Copy board', icon: <ContentCopyIcon fontSize='small' />, onClick: () => handleCopyBoardClick() },
       { label: 'Print, export, and share', icon: <EmailOutlinedIcon fontSize='small' />, onClick: () => handlePrintExportShareClick() },
       { label: 'Close board', icon: <NotInterestedOutlinedIcon fontSize='small' />, onClick: () => handleCloseBoardClick() },
     ];

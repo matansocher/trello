@@ -1,4 +1,4 @@
-import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
 import { IBoard, ICard, IList } from '@models';
 import { db } from './firebase.init';
 

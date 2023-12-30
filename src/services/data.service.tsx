@@ -2,6 +2,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { IBoard, ICard, IChecklistItem, IComment, ILabel, IList } from '@models';
 import { firebaseService } from './index.tsx';
 
+// *********************  BOARDS  ********************* //
 export function createBoard(title: string): IBoard {
   const id = `board_${Date.now()}`;
   const lists: IList[] = [];
@@ -10,6 +11,7 @@ export function createBoard(title: string): IBoard {
   return newBoard;
 }
 
+// *********************  LISTS  ********************* //
 export async function addNewList(board: IBoard, list: IList): Promise<IBoard> {
   const { id: createdListId } = await firebaseService.createList(list);
   const newBoard = { ...board, lists: [...board.lists, createdListId] } as IBoard;
@@ -18,24 +20,54 @@ export async function addNewList(board: IBoard, list: IList): Promise<IBoard> {
 }
 
 export async function cloneList(board: IBoard, list: IList): Promise<IBoard> {
-  // copy the cards in the cards collection
-  // copy the list in the list collection
-  // add the list id to the board lists array
+  const listCards = await firebaseService.getCards(list.cards);
 
-  // $$$$$$$$$ we also need to copy the cards in the cards collection
-  const clonedList = { ...list, title: `Copy of ${list.title}` } as IList;
+  const createCardPromises = listCards.map(async (card: ICard) => {
+    const clonedCard = { ...card, createdAt: new Date().toISOString().slice(0, 10) } as ICard;
+    delete clonedCard.id;
+    return firebaseService.createCard(clonedCard);
+  });
+  const createdCards = await Promise.all(createCardPromises);
+
+  const clonedListCards = createdCards.map((card) => card.id);
+  const clonedList = { ...list, title: `Copy of ${list.title}`, cards: clonedListCards } as IList;
   delete clonedList.id;
-  await firebaseService.createList(clonedList);
-  const newBoard = { ...board, lists: [...board.lists, list.id] } as IBoard;
+  const { id: createdListId } = await firebaseService.createList(clonedList); // $$$$$$$$$$$$$
+  const newBoard = { ...board, lists: [...board.lists, createdListId] } as IBoard;
   await firebaseService.updateBoard(newBoard);
   return newBoard;
 }
 
 export async function archiveList(board: IBoard, listId: string): Promise<IBoard> {
+  const list = await firebaseService.getList(listId);
+  const deleteCardPromises = list.cards.map((card: ICard) => firebaseService.archiveCard(card.id || ''));
+  await Promise.all(deleteCardPromises);
+
   await firebaseService.archiveList(listId);
   const newBoard = { ...board, lists: board.lists.filter((list: string) => list !== listId) } as IBoard;
   await firebaseService.updateBoard(newBoard);
   return newBoard
+}
+
+// *********************  CARDS  ********************* //
+export async function archiveCard(list: IList, cardId: string) {
+  await firebaseService.archiveCard(cardId);/**/
+  const newList = { ...list, cards: list.cards.filter((card: string) => card !== cardId) };
+  await firebaseService.updateList(newList);
+}
+
+export async function cloneCard(list: IList, card: ICard) {
+  const clonedCard = { ...card, title: `Copy of ${card.title}`, createdAt: new Date().toISOString().slice(0, 10) } as ICard;
+  delete clonedCard.id;
+  const { id: createdCardId } = await firebaseService.createCard(clonedCard);
+  const newList = { ...list, cards: [...list.cards, createdCardId] } as IList;
+  await firebaseService.updateList(newList);
+}
+
+export async function addNewCardToList(list: IList, card: ICard) {
+  const { id: createdCardId } = await firebaseService.createCard(card);
+  const newList = { ...list, cards: [...list.cards, createdCardId] } as IList;
+  await firebaseService.updateList(newList);
 }
 
 export async function updateCardTitle(card: ICard, title: string): Promise<ICard> {
@@ -130,25 +162,5 @@ export async function deleteChecklistItem(card: ICard, checklistItem: IChecklist
   const cardToSave = { ...card, checklistItems: newChecklistItems };
   await firebaseService.updateCard(cardToSave);
   return cardToSave;
-}
-
-export async function archiveCard(list: IList, cardId: string) {
-  await firebaseService.archiveCard(cardId);/**/
-  const newList = { ...list, cards: list.cards.filter((card: string) => card !== cardId) };
-  await firebaseService.updateList(newList);
-}
-
-export async function cloneCard(list: IList, card: ICard) {
-  const clonedCard = { ...card, title: `Copy of ${card.title}`, createdAt: new Date().toISOString().slice(0, 10) } as ICard;
-  delete clonedCard.id;
-  const { id: createdCardId } = await firebaseService.createCard(clonedCard);
-  const newList = { ...list, cards: [...list.cards, createdCardId] } as IList;
-  await firebaseService.updateList(newList);
-}
-
-export async function addNewCardToList(list: IList, card: ICard) {
-  const { id: createdCardId } = await firebaseService.createCard(card);
-  const newList = { ...list, cards: [...list.cards, createdCardId] } as IList;
-  await firebaseService.updateList(newList);
 }
 

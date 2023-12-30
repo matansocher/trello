@@ -8,7 +8,6 @@ import {
   ExpandMore as ExpandMoreIcon,
   FormatAlignLeft as FormatAlignLeftIcon,
   Schedule as ScheduleIcon,
-  VisibilityOutlined as VisibilityOutlinedIcon,
 } from '@mui/icons-material';
 import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label } from '@components';
 import { useCurrentCard } from '@context';
@@ -41,7 +40,7 @@ function CardPreview({ card, cloneCard, archiveCard, list }: ICardPreviewProps) 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
       { label: 'Clone Card', icon: <ContentCopyOutlinedIcon fontSize='small' />, onClick: () => cloneCard(card) },
-      { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card.id) },
+      { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card.id || '') },
     ];
   }
 
