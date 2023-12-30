@@ -19,6 +19,10 @@ interface ILabelsPickerProps {
 function LabelsPicker({ handleLabelsChange, cardLabels, isOpen, setIsOpen }: ILabelsPickerProps) {
   const { labels } = useGetLabels();
 
+  const closeModal = () => {
+    setIsOpen(false);
+  }
+
   const renderLabels = () => {
     return labels.map((label: ILabel) => {
       const isChecked = cardLabels?.includes(label.id);
@@ -40,7 +44,7 @@ function LabelsPicker({ handleLabelsChange, cardLabels, isOpen, setIsOpen }: ILa
   }
 
   return (
-    <ModalWrapper modalOpen={isOpen} setModalOpen={setIsOpen} modalStyle={labelsModalStyles}>
+    <ModalWrapper modalOpen={isOpen} closeModal={closeModal} modalStyle={labelsModalStyles}>
       <div className='labels-wrapper'>
         <p>Labels</p>
         {renderLabels()}

@@ -13,8 +13,8 @@ function Home() {
   const { boards } = useGetBoards();
   const navigate = useNavigate();
 
-  const handleCreateBoardClick = () => {
-    const newBoard = dataService.createBoard('New Board'); // $$$$$$$$$$$$$$$$$$
+  const handleCreateBoardClick = async () => {
+    const newBoard = await dataService.createBoard('New Board');
     navigate(`/boards/${newBoard.id}`);
   }
 
@@ -26,7 +26,7 @@ function Home() {
   const renderBoards = () => {
     return boards?.map((board: IBoard) => {
       return (
-        <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id)} style={{ backgroundImage: `url(${earth})` }}>
+        <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id || '')} style={{ backgroundImage: `url(${earth})` }}>
           <EllipsisText maxLines={1}>{board.title}</EllipsisText>
         </div>
       );

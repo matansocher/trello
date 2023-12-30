@@ -3,12 +3,10 @@ import { IBoard, ICard, IChecklistItem, IComment, ILabel, IList } from '@models'
 import { firebaseService } from './index.tsx';
 
 // *********************  BOARDS  ********************* //
-export function createBoard(title: string): IBoard {
-  const id = `board_${Date.now()}`;
-  const lists: IList[] = [];
-  const newBoard = { id, title, lists, createdAt: dayjs().format('YYYY-MM-DD') }; // $$$$$$$$$$$$$$$ you are on create board, you need to return the board, or boards
-  // here we need to add the board to the database, navigate to the board, and then return the board
-  return newBoard;
+export async function createBoard(title: string): Promise<IBoard> {
+  const newBoard = { title, lists: [], createdAt: dayjs().format('YYYY-MM-DD') } as IBoard;
+  const { id: createdBoardId } = await firebaseService.createBoard(newBoard);
+  return { ...newBoard, id: createdBoardId };
 }
 
 // *********************  LISTS  ********************* //

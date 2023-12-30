@@ -29,8 +29,12 @@ function DatePicker({ dueDate, isOpen, setIsOpen, handleChange }: IDatePickerPro
     handleChange(newValue);
   }
 
+  const closeModal = () => {
+    setIsOpen(false);
+  }
+
   return (
-    <ModalWrapper modalOpen={isOpen} setModalOpen={setIsOpen} modalStyle={datePickerModalStyles}>
+    <ModalWrapper modalOpen={isOpen} closeModal={closeModal} modalStyle={datePickerModalStyles}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <div className='date-picker-wrapper'>
           <StaticDatePicker displayStaticWrapperAs='desktop' value={datePickerValue} onChange={(newValue) => handleDateChange(newValue)} />

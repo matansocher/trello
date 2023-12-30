@@ -2,7 +2,7 @@ import { IList } from './List';
 import { IActivityItem } from './ActivityItem';
 
 export interface IBoard {
-  id: string;
+  id?: string;
   title: string;
   lists: IList[];
   createdAt: string;

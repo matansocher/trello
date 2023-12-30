@@ -1,6 +1,5 @@
-feat - make list header editable
-feat - create new board in home page
 feat - create templates for boards
+feat - make list header editable
 feat - find a solution to what to do after cloning a card from within the card modal
 feat - add option to add cover to a ticket
 feat - add activity saving support

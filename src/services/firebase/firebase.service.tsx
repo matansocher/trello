@@ -16,12 +16,9 @@ export const getLabels = async () => {
 }
 
 export const createBoard = async (board: IBoard) => {
-  try {
-    const docRef = await addDoc(collection(db, COLLECTIONS.BOARD), board);
-    return docRef
-  } catch (error) {
-    console.error('Error adding item: ', error);
-  }
+  const boardRef = collection(db, COLLECTIONS.BOARD);
+  const newBoardRef = await addDoc(boardRef, board);
+  return newBoardRef
 };
 
 export const getBoards = async () => {
@@ -112,8 +109,8 @@ export const createCard = async (card: ICard) => {
 };
 
 export const createList = async (list: IList) => {
-  const listssRef = collection(db, COLLECTIONS.LIST);
-  const newListRef = await addDoc(listssRef, list);
+  const listsRef = collection(db, COLLECTIONS.LIST);
+  const newListRef = await addDoc(listsRef, list);
   return newListRef
 };
 
