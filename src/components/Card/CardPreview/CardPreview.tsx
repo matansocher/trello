@@ -8,6 +8,8 @@ import {
   ExpandMore as ExpandMoreIcon,
   FormatAlignLeft as FormatAlignLeftIcon,
   Schedule as ScheduleIcon,
+  VerticalAlignTopOutlined as VerticalAlignTopOutlinedIcon,
+  VerticalAlignBottomOutlined as VerticalAlignBottomOutlinedIcon,
 } from '@mui/icons-material';
 import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label } from '@components';
 import { useCurrentCard } from '@context';
@@ -27,11 +29,13 @@ interface ICardPreviewProps {
   card: ICard;
   list: IList
   refreshList: () => void;
+  moveToTop: (card: ICard) => void;
+  moveToBottom: (card: ICard) => void;
   cloneCard: (card: ICard) => void;
-  archiveCard: (cardId: string) => void;
+  archiveCard: (card: ICard) => void;
 }
 
-function CardPreview({ list, card, refreshList, cloneCard, archiveCard }: ICardPreviewProps) {
+function CardPreview({ list, card, refreshList, moveToTop, moveToBottom, cloneCard, archiveCard }: ICardPreviewProps) {
   const { labels } = useGetLabels();
   const { updateCurrentCard } = useCurrentCard();
   const [isHovered, hoverEventHandlers] = useToggleHover(false);
@@ -40,8 +44,10 @@ function CardPreview({ list, card, refreshList, cloneCard, archiveCard }: ICardP
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
+      { label: 'Move to Top', icon: <VerticalAlignTopOutlinedIcon fontSize='small' />, onClick: () => moveToTop(card) },
+      { label: 'Move to Bottom', icon: <VerticalAlignBottomOutlinedIcon fontSize='small' />, onClick: () => moveToBottom(card) },
       { label: 'Clone Card', icon: <ContentCopyOutlinedIcon fontSize='small' />, onClick: () => cloneCard(card) },
-      { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card.id || '') },
+      { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(card) },
     ];
   }
 
@@ -122,6 +128,7 @@ function CardPreview({ list, card, refreshList, cloneCard, archiveCard }: ICardP
           {renderLabels()}
         </div>
         <div className='card-preview__content'>
+          <p>{card.id}</p>
           <EllipsisText maxLines={3}>{card.title}</EllipsisText>
         </div>
         <div className='card-preview__footer'>

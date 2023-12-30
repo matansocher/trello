@@ -4,6 +4,7 @@ import { db } from './firebase.init';
 
 const COLLECTIONS = {
   LABEL: 'Label',
+  BOARD_TEMPLATE: 'BoardTemplate',
   BOARD: 'Board',
   LIST: 'List',
   CARD: 'Card',
@@ -11,8 +12,12 @@ const COLLECTIONS = {
 
 export const getLabels = async () => {
   const labelsSnapshot = await getDocs(collection(db, COLLECTIONS.LABEL));
-  const newData = labelsSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-  return newData;
+  return labelsSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+}
+
+export const getBoardTemplates = async () => {
+  const boardTemplatesSnapshot = await getDocs(collection(db, COLLECTIONS.BOARD_TEMPLATE));
+  return boardTemplatesSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 }
 
 export const createBoard = async (board: IBoard) => {

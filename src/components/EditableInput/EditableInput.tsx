@@ -5,10 +5,10 @@ import './EditableInput.scss';
 interface IEditableInputProps {
   handleSave: (newValue: string) => void;
   initialValue: string;
+  fontSize?: number;
 }
 
-function EditableInput({ handleSave, initialValue = '' }: IEditableInputProps) {
-  console.log(initialValue);
+function EditableInput({ handleSave, initialValue = '', fontSize = 20 }: IEditableInputProps) {
   const [input, setInput] = useState(initialValue);
   const [isOpen, setIsOpen] = useState(false);
   const [isFocused, focusEventHandlers] = useToggleFocus(false);
@@ -37,6 +37,7 @@ function EditableInput({ handleSave, initialValue = '' }: IEditableInputProps) {
         className={ !isOpen ? 'closed-input' : '' }
         type='text'
         value={input}
+        style={{ fontSize }}
         onInput={e => setInput((e.target as HTMLInputElement).value)}
       />
     </div>

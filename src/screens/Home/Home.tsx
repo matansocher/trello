@@ -3,14 +3,15 @@ import { earth } from '@assets';
 import { EllipsisText } from '@components';
 import { BOARD_INITIAL_STATE } from '@constants';
 import { useBoard } from '@context';
-import { useGetBoards } from '@hooks';
-import { IBoard } from '@models';
+import { useGetBoards, useGetBoardTemplates } from '@hooks';
+import { IBoard, IBoardTemplate } from '@models';
 import { dataService } from '@services';
 import './Home.scss';
 
 function Home() {
   const { updateBoardState } = useBoard();
   const { boards } = useGetBoards();
+  const { boardTemplates } = useGetBoardTemplates();
   const navigate = useNavigate();
 
   const handleCreateBoardClick = async () => {
@@ -18,9 +19,25 @@ function Home() {
     navigate(`/boards/${newBoard.id}`);
   }
 
+  const handleBoardTemplateClick = async (boardTemplate: IBoardTemplate) => {
+    const createdBoardId = await dataService.createBoardFromTemplate(boardTemplate);
+    // updateBoardState(BOARD_INITIAL_STATE);
+    navigate(`/boards/${createdBoardId}`);
+  }
+
   const handleBoardClick = (boardId: string) => {
     updateBoardState(BOARD_INITIAL_STATE);
     navigate(`/boards/${boardId}`);
+  }
+
+  const renderBoardTemplates = () => {
+    return boardTemplates?.map((boardTemplate: IBoardTemplate) => {
+      return (
+        <div key={boardTemplate.id} className='boards-items-item' onClick={() => handleBoardTemplateClick(boardTemplate)} style={{ backgroundImage: `url(${earth})` }}>
+          <EllipsisText maxLines={1}>{boardTemplate.title}</EllipsisText>
+        </div>
+      );
+    });
   }
 
   const renderBoards = () => {
@@ -49,8 +66,8 @@ function Home() {
             <p className='header'>Most popular templates</p>
             <p className='description'>Get going faster with a template from the Trello community</p>
             <div className='boards-items'>
-              {renderBoards()}
-              <div key='new' className='boards-items-item plus' onClick={handleCreateBoardClick}>+</div>
+              {renderBoardTemplates()}
+              {/*<div key='new' className='boards-items-item plus' onClick={handleCreateBoardClick}>+</div>*/}
             </div>
           </div>
           <div className='boards'>

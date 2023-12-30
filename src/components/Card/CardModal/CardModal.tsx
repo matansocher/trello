@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { Dayjs } from 'dayjs';
 import { CardActions, CardContent, CardHeader, DatePicker, LabelsPicker } from '@components';
 import { useCurrentCard } from '@context';
-import { ILabel, IList } from '@models';
+import { ICard, ILabel, IList } from '@models';
 import { dataService } from '@services';
 import './CardModal.scss';
 
 interface ICardModalProps {
   list: IList;
   closeModal: () => void;
-  archiveCard: (cardId: string) => void;
+  archiveCard: (card: ICard) => void;
 }
 
 function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
@@ -26,7 +26,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   }
 
   const handleArchiveClick = () => {
-    archiveCard(card.id || '');
+    archiveCard(card);
   }
 
   const handleShareClick = () => {

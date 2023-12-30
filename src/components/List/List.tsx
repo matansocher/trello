@@ -6,11 +6,20 @@ import {
   MoreHoriz as MoreHorizIcon,
   Watch as WatchIcon,
 } from '@mui/icons-material';
-import { AddNewCard, CardPreview, DropdownMenu, EllipsisText, Loader } from '@components';
+import {
+  AddNewCard,
+  CardPreview,
+  DropdownMenu,
+  EditableInput,
+  EllipsisText,
+  ListHeader,
+  Loader,
+  Textarea
+} from '@components';
 import { CurrentCardContextProvider, useBoard } from '@context';
 import { LoaderSize, LIST_INITIAL_STATE } from '@constants';
 import { ICard, IList, IDropdownItem } from '@models';
-import { dataService } from '@services';
+import { dataService, utilsService } from '@services';
 import { useGetList } from '@hooks';
 import './List.scss';
 
@@ -55,8 +64,20 @@ function List({ listIdToFetch }: IListProps) {
     await dataService.cloneCard(list, card);
   }
 
-  const archiveCard = async (cardId: string) => {
-    await dataService.archiveCard(list, cardId);
+  const archiveCard = async (card: ICard) => {
+    await dataService.archiveCard(list, card);
+  }
+
+  const moveToTop = async (card: ICard) => {
+    await dataService.moveCardToTop(list, card);
+  }
+
+  const moveToBottom = async (card: ICard) => {
+    await dataService.moveCardToBottom(list, card);
+  }
+
+  const handleListTitleUpdate = async (newTitle: string) => {
+    await dataService.updateListTitle(list, newTitle);
   }
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
@@ -68,12 +89,20 @@ function List({ listIdToFetch }: IListProps) {
   }
 
   const renderCards = () => {
-    return cards?.map((card: ICard, index: number) => {
+    const cardsToRender = utilsService.sortCardsByListOrder(list.cards, cards);
+    return cardsToRender?.map((card: ICard, index: number) => {
       return (
         <Draggable key={card.id} draggableId={card.id || ''} index={index}>
           {(provided) => (
             <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-              <CardPreview card={card} list={list} refreshList={refreshList} cloneCard={cloneCard} archiveCard={archiveCard} />
+              <CardPreview
+                card={card}
+                list={list}
+                refreshList={refreshList}
+                moveToTop={moveToTop}
+                moveToBottom={moveToBottom}
+                cloneCard={cloneCard}
+                archiveCard={archiveCard} />
             </div>
           )}
         </Draggable>
@@ -87,7 +116,7 @@ function List({ listIdToFetch }: IListProps) {
         {!list || loading ? <div className='loader-container'><Loader size={LoaderSize.M} /></div> :
           <div className='list-wrapper__content'>
             <div className='list-wrapper__content__header'>
-              <EllipsisText maxLines={3}>{list.title}</EllipsisText>
+              <ListHeader list={list} />
               <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon/>} menuItems={getDropdownMenuItems()}/>
             </div>
             <div className='list-wrapper__content__cards'>

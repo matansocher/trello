@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { IBoard, ICard, IChecklistItem, IComment, ILabel, IList } from '@models';
+import { IBoard, IBoardTemplate, ICard, IChecklistItem, IComment, ILabel, IList } from '@models';
 import { firebaseService } from './index.tsx';
 
 // *********************  BOARDS  ********************* //
@@ -7,6 +7,19 @@ export async function createBoard(title: string): Promise<IBoard> {
   const newBoard = { title, lists: [], createdAt: dayjs().format('YYYY-MM-DD') } as IBoard;
   const { id: createdBoardId } = await firebaseService.createBoard(newBoard);
   return { ...newBoard, id: createdBoardId };
+}
+
+export async function createBoardFromTemplate(boardTemplate: IBoardTemplate): Promise<string> {
+  const createListPromises = boardTemplate.lists.map(async (list: string) => {
+    const newList = { title: list, cards: [], createdAt: dayjs().format('YYYY-MM-DD') } as IList;
+    return firebaseService.createList(newList);
+  });
+  const createdLists = await Promise.all(createListPromises);
+  const createdListIds = createdLists.map((list) => list.id);
+  const newBoard = { title: boardTemplate.title, lists: createdListIds, createdAt: dayjs().format('YYYY-MM-DD') } as IBoard;
+
+  const { id: createdBoardId } = await firebaseService.createBoard(newBoard);
+  return createdBoardId;
 }
 
 // *********************  LISTS  ********************* //
@@ -47,14 +60,37 @@ export async function archiveList(board: IBoard, listId: string): Promise<IBoard
   return newBoard
 }
 
+export async function moveCardToTop(list: IList, card: ICard): Promise<void> {
+  const cardIds = [...list.cards];
+  const indexOfCard = cardIds.indexOf(card.id|| '');
+  cardIds.splice(indexOfCard, 1);
+  const newCards = [card.id, ...cardIds];
+  await firebaseService.updateList({ ...list, cards: newCards });
+}
+
+export async function moveCardToBottom(list: IList, card: ICard): Promise<void> {
+  const cardIds = [...list.cards];
+  const indexOfCard = cardIds.indexOf(card.id|| '');
+  cardIds.splice(indexOfCard, 1);
+  const newCards = [...cardIds, card.id];
+  await firebaseService.updateList({ ...list, cards: newCards });
+}
+
+export async function updateListTitle(list: IList, title: string): Promise<IList> {
+  const listToSave = { ...list, title };
+  await firebaseService.updateList(listToSave);
+  return listToSave;
+}
+
 // *********************  CARDS  ********************* //
-export async function archiveCard(list: IList, cardId: string) {
+export async function archiveCard(list: IList, card: ICard): Promise<void> {
+  const cardId = card.id || '';
   await firebaseService.archiveCard(cardId);/**/
   const newList = { ...list, cards: list.cards.filter((card: string) => card !== cardId) };
   await firebaseService.updateList(newList);
 }
 
-export async function cloneCard(list: IList, card: ICard) {
+export async function cloneCard(list: IList, card: ICard): Promise<void> {
   const clonedCard = { ...card, title: `Copy of ${card.title}`, createdAt: new Date().toISOString().slice(0, 10) } as ICard;
   delete clonedCard.id;
   const { id: createdCardId } = await firebaseService.createCard(clonedCard);
@@ -62,7 +98,7 @@ export async function cloneCard(list: IList, card: ICard) {
   await firebaseService.updateList(newList);
 }
 
-export async function addNewCardToList(list: IList, card: ICard) {
+export async function addNewCardToList(list: IList, card: ICard): Promise<void> {
   const { id: createdCardId } = await firebaseService.createCard(card);
   const newList = { ...list, cards: [...list.cards, createdCardId] } as IList;
   await firebaseService.updateList(newList);
