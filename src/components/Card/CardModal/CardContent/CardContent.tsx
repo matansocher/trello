@@ -14,7 +14,7 @@ import {
   ProgressBar
 } from '@components';
 import { useCurrentCard } from '@context';
-import { firebaseService } from '@services';
+import { dataService } from '@services';
 import './CardContent.scss';
 
 interface ICardContentProps {
@@ -25,16 +25,14 @@ function CardContent({  }: ICardContentProps) {
   const { currentCard: card, updateCurrentCard } = useCurrentCard();
 
   const handleChecklistTitleSave = async (checklistTitle: string) => {
-    const cardToSave = { ...card, checklistTitle };
-    await firebaseService.updateCard(cardToSave);
+    const cardToSave = await dataService.updateChecklistTitle(card, checklistTitle);
     updateCurrentCard(cardToSave);
   }
 
   const handleDeleteChecklistClick = async () => {
     if (!card.checklistItems?.length) return;
 
-    const cardToSave = { ...card, checklistItems: [], checklistTitle: '' };
-    await firebaseService.updateCard(cardToSave);
+    const cardToSave = await dataService.deleteChecklist(card);
     updateCurrentCard(cardToSave);
   }
 

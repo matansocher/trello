@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Textarea } from '@components';
 import { useCurrentCard } from '@context';
-import { firebaseService } from '@services';
+import { dataService } from '@services';
 import './CardDescription.scss';
 
 interface ICardDescriptionProps {
@@ -14,8 +14,7 @@ function CardDescription({  }: ICardDescriptionProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSaveClick = async () => {
-    const cardToSave = { ...card, description: input };
-    await firebaseService.updateCard(cardToSave);
+    const cardToSave = await dataService.updateCardDescription(card, input);
     updateCurrentCard(cardToSave);
     setIsOpen(false);
   }

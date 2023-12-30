@@ -5,10 +5,10 @@ import './AddNewCard.scss';
 import { Textarea } from '@components';
 
 interface IAddNewCardProps {
-  addNewCard: (card: ICard) => void;
+  addNewCardToList: (card: ICard) => void;
 }
 
-function AddNewCard({ addNewCard }: IAddNewCardProps) {
+function AddNewCard({ addNewCardToList }: IAddNewCardProps) {
   const [input, setInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,7 +22,7 @@ function AddNewCard({ addNewCard }: IAddNewCardProps) {
       return;
     }
     const newCard: ICard = { title: input, createdAt: new Date().toISOString().slice(0, 10) };
-    addNewCard(newCard);
+    addNewCardToList(newCard);
     setIsOpen(false);
     setInput('');
   }

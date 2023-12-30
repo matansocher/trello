@@ -6,7 +6,7 @@ import {
 import { EditableInput } from '@components';
 import { useCurrentCard } from '@context';
 import { IList } from '@models';
-import { firebaseService } from '@services';
+import { dataService } from '@services';
 import './CardHeader.scss';
 
 interface ICardHeaderProps {
@@ -18,8 +18,7 @@ function CardHeader({ list, setModalOpen }: ICardHeaderProps) {
   const { currentCard: card, updateCurrentCard } = useCurrentCard();
 
   const handleSave = async (title: string) => {
-    const cardToSave = { ...card, title: title };
-    await firebaseService.updateCard(cardToSave);
+    const cardToSave = await dataService.updateCardTitle(card, title);
     updateCurrentCard(cardToSave);
   }
 

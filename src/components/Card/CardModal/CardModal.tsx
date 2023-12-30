@@ -3,7 +3,7 @@ import { Dayjs } from 'dayjs';
 import { CardActions, CardContent, CardHeader, DatePicker, LabelsPicker } from '@components';
 import { useCurrentCard } from '@context';
 import { ILabel, IList } from '@models';
-import { dataService, firebaseService } from '@services';
+import { dataService } from '@services';
 import './CardModal.scss';
 
 interface ICardModalProps {
@@ -22,13 +22,11 @@ function CardModal({ list, setModalOpen, archiveCard }: ICardModalProps) {
   }
 
   const handleCloneClick = async () => {
-    const cardToClone = { ...card, id: `cardId_${Math.random()}`, title: `Copy of ${card.title}` };
-    await firebaseService.createCard(cardToClone);
-    updateCurrentCard(cardToClone);
+    await dataService.cloneCard(list, card);
   }
 
   const handleArchiveClick = () => {
-    archiveCard(card.id);
+    archiveCard(card.id || '');
   }
 
   const handleShareClick = () => {
@@ -45,25 +43,22 @@ function CardModal({ list, setModalOpen, archiveCard }: ICardModalProps) {
   }
 
   const handleDueDateChange = async (newValue: Dayjs | null) => {
-    const cardToSave = dataService.updateCardDueDate(card, newValue);
-    await firebaseService.updateCard(cardToSave);
+    const cardToSave = await dataService.updateCardDueDate(card, newValue);
     updateCurrentCard(cardToSave);
   }
 
   const handleLabelsChange = async (label: ILabel, isChecked: boolean) => {
-    const cardToSave = dataService.updateCardLabels(card, label, isChecked);
-    await firebaseService.updateCard(cardToSave);
+    const cardToSave = await dataService.updateCardLabels(card, label, isChecked);
+    updateCurrentCard(cardToSave);
+  }
+
+  const handleChecklistClick = async () => {
+    const cardToSave = await dataService.createChecklist(card);
     updateCurrentCard(cardToSave);
   }
 
   const handleDueDateClick = () => {
     setDatePickerModalOpen(true);
-  }
-
-  const handleChecklistClick = async () => {
-    const cardToSave = { ...card, checklistItems: [], checklistTitle: 'Checklist' };
-    await firebaseService.updateCard(cardToSave);
-    updateCurrentCard(cardToSave);
   }
 
   const handleAttachmentClick = () => {

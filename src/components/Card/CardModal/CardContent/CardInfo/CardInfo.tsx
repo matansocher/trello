@@ -4,7 +4,7 @@ import { DatePicker, Label, LabelsPicker } from '@components';
 import { useCurrentCard } from '@context';
 import { useGetLabels } from '@hooks';
 import { ILabel } from '@models';
-import { dataService, firebaseService, utilsService } from '@services';
+import { dataService, utilsService } from '@services';
 import './CardInfo.scss';
 
 interface ICardDescriptionProps {
@@ -18,14 +18,12 @@ function CardInfo({  }: ICardDescriptionProps) {
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
   const handleDueDateChange = async (newValue: Dayjs | null) => {
-    const cardToSave = dataService.updateCardDueDate(card, newValue);
-    await firebaseService.updateCard(cardToSave);
+    const cardToSave = await dataService.updateCardDueDate(card, newValue);
     updateCurrentCard(cardToSave);
   }
 
   const handleLabelsChange = async (label: ILabel, isChecked: boolean) => {
-    const cardToSave = dataService.updateCardLabels(card, label, isChecked);
-    await firebaseService.updateCard(cardToSave);
+    const cardToSave = await dataService.updateCardLabels(card, label, isChecked);
     updateCurrentCard(cardToSave);
   }
 

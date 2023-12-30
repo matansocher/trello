@@ -6,8 +6,8 @@ import { List, BoardHeader, AddNewList, Loader } from '@components';
 import { useBoard } from '@context';
 import { LoaderSize } from '@constants';
 import { useGetBoard } from '@hooks';
-import { IBoard, IList } from '@models';
-import { dataService, dndService, firebaseService } from '@services';
+import { IList } from '@models';
+import { dataService, dndService } from '@services';
 import './Board.scss';
 
 function Board() {
@@ -20,15 +20,8 @@ function Board() {
   },[boardFromDb])
 
   const addNewList = async (list: IList) => {
-    const { id: createdListId } = await firebaseService.createList(list);
-    const newBoard = { ...board, lists: [...board.lists, createdListId] } as IBoard;
-    await firebaseService.updateBoard(newBoard);
-
-
-
-    // const { id: createdCardId } = await firebaseService.createCard(card);
-    // const newList = { ...board , lists: [createdCardId] } as IList;
-    // await firebaseService.updateList(newList);
+    const newBoard = await dataService.addNewList(board, list);
+    updateBoardState(newBoard);
   }
 
   const onDragEnd = (result: any) => {

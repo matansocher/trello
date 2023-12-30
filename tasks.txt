@@ -1,4 +1,6 @@
+feat - move list listener in list component to its own hook
 feat - make list header editable
+feat - find a solution to what to do after cloning a card from within the card modal
 feat - clone list should also copy all the cards
 feat - move all firebase logic to a data.service.tsx
 feat - create new board in home page

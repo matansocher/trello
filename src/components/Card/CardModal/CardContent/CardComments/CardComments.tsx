@@ -1,7 +1,7 @@
 import { CardComment, CardCommentAdd } from '@components';
 import { useCurrentCard } from '@context';
 import { IComment } from '@models';
-import { dataService, firebaseService } from '@services';
+import { dataService } from '@services';
 import './CardComments.scss';
 
 interface ICardCommentsProps {
@@ -12,20 +12,17 @@ function CardComments({  }: ICardCommentsProps) {
   const { currentCard: card, updateCurrentCard } = useCurrentCard();
 
   const addNewComment = async (comment: IComment) => {
-    const cardToSave = dataService.addCommentToCard(card, comment);
-    await firebaseService.updateCard(cardToSave);
+    const cardToSave = await dataService.addCommentToCard(card, comment);
     updateCurrentCard(cardToSave);
   }
 
   const editComment = async (comment: IComment, newDescription: string) => {
-    const cardToSave = dataService.editComment(card, comment, newDescription);
-    await firebaseService.updateCard(cardToSave);
+    const cardToSave = await dataService.editComment(card, comment, newDescription);
     updateCurrentCard(cardToSave);
   }
 
   const deleteComment = async (comment: IComment) => {
-    const cardToSave = dataService.deleteCommentFromCard(card, comment);
-    await firebaseService.updateCard(cardToSave);
+    const cardToSave = await dataService.deleteCommentFromCard(card, comment);
     updateCurrentCard(cardToSave);
   }
 
