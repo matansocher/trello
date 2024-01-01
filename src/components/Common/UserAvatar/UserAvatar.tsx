@@ -1,48 +1,42 @@
 import Avatar from '@mui/material/Avatar';
-import { matan } from '@assets';
 import { UserAvatarSize } from '@constants';
 import { IUser } from '@models';
 import './UserAvatar.scss';
 
 interface IUserAvatarProps {
   user: IUser | null;
-  onClick?: Function | null;
   size?: UserAvatarSize;
 }
 
-function UserAvatar({ user, onClick = null, size = UserAvatarSize.S }: IUserAvatarProps) {
+function UserAvatar({ user, size = UserAvatarSize.S }: IUserAvatarProps) {
 
-  const getStyleObj = () => {
-    const style = { ...getSizeAttributes(size) };
-    if (onClick) {
-      style.cursor = 'pointer';
-    }
-    return style;
+  const getStyleObj = (): any => {
+    return {
+      // cursor: 'pointer',
+      backgroundColor: '#1d579b',
+      color: '#fff',
+      ...getSizeStyle(),
+    };
   }
 
-  const getSizeAttributes = (size: UserAvatarSize): any => {
+  const getSizeStyle = (): any => {
     switch (size) {
       case UserAvatarSize.S:
-        return { width: '26px', height: '26px', fontSize: '14px' };
+        return { width: '26px', height: '26px', fontSize: '16px' };
       case UserAvatarSize.M:
-        return { width: '40px', height: '40px', fontSize: '20px' };
+        return { width: '40px', height: '40px', fontSize: '22px' };
       case UserAvatarSize.L:
         return { width: '100px', height: '100px', fontSize: '50px' };
-      default:
-        return getSizeAttributes(UserAvatarSize.S);
     }
   }
 
   const renderAvatar = () => {
-    const styles = getStyleObj();
-    return <Avatar style={styles} alt='user avatar' src={user?.photoURL} />
+    return <Avatar style={getStyleObj()} alt='user avatar' src={user?.photoURL} />
   }
 
   const renderLetter = () => {
-    const styles = getStyleObj();
-    // const letter = user.firstName.charAt(0).toUpperCase();
-    // return <Avatar style={styles} sx={{ width: 24, height: 24 }}>{letter}</Avatar>
-    return <img src={matan} alt='matan' className='user-image' style={styles} />
+    const letter = user?.displayName?.charAt(0).toUpperCase();
+    return <Avatar style={getStyleObj()} sx={{ width: 24, height: 24 }}>{letter}</Avatar>
   }
 
   return (

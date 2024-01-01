@@ -21,7 +21,7 @@ import DropdownMenu from './Common/DropdownMenu/DropdownMenu';
 import EditableInput from './Common/EditableInput/EditableInput';
 import EllipsisText from './Common/EllipsisText/EllipsisText';
 import FooterIcon from './Card/CardPreview/FooterIcon/FooterIcon';
-import Header from './Header/Header';
+import Navbar from './Navbar/Navbar';
 import Label from './Card/CardPreview/Label/Label';
 import LabelsPicker from './Common/LabelsPicker/LabelsPicker';
 import List from './List/List';
@@ -56,7 +56,7 @@ export {
   EditableInput,
   EllipsisText,
   FooterIcon,
-  Header,
+  Navbar,
   Label,
   LabelsPicker,
   List,
