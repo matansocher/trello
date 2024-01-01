@@ -1,4 +1,17 @@
-import { ICard } from '@models';
+import { ICard, IUser } from '@models';
+
+export function getUserFromGoogleUser(googleUser: any): IUser | null {
+  if (!googleUser) {
+    return null;
+  }
+  return {
+    id: googleUser.uid,
+    displayName: googleUser.displayName,
+    email: googleUser.email,
+    phoneNumber: googleUser.phoneNumber,
+    photoURL: googleUser.photoURL,
+  } as IUser;
+}
 
 export function getNumOfDaysAfterToday(date: string): number {
   return new Date(date).getDate() - new Date().getDate();

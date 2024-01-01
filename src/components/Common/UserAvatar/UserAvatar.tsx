@@ -35,7 +35,7 @@ function UserAvatar({ user, onClick = null, size = UserAvatarSize.S }: IUserAvat
 
   const renderAvatar = () => {
     const styles = getStyleObj();
-    return <Avatar style={styles} alt='user avatar' src={user?.avatarUrl} />
+    return <Avatar style={styles} alt='user avatar' src={user?.photoURL} />
   }
 
   const renderLetter = () => {
@@ -47,7 +47,7 @@ function UserAvatar({ user, onClick = null, size = UserAvatarSize.S }: IUserAvat
 
   return (
     <div className='avatar-wrapper'>
-      { user?.avatarUrl ? renderAvatar() : renderLetter() }
+      { user?.photoURL ? renderAvatar() : renderLetter() }
     </div>
   )
 }

@@ -1,7 +1,7 @@
 @import 'src/styles/colors.scss';
 
 .header-wrapper {
-  background-color: $dark-3;
+  background-color: $dark-4;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -80,6 +80,9 @@
       .info {
         display: flex;
         align-items: center;
+      }
+      .logout {
+
       }
       .user {
         display: flex;

@@ -4,3 +4,6 @@ feat - add activity saving support
 feat - error state
 feat - create boards context so you won't get it twice from header and from home page - CONTEXT EXISTS, BUT NOT USED
 feat - add authentication - login, user details and image
+feat - save user details?
+feat - design login page
+feat - add support for changing board background - storage

@@ -1,6 +1,7 @@
 @import 'src/styles/colors.scss';
 
 .home-wrapper {
+  background: $dark-5;
   &__content {
     max-width: 800px;
     margin: 0 auto;

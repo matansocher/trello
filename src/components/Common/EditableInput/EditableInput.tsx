@@ -8,7 +8,7 @@ interface IEditableInputProps {
   fontSize?: number;
 }
 
-function EditableInput({ handleSave, initialValue = '', fontSize = 20 }: IEditableInputProps) {
+function EditableInput({ handleSave, initialValue = '', fontSize = 16 }: IEditableInputProps) {
   const [input, setInput] = useState(initialValue);
   const [isOpen, setIsOpen] = useState(false);
   const [isFocused, focusEventHandlers] = useToggleFocus(false);

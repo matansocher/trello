@@ -1,10 +1,18 @@
-import { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, FC } from 'react';
+import { createContext, useContext, useState, ReactNode, FC, useEffect } from 'react';
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import { USER_INITIAL_STATE } from '@constants';
 import { IUser } from '@models';
+import { firebaseInitService, utilsService } from '@services';
 
 interface IUserContextType {
-  userState: IUser;
-  updateUserState: Dispatch<SetStateAction<IUser>>;
+  user: IUser;
+  googleSignIn: () => void;
+  logOut: () => void;
 }
 
 const UserContext = createContext<IUserContextType | null>(null);
@@ -14,14 +22,29 @@ type UserContextProviderProps = {
 }
 
 export const UserContextProvider: FC<UserContextProviderProps> = ({ children }) => {
-  const [userState, setUserState] = useState<IUser>(USER_INITIAL_STATE);
+  const [user, setUser] = useState<IUser>(USER_INITIAL_STATE);
 
-  const updateUserState: IUserContextType['updateUserState'] = (newState: SetStateAction<IUser>) => {
-    setUserState(newState);
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(firebaseInitService.auth, provider)
   };
 
+  const logOut = () => {
+    signOut(firebaseInitService.auth)
+  }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(firebaseInitService.auth, (firebaseUser) => {
+      const currentUser = utilsService.getUserFromGoogleUser(firebaseUser) as IUser;
+      setUser(currentUser);
+      console.log('user', currentUser)
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <UserContext.Provider value={{ userState, updateUserState }}>
+    <UserContext.Provider value={{ googleSignIn, logOut, user }}>
       {children}
     </UserContext.Provider>
   );
