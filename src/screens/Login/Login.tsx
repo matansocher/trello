@@ -1,6 +1,6 @@
 import './Login.scss';
 import { useNavigate } from 'react-router-dom';
-import { facebookLogo, googleLogo } from '@assets';
+import { facebookLogo, googleLogo, trelloLogo } from '@assets';
 import { useUser } from '@context';
 import { useEffect, useState } from 'react';
 
@@ -44,7 +44,7 @@ function Login() {
     <div className='login-wrapper'>
       <div className='login-wrapper__content'>
         <div className='header'>
-          <img src='https://a.trellocdn.com/prgb/dist/images/header-logo-2x.01ef898811a879595cea.png' alt='logo'/>
+          <img src={trelloLogo} alt='logo'/>
           {isSignupScreen ? <p>Log in to continue</p> : <p>Sign up to continue</p>}
         </div>
         <div className='credentials'>

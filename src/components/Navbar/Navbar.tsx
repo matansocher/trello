@@ -7,6 +7,7 @@ import {
   SearchOutlined as SearchOutlinedIcon,
   CalendarMonth as CalendarMonthIcon,
 } from '@mui/icons-material';
+import { trelloLogo } from '@assets';
 import { DropdownMenu, UserAvatar } from '@components';
 import { IBoard, IDropdownItem } from '@models';
 import { dataService } from '@services';
@@ -58,7 +59,9 @@ function Navbar() {
     <header className='navbar-wrapper'>
       <div className='navbar-wrapper__content'>
         <div className='navbar-wrapper__content__left'>
-          <Link to='/' className='logo'>LOGO</Link>
+          <Link to='/' className='logo'>
+            <img src={trelloLogo} alt='logo' />
+          </Link>
           <div className='menu'>
             <div className='menu__item'>
               <DropdownMenu menuHeader='boards' menuIcon={<ExpandMoreIcon/>} menuItems={getDropdownMenuItems()}/>
