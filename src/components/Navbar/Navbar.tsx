@@ -16,7 +16,7 @@ import { useUser } from '@context';
 
 function Navbar() {
   const { user, logOut } = useUser();
-  const {boards} = useGetBoards();
+  const { boards } = useGetBoards();
   const navigate = useNavigate();
 
   const handleLogoutClick = async () => {

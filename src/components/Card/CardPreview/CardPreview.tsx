@@ -128,7 +128,6 @@ function CardPreview({ list, card, refreshList, moveToTop, moveToBottom, cloneCa
           {renderLabels()}
         </div>
         <div className='card-preview__content'>
-          <p>{card.id}</p>
           <EllipsisText maxLines={3}>{card.title}</EllipsisText>
         </div>
         <div className='card-preview__footer'>

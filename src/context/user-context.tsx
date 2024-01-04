@@ -1,17 +1,23 @@
 import { createContext, useContext, useState, ReactNode, FC, useEffect } from 'react';
 import {
   GoogleAuthProvider,
+  FacebookAuthProvider,
   signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
 import { USER_INITIAL_STATE } from '@constants';
 import { IUser } from '@models';
-import { firebaseInitService, utilsService } from '@services';
+import { firebaseInitService, firebaseService, utilsService } from '@services';
 
 interface IUserContextType {
   user: IUser;
+  credentialsSignUp: (username: string, password: string) => void;
+  credentialsSignIn: (username: string, password: string) => void;
   googleSignIn: () => void;
+  facebookSignIn: () => void;
   logOut: () => void;
 }
 
@@ -24,27 +30,41 @@ type UserContextProviderProps = {
 export const UserContextProvider: FC<UserContextProviderProps> = ({ children }) => {
   const [user, setUser] = useState<IUser>(USER_INITIAL_STATE);
 
+  const credentialsSignUp = (username: string, password: string) => {
+    return createUserWithEmailAndPassword(firebaseInitService.auth, username, password);
+  };
+
+  const credentialsSignIn = (username: string, password: string) => {
+    return signInWithEmailAndPassword(firebaseInitService.auth, username, password);
+  };
+
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(firebaseInitService.auth, provider)
+    return signInWithPopup(firebaseInitService.auth, provider)
+  };
+
+  const facebookSignIn = () => {
+    const provider = new FacebookAuthProvider();
+    return signInWithPopup(firebaseInitService.auth, provider)
   };
 
   const logOut = () => {
-    signOut(firebaseInitService.auth)
+    return signOut(firebaseInitService.auth)
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(firebaseInitService.auth, (firebaseUser) => {
-      const currentUser = utilsService.getUserFromGoogleUser(firebaseUser) as IUser;
+    const unsubscribe = onAuthStateChanged(firebaseInitService.auth, (authUser) => {
+      const currentUser = utilsService.getUserFromGoogleUser(authUser) as IUser;
       setUser(currentUser);
-      console.log('user', currentUser)
+      console.log('user', currentUser);
+      firebaseService.saveUser(currentUser);
     });
 
     return () => unsubscribe();
   }, []);
 
   return (
-    <UserContext.Provider value={{ googleSignIn, logOut, user }}>
+    <UserContext.Provider value={{ user, credentialsSignIn, credentialsSignUp, googleSignIn, facebookSignIn, logOut }}>
       {children}
     </UserContext.Provider>
   );

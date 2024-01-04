@@ -1,14 +1,20 @@
-import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
-import { IBoard, ICard, IList } from '@models';
+import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { IBoard, ICard, IList, IUser } from '@models';
 import { db } from './firebase.init';
 
 const COLLECTIONS = {
+  USER: 'User',
   LABEL: 'Label',
   BOARD_TEMPLATE: 'BoardTemplate',
   BOARD: 'Board',
   LIST: 'List',
   CARD: 'Card',
 };
+
+export const saveUser = async (user: IUser) => {
+  const userRef = doc(db, COLLECTIONS.USER, user.id);
+  return setDoc(userRef, user);
+}
 
 export const getLabels = async () => {
   const labelsSnapshot = await getDocs(collection(db, COLLECTIONS.LABEL));
