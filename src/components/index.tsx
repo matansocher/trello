@@ -24,6 +24,7 @@ import FooterIcon from './Card/CardPreview/FooterIcon/FooterIcon';
 import Navbar from './Navbar/Navbar';
 import Label from './Card/CardPreview/Label/Label';
 import LabelsPicker from './Common/LabelsPicker/LabelsPicker';
+import LabelsPickerItem from './Common/LabelsPicker/LabelsPickerItem';
 import List from './List/List';
 import ListHeader from './List/ListHeader/ListHeader';
 import Loader from './Common/Loader/Loader';
@@ -59,6 +60,7 @@ export {
   Navbar,
   Label,
   LabelsPicker,
+  LabelsPickerItem,
   List,
   ListHeader,
   Loader,

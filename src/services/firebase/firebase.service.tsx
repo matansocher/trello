@@ -1,12 +1,11 @@
 import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { IBoard, ICard, ILabel, IList, IUser } from '@models';
+import { IBoard, ICard, IList, IUser } from '@models';
 import { db } from './firebase.init';
 
 const COLLECTIONS = {
   USER: 'User',
   LABEL: 'Label',
   DEFAULT_LABEL: 'DefaultLabel',
-  BOARD_LABEL: 'BoardLabel',
   BOARD_TEMPLATE: 'BoardTemplate',
   BOARD: 'Board',
   LIST: 'List',
@@ -16,15 +15,6 @@ const COLLECTIONS = {
 export const saveUser = async (user: IUser) => {
   const userRef = doc(db, COLLECTIONS.USER, user.id);
   return setDoc(userRef, user);
-}
-
-export const getLabels = async (labelIds: string[]) => {
-  const q = query(
-    collection(db, COLLECTIONS.LABEL),
-    where(documentId(), 'in', labelIds),
-  );
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as ILabel[];
 }
 
 export const getDefaultLabels = async () => {
@@ -52,15 +42,6 @@ export const getBoards = async () => {
   const boardsSnapshot = await getDocs(collection(db, COLLECTIONS.BOARD));
   const newData = boardsSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   return newData;
-};
-
-export const getBoard = async (id: string) => {
-  const boardRef = doc(db, COLLECTIONS.BOARD, id);
-  const boardSnap = await getDoc(boardRef);
-  if (!boardSnap.exists()) {
-    console.log('Board Does Not Exist');
-  }
-  return boardSnap.data() as IBoard;
 };
 
 export const getBoardListener = async (id: string, callback: any) => {
@@ -102,15 +83,6 @@ export const getListListener = async (id: string, callback: any) => {
   return onSnapshot(q, callback);
 };
 
-export const getLists = async (listIds: string[]) => {
-  const q = query(
-    collection(db, COLLECTIONS.LIST),
-    where(documentId(), 'in', listIds),
-  );
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as IList[];
-}
-
 export const getCards = async (cardIds: string[]) => {
   const q = query(
     collection(db, COLLECTIONS.CARD),
@@ -123,15 +95,6 @@ export const getCards = async (cardIds: string[]) => {
 export const getCardListener = async (id: string, callback: any) => {
   const q = query(collection(db, COLLECTIONS.CARD), where(documentId(), '==', id));
   return onSnapshot(q, callback)
-}
-
-export const getListCards = async (list: IList) => {
-  const q = query(
-    collection(db, COLLECTIONS.CARD),
-    where(documentId(), 'in', list.cards),
-  );
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as ICard[];
 }
 
 export const updateBoard = async (board: IBoard) => {

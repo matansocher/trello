@@ -1,8 +1,8 @@
-import Checkbox from '@mui/material/Checkbox';
-import { ModalWrapper } from '@components';
+import { ModalWrapper, LabelsPickerItem } from '@components';
 import { useLabels } from '@context';
 import { ILabel, IModalStyles } from '@models';
 import './LabelsPicker.scss';
+import { Close as CloseIcon } from '@mui/icons-material';
 
 const labelsModalStyles: IModalStyles = {
   width: 320,
@@ -16,39 +16,30 @@ interface ILabelsPickerProps {
   setIsOpen: (isOpen: boolean) => void;
 }
 
-function LabelsPicker({ handleLabelsChange, cardLabels, isOpen, setIsOpen }: ILabelsPickerProps) {
+function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILabelsPickerProps) {
   const { labels } = useLabels();
-
-  const closeModal = () => {
-    setIsOpen(false);
-  }
 
   const renderLabels = () => {
     return labels.map((label: ILabel) => {
       const isChecked = cardLabels?.includes(label.id);
       return (
-        <div className='label-select' key={label.id}>
-          <Checkbox
-            checked={isChecked}
-            onChange={(event) => handleLabelsChange(label, event.target.checked)}
-            inputProps={{ 'aria-label': 'controlled' }} />
-          <div
-            className='label-color'
-            style={{ backgroundColor: label.backgroundColor }}
-            onClick={() => handleLabelsChange(label, !isChecked)}>
-            <p style={{ color: label.textColor }}>{label.displayName}</p>
-          </div>
-        </div>
+        <LabelsPickerItem key={label.id} label={label} isChecked={isChecked} handleLabelsChange={handleLabelsChange} />
       )
     })
   }
 
   return (
-    <ModalWrapper modalOpen={isOpen} closeModal={closeModal} modalStyle={labelsModalStyles}>
+    <ModalWrapper modalOpen={isOpen} closeModal={() => setIsOpen(false)} modalStyle={labelsModalStyles}>
       <div className='labels-wrapper'>
-        <p>Labels</p>
-        {renderLabels()}
-        <button className='save-button' onClick={() => setIsOpen(false)}>Save</button>
+        <p className='labels-wrapper__header'>Labels</p>
+        <div className='labels-wrapper__close' onClick={() => setIsOpen(false)}>
+          <CloseIcon/>
+        </div>
+        <div className='labels-wrapper__divider'></div>
+        <div className='labels-wrapper__labels'>
+          {renderLabels()}
+        </div>
+        <button className='add-new-button' onClick={() => {}}>Add new label</button>
       </div>
     </ModalWrapper>
   )
