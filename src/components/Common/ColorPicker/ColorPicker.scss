@@ -1,10 +1,9 @@
 @import '../../../styles/colors';
 
 .color-picker {
-  background-color: $dark-5;
   border-radius: 5px;
   box-sizing: border-box;
-  padding: 12px 7px 9px 7px;
+  padding: 20px 10px 10px;
   p {
     font-size: 12px;
     color: $light-main;
@@ -31,7 +30,7 @@
     svg {
       cursor: pointer;
       position: absolute;
-      top: 0;
+      top: -10px;
       right: 0;
     }
   }
@@ -42,7 +41,7 @@
       grid-template-columns: repeat(5, 1fr);
       gap: 4px 4px;
       &__tile {
-        width: 52px;
+        width: 56px;
         height: 32px;
         box-sizing: border-box;
         border-radius: 4px;

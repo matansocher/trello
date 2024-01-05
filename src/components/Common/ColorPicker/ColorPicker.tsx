@@ -7,6 +7,8 @@ import { useState } from 'react';
 
 const colorPickerModalStyles: IModalStyles = {
   width: 320,
+  // @ts-ignore
+  padding: 0,
   p: 2,
 };
 
@@ -15,12 +17,13 @@ interface IColorPickerProps {
   setIsOpen: (isOpen: boolean) => void;
   editLabelId?: string;
   initialTitle?: string;
+  initialTile?: IColorTile;
   handleSaveColorPicker: (editLabelId: string, title: string, selectedColor: IColorTile) => void;
   handleCloseColorPicker: () => void;
 }
 
-function ColorPicker({ isOpen, setIsOpen, editLabelId, initialTitle, handleSaveColorPicker, handleCloseColorPicker }: IColorPickerProps) {
-  const [selectedColor, setSelectedColor] = useState<IColorTile | null>(null);
+function ColorPicker({ isOpen, setIsOpen, editLabelId, initialTitle, initialTile, handleSaveColorPicker, handleCloseColorPicker }: IColorPickerProps) {
+  const [selectedColor, setSelectedColor] = useState<IColorTile | null>(initialTile || null);
   const [title, setTitle] = useState(initialTitle || '');
 
   const handleSaveBtnClick = () => {

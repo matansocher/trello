@@ -2,7 +2,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { IBoard, IBoardTemplate, ICard, IChecklistItem, IComment, ILabel, IList } from '@models';
 import { firebaseService } from './index';
 
-// *********************  BOARDS  ********************* //
+// *********************  BOARD  ********************* //
 export async function createBoard(title: string): Promise<IBoard> {
   const newBoard = { title, lists: [], createdAt: dayjs().format('YYYY-MM-DD') } as IBoard;
   const { id: createdBoardId } = await firebaseService.createBoard(newBoard);
@@ -26,11 +26,22 @@ export async function createBoardFromTemplate(boardTemplate: IBoardTemplate): Pr
   return createdBoardId;
 }
 
-// *********************  LISTS  ********************* //
-export async function getList(listId: string): Promise<any> {
-  return firebaseService.getList(listId);
+export async function addLabelToBoard(board: IBoard, labelId: string): Promise<IBoard> {
+  const boardLabels = board.labels || [];
+  const newLabels = [...boardLabels, labelId];
+  const boardToSave = { ...board, labels: newLabels };
+  await firebaseService.updateBoard(boardToSave);
+  return boardToSave;
 }
 
+export async function removeLabelFromBoard(board: IBoard, labelId: string): Promise<IBoard> {
+  const boardLabels = board.labels || [];
+  const newLabels = boardLabels.filter((label: string) => label !== labelId);
+  const boardToSave = { ...board, labels: newLabels };
+  await firebaseService.updateBoard(boardToSave);
+  return boardToSave;
+}
+// *********************  LIST  ********************* //
 export async function getCleanedList(listId: string): Promise<any> {
   return firebaseService.getCleanedList(listId);
 }
@@ -62,7 +73,7 @@ export async function cloneList(board: IBoard, list: IList): Promise<IBoard> {
   const clonedListCards = createdCards.map((card) => card.id);
   const clonedList = { ...list, title: `Copy of ${list.title}`, cards: clonedListCards } as IList;
   delete clonedList.id;
-  const { id: createdListId } = await firebaseService.createList(clonedList); // $$$$$$$$$$$$$
+  const { id: createdListId } = await firebaseService.createList(clonedList);
   const newBoard = { ...board, lists: [...board.lists, createdListId] } as IBoard;
   await firebaseService.updateBoard(newBoard);
   return newBoard;
@@ -101,7 +112,7 @@ export async function updateListTitle(list: IList, title: string): Promise<IList
   return listToSave;
 }
 
-// *********************  CARDS  ********************* //
+// *********************  CARD  ********************* //
 export async function archiveCard(list: IList, card: ICard): Promise<void> {
   const cardId = card.id as string;
   await firebaseService.archiveCard(cardId);/**/
@@ -216,4 +227,3 @@ export async function deleteChecklistItem(card: ICard, checklistItem: IChecklist
   await firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
-

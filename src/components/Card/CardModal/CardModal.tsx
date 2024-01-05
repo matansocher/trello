@@ -53,6 +53,8 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   }
 
   const handleChecklistClick = async () => {
+    if (card.checklistItems?.length || card.checklistTitle?.length) return;
+
     const cardToSave = await dataService.createChecklist(card);
     updateCurrentCard(cardToSave);
   }

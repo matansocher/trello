@@ -7,7 +7,7 @@ feat - add support for changing board background - storage
 feat - add support for changing labels for a specific board
 feat - don't refresh list after closing modal if no changes were made
 
-
+bug - labels order
 
 
 

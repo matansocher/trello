@@ -1,9 +1,10 @@
-import { ModalWrapper, LabelsPickerItem, ColorPicker } from '@components';
-import { useLabels } from '@context';
-import { IColorTile, ILabel, IModalStyles } from '@models';
-import './LabelsPicker.scss';
-import { Close as CloseIcon } from '@mui/icons-material';
 import { useState } from 'react';
+import { Close as CloseIcon } from '@mui/icons-material';
+import { ModalWrapper, LabelsPickerItem, ColorPicker } from '@components';
+import { useBoard, useLabels } from '@context';
+import { IColorTile, ILabel, IModalStyles } from '@models';
+import { dataService, firebaseService } from '@services';
+import './LabelsPicker.scss';
 
 const labelsModalStyles: IModalStyles = {
   width: 320,
@@ -19,42 +20,50 @@ interface ILabelsPickerProps {
 
 function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILabelsPickerProps) {
   const { labels } = useLabels();
+  const { boardState } = useBoard();
   const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
 
   const handleCloseColorPicker = () => {
     setColorPickerModalOpen(false);
   }
 
-  const handleSaveColorPicker = (editLabelId: string, title: string, tile: IColorTile) => {
+  const handleSaveColorPicker = async (editLabelId: string, title: string, tile: IColorTile) => {
     const newLabel: ILabel = {
       displayName: title,
       backgroundColor: tile.backgroundColor,
       textColor: tile.textColor as string
     };
-    console.log('editLabelId');
-    console.log(editLabelId);
-    console.log('newLabel');
-    console.log(newLabel);
-    console.log('labels');
-    console.log(labels);
 
     const newLabels = labels.filter((label: ILabel) => label.id !== editLabelId);
     newLabels.push(newLabel);
 
     if (editLabelId) {
-      // edited an existing label - update it in labels collection
+      firebaseService.updateLabel({ ...newLabel, id: editLabelId });
     } else {
-      // created new label - save it to labels collection
+      const labelId = await firebaseService.createLabel(newLabel);
+      dataService.addLabelToBoard(boardState, labelId);
     }
-    console.log('newLabels');
-    console.log(newLabels);
+
     setColorPickerModalOpen(false);
+  }
+
+  const handleDeleteColorPickerItem = async (editLabelId: string) => {
+    firebaseService.deleteLabel(editLabelId);
+    dataService.removeLabelFromBoard(boardState, editLabelId);
   }
 
   const renderLabels = () => {
     return labels.map((label: ILabel) => {
       const isChecked = cardLabels?.includes(label.id as string);
-      return <LabelsPickerItem key={label.id} label={label} isChecked={isChecked} handleSaveColorPicker={handleSaveColorPicker} handleLabelsChange={handleLabelsChange} />;
+      return (
+        <LabelsPickerItem
+          key={label.id}
+          label={label}
+          isChecked={isChecked}
+          handleSaveColorPicker={handleSaveColorPicker}
+          handleDeleteColorPickerItem={handleDeleteColorPickerItem}
+          handleLabelsChange={handleLabelsChange} />
+      );
     })
   }
 

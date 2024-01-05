@@ -37,6 +37,7 @@
         padding: 2px;
       }
       .label-color {
+        position: relative;
         width: 100%;
         height: 35px;
         box-sizing: border-box;
@@ -51,6 +52,11 @@
           margin-top: -2px;
           font-weight: 500;
         }
+        .delete-icon {
+          position: absolute;
+          top: 5px;
+          right: 6px;
+        }
       }
       .label-edit {
         cursor: pointer;
@@ -61,8 +67,8 @@
       }
     }
   }
+  .add-new-button {
+    margin-top: 12px;
+  }
 }
 
-.add-new-button {
-  margin-top: 12px;
-}
