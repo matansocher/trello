@@ -26,8 +26,8 @@ export function getOverdueDate(date: string): string {
 
 export function sortCardsByListOrder(cardIdsToSortBy: string[], cards: ICard[]) {
   return cards.sort((cardA, cardB) => {
-    let cardAIndex = cardIdsToSortBy.indexOf(cardA.id || '');
-    let cardBIndex = cardIdsToSortBy.indexOf(cardB.id || '');
+    let cardAIndex = cardIdsToSortBy.indexOf(cardA.id as string);
+    let cardBIndex = cardIdsToSortBy.indexOf(cardB.id as string);
 
     // If one of the cards is not found in cardIdsToSortBy, it's placed at the end
     if (cardAIndex === -1) cardAIndex = Number.MAX_VALUE;

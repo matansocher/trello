@@ -72,7 +72,7 @@ function CardInfo({  }: ICardDescriptionProps) {
     <div className='card-info'>
       {card.labels?.length ? renderLabelsSection() : null}
       {card.dueDate?.length ? renderDueDateSection(): null}
-      <DatePicker dueDate={card.dueDate || ''} handleChange={handleDueDateChange} isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} />
+      <DatePicker dueDate={card.dueDate as string} handleChange={handleDueDateChange} isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} />
       <LabelsPicker isOpen={labelsModalOpen} setIsOpen={setLabelsModalOpen} cardLabels={card.labels || []} handleLabelsChange={handleLabelsChange} />
     </div>
   )

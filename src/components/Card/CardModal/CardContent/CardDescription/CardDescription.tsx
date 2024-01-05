@@ -10,7 +10,7 @@ interface ICardDescriptionProps {
 
 function CardDescription({  }: ICardDescriptionProps) {
   const { currentCard: card, updateCurrentCard } = useCurrentCard();
-  const [input, setInput] = useState(card.description || '');
+  const [input, setInput] = useState(card.description as string);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSaveClick = async () => {
@@ -20,7 +20,7 @@ function CardDescription({  }: ICardDescriptionProps) {
   }
 
   const handleCancelClick = () => {
-    setInput(card.description || '');
+    setInput(card.description as string);
     setIsOpen(false);
   }
 

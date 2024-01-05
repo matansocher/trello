@@ -72,7 +72,7 @@ const backgroundGraySubtleHovered = '#454F59';
 const backgroundGrayBolder = '#8C9BAB';
 const backgroundGrayBolderHovered = '#9FADBC';
 
-export const TILES: IColorTile[] = [
+export const COLOR_TILES: IColorTile[] = [
   { id: 'pattern-green-subtler', backgroundColor: backgroundGreenSubtler, hoverColor: backgroundGreenSubtlerHovered, textColor: textGreenBolder },
   { id: 'pattern-yellow-subtler', backgroundColor: backgroundYellowSubtler, hoverColor: backgroundYellowSubtlerHovered, textColor: textYellowBolder },
   { id: 'pattern-orange-subtler', backgroundColor: backgroundOrangeSubtler, hoverColor: backgroundOrangeSubtlerHovered, textColor: textOrangeBolder },

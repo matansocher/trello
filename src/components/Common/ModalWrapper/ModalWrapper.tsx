@@ -13,6 +13,7 @@ const DEFAULT_MODAL_STYLE = {
   outline: 'none',
   p: 2,
   borderRadius: '10px',
+  boxSizing: 'border-box',
 };
 
 interface IModalProps {

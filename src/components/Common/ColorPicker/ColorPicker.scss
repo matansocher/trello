@@ -5,26 +5,64 @@
   border-radius: 5px;
   box-sizing: border-box;
   padding: 12px 7px 9px 7px;
-  max-width: 300px;
   p {
     font-size: 12px;
     color: $light-main;
     font-weight: 600;
     margin-bottom: 12px;
   }
-  &__colors {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 6px;
-    &__color {
-      width: 52px;
+  &__header {
+    position: relative;
+    input {
+      width: 100%;
+      box-sizing: border-box;
       height: 32px;
-      border-radius: 4px;
-      cursor: pointer;
-      &:hover {
-        opacity: .7;
-        transition: opacity .3s ease-in-out;
+      padding: 0 10px;
+      border-radius: 5px;
+      border: 1px solid rgba(164, 153, 137, .6);
+      outline: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: $light-main;
+      &:focus {
+        border: 1px solid $light-blue;
       }
+    }
+    svg {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+  &__colors {
+    margin-top: 12px;
+    &__tiles {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px 4px;
+      &__tile {
+        width: 52px;
+        height: 32px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover {
+          opacity: .7;
+          transition: opacity .3s ease-in-out;
+        }
+      }
+      .selected-tile {
+        border: 3px solid $light-blue;
+      }
+    }
+  }
+  &__footer {
+    border-top: 1px solid $dark-3;
+    margin-top: 14px;
+    padding-top: 14px;
+    .save {
+      background-color: $light-blue;
     }
   }
 }

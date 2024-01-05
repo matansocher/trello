@@ -57,7 +57,7 @@ export const getList = async (id: string) => {
   }
 
   const list = listSnap.data();
-  const cards = await getCards(list?.cards);
+  const cards = list?.cards?.length ? await getCards(list?.cards) : [];
 
   return {
     ...listSnap.data(),
@@ -100,7 +100,7 @@ export const getCardListener = async (id: string, callback: any) => {
 export const updateBoard = async (board: IBoard) => {
   const boardToSave = { ...board } as any;
   delete boardToSave.id;
-  const boardRef = doc(db, COLLECTIONS.BOARD, board.id || '');
+  const boardRef = doc(db, COLLECTIONS.BOARD, board.id as string);
   await updateDoc(boardRef, { ...boardToSave });
 };
 
@@ -119,14 +119,14 @@ export const createList = async (list: IList) => {
 export const updateCard = async (card: ICard) => {
   const cardToSave = { ...card } as any;
   delete cardToSave.id;
-  const cardRef = doc(db, COLLECTIONS.CARD, card.id || '');
+  const cardRef = doc(db, COLLECTIONS.CARD, card.id as string);
   await updateDoc(cardRef, { ...cardToSave });
 };
 
 export const updateList = async (list: IList) => {
   const listToSave = { ...list } as any;
   delete listToSave.id;
-  const listRef = doc(db, COLLECTIONS.LIST, list.id || '');
+  const listRef = doc(db, COLLECTIONS.LIST, list.id as string);
   await updateDoc(listRef, { ...listToSave });
 };
 

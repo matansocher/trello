@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
-import {
-  ContentCopy as ContentCopyIcon,
-  Delete as DeleteIcon,
-  MoreHoriz as MoreHorizIcon,
-  Watch as WatchIcon,
-} from '@mui/icons-material';
-import { AddNewCard, CardPreview, DropdownMenu, ListHeader, Loader } from '@components';
-import { CurrentCardContextProvider, useBoard } from '@context';
+
+import { AddNewCard, CardPreview, ListHeader, Loader } from '@components';
+import { CurrentCardContextProvider } from '@context';
 import { LoaderSize, LIST_INITIAL_STATE } from '@constants';
-import { ICard, IList, IDropdownItem } from '@models';
+import { ICard, IList } from '@models';
 import { dataService, utilsService } from '@services';
 import { useGetList } from '@hooks';
 import './List.scss';
@@ -20,7 +15,6 @@ interface IListProps {
 
 function List({ listIdToFetch }: IListProps) {
   const [listId, setListId] = useState(listIdToFetch);
-  const { boardState: board, updateBoardState } = useBoard();
   const { list: listFromDb, cards, loading } = useGetList(listId);
   const [list, setList] = useState<IList>(LIST_INITIAL_STATE);
 
@@ -31,20 +25,6 @@ function List({ listIdToFetch }: IListProps) {
   const refreshList = async () => {
     setListId('');
     setTimeout(() => setListId(listIdToFetch), 0);
-  }
-
-  const handleCloneList = async () => {
-    const newBoard = await dataService.cloneList(board, list);
-    updateBoardState(newBoard);
-  }
-
-  const handleWatchList = () => {
-    console.log('handleWatchList');
-  }
-
-  const handleArchiveList = async () => {
-    const newBoard = await dataService.archiveList(board, listId);
-    updateBoardState(newBoard);
   }
 
   const addNewCardToList = async (card: ICard) => {
@@ -65,18 +45,6 @@ function List({ listIdToFetch }: IListProps) {
 
   const moveToBottom = async (card: ICard) => {
     await dataService.moveCardToBottom(list, card);
-  }
-
-  // const handleListTitleUpdate = async (newTitle: string) => {
-  //   await dataService.updateListTitle(list, newTitle);
-  // }
-
-  const getDropdownMenuItems = (): IDropdownItem[] => {
-    return [
-      { label: 'Clone list...', icon: <ContentCopyIcon fontSize='small' />, onClick: () => handleCloneList() },
-      { label: 'Watch', icon: <WatchIcon fontSize='small' />, onClick: () => handleWatchList() },
-      { label: 'Archive list', icon: <DeleteIcon fontSize='small' />, onClick: () => handleArchiveList() },
-    ];
   }
 
   const renderCards = () => {
@@ -108,7 +76,6 @@ function List({ listIdToFetch }: IListProps) {
           <div className='list-wrapper__content'>
             <div className='list-wrapper__content__header'>
               <ListHeader list={list} />
-              <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon/>} menuItems={getDropdownMenuItems()}/>
             </div>
             {list?.id ? <div className='list-wrapper__content__cards'>
               <Droppable droppableId={`list_${list.id}`} direction='vertical' type='list'>

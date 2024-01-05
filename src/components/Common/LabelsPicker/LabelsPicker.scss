@@ -1,19 +1,21 @@
 @import '../../../styles/colors';
 
 .labels-wrapper {
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4px;
   &__header {
-    text-align: center;
-    font-weight: 600;
-  }
-  &__close {
-    cursor: pointer;
-    position: absolute;
-    top: -4px;
-    right: 0;
+    position: relative;
+    p {
+      text-align: center;
+      font-weight: 600;
+    }
+    .close {
+      cursor: pointer;
+      position: absolute;
+      top: -4px;
+      right: 0;
+    }
   }
   &__divider {
     margin-top: 8px;
@@ -47,9 +49,11 @@
         }
         p {
           margin-top: -2px;
+          font-weight: 500;
         }
       }
       .label-edit {
+        cursor: pointer;
         svg {
           font-size: 22px;
           margin-top: 2px;
@@ -60,6 +64,5 @@
 }
 
 .add-new-button {
-  height: 30px;
   margin-top: 12px;
 }

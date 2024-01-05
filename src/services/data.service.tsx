@@ -47,7 +47,10 @@ export async function addNewList(board: IBoard, list: IList): Promise<IBoard> {
 }
 
 export async function cloneList(board: IBoard, list: IList): Promise<IBoard> {
-  const listCards = await firebaseService.getCards(list.cards);
+  let listCards: ICard[] = [];
+  if (list.cards.length !== 0) {
+    listCards = await firebaseService.getCards(list.cards);
+  }
 
   const createCardPromises = listCards.map(async (card: ICard) => {
     const clonedCard = { ...card, createdAt: new Date().toISOString().slice(0, 10) } as ICard;
@@ -67,7 +70,7 @@ export async function cloneList(board: IBoard, list: IList): Promise<IBoard> {
 
 export async function archiveList(board: IBoard, listId: string): Promise<IBoard> {
   const list = await firebaseService.getList(listId);
-  const deleteCardPromises = list.cards.map((card: ICard) => firebaseService.archiveCard(card.id || ''));
+  const deleteCardPromises = list.cards.map((card: ICard) => firebaseService.archiveCard(card.id as string));
   await Promise.all(deleteCardPromises);
 
   await firebaseService.archiveList(listId);
@@ -78,7 +81,7 @@ export async function archiveList(board: IBoard, listId: string): Promise<IBoard
 
 export async function moveCardToTop(list: IList, card: ICard): Promise<void> {
   const cardIds = [...list.cards];
-  const indexOfCard = cardIds.indexOf(card.id|| '');
+  const indexOfCard = cardIds.indexOf(card.id as string);
   cardIds.splice(indexOfCard, 1);
   const newCards = [card.id, ...cardIds] as string[];
   await firebaseService.updateList({ ...list, cards: newCards });
@@ -86,7 +89,7 @@ export async function moveCardToTop(list: IList, card: ICard): Promise<void> {
 
 export async function moveCardToBottom(list: IList, card: ICard): Promise<void> {
   const cardIds = [...list.cards];
-  const indexOfCard = cardIds.indexOf(card.id|| '');
+  const indexOfCard = cardIds.indexOf(card.id as string);
   cardIds.splice(indexOfCard, 1);
   const newCards = [...cardIds, card.id] as string[];
   await firebaseService.updateList({ ...list, cards: newCards });
@@ -100,7 +103,7 @@ export async function updateListTitle(list: IList, title: string): Promise<IList
 
 // *********************  CARDS  ********************* //
 export async function archiveCard(list: IList, card: ICard): Promise<void> {
-  const cardId = card.id || '';
+  const cardId = card.id as string;
   await firebaseService.archiveCard(cardId);/**/
   const newList = { ...list, cards: list.cards.filter((card: string) => card !== cardId) };
   await firebaseService.updateList(newList);
@@ -142,7 +145,7 @@ export async function updateCardDueDate(card: ICard, newDueDate: Dayjs | null): 
 export async function updateCardLabels(card: ICard, label: ILabel, isChecked: boolean): Promise<ICard> {
   const currentLabels = card.labels || [];
   const newLabels = isChecked ? [...currentLabels, label.id] : currentLabels.filter((labelId: string) => labelId !== label.id);
-  const cardToSave = { ...card, labels: newLabels };
+  const cardToSave = { ...card, labels: newLabels } as ICard;
   await firebaseService.updateCard(cardToSave);
   return cardToSave;
 }

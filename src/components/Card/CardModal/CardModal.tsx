@@ -39,7 +39,6 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   }
 
   const handleLabelsClick = () => {
-    console.log('handleLabelsClick');
     setLabelsModalOpen(true);
   }
 
@@ -97,7 +96,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
         </div>
       </div>
 
-      <DatePicker dueDate={card.dueDate || ''} handleChange={handleDueDateChange} isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} />
+      <DatePicker dueDate={card.dueDate as string} handleChange={handleDueDateChange} isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} />
       <LabelsPicker isOpen={labelsModalOpen} setIsOpen={setLabelsModalOpen} cardLabels={card.labels || []} handleLabelsChange={handleLabelsChange} />
     </div>
   )

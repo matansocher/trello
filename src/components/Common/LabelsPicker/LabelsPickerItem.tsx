@@ -1,14 +1,27 @@
 import Checkbox from '@mui/material/Checkbox';
 import { EditOutlined as EditOutlinedIcon } from '@mui/icons-material';
-import { ILabel } from '@models';
+import { IColorTile, ILabel } from '@models';
+import { ColorPicker } from '@components';
+import { useState } from 'react';
 
 interface ILabelsPickerItemProps {
   label: ILabel;
   isChecked: boolean;
+  handleSaveColorPicker: (editLabelId: string, title: string, selectedColor: IColorTile) => void;
   handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
 }
 
-function LabelsPickerItem({ label, isChecked, handleLabelsChange }: ILabelsPickerItemProps) {
+function LabelsPickerItem({ label, isChecked, handleSaveColorPicker, handleLabelsChange }: ILabelsPickerItemProps) {
+  const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
+
+  const handleCloseColorPicker = () => {
+    setColorPickerModalOpen(false);
+  }
+
+  const saveColorPickerItem = (editLabelId: string, title: string, tile: IColorTile) => {
+    handleSaveColorPicker(editLabelId, title, tile);
+    setColorPickerModalOpen(false);
+  }
 
   return (
     <div className='label-select'>
@@ -24,10 +37,17 @@ function LabelsPickerItem({ label, isChecked, handleLabelsChange }: ILabelsPicke
       </div>
       <div
         className='label-edit'
-        onClick={() => {
-        }}>
+        onClick={() => setColorPickerModalOpen(true)}>
         <EditOutlinedIcon/>
       </div>
+
+      <ColorPicker
+        isOpen={colorPickerModalOpen}
+        setIsOpen={setColorPickerModalOpen}
+        editLabelId={label.id}
+        initialTitle={label.displayName}
+        handleSaveColorPicker={saveColorPickerItem}
+        handleCloseColorPicker={handleCloseColorPicker}/>
     </div>
   )
 }

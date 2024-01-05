@@ -43,7 +43,7 @@ function Home() {
   const renderBoards = () => {
     return boards?.map((board: IBoard) => {
       return (
-        <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id || '')} style={{ backgroundImage: `url(${earth})` }}>
+        <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id as string)} style={{ backgroundImage: `url(${earth})` }}>
           <EllipsisText maxLines={1}>{board.title}</EllipsisText>
         </div>
       );
