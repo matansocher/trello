@@ -26,7 +26,7 @@ function List({ listIdToFetch }: IListProps) {
 
   useEffect(()=>{
     setList(listFromDb);
-  },[listFromDb])
+  },[listFromDb]);
 
   const refreshList = async () => {
     setListId('');

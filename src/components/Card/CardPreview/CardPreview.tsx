@@ -12,8 +12,8 @@ import {
   VerticalAlignBottomOutlined as VerticalAlignBottomOutlinedIcon,
 } from '@mui/icons-material';
 import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label } from '@components';
-import { useCurrentCard } from '@context';
-import { useToggleHover, useGetLabels } from '@hooks';
+import { useCurrentCard, useLabels } from '@context';
+import { useToggleHover } from '@hooks';
 import { ICard, IList, ILabel, IDropdownItem, IFooterIcon, IModalStyles } from '@models';
 import { utilsService } from '@services';
 import './CardPreview.scss';
@@ -36,7 +36,7 @@ interface ICardPreviewProps {
 }
 
 function CardPreview({ list, card, refreshList, moveToTop, moveToBottom, cloneCard, archiveCard }: ICardPreviewProps) {
-  const { labels } = useGetLabels();
+  const { labels } = useLabels();
   const { updateCurrentCard } = useCurrentCard();
   const [isHovered, hoverEventHandlers] = useToggleHover(false);
   // modal

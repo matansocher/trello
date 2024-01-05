@@ -1,5 +1,6 @@
 export type { IActivityItem } from './ActivityItem';
 export type { IBoard } from './Board';
+export type { IBoardLabel } from './BoardLabel';
 export type { IBoardTemplate } from './BoardTemplate';
 export type { ICard } from './Card';
 export type { IChecklistItem } from './ChecklistItem';

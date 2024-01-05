@@ -56,7 +56,6 @@ export const UserContextProvider: FC<UserContextProviderProps> = ({ children }) 
     const unsubscribe = onAuthStateChanged(firebaseInitService.auth, (authUser) => {
       const currentUser = utilsService.getUserFromGoogleUser(authUser) as IUser;
       setUser(currentUser);
-      console.log('user', currentUser);
       firebaseService.saveUser(currentUser);
     });
 

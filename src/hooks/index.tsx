@@ -2,7 +2,7 @@ import { useGetBoard } from './useGetBoard';
 import { useGetBoardTemplates } from './useGetBoardTemplates';
 import { useGetBoards } from './useGetBoards';
 import { useGetCard } from './useGetCard';
-import { useGetLabels } from './useGetLabels';
+import { useGetDefaultLabels } from './useGetDefaultLabels';
 import { useGetList } from './useGetList';
 import { useLocalStorage } from './useLocalStorage';
 import { useToggleFocus } from './useToggleFocus';
@@ -13,7 +13,7 @@ export {
   useGetBoardTemplates,
   useGetBoards,
   useGetCard,
-  useGetLabels,
+  useGetDefaultLabels,
   useGetList,
   useLocalStorage,
   useToggleFocus,

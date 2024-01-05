@@ -1,5 +1,5 @@
 import { IBoard } from '@models';
-import { dataService } from './index.tsx';
+import { dataService } from './index';
 
 export async function dragEndHandler(board: IBoard, result: any) {
   const { draggableId, source, destination } = result;

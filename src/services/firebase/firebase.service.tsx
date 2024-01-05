@@ -1,10 +1,12 @@
 import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { IBoard, ICard, IList, IUser } from '@models';
+import { IBoard, ICard, ILabel, IList, IUser } from '@models';
 import { db } from './firebase.init';
 
 const COLLECTIONS = {
   USER: 'User',
   LABEL: 'Label',
+  DEFAULT_LABEL: 'DefaultLabel',
+  BOARD_LABEL: 'BoardLabel',
   BOARD_TEMPLATE: 'BoardTemplate',
   BOARD: 'Board',
   LIST: 'List',
@@ -16,9 +18,23 @@ export const saveUser = async (user: IUser) => {
   return setDoc(userRef, user);
 }
 
-export const getLabels = async () => {
-  const labelsSnapshot = await getDocs(collection(db, COLLECTIONS.LABEL));
-  return labelsSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+export const getLabels = async (labelIds: string[]) => {
+  const q = query(
+    collection(db, COLLECTIONS.LABEL),
+    where(documentId(), 'in', labelIds),
+  );
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as ILabel[];
+}
+
+export const getDefaultLabels = async () => {
+  const defaultLabelsSnapshot = await getDocs(collection(db, COLLECTIONS.DEFAULT_LABEL));
+  return defaultLabelsSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+}
+
+export const getBoardLabelsListener = async (labelIds: string[], callback: any) => {
+  const q = query(collection(db, COLLECTIONS.LABEL), where(documentId(), 'in', labelIds));
+  return onSnapshot(q, callback);
 }
 
 export const getBoardTemplates = async () => {

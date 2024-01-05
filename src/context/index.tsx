@@ -1,6 +1,7 @@
 import { BoardContextProvider, useBoard } from './board-context';
 import { BoardsContextProvider, useBoards } from './boards-context';
-import { CurrentCardContextProvider, useCurrentCard } from './current-card-context.tsx';
+import { CurrentCardContextProvider, useCurrentCard } from './current-card-context';
+import { LabelsContextProvider, useLabels } from './labels-context';
 import { UserContextProvider, useUser } from './user-context';
 
 export {
@@ -10,6 +11,8 @@ export {
   useBoards,
   CurrentCardContextProvider,
   useCurrentCard,
+  LabelsContextProvider,
+  useLabels,
   UserContextProvider,
   useUser,
 }

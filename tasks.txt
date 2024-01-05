@@ -2,6 +2,22 @@ feat - make list header editable - ListHeader
 feat - add option to add cover to a ticket
 feat - add activity saving support
 feat - error state
-feat - create boards context so you won't get it twice from header and from home page - CONTEXT EXISTS, BUT NOT USED
+feat - create boards context so you won't get it twice from header and from home page - CONTEXT EXISTS,
+ BUT NOT USED
 feat - add support for changing board background - storage
 feat - add support for changing labels for a specific board
+
+
+
+
+
+
+
+
+
+[
+{"backgroundColor":"#0055cc","displayName":"Waiting","textColor":"#cce0ff","id":"3kKZWBioFMrItSFX5TK4"},
+{"backgroundColor":"#216e4e","displayName":"Done","textColor":"#baf3db","id":"3opLKldDzTq55mRs9pRb"},
+{"backgroundColor":"#7f5f01","displayName":"In Progress","textColor":"#f8e6a0","id":"E2RUhRK7pFyQ1NKhn9W9"},
+{"backgroundColor":"#ae2e24","displayName":"Stop","textColor":"#ffd5d2","id":"fOmyVdOtRgJ7ZXV1U2gA"}
+]

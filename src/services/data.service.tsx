@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { IBoard, IBoardTemplate, ICard, IChecklistItem, IComment, ILabel, IList } from '@models';
-import { firebaseService } from './index.tsx';
+import { firebaseService } from './index';
 
 // *********************  BOARDS  ********************* //
 export async function createBoard(title: string): Promise<IBoard> {

@@ -4,7 +4,7 @@ import { PaletteMode } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Navbar } from '@components';
 import { Router } from '@screens';
-import { BoardsContextProvider, BoardContextProvider, UserContextProvider } from '@context';
+import { BoardsContextProvider, BoardContextProvider, UserContextProvider, LabelsContextProvider } from '@context';
 import './App.scss';
 
 function App() {
@@ -21,12 +21,14 @@ function App() {
       <UserContextProvider>
         <BoardsContextProvider>
           <BoardContextProvider>
-            <BrowserRouter>
-              <div className='main-wrapper'>
-                <Navbar />
-                <Router />
-              </div>
-            </BrowserRouter>
+            <LabelsContextProvider>
+              <BrowserRouter>
+                <div className='main-wrapper'>
+                  <Navbar />
+                  <Router />
+                </div>
+              </BrowserRouter>
+            </LabelsContextProvider>
           </BoardContextProvider>
         </BoardsContextProvider>
       </UserContextProvider>

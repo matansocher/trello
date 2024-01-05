@@ -2,26 +2,23 @@ import { useState, useEffect } from 'react';
 import { ILabel } from '@models';
 import { firebaseService } from '@services';
 
-export const useGetLabels = () => {
+
+// $$$$$$$$$$$$$$$$$$$$$$$$ NOT USED $$$$$$$$$$$$$$$$$$$$$$$$
+export const useGetDefaultLabels = () => {
   const [labels, setLabels] = useState<ILabel[]>([]);
-  const [loading,setLoading] = useState(false)
-  const [error,setError] = useState(null)
 
   useEffect(()=>{
     const fetchLabels = async () => {
       try {
-        setLoading(true)
-        const labelsRes = await firebaseService.getLabels() as ILabel[];
+        const labelsRes = await firebaseService.getDefaultLabels() as ILabel[];
         setLabels(labelsRes)
       } catch(err) {
-        setError(err as any)
-      } finally {
-        setLoading(false)
+        console.log('failed to fetch labels')
       }
     }
 
     fetchLabels();
   },[])
 
-  return { labels, loading, error };
+  return { labels };
 }

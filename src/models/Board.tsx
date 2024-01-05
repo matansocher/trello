@@ -1,4 +1,5 @@
 import { IActivityItem } from './ActivityItem';
+import { ILabel } from './Label';
 
 export interface IBoard {
   id?: string;
@@ -7,4 +8,5 @@ export interface IBoard {
   createdAt: string;
   background?: string;
   activityItems?: IActivityItem[];
+  labels?: string[];
 }

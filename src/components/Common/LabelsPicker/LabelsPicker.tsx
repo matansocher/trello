@@ -1,6 +1,6 @@
 import Checkbox from '@mui/material/Checkbox';
 import { ModalWrapper } from '@components';
-import { useGetLabels } from '@hooks';
+import { useLabels } from '@context';
 import { ILabel, IModalStyles } from '@models';
 import './LabelsPicker.scss';
 
@@ -17,7 +17,7 @@ interface ILabelsPickerProps {
 }
 
 function LabelsPicker({ handleLabelsChange, cardLabels, isOpen, setIsOpen }: ILabelsPickerProps) {
-  const { labels } = useGetLabels();
+  const { labels } = useLabels();
 
   const closeModal = () => {
     setIsOpen(false);

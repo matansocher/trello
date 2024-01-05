@@ -1,5 +1,5 @@
 import { IColorTile } from '@models';
-import { TILES } from './ColorPicker.config.tsx';
+import { TILES } from './ColorPicker.config';
 import './ColorPicker.scss';
 
 interface IColorPickerProps {
