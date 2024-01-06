@@ -1,13 +1,11 @@
-feat - make list header editable - ListHeader
 feat - add option to add cover to a ticket
 feat - add activity saving support
 feat - error state
-feat - create boards context so you won't get it twice from header and from home page - CONTEXT EXISTS, BUT NOT USED
 feat - add support for changing board background - storage
-feat - add support for changing labels for a specific board
 feat - don't refresh list after closing modal if no changes were made
 
 bug - labels order
+bug - drag and drop bump - check if you can set the state even before data comes from db
 
 
 

@@ -4,9 +4,10 @@ import './EllipsisText.scss';
 interface IEllipsisTextProps {
   maxLines: number;
   children: string;
+  styles?: any;
 }
 
-function EllipsisText({ children, maxLines = 1 }: IEllipsisTextProps) {
+function EllipsisText({ children, maxLines = 1, styles }: IEllipsisTextProps) {
   const [isOverflowed, setIsOverflowed] = useState(false);
   const containerRef = useRef();
 
@@ -30,6 +31,7 @@ function EllipsisText({ children, maxLines = 1 }: IEllipsisTextProps) {
     WebkitBoxOrient: 'vertical',
     textOverflow: 'ellipsis',
     WebkitLineClamp: maxLines,
+    ...styles,
   };
 
   return (

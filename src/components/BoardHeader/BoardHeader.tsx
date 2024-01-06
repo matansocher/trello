@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   ArchiveOutlined as ArchiveOutlinedIcon,
   CalendarMonth as CalendarMonthIcon,
@@ -14,9 +15,11 @@ import { earth } from '@assets';
 import { DropdownMenu, EditableInput } from '@components';
 import { useBoard } from '@context';
 import { IDropdownItem } from '@models';
+import { dataService } from '@services';
 import './BoardHeader.scss';
 
 function BoardHeader() {
+  const navigate = useNavigate();
   const { boardState: board } = useBoard();
 
   const handleActivityClick = () => {
@@ -47,8 +50,10 @@ function BoardHeader() {
     console.log('handlePrintExportShareClick');
   }
 
-  const handleCloseBoardClick = () => {
+  const handleCloseBoardClick = async () => {
     console.log('handleCloseBoardClick');
+    await dataService.closeBoard(board);
+    navigate(`/`);
   }
 
   const handleTitleSave = (newValue: string) => {

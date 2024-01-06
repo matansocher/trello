@@ -4,12 +4,11 @@ import {
   MoreHoriz as MoreHorizIcon,
   Watch as WatchIcon,
 } from '@mui/icons-material';
-import { DropdownMenu, EllipsisText } from '@components';
+import { DropdownMenu, EditableInput } from '@components';
+import { useBoard } from '@context';
 import { IDropdownItem, IList } from '@models';
 import { dataService } from '@services';
-import { useBoard } from '@context';
 import './ListHeader.scss';
-// import { useToggleFocus, useToggleHover } from '@hooks';
 
 interface IListHeaderProps {
   list: IList;
@@ -17,18 +16,10 @@ interface IListHeaderProps {
 
 function ListHeader({ list }: IListHeaderProps) {
   const { boardState: board, updateBoardState } = useBoard();
-  // const [input, setInput] = useState(list.title as string);
-  // const [isOpen, setIsOpen] = useState(true);
-  // const [isFocused, focusEventHandlers] = useToggleFocus(false);
-  // const [isHovered, hoverEventHandlers] = useToggleHover(false);
 
-  // const handleOpenChange = (isFocused: boolean) => {
-  //   setIsOpen(isFocused);
-  // }
-
-  // const handleListTitleUpdate = async (newTitle: string) => {
-  //   await dataService.updateListTitle(list, newTitle);
-  // }
+  const handleTitleSave = async (newValue: string) => {
+    dataService.updateListTitle(list, newValue);
+  }
 
   const handleCloneList = async () => {
     const newBoard = await dataService.cloneList(board, list);
@@ -54,19 +45,10 @@ function ListHeader({ list }: IListHeaderProps) {
 
   return (
     <>
-      <EllipsisText maxLines={3}>{list.title}</EllipsisText>
+      <EditableInput handleSave={handleTitleSave} initialValue={list.title} fontSize={16} />
       <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon/>} menuItems={getDropdownMenuItems()}/>
     </>
   );
-  // return (
-  //   <div className={`list-header ${isHovered ? 'list-header-open' : 'list-header-closed'}`} {...(hoverEventHandlers as Object)}>
-  //     {isHovered ?
-  //       <EditableInput handleSave={setInput} initialValue={input} fontSize={14} /> :
-  //       <Textarea placeholder='Add a list title…' text={input} handleFocusChange={handleOpenChange} handleInputChange={setInput}/> :
-        // <p>{list.title}</p>
-      // }
-    // </div>
-  // )
 }
 
 export default ListHeader;

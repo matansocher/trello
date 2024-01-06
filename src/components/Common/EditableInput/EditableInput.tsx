@@ -15,7 +15,7 @@ function EditableInput({ handleSave, initialValue = '', fontSize = 16 }: IEditab
 
   useEffect(() => {
     setInput(initialValue);
-  });
+  }, [initialValue]);
 
   useEffect(() => {
     if (!isFocused) { // outside clicked

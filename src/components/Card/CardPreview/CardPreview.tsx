@@ -123,6 +123,7 @@ function CardPreview({ list, card, refreshList, moveToTop, moveToBottom, cloneCa
   return (
     <>
       <div className='card-preview' onClick={handleCardClick} {...(hoverEventHandlers as Object)}>
+        <span className='card-id'>{card.id}</span>
         {renderDropdownMenu()}
         <div className='card-preview__labels'>
           {renderLabels()}

@@ -63,6 +63,26 @@ export async function removeLabelFromBoard(board: IBoard, labelId: string): Prom
   await firebaseService.updateBoard(boardToSave);
   return boardToSave;
 }
+
+export async function closeBoard(board: IBoard) {
+  let promisesArr: any[] = [];
+
+  if (board?.lists?.length) {
+    const lists = await firebaseService.getLists(board.lists);
+    const cardIds = lists.flatMap((list: IList) => list.cards);
+    if (cardIds?.length) {
+      const cards = await firebaseService.getCards(cardIds);
+      const archiveCardPromises = cards.map((card: ICard) => firebaseService.archiveCard(card.id as string));
+      promisesArr = [...archiveCardPromises];
+    }
+    const archiveListPromises = lists.map((list: IList) => firebaseService.archiveList(list.id as string));
+    promisesArr = [...promisesArr, ...archiveListPromises];
+  }
+  promisesArr = [...promisesArr, firebaseService.archiveBoard(board.id as string)];
+
+  return Promise.all(promisesArr);
+
+}
 // *********************  LIST  ********************* //
 export async function getCleanedList(listId: string): Promise<any> {
   return firebaseService.getCleanedList(listId);

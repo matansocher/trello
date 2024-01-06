@@ -76,6 +76,11 @@ export const updateBoard = async (board: IBoard) => {
   await updateDoc(boardRef, { ...boardToSave });
 };
 
+export const archiveBoard = async (boardId: string) => {
+  const boardToDeleteRef = doc(db, COLLECTIONS.BOARD, boardId);
+  return deleteDoc(boardToDeleteRef);
+};
+
 // *********************  LIST  ********************* //
 export const getLists = async (listIds: string[]) => {
   const q = query(

@@ -10,9 +10,14 @@
     border-radius: 8px;
     padding: 5px;
     cursor: pointer;
-    margin-top: 8px;
     &:hover {
         background-color: $dark-5;
+    }
+    .card-id {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        font-size: 10px;
     }
     &__more-icon {
         position: absolute;
