@@ -10,6 +10,12 @@
       text-align: center;
       font-weight: 600;
     }
+    .restore {
+      cursor: pointer;
+      position: absolute;
+      top: -4px;
+      left: 0;
+    }
     .close {
       cursor: pointer;
       position: absolute;

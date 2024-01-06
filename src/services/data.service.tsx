@@ -2,6 +2,15 @@ import dayjs, { Dayjs } from 'dayjs';
 import { IBoard, IBoardTemplate, ICard, IChecklistItem, IComment, ILabel, IList } from '@models';
 import { firebaseService } from './index';
 
+// *********************  LABEL  ********************* //
+export async function replaceDefaultLabelWithNewUpdatedLabel(boardState: IBoard, defaultLabelId: string, updatedLabelId: string)  {
+  const labels = boardState.labels || [];
+  const newLabels = labels.map((labelId: string) => labelId === defaultLabelId ? updatedLabelId : labelId);
+  const boardToSave = { ...boardState, labels: newLabels } as IBoard;
+  await firebaseService.updateBoard(boardToSave);
+  return boardToSave;
+
+}
 // *********************  BOARD  ********************* //
 export async function createBoard(title: string): Promise<IBoard> {
   const newBoard = { title, lists: [], createdAt: dayjs().format('YYYY-MM-DD') } as IBoard;
@@ -26,12 +35,25 @@ export async function createBoardFromTemplate(boardTemplate: IBoardTemplate): Pr
   return createdBoardId;
 }
 
-export async function addLabelToBoard(board: IBoard, labelId: string): Promise<IBoard> {
-  const boardLabels = board.labels || [];
-  const newLabels = [...boardLabels, labelId];
-  const boardToSave = { ...board, labels: newLabels };
+export async function updateBoardLabels(board: IBoard, labelIds: string[]): Promise<IBoard> {
+  const boardToSave = { ...board, labels: labelIds };
   await firebaseService.updateBoard(boardToSave);
   return boardToSave;
+}
+
+export async function restoreBoardLabels(labels: ILabel[], board: IBoard) {
+  const nonDefaultBoardLabels = labels.filter((label: ILabel) => label.isDefault).map((label: ILabel) => label.id);
+  updateBoardLabels(board, []);
+  // find all non default labels and delete them
+  const lists = await firebaseService.getLists(board.lists);
+  const cards = await firebaseService.getCards(lists.flatMap((list: IList) => list.cards));
+  const cardsToUpdate = cards.filter((card: ICard) => card.labels?.some((label: string) => nonDefaultBoardLabels.includes(label)));
+  const updatedCards = cardsToUpdate.map((card: ICard) => {
+    const newLabels = card.labels?.filter((label: string) => !nonDefaultBoardLabels.includes(label));
+    return { ...card, labels: newLabels };
+  });
+  const updateCardPromises = updatedCards.map((card: ICard) => firebaseService.updateCard(card));
+  await Promise.all(updateCardPromises);
 }
 
 export async function removeLabelFromBoard(board: IBoard, labelId: string): Promise<IBoard> {
@@ -226,4 +248,16 @@ export async function deleteChecklistItem(card: ICard, checklistItem: IChecklist
   const cardToSave = { ...card, checklistItems: newChecklistItems };
   await firebaseService.updateCard(cardToSave);
   return cardToSave;
+}
+
+export async function deleteLabelFromUsingCards(listIds: string[], labelId: string) {
+  const lists = await firebaseService.getLists(listIds);
+  const cards = await firebaseService.getCards(lists.flatMap((list: IList) => list.cards));
+  const cardsToUpdate = cards.filter((card: ICard) => card.labels?.includes(labelId));
+  const updatedCards = cardsToUpdate.map((card: ICard) => {
+    const newLabels = card.labels?.filter((label: string) => label !== labelId);
+    return { ...card, labels: newLabels };
+  });
+  const updateCardPromises = updatedCards.map((card: ICard) => firebaseService.updateCard(card));
+  await Promise.all(updateCardPromises);
 }

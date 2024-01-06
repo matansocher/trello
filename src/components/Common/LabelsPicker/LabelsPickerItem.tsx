@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { Delete as DeleteIcon, EditOutlined as EditOutlinedIcon } from '@mui/icons-material';
 import Checkbox from '@mui/material/Checkbox';
 import { ColorPicker } from '@components';
@@ -10,7 +10,7 @@ interface ILabelsPickerItemProps {
   label: ILabel;
   isChecked: boolean;
   handleSaveColorPicker: (editLabelId: string, title: string, selectedColor: IColorTile) => void;
-  handleDeleteColorPickerItem: (editLabelId: string) => void;
+  handleDeleteColorPickerItem: (label: ILabel) => void;
   handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
 }
 
@@ -28,6 +28,15 @@ function LabelsPickerItem({ label, isChecked, handleSaveColorPicker, handleDelet
     setColorPickerModalOpen(false);
   }
 
+  const handleLabelColorClick = (event: MouseEvent<HTMLDivElement>) => {
+    const clickedElement = event.target as any;
+    const isClickedOnDeleteIcon = clickedElement.classList.contains('delete-icon') || clickedElement.closest('.delete-icon');
+    if (isClickedOnDeleteIcon) {
+      return;
+    }
+    handleLabelsChange(label, !isChecked);
+  }
+
   return (
     <div className='label-select'>
       <Checkbox
@@ -37,10 +46,10 @@ function LabelsPickerItem({ label, isChecked, handleSaveColorPicker, handleDelet
       <div
         className='label-color'
         style={{backgroundColor: label.backgroundColor}}
-        onClick={() => handleLabelsChange(label, !isChecked)}
+        onClick={handleLabelColorClick}
         {...(hoverEventHandlers as Object)}>
         <p style={{color: label.textColor}}>{label.displayName}</p>
-        {isHovered ? <div className='delete-icon' onClick={() => handleDeleteColorPickerItem(label.id as string)}>
+        {isHovered ? <div className='delete-icon' onClick={() => handleDeleteColorPickerItem(label)}>
           <DeleteIcon />
         </div> : null}
       </div>

@@ -20,3 +20,29 @@ bug - labels order
 {"backgroundColor":"#7f5f01","displayName":"In Progress","textColor":"#f8e6a0","id":"E2RUhRK7pFyQ1NKhn9W9"},
 {"backgroundColor":"#ae2e24","displayName":"Stop","textColor":"#ffd5d2","id":"fOmyVdOtRgJ7ZXV1U2gA"}
 ]
+
+
+id: "3kKZWBioFMrItSFX5TK4"
+backgroundColor: "#352C63"
+displayName: "Waiting"
+textColor: "#DFD8FD"
+
+id: "3opLKldDzTq55mRs9pRb"
+backgroundColor: "#216E4E"
+displayName: "Done"
+textColor: "#BAF3DB"
+
+id: "E2RUhRK7pFyQ1NKhn9W9"
+backgroundColor: "#0055CC"
+displayName: "In Progress"
+textColor: "#CCE0FF"
+
+id: "SdHt5YPKNCfsaVdDLhER"
+backgroundColor: "#AE2E24"
+displayName: "Stop"
+textColor: "#FFD5D2"
+
+id: "vJpdhQpXPDImtNZhMlUs"
+backgroundColor: "#A54800"
+displayName: "Blocked"
+textColor: "#FEDEC8"

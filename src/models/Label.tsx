@@ -3,4 +3,5 @@ export interface ILabel {
   displayName: string;
   backgroundColor: string;
   textColor: string;
+  isDefault?: boolean;
 }

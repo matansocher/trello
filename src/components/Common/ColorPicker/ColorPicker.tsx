@@ -29,6 +29,7 @@ function ColorPicker({ isOpen, setIsOpen, editLabelId, initialTitle, initialTile
   const handleSaveBtnClick = () => {
     if (!title?.length || !selectedColor) return;
     handleSaveColorPicker(editLabelId as string, title, selectedColor);
+    setTitle('');
   }
 
   const renderColorTiles = () => {

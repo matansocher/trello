@@ -37,7 +37,6 @@ export const useGetBoard = (boardId: string = '') => {
     const defaultLabelsRes = await firebaseService.getDefaultLabels() as ILabel[];
     const labelIds = defaultLabelsRes.map((label: any) => label.labelId);
     const newBoard = { ...board, labels: labelIds };
-    delete newBoard.id;
     setBoard(newBoard);
   }
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Close as CloseIcon } from '@mui/icons-material';
+import { Close as CloseIcon, RestoreOutlined as RestoreOutlinedIcon } from '@mui/icons-material';
 import { ModalWrapper, LabelsPickerItem, ColorPicker } from '@components';
 import { useBoard, useLabels } from '@context';
 import { IColorTile, ILabel, IModalStyles } from '@models';
@@ -34,22 +34,37 @@ function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILa
       textColor: tile.textColor as string
     };
 
-    const newLabels = labels.filter((label: ILabel) => label.id !== editLabelId);
-    newLabels.push(newLabel);
+    let labelIds = labels.map((label: ILabel) => label.id as string);
 
     if (editLabelId) {
-      firebaseService.updateLabel({ ...newLabel, id: editLabelId });
+      const relevantLabel = labels.find((label: ILabel) => label.id === editLabelId) as ILabel;
+      if (relevantLabel.isDefault) {
+        const newLabelId = await firebaseService.createLabel(newLabel);
+        dataService.replaceDefaultLabelWithNewUpdatedLabel(boardState, editLabelId, newLabelId);
+        labelIds = labelIds.filter((labelId: string) => labelId !== editLabelId);
+        labelIds.push(newLabelId);
+      } else {
+        firebaseService.updateLabel({ ...newLabel, id: editLabelId });
+      }
     } else {
       const labelId = await firebaseService.createLabel(newLabel);
-      dataService.addLabelToBoard(boardState, labelId);
+      labelIds.push(labelId);
     }
+    dataService.updateBoardLabels(boardState, labelIds);
 
     setColorPickerModalOpen(false);
   }
 
-  const handleDeleteColorPickerItem = async (editLabelId: string) => {
-    firebaseService.deleteLabel(editLabelId);
-    dataService.removeLabelFromBoard(boardState, editLabelId);
+  const handleDeleteColorPickerItem = async (label: ILabel) => {
+    if (!label.isDefault) {
+      firebaseService.deleteLabel(label.id as string);
+    }
+    dataService.removeLabelFromBoard(boardState, label.id as string);
+    dataService.deleteLabelFromUsingCards(boardState.lists, label.id as string);
+  }
+
+  const handleRestoreLabelsClick = async () => {
+    dataService.restoreBoardLabels(labels, boardState);
   }
 
   const renderLabels = () => {
@@ -71,6 +86,9 @@ function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILa
     <ModalWrapper modalOpen={isOpen} closeModal={() => setIsOpen(false)} modalStyle={labelsModalStyles}>
       <div className='labels-wrapper'>
         <div className='labels-wrapper__header'>
+          <div className='restore' onClick={handleRestoreLabelsClick}>
+            <RestoreOutlinedIcon/>
+          </div>
           <div className='close' onClick={() => setIsOpen(false)}>
             <CloseIcon/>
           </div>

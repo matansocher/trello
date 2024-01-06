@@ -77,6 +77,15 @@ export const updateBoard = async (board: IBoard) => {
 };
 
 // *********************  LIST  ********************* //
+export const getLists = async (listIds: string[]) => {
+  const q = query(
+    collection(db, COLLECTIONS.LIST),
+    where(documentId(), 'in', listIds),
+  );
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as IList[];
+}
+
 export const getList = async (id: string) => {
   const listRef = doc(db, COLLECTIONS.LIST, id);
   const listSnap = await getDoc(listRef);
