@@ -23,7 +23,7 @@ function List({ listIdToFetch }: IListProps) {
   },[listFromDb]);
 
   const refreshList = async () => {
-    setListId('');
+    setListId(''); // unset and then set listId so useGetList will fetch the list again
     setTimeout(() => setListId(listIdToFetch), 0);
   }
 
@@ -72,25 +72,25 @@ function List({ listIdToFetch }: IListProps) {
   return (
     <CurrentCardContextProvider>
       <div className='list-wrapper'>
-        {!list || loading ? <div className='loader-container'><Loader size={LoaderSize.M} /></div> :
-          <div className='list-wrapper__content'>
-            <div className='list-wrapper__content__header'>
-              <ListHeader list={list} />
-            </div>
-            {list?.id ? <div className='list-wrapper__content__cards'>
-              <Droppable droppableId={`list_${list.id}`} direction='vertical' type='list'>
-                {(provided: DroppableProvided) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps}>
-                    {renderCards()}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </div> : null}
-            <div className='list-wrapper__content__add-new'>
-              <AddNewCard addNewCardToList={addNewCardToList}/>
-            </div>
-          </div>}
+        {!list || loading ? <div className='loader-container'><Loader size={LoaderSize.M} /></div> : null}
+        <div className='list-wrapper__content'>
+          <div className='list-wrapper__content__header'>
+            <ListHeader list={list} />
+          </div>
+          {list?.id ? <div className='list-wrapper__content__cards'>
+            <Droppable droppableId={`list_${list.id}`} direction='vertical' type='list'>
+              {(provided: DroppableProvided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  {renderCards()}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div> : null}
+          <div className='list-wrapper__content__add-new'>
+            <AddNewCard addNewCardToList={addNewCardToList}/>
+          </div>
+        </div>
       </div>
     </CurrentCardContextProvider>
   )

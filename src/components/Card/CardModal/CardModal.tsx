@@ -71,13 +71,9 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
     console.log('handleCoverClick');
   }
 
-  const handleCloseModal = () => {
-    closeModal();
-  }
-
   return (
     <div className='card-modal'>
-      <CardHeader list={list} handleCloseModal={handleCloseModal} />
+      <CardHeader list={list} handleCloseModal={closeModal} />
       <div className='card-modal__content'>
         <div className='card-modal__content__left'>
           <CardContent />
