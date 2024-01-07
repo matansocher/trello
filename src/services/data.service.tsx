@@ -22,6 +22,12 @@ export async function updateBoard(board: IBoard): Promise<void> {
   await firebaseService.updateBoard(board);
 }
 
+export async function updateBoardBackground(board: IBoard, selectedBackground: string): Promise<IBoard> {
+  const newBoard = { ...board, background: selectedBackground } as IBoard;
+  await firebaseService.updateBoard(newBoard);
+  return newBoard;
+}
+
 export async function createBoardFromTemplate(boardTemplate: IBoardTemplate): Promise<string> {
   const createListPromises = boardTemplate.lists.map(async (list: string) => {
     const newList = { title: list, cards: [], createdAt: dayjs().format('YYYY-MM-DD') } as IList;

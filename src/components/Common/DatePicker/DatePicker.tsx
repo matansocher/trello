@@ -8,8 +8,8 @@ import { IModalStyles } from '@models';
 import './DatePicker.scss';
 
 const datePickerModalStyles: IModalStyles = {
-  width: 320,
-  height: 375,
+  width: 350,
+  height: 400,
   p: 2,
 };
 

@@ -3,6 +3,7 @@ import { IBoard, ICard, ILabel, IList, IUser } from '@models';
 import { db } from './firebase.init';
 
 const COLLECTIONS = {
+  BACKGROUND: 'Background',
   USER: 'User',
   LABEL: 'Label',
   DEFAULT_LABEL: 'DefaultLabel',
@@ -11,6 +12,12 @@ const COLLECTIONS = {
   LIST: 'List',
   CARD: 'Card',
 };
+
+// *********************  BACKGROUND  ********************* //
+export const getBackgrounds = async () => {
+  const backgroundsSnapshot = await getDocs(collection(db, COLLECTIONS.BACKGROUND));
+  return backgroundsSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+}
 
 // *********************  USER  ********************* //
 export const saveUser = async (user: IUser) => {
@@ -173,3 +180,10 @@ export const archiveCard = async (cardId: string) => {
   const cardToDeleteRef = doc(db, COLLECTIONS.CARD, cardId);
   await deleteDoc(cardToDeleteRef);
 };
+
+
+
+
+
+
+// *********************  STORAGE  ********************* //

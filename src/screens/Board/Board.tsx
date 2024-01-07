@@ -7,7 +7,7 @@ import { useBoard, useLabels } from '@context';
 import { LoaderSize } from '@constants';
 import { useGetBoard } from '@hooks';
 import { IList } from '@models';
-import { dataService, dndService, firebaseService } from '@services';
+import { dataService, dndService, firebaseService, utilsService } from '@services';
 import './Board.scss';
 
 function Board() {
@@ -59,7 +59,7 @@ function Board() {
   }
 
   return (
-    <div className='board-wrapper' style={{ backgroundImage: `url(${earth})` }}>
+    <div className='board-wrapper' style={{ backgroundImage: board?.background ? `url(${utilsService.getStorageLinkUrl(board?.background)})` : `url(${earth})` }}>
       {!board || loading ? <div className='loader-container'><Loader size={LoaderSize.L} /></div> :
       <>
         <BoardHeader />

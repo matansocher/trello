@@ -5,7 +5,7 @@ import { BOARD_INITIAL_STATE } from '@constants';
 import { useBoard } from '@context';
 import { useGetBoards, useGetBoardTemplates } from '@hooks';
 import { IBoard, IBoardTemplate } from '@models';
-import { dataService } from '@services';
+import { dataService, utilsService } from '@services';
 import './Home.scss';
 
 function Home() {
@@ -43,7 +43,11 @@ function Home() {
   const renderBoards = () => {
     return boards?.map((board: IBoard) => {
       return (
-        <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id as string)} style={{ backgroundImage: `url(${earth})` }}>
+        <div
+          key={board.id}
+          className='boards-items-item'
+          onClick={() => handleBoardClick(board.id as string)}
+          style={{ backgroundImage: board?.background ? `url(${utilsService.getStorageLinkUrl(board?.background)})` : `url(${earth})` }}>
           <EllipsisText maxLines={1}>{board.title}</EllipsisText>
         </div>
       );

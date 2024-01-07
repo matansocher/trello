@@ -36,3 +36,8 @@ export function sortCardsByListOrder(cardIdsToSortBy: string[], cards: ICard[]) 
     return cardAIndex - cardBIndex;
   });
 }
+
+export function getStorageLinkUrl(fileName: string) {
+  const STORAGE_BASE_URL = `https://firebasestorage.googleapis.com/v0/b/trello-339cc.appspot.com/o/{filename}?alt=media`
+  return STORAGE_BASE_URL.replace('{filename}', fileName);
+}

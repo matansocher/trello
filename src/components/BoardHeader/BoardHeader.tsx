@@ -12,15 +12,17 @@ import {
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
 import { earth } from '@assets';
-import { DropdownMenu, EditableInput } from '@components';
+import { BackgroundPicker, DropdownMenu, EditableInput } from '@components';
 import { useBoard } from '@context';
 import { IDropdownItem } from '@models';
-import { dataService } from '@services';
+import { dataService, utilsService } from '@services';
 import './BoardHeader.scss';
+import { useState } from 'react';
 
 function BoardHeader() {
   const navigate = useNavigate();
-  const { boardState: board } = useBoard();
+  const { boardState: board, updateBoardState } = useBoard();
+  const [backgroundPickerModalOpen, setBackgroundPickerModalOpen] = useState(false);
 
   const handleActivityClick = () => {
     console.log('handleActivityClick');
@@ -35,7 +37,7 @@ function BoardHeader() {
   }
 
   const handleChangeBackgroundClick = () => {
-    console.log('handleChangeBackgroundClick');
+    setBackgroundPickerModalOpen(true);
   }
 
   const handleLabelsClick = () => {
@@ -60,12 +62,18 @@ function BoardHeader() {
     console.log('handleTitleSave', newValue);
   }
 
+  const handleSaveBackgroundPicker = async (selectedBackground: any) => {
+    const newBoard = await dataService.updateBoardBackground(board, selectedBackground);
+    updateBoardState(newBoard);
+    setBackgroundPickerModalOpen(false);
+  }
+
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
       { label: 'Activity', icon: <FormatListBulletedOutlinedIcon fontSize='small' />, onClick: () => handleActivityClick() },
       { label: 'Archived items', icon: <ArchiveOutlinedIcon fontSize='small' />, onClick: () => handleArchivedItemsClick() },
       { label: 'Settings', icon: <SettingsOutlinedIcon fontSize='small' />, onClick: () => handleSettingsClick() },
-      { label: 'Change background', icon: <div className='change-bg' style={{ backgroundImage: `url(${earth})` }} />, onClick: () => handleChangeBackgroundClick() },
+      { label: 'Change background', icon: <div className='change-bg' style={{ backgroundImage: board?.background ? `url(${utilsService.getStorageLinkUrl(board?.background)})` : `url(${earth})` }} />, onClick: () => handleChangeBackgroundClick() },
       { label: 'Labels', icon: <LabelIcon fontSize='small' />, onClick: () => handleLabelsClick() },
       { label: 'Watch', icon: <WatchOutlinedIcon fontSize='small' />, onClick: () => handleWatchClick() },
       { label: 'Print, export, and share', icon: <EmailOutlinedIcon fontSize='small' />, onClick: () => handlePrintExportShareClick() },
@@ -89,6 +97,12 @@ function BoardHeader() {
           <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon />} menuItems={getDropdownMenuItems()} />
         </div>
       </div>
+
+      <BackgroundPicker
+        isOpen={backgroundPickerModalOpen}
+        setIsOpen={setBackgroundPickerModalOpen}
+        initialSelectedBackground={board.background || ''}
+        handleSaveBackgroundPicker={handleSaveBackgroundPicker} />
     </div>
   )
 }
