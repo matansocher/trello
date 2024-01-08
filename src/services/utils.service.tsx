@@ -38,6 +38,9 @@ export function sortCardsByListOrder(cardIdsToSortBy: string[], cards: ICard[]) 
 }
 
 export function getStorageLinkUrl(fileName: string) {
-  const STORAGE_BASE_URL = `https://firebasestorage.googleapis.com/v0/b/trello-339cc.appspot.com/o/{filename}?alt=media`
-  return STORAGE_BASE_URL.replace('{filename}', fileName);
+  return `https://firebasestorage.googleapis.com/v0/b/trello-339cc.appspot.com/o/${fileName}?alt=media`
+}
+
+export function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
