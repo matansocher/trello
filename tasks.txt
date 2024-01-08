@@ -6,8 +6,8 @@ feat - don't refresh list after closing modal if no changes were made
 
 bug - labels order
 bug - drag and drop bump - check if you can set the state even before data comes from db
-
-
+bug - checklist percentage
+bug - card preview line 41 - use the current card in the card preview too
 
 
 

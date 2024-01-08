@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Dayjs } from 'dayjs';
-import { CardActions, CardContent, CardHeader, DatePicker, LabelsPicker } from '@components';
+import { CardActions, CardContent, CardHeader, ColorPicker, DatePicker, LabelsPicker } from '@components';
 import { useCurrentCard } from '@context';
-import { ICard, ILabel, IList } from '@models';
+import { ICard, IColorTile, ILabel, IList } from '@models';
 import { dataService } from '@services';
 import './CardModal.scss';
 
@@ -16,6 +16,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   const { currentCard: card, updateCurrentCard } = useCurrentCard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
+  const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
 
   const handleMoveClick = () => {
     console.log('handleMoveClick');
@@ -68,32 +69,42 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   }
 
   const handleCoverClick = () => {
-    console.log('handleCoverClick');
+    setColorPickerModalOpen(true);
+  }
+
+  const handleSaveCoverColorPicker = async (tile: IColorTile) => {
+    const cardToSave = await dataService.updateCardCoverColor(card, tile.backgroundColor);
+    updateCurrentCard(cardToSave);
+    setColorPickerModalOpen(false);
   }
 
   return (
     <div className='card-modal'>
+      {card?.coverColor ? <div className='card-modal__cover' style={{ backgroundColor: card.coverColor }} /> : null}
       <CardHeader list={list} handleCloseModal={closeModal} />
-      <div className='card-modal__content'>
-        <div className='card-modal__content__left'>
-          <CardContent />
-        </div>
-        <div className='card-modal__content__right'>
-          <CardActions
-            handleMembersClick={handleMembersClick}
-            handleLabelsClick={handleLabelsClick}
-            handleDueDateClick={handleDueDateClick}
-            handleChecklistClick={handleChecklistClick}
-            handleAttachmentClick={handleAttachmentClick}
-            handleCoverClick={handleCoverClick}
-            handleMoveClick={handleMoveClick}
-            handleCloneClick={handleCloneClick}
-            handleArchiveClick={handleArchiveClick}
-            handleShareClick={handleShareClick}
-          />
+      <div className='card-modal__body'>
+        <div className='card-modal__body__content'>
+          <div className='card-modal__body__content__left'>
+            <CardContent />
+          </div>
+          <div className='card-modal__body__content__right'>
+            <CardActions
+              handleMembersClick={handleMembersClick}
+              handleLabelsClick={handleLabelsClick}
+              handleDueDateClick={handleDueDateClick}
+              handleChecklistClick={handleChecklistClick}
+              handleAttachmentClick={handleAttachmentClick}
+              handleCoverClick={handleCoverClick}
+              handleMoveClick={handleMoveClick}
+              handleCloneClick={handleCloneClick}
+              handleArchiveClick={handleArchiveClick}
+              handleShareClick={handleShareClick}
+            />
+          </div>
         </div>
       </div>
 
+      <ColorPicker isOpen={colorPickerModalOpen} setIsOpen={setColorPickerModalOpen} hasHeader={false} handleSaveColorPicker={handleSaveCoverColorPicker} handleCloseColorPicker={() => setColorPickerModalOpen(false)} />
       <DatePicker dueDate={card.dueDate as string} handleChange={handleDueDateChange} isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} />
       <LabelsPicker isOpen={labelsModalOpen} setIsOpen={setLabelsModalOpen} cardLabels={card.labels || []} handleLabelsChange={handleLabelsChange} />
     </div>

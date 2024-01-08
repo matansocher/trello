@@ -27,7 +27,7 @@ function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILa
     setColorPickerModalOpen(false);
   }
 
-  const handleSaveColorPicker = async (editLabelId: string, title: string, tile: IColorTile) => {
+  const handleSaveColorPicker = async (tile: IColorTile, editLabelId: string, title: string) => {
     const newLabel: ILabel = {
       displayName: title,
       backgroundColor: tile.backgroundColor,

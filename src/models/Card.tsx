@@ -11,4 +11,5 @@ export interface ICard {
   checklistTitle?: string;
   checklistItems?: IChecklistItem[];
   activityItems?: IActivityItem[];
+  coverColor?: string;
 }

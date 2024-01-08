@@ -23,6 +23,7 @@ const modalWrapperModalStyles: IModalStyles = {
   height: 700,
   // @ts-ignore
   overflow: 'scroll',
+  padding: 0,
 };
 
 interface ICardPreviewProps {
@@ -71,7 +72,7 @@ function CardPreview({ list, card, refreshList, moveToTop, moveToBottom, cloneCa
   const renderDropdownMenu = () => {
     if (isHovered) {
       return (
-        <div className='card-preview__more-icon'>
+        <div className='card-preview__body__more-icon'>
           <DropdownMenu menuHeader='' menuIcon={<ExpandMoreIcon/>} menuItems={getDropdownMenuItems()} />
         </div>
       );
@@ -123,20 +124,23 @@ function CardPreview({ list, card, refreshList, moveToTop, moveToBottom, cloneCa
   return (
     <>
       <div className='card-preview' onClick={handleCardClick} {...(hoverEventHandlers as Object)}>
-        <span className='card-id'>{card.id}</span>
-        {renderDropdownMenu()}
-        <div className='card-preview__labels'>
-          {renderLabels()}
-        </div>
-        <div className='card-preview__content'>
-          <EllipsisText maxLines={3}>{card.title}</EllipsisText>
-        </div>
-        <div className='card-preview__footer'>
-          {renderFooterIcons()}
+        {card?.coverColor ? <div className='card-preview__cover' style={{ backgroundColor: card.coverColor }} /> : null}
+        <div className='card-preview__body' onClick={handleCardClick} {...(hoverEventHandlers as Object)} style={card?.coverColor ? { paddingTop: 6 } : {}}>
+          <span className='card-id'>{card.id}</span>
+          {renderDropdownMenu()}
+          <div className='card-preview__body__labels'>
+            {renderLabels()}
+          </div>
+          <div className='card-preview__body__content'>
+            <EllipsisText maxLines={3}>{card.title}</EllipsisText>
+          </div>
+          <div className='card-preview__body__footer'>
+            {renderFooterIcons()}
+          </div>
         </div>
       </div>
-      <ModalWrapper modalOpen={modalOpen} closeModal={closeModal} modalStyle={modalWrapperModalStyles} >
-        <CardModal list={list} closeModal={closeModal} archiveCard={archiveCard} />
+      <ModalWrapper modalOpen={modalOpen} closeModal={closeModal} modalStyle={modalWrapperModalStyles}>
+        <CardModal list={list} closeModal={closeModal} archiveCard={archiveCard}/>
       </ModalWrapper>
     </>
   )

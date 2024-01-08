@@ -13,36 +13,47 @@
     &:hover {
         background-color: $dark-5;
     }
-    .card-id {
+    &__cover {
         position: absolute;
-        top: 4px;
-        right: 4px;
-        font-size: 10px;
-    }
-    &__more-icon {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-    }
-    &__labels {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 4px;
-    }
-    &__content {
+        top: 0;
+        left: 0;
         width: 100%;
-        p {
-            font-weight: 600;
-            margin: 4px 0 0 0;
-            padding-left: 4px;
-        }
+        height: 6px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
     }
-    &__footer {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 6px;
-        margin-left: 4px;
+    &__body {
+        .card-id {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            font-size: 10px;
+        }
+        &__more-icon {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+        }
+        &__labels {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 4px;
+        }
+        &__content {
+            width: 100%;
+            p {
+                font-weight: 600;
+                margin: 4px 0 0 0;
+                padding-left: 4px;
+            }
+        }
+        &__footer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+            margin-left: 4px;
+        }
     }
 }

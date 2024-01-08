@@ -15,20 +15,21 @@ const colorPickerModalStyles: IModalStyles = {
 interface IColorPickerProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  hasHeader?: boolean;
   editLabelId?: string;
   initialTitle?: string;
   initialTile?: IColorTile;
-  handleSaveColorPicker: (editLabelId: string, title: string, selectedColor: IColorTile) => void;
+  handleSaveColorPicker: (selectedColor: IColorTile, editLabelId: string, title: string) => void;
   handleCloseColorPicker: () => void;
 }
 
-function ColorPicker({ isOpen, setIsOpen, editLabelId, initialTitle, initialTile, handleSaveColorPicker, handleCloseColorPicker }: IColorPickerProps) {
+function ColorPicker({ isOpen, setIsOpen, hasHeader = true, editLabelId, initialTitle, initialTile, handleSaveColorPicker, handleCloseColorPicker }: IColorPickerProps) {
   const [selectedColor, setSelectedColor] = useState<IColorTile | null>(initialTile || null);
   const [title, setTitle] = useState(initialTitle || '');
 
   const handleSaveBtnClick = () => {
-    if (!title?.length || !selectedColor) return;
-    handleSaveColorPicker(editLabelId as string, title, selectedColor);
+    if ((hasHeader && !title?.length) || !selectedColor) return;
+    handleSaveColorPicker(selectedColor, editLabelId as string, title);
     setTitle('');
   }
 
@@ -49,11 +50,11 @@ function ColorPicker({ isOpen, setIsOpen, editLabelId, initialTitle, initialTile
   return (
     <ModalWrapper modalOpen={isOpen} closeModal={() => setIsOpen(false)} modalStyle={colorPickerModalStyles}>
       <div className='color-picker'>
-        <div className='color-picker__header'>
+        {hasHeader ? <div className='color-picker__header'>
           <p>Title</p>
           <input type='text' placeholder='Choose a title' value={title} onInput={e => setTitle((e.target as HTMLInputElement).value)}/>
           <CloseIcon onClick={handleCloseColorPicker}/>
-        </div>
+        </div> : null}
         <div className='color-picker__colors'>
           <p>Select a color</p>
           <div className='color-picker__colors__tiles'>

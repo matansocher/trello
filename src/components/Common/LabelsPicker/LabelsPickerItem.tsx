@@ -9,7 +9,7 @@ import { COLOR_TILES } from '../ColorPicker/ColorPicker.config.tsx';
 interface ILabelsPickerItemProps {
   label: ILabel;
   isChecked: boolean;
-  handleSaveColorPicker: (editLabelId: string, title: string, selectedColor: IColorTile) => void;
+  handleSaveColorPicker: (selectedColor: IColorTile, editLabelId: string, title: string) => void;
   handleDeleteColorPickerItem: (label: ILabel) => void;
   handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
 }
@@ -23,8 +23,8 @@ function LabelsPickerItem({ label, isChecked, handleSaveColorPicker, handleDelet
     setColorPickerModalOpen(false);
   }
 
-  const saveColorPickerItem = (editLabelId: string, title: string, tile: IColorTile) => {
-    handleSaveColorPicker(editLabelId, title, tile);
+  const saveColorPickerItem = (tile: IColorTile, editLabelId: string, title: string) => {
+    handleSaveColorPicker(tile, editLabelId, title);
     setColorPickerModalOpen(false);
   }
 

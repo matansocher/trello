@@ -5,7 +5,7 @@ import {
   SubjectOutlined as SubjectOutlinedIcon,
 } from '@mui/icons-material';
 import {
-  // CardActivity,
+  CardActivity,
   CardCheckList,
   CardComments,
   CardDescription,
@@ -64,12 +64,12 @@ function CardContent({  }: ICardContentProps) {
         </div>
         <CardComments/>
       </div>
-      {card.activityItems?.length ? <div className='card-modal__content__right__sections__section activity-section'>
+      {false && card.activityItems?.length ? <div className='card-modal__content__right__sections__section activity-section'>
         <div className='activity-section__header'>
           <div className='header-icon'><CommentOutlinedIcon/></div>
           <p className='subheader'>Activity</p>
         </div>
-        {/*<CardActivity/>*/}
+        <CardActivity/>
       </div> : null}
     </div>
   )

@@ -276,6 +276,12 @@ export async function deleteChecklistItem(card: ICard, checklistItem: IChecklist
   return cardToSave;
 }
 
+export async function updateCardCoverColor(card: ICard, coverColor: string): Promise<ICard> {
+  const cardToSave = { ...card, coverColor };
+  await firebaseService.updateCard(cardToSave);
+  return cardToSave;
+}
+
 export async function deleteLabelFromUsingCards(listIds: string[], labelId: string) {
   const lists = await firebaseService.getLists(listIds);
   const cards = await firebaseService.getCards(lists.flatMap((list: IList) => list.cards));
