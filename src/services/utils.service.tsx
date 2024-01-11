@@ -1,5 +1,9 @@
 import { ICard, IUser } from '@models';
 
+export function generateId(): string {
+  return Math.random().toString(36).substr(2, 9);
+}
+
 export function getUserFromGoogleUser(googleUser: any): IUser | null {
   if (!googleUser) {
     return null;

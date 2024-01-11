@@ -3,12 +3,15 @@ import { Textarea, UserAvatar } from '@components';
 import { UserAvatarSize } from '@constants';
 import { IComment } from '@models';
 import './CardCommentAdd.scss';
+import { useUser } from '@context';
+import { utilsService } from '@services';
 
 interface ICardCommentAddProps {
   addNewComment: (comment: IComment) => void;
 }
 
 function CardCommentAdd({ addNewComment }: ICardCommentAddProps) {
+  const { user } = useUser();
   const [input, setInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,7 +28,9 @@ function CardCommentAdd({ addNewComment }: ICardCommentAddProps) {
       setIsOpen(false);
       return;
     }
-    const newComment: IComment = { description: input, timestamp: '2021-10-10', userId: 'user_1' };
+    const id = utilsService.generateId();
+    const timestamp = new Date().toISOString().slice(0, 10);
+    const newComment: IComment = { id, description: input, timestamp, userId: user.id };
     addNewComment(newComment);
     setIsOpen(false);
     setInput('');

@@ -3,6 +3,7 @@ import { IChecklistItem } from '@models';
 import { useState } from 'react';
 import './CardChecklistAdd.scss';
 import { Textarea } from '@components';
+import { utilsService } from '@services';
 
 interface ICardCheckListAddProps {
   addNewChecklistItem: (checklistItem: IChecklistItem) => void;
@@ -17,7 +18,9 @@ function CardChecklistAdd({ addNewChecklistItem }: ICardCheckListAddProps) {
       setIsOpen(false);
       return;
     }
-    const newChecklistItem: IChecklistItem = { id: 'checklist_11', description: input, isChecked: false };
+    const timestamp = new Date().toISOString().slice(0, 10);
+    const id = utilsService.generateId();
+    const newChecklistItem: IChecklistItem = { id, description: input, isChecked: false, timestamp };
     addNewChecklistItem(newChecklistItem);
     setIsOpen(false);
     setInput('');

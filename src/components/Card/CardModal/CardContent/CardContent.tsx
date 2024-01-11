@@ -30,7 +30,7 @@ function CardContent({  }: ICardContentProps) {
   }
 
   const handleDeleteChecklistClick = async () => {
-    if (!card.checklistItems?.length) return;
+    if (!card.checklistItems?.length && !card.checklistTitle) return;
 
     const cardToSave = dataService.deleteChecklist(card);
     updateCurrentCard(cardToSave);
@@ -52,7 +52,7 @@ function CardContent({  }: ICardContentProps) {
         <div className='checklist-section__header'>
           <div className='header-icon'><CheckBoxOutlinedIcon /></div>
           <EditableInput handleSave={handleChecklistTitleSave} initialValue={card.checklistTitle || 'Checklist'} />
-          <button className='card-header__right__watch' onClick={handleDeleteChecklistClick}>Delete</button>
+          <button onClick={handleDeleteChecklistClick}>Delete</button>
         </div>
         <ProgressBar value={amountOfCheckListChecked} total={card.checklistItems?.length || 0}/>
         <CardCheckList />
