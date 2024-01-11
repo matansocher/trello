@@ -1,6 +1,5 @@
 import AddNewCard from './List/AddNewCard/AddNewCard';
 import AddNewList from './List/AddNewList/AddNewList';
-import BackgroundPicker from './Common/BackgroundPicker/BackgroundPicker.tsx';
 import BoardHeader from './BoardHeader/BoardHeader';
 import CardActions from './Card/CardModal/CardActions/CardActions';
 import CardActivity from './Card/CardModal/CardContent/CardActivity/CardActivity';
@@ -22,6 +21,7 @@ import DropdownMenu from './Common/DropdownMenu/DropdownMenu';
 import EditableInput from './Common/EditableInput/EditableInput';
 import EllipsisText from './Common/EllipsisText/EllipsisText';
 import FooterIcon from './Card/CardPreview/FooterIcon/FooterIcon';
+import ImagePicker from './Common/ImagePicker/ImagePicker.tsx';
 import Label from './Card/CardPreview/Label/Label';
 import LabelsPicker from './Common/LabelsPicker/LabelsPicker';
 import LabelsPickerItem from './Common/LabelsPicker/LabelsPickerItem';
@@ -37,7 +37,6 @@ import UserAvatar from './Common/UserAvatar/UserAvatar';
 export {
   AddNewCard,
   AddNewList,
-  BackgroundPicker,
   BoardHeader,
   CardActions,
   CardActivity,
@@ -59,6 +58,7 @@ export {
   EditableInput,
   EllipsisText,
   FooterIcon,
+  ImagePicker,
   Label,
   LabelsPicker,
   LabelsPickerItem,

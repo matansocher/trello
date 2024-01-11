@@ -54,7 +54,7 @@ function CardPreview({ list, card, refreshList, moveToTop, moveToBottom, cloneCa
 
   const handleCardClick = (event: MouseEvent<HTMLDivElement>) => {
     const clickedElement = event.target as any;
-    const isClickedOnMoreIcon = clickedElement.classList.contains('card-preview__more-icon') || clickedElement.closest('.card-preview__more-icon');
+    const isClickedOnMoreIcon = clickedElement.classList.contains('card-preview__body__more-icon') || clickedElement.closest('.card-preview__body__more-icon');
     const isClickedOutsideOfCard = !clickedElement.classList.contains('card-preview') && !clickedElement.closest('.card-preview');
     if (isClickedOnMoreIcon || isClickedOutsideOfCard) { // clicked on more icon
       return;
@@ -125,7 +125,7 @@ function CardPreview({ list, card, refreshList, moveToTop, moveToBottom, cloneCa
     <>
       <div className='card-preview' onClick={handleCardClick} {...(hoverEventHandlers as Object)}>
         {card?.coverColor ? <div className='card-preview__cover' style={{ backgroundColor: card.coverColor }} /> : null}
-        <div className='card-preview__body' onClick={handleCardClick} {...(hoverEventHandlers as Object)} style={card?.coverColor ? { paddingTop: 6 } : {}}>
+        <div className='card-preview__body' style={card?.coverColor ? { paddingTop: 6 } : {}}>
           <span className='card-id'>{card.id}</span>
           {renderDropdownMenu()}
           <div className='card-preview__body__labels'>

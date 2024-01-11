@@ -3,7 +3,7 @@ import { ModalWrapper } from '@components';
 import { useGetBackgrounds } from '@hooks';
 import { IModalStyles } from '@models';
 import { utilsService } from '@services';
-import './BackgroundPicker.scss';
+import './ImagePicker.scss';
 
 const backgroundPickerModalStyles: IModalStyles = {
   width: 450,
@@ -18,7 +18,7 @@ interface ICardHeaderProps {
   handleSaveBackgroundPicker: (selectedBackground: any) => void;
 }
 
-function BackgroundPicker({ isOpen, setIsOpen, initialSelectedBackground = '', handleSaveBackgroundPicker }: ICardHeaderProps) {
+function ImagePicker({ isOpen, setIsOpen, initialSelectedBackground = '', handleSaveBackgroundPicker }: ICardHeaderProps) {
   const { backgrounds } = useGetBackgrounds();
   const [selectedBackground, setSelectedBackground] = useState(initialSelectedBackground);
 
@@ -64,4 +64,4 @@ function BackgroundPicker({ isOpen, setIsOpen, initialSelectedBackground = '', h
   )
 }
 
-export default BackgroundPicker;
+export default ImagePicker;

@@ -12,7 +12,7 @@ import {
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
 import { earth } from '@assets';
-import { BackgroundPicker, DropdownMenu, EditableInput } from '@components';
+import { ImagePicker, DropdownMenu, EditableInput } from '@components';
 import { useBoard } from '@context';
 import { IDropdownItem } from '@models';
 import { dataService, utilsService } from '@services';
@@ -98,7 +98,7 @@ function BoardHeader() {
         </div>
       </div>
 
-      <BackgroundPicker
+      <ImagePicker
         isOpen={backgroundPickerModalOpen}
         setIsOpen={setBackgroundPickerModalOpen}
         initialSelectedBackground={board.background || ''}

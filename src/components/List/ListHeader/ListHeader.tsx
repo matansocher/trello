@@ -45,7 +45,7 @@ function ListHeader({ list }: IListHeaderProps) {
 
   return (
     <>
-      <EditableInput handleSave={handleTitleSave} initialValue={list.title} fontSize={16} />
+      <EditableInput handleSave={handleTitleSave} initialValue={list?.title} fontSize={16} />
       <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon/>} menuItems={getDropdownMenuItems()}/>
     </>
   );
