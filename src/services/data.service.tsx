@@ -3,11 +3,11 @@ import { IBoard, IBoardTemplate, ICard, IChecklistItem, IComment, ILabel, IList 
 import { firebaseService } from './index';
 
 // *********************  LABEL  ********************* //
-export async function replaceDefaultLabelWithNewUpdatedLabel(boardState: IBoard, defaultLabelId: string, updatedLabelId: string)  {
+export function replaceDefaultLabelWithNewUpdatedLabel(boardState: IBoard, defaultLabelId: string, updatedLabelId: string): IBoard  {
   const labels = boardState.labels || [];
   const newLabels = labels.map((labelId: string) => labelId === defaultLabelId ? updatedLabelId : labelId);
   const boardToSave = { ...boardState, labels: newLabels } as IBoard;
-  await firebaseService.updateBoard(boardToSave);
+  firebaseService.updateBoard(boardToSave);
   return boardToSave;
 
 }
@@ -18,13 +18,13 @@ export async function createBoard(title: string): Promise<IBoard> {
   return { ...newBoard, id: createdBoardId };
 }
 
-export async function updateBoard(board: IBoard): Promise<void> {
-  await firebaseService.updateBoard(board);
+export function updateBoard(board: IBoard): void {
+  firebaseService.updateBoard(board);
 }
 
-export async function updateBoardBackground(board: IBoard, selectedBackground: string): Promise<IBoard> {
+export function updateBoardBackground(board: IBoard, selectedBackground: string): IBoard {
   const newBoard = { ...board, background: selectedBackground } as IBoard;
-  await firebaseService.updateBoard(newBoard);
+  firebaseService.updateBoard(newBoard);
   return newBoard;
 }
 
@@ -41,9 +41,9 @@ export async function createBoardFromTemplate(boardTemplate: IBoardTemplate): Pr
   return createdBoardId;
 }
 
-export async function updateBoardLabels(board: IBoard, labelIds: string[]): Promise<IBoard> {
+export function updateBoardLabels(board: IBoard, labelIds: string[]): IBoard {
   const boardToSave = { ...board, labels: labelIds };
-  await firebaseService.updateBoard(boardToSave);
+  firebaseService.updateBoard(boardToSave);
   return boardToSave;
 }
 
@@ -62,11 +62,11 @@ export async function restoreBoardLabels(labels: ILabel[], board: IBoard) {
   await Promise.all(updateCardPromises);
 }
 
-export async function removeLabelFromBoard(board: IBoard, labelId: string): Promise<IBoard> {
+export function removeLabelFromBoard(board: IBoard, labelId: string): IBoard {
   const boardLabels = board.labels || [];
   const newLabels = boardLabels.filter((label: string) => label !== labelId);
   const boardToSave = { ...board, labels: newLabels };
-  await firebaseService.updateBoard(boardToSave);
+  firebaseService.updateBoard(boardToSave);
   return boardToSave;
 }
 
@@ -90,12 +90,12 @@ export async function closeBoard(board: IBoard) {
 
 }
 // *********************  LIST  ********************* //
-export async function getCleanedList(listId: string): Promise<any> {
+export function getCleanedList(listId: string): any {
   return firebaseService.getCleanedList(listId);
 }
 
-export async function updateList(list: IList): Promise<void> {
-  await firebaseService.updateList(list);
+export function updateList(list: IList): void {
+  firebaseService.updateList(list);
 }
 
 export async function addNewList(board: IBoard, list: IList): Promise<IBoard> {
@@ -138,25 +138,25 @@ export async function archiveList(board: IBoard, listId: string): Promise<IBoard
   return newBoard
 }
 
-export async function moveCardToTop(list: IList, card: ICard): Promise<void> {
+export function moveCardToTop(list: IList, card: ICard): void {
   const cardIds = [...list.cards];
   const indexOfCard = cardIds.indexOf(card.id as string);
   cardIds.splice(indexOfCard, 1);
   const newCards = [card.id, ...cardIds] as string[];
-  await firebaseService.updateList({ ...list, cards: newCards });
+  firebaseService.updateList({ ...list, cards: newCards });
 }
 
-export async function moveCardToBottom(list: IList, card: ICard): Promise<void> {
+export function moveCardToBottom(list: IList, card: ICard): void {
   const cardIds = [...list.cards];
   const indexOfCard = cardIds.indexOf(card.id as string);
   cardIds.splice(indexOfCard, 1);
   const newCards = [...cardIds, card.id] as string[];
-  await firebaseService.updateList({ ...list, cards: newCards });
+  firebaseService.updateList({ ...list, cards: newCards });
 }
 
-export async function updateListTitle(list: IList, title: string): Promise<IList> {
+export function updateListTitle(list: IList, title: string): IList {
   const listToSave = { ...list, title };
-  await firebaseService.updateList(listToSave);
+  firebaseService.updateList(listToSave);
   return listToSave;
 }
 
@@ -182,103 +182,103 @@ export async function addNewCardToList(list: IList, card: ICard): Promise<void> 
   await firebaseService.updateList(newList);
 }
 
-export async function updateCardTitle(card: ICard, title: string): Promise<ICard> {
+export function updateCardTitle(card: ICard, title: string): ICard {
   const cardToSave = { ...card, title };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function updateCardDescription(card: ICard, description: string): Promise<ICard> {
+export function updateCardDescription(card: ICard, description: string): ICard {
   const cardToSave = { ...card, description };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function updateCardDueDate(card: ICard, newDueDate: Dayjs | null): Promise<ICard> {
+export function updateCardDueDate(card: ICard, newDueDate: Dayjs | null): ICard {
   const dueDate = newDueDate ? newDueDate.format('YYYY-MM-DD') : dayjs().format('YYYY-MM-DD');
   const cardToSave = { ...card, dueDate } as ICard;
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function updateCardLabels(card: ICard, label: ILabel, isChecked: boolean): Promise<ICard> {
+export function updateCardLabels(card: ICard, label: ILabel, isChecked: boolean): ICard {
   const currentLabels = card.labels || [];
   const newLabels = isChecked ? [...currentLabels, label.id] : currentLabels.filter((labelId: string) => labelId !== label.id);
   const cardToSave = { ...card, labels: newLabels } as ICard;
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function addCommentToCard(card: ICard, comment: IComment): Promise<ICard> {
+export function addCommentToCard(card: ICard, comment: IComment): ICard {
   const comments = card.comments || [];
   const newComments = [comment, ...comments];
   const cardToSave = { ...card, comments: newComments };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function editComment(card: ICard, comment: IComment, newDescription: string): Promise<ICard> {
+export function editComment(card: ICard, comment: IComment, newDescription: string): ICard {
   const comments = card.comments || [];
   const updatedComment = { ...comment, description: newDescription };
   const newComments = comments.map((item: IComment) => item.id === comment.id ? updatedComment : item);
   const cardToSave = { ...card, comments: newComments };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function deleteCommentFromCard(card: ICard, comment: IComment): Promise<ICard> {
+export function deleteCommentFromCard(card: ICard, comment: IComment): ICard {
   const comments = card.comments || [];
   const newComments = comments.filter((item: IComment) => item.id !== comment.id);
   const cardToSave = { ...card, comments: newComments };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function createChecklist(card: ICard): Promise<ICard> {
+export function createChecklist(card: ICard): ICard {
   const cardToSave = { ...card, checklistItems: [], checklistTitle: 'Checklist' };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function deleteChecklist(card: ICard): Promise<ICard> {
+export function deleteChecklist(card: ICard): ICard {
   const cardToSave = { ...card, checklistItems: [], checklistTitle: '' };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function updateChecklistTitle(card: ICard, checklistTitle: string): Promise<ICard> {
+export function updateChecklistTitle(card: ICard, checklistTitle: string): ICard {
   const cardToSave = { ...card, checklistTitle };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function addNewChecklistItem(card: ICard, checklistItem: IChecklistItem): Promise<ICard> {
+export function addNewChecklistItem(card: ICard, checklistItem: IChecklistItem): ICard {
   const checklistItems = card.checklistItems || [];
   const newChecklistItems = [...checklistItems, checklistItem];
   const cardToSave = { ...card, checklistItems: newChecklistItems };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function updateChecklistItem(card: ICard, checklistItem: IChecklistItem): Promise<ICard> {
+export function updateChecklistItem(card: ICard, checklistItem: IChecklistItem): ICard {
   const checklistItems = card.checklistItems || [];
   const newChecklistItems = checklistItems.map((item: IChecklistItem) => item.id === checklistItem.id ? checklistItem : item);
   const cardToSave = { ...card, checklistItems: newChecklistItems };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function deleteChecklistItem(card: ICard, checklistItem: IChecklistItem): Promise<ICard> {
+export function deleteChecklistItem(card: ICard, checklistItem: IChecklistItem): ICard {
   const checklistItems = card.checklistItems || [];
   const newChecklistItems = checklistItems.filter((item: IChecklistItem) => item.id !== checklistItem.id);
   const cardToSave = { ...card, checklistItems: newChecklistItems };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 
-export async function updateCardCoverColor(card: ICard, coverColor: string): Promise<ICard> {
+export function updateCardCoverColor(card: ICard, coverColor: string): ICard {
   const cardToSave = { ...card, coverColor };
-  await firebaseService.updateCard(cardToSave);
+  firebaseService.updateCard(cardToSave);
   return cardToSave;
 }
 

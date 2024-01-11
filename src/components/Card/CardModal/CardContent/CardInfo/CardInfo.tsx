@@ -17,12 +17,12 @@ function CardInfo({  }: ICardDescriptionProps) {
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
   const handleDueDateChange = async (newValue: Dayjs | null) => {
-    const cardToSave = await dataService.updateCardDueDate(card, newValue);
+    const cardToSave = dataService.updateCardDueDate(card, newValue);
     updateCurrentCard(cardToSave);
   }
 
   const handleLabelsChange = async (label: ILabel, isChecked: boolean) => {
-    const cardToSave = await dataService.updateCardLabels(card, label, isChecked);
+    const cardToSave = dataService.updateCardLabels(card, label, isChecked);
     updateCurrentCard(cardToSave);
   }
 

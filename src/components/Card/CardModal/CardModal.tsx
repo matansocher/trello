@@ -44,19 +44,19 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   }
 
   const handleDueDateChange = async (newValue: Dayjs | null) => {
-    const cardToSave = await dataService.updateCardDueDate(card, newValue);
+    const cardToSave = dataService.updateCardDueDate(card, newValue);
     updateCurrentCard(cardToSave);
   }
 
   const handleLabelsChange = async (label: ILabel, isChecked: boolean) => {
-    const cardToSave = await dataService.updateCardLabels(card, label, isChecked);
+    const cardToSave = dataService.updateCardLabels(card, label, isChecked);
     updateCurrentCard(cardToSave);
   }
 
   const handleChecklistClick = async () => {
     if (card.checklistItems?.length || card.checklistTitle?.length) return;
 
-    const cardToSave = await dataService.createChecklist(card);
+    const cardToSave = dataService.createChecklist(card);
     updateCurrentCard(cardToSave);
   }
 
@@ -73,7 +73,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   }
 
   const handleSaveCoverColorPicker = async (tile: IColorTile) => {
-    const cardToSave = await dataService.updateCardCoverColor(card, tile.backgroundColor);
+    const cardToSave = dataService.updateCardCoverColor(card, tile.backgroundColor);
     updateCurrentCard(cardToSave);
     setColorPickerModalOpen(false);
   }

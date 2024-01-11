@@ -35,7 +35,7 @@ async function handleListReorderDrag(board: IBoard, sourceIndex: number, destina
   const list = boardLists.splice(sourceIndex, 1)[0];
   boardLists.splice(destinationIndex, 0, list);
   const newBoard = { ...board, lists: boardLists };
-  await dataService.updateBoard(newBoard);
+  dataService.updateBoard(newBoard);
 }
 
 async function handleCardsReorderDrag(sourceIndex: number, destination: any): Promise<void> {
@@ -44,10 +44,10 @@ async function handleCardsReorderDrag(sourceIndex: number, destination: any): Pr
   const card = listCards.splice(sourceIndex, 1)[0];
   listCards.splice(destination.index, 0, card);
   const newList = { ...list, cards: listCards };
-  await dataService.updateList(newList);
+  dataService.updateList(newList);
 }
 
-async function handleCardToAnotherListDrag(source: any, destination: any): Promise<void> {
+async function handleCardToAnotherListDrag(source: any, destination: any) {
   const [sourceList, destinationList] = await Promise.all([
     dataService.getCleanedList(source.droppableId.split('_')[1]),
     dataService.getCleanedList(destination.droppableId.split('_')[1]),
@@ -62,7 +62,7 @@ async function handleCardToAnotherListDrag(source: any, destination: any): Promi
   const newSourceList = { ...sourceList, cards: sourceListCards };
   const newDestinationList = { ...destinationList, cards: destinationListCards };
 
-  await Promise.all([
+  return Promise.all([
     dataService.updateList(newSourceList),
     dataService.updateList(newDestinationList),
   ]);

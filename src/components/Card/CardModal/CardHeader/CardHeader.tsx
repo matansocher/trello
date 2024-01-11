@@ -18,7 +18,7 @@ function CardHeader({ list, handleCloseModal }: ICardHeaderProps) {
   const { currentCard: card, updateCurrentCard } = useCurrentCard();
 
   const handleSave = async (title: string) => {
-    const cardToSave = await dataService.updateCardTitle(card, title);
+    const cardToSave = dataService.updateCardTitle(card, title);
     updateCurrentCard(cardToSave);
   }
 

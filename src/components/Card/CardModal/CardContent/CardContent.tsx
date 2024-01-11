@@ -25,14 +25,14 @@ function CardContent({  }: ICardContentProps) {
   const { currentCard: card, updateCurrentCard } = useCurrentCard();
 
   const handleChecklistTitleSave = async (checklistTitle: string) => {
-    const cardToSave = await dataService.updateChecklistTitle(card, checklistTitle);
+    const cardToSave = dataService.updateChecklistTitle(card, checklistTitle);
     updateCurrentCard(cardToSave);
   }
 
   const handleDeleteChecklistClick = async () => {
     if (!card.checklistItems?.length) return;
 
-    const cardToSave = await dataService.deleteChecklist(card);
+    const cardToSave = dataService.deleteChecklist(card);
     updateCurrentCard(cardToSave);
   }
 

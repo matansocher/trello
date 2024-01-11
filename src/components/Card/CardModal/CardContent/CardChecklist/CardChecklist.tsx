@@ -12,17 +12,17 @@ function CardChecklist({}: ICardCheckListProps) {
   const { currentCard: card, updateCurrentCard } = useCurrentCard();
 
   const addNewChecklistItem = async (checklistItem: IChecklistItem) => {
-    const cardToSave = await dataService.addNewChecklistItem(card, checklistItem);
+    const cardToSave = dataService.addNewChecklistItem(card, checklistItem);
     updateCurrentCard(cardToSave);
   }
 
   const updateChecklistItem = async (checklistItem: IChecklistItem) => {
-    const cardToSave = await dataService.updateChecklistItem(card, checklistItem);
+    const cardToSave = dataService.updateChecklistItem(card, checklistItem);
     updateCurrentCard(cardToSave);
   }
 
   const deleteChecklistItem = async (checklistItem: IChecklistItem) => {
-    const cardToSave = await dataService.deleteChecklistItem(card, checklistItem);
+    const cardToSave = dataService.deleteChecklistItem(card, checklistItem);
     updateCurrentCard(cardToSave);
   }
 

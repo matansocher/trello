@@ -63,7 +63,7 @@ function BoardHeader() {
   }
 
   const handleSaveBackgroundPicker = async (selectedBackground: any) => {
-    const newBoard = await dataService.updateBoardBackground(board, selectedBackground);
+    const newBoard = dataService.updateBoardBackground(board, selectedBackground);
     updateBoardState(newBoard);
     setBackgroundPickerModalOpen(false);
   }

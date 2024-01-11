@@ -40,11 +40,11 @@ function List({ listIdToFetch }: IListProps) {
   }
 
   const moveToTop = async (card: ICard) => {
-    await dataService.moveCardToTop(list, card);
+    dataService.moveCardToTop(list, card);
   }
 
   const moveToBottom = async (card: ICard) => {
-    await dataService.moveCardToBottom(list, card);
+    dataService.moveCardToBottom(list, card);
   }
 
   const renderCards = () => {

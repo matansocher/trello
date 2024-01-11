@@ -14,7 +14,7 @@ function CardDescription({  }: ICardDescriptionProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSaveClick = async () => {
-    const cardToSave = await dataService.updateCardDescription(card, input);
+    const cardToSave = dataService.updateCardDescription(card, input);
     updateCurrentCard(cardToSave);
     setIsOpen(false);
   }
