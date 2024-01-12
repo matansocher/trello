@@ -3,7 +3,7 @@ import { Dayjs } from 'dayjs';
 import { DatePicker, Label, LabelsPicker } from '@components';
 import { useCurrentCard, useLabels } from '@context';
 import { ILabel } from '@models';
-import { dataService, utilsService } from '@services';
+import { firebaseService, utilsService } from '@services';
 import './CardInfo.scss';
 
 interface ICardDescriptionProps {
@@ -17,11 +17,11 @@ function CardInfo({  }: ICardDescriptionProps) {
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
   const handleDueDateChange = async (newValue: Dayjs | null) => {
-    dataService.updateCardDueDate(card, newValue);
+    firebaseService.updateCardDueDate(card, newValue);
   }
 
   const handleLabelsChange = async (label: ILabel, isChecked: boolean) => {
-    dataService.updateCardLabels(card, label, isChecked);
+    firebaseService.updateCardLabels(card, label, isChecked);
   }
 
   const renderLabelsSection = () => {

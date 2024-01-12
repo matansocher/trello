@@ -14,7 +14,7 @@ import {
   ProgressBar
 } from '@components';
 import { useCurrentCard } from '@context';
-import { dataService } from '@services';
+import { firebaseService } from '@services';
 import './CardContent.scss';
 
 interface ICardContentProps {
@@ -25,13 +25,13 @@ function CardContent({  }: ICardContentProps) {
   const { currentCard: card } = useCurrentCard();
 
   const handleChecklistTitleSave = async (checklistTitle: string) => {
-    dataService.updateChecklistTitle(card, checklistTitle);
+    firebaseService.updateChecklistTitle(card, checklistTitle);
   }
 
   const handleDeleteChecklistClick = async () => {
     if (!card.checklistItems?.length && !card.checklistTitle) return;
 
-    dataService.deleteChecklist(card);
+    firebaseService.deleteChecklist(card);
   }
 
   const amountOfCheckListChecked = card.checklistItems?.filter((item) => item.isChecked).length || 0;

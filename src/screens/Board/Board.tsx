@@ -7,7 +7,7 @@ import { useBoard, useLabels } from '@context';
 import { LoaderSize } from '@constants';
 import { useGetBoard } from '@hooks';
 import { IList } from '@models';
-import { dataService, dndService, firebaseStore, utilsService } from '@services';
+import { firebaseService, dndService, firebaseStore, utilsService } from '@services';
 import './Board.scss';
 
 function Board() {
@@ -36,7 +36,7 @@ function Board() {
   },[boardFromDb]);
 
   const addNewList = async (list: IList) => {
-    const newBoard = await dataService.addNewList(board, list);
+    const newBoard = await firebaseService.addNewList(board, list);
     updateBoardState(newBoard);
   }
 

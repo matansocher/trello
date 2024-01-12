@@ -5,7 +5,7 @@ import { LoaderSize, LIST_INITIAL_STATE } from '@constants';
 import { CurrentCardContextProvider } from '@context';
 import { useGetList } from '@hooks';
 import { ICard, IList } from '@models';
-import { dataService, utilsService } from '@services';
+import { firebaseService, utilsService } from '@services';
 import './List.scss';
 
 interface IListProps {
@@ -21,23 +21,23 @@ function List({ listIdToFetch }: IListProps) {
   },[listFromDb]);
 
   const addNewCardToList = async (card: ICard) => {
-    await dataService.addNewCardToList(list, card);
+    await firebaseService.addNewCardToList(list, card);
   }
 
   const cloneCard = async (card: ICard) => {
-    await dataService.cloneCard(list, card);
+    await firebaseService.cloneCard(list, card);
   }
 
   const archiveCard = async (card: ICard) => {
-    await dataService.archiveCard(list, card);
+    await firebaseService.archiveCard(list, card);
   }
 
   const moveToTop = async (card: ICard) => {
-    dataService.moveCardToTop(list, card);
+    firebaseService.moveCardToTop(list, card);
   }
 
   const moveToBottom = async (card: ICard) => {
-    dataService.moveCardToBottom(list, card);
+    firebaseService.moveCardToBottom(list, card);
   }
 
   const renderCards = () => {

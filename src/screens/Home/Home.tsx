@@ -5,7 +5,7 @@ import { BOARD_INITIAL_STATE } from '@constants';
 import { useBoard, useUser } from '@context';
 import { useGetBoards, useGetBoardTemplates } from '@hooks';
 import { IBoard, IBoardTemplate } from '@models';
-import { dataService, utilsService } from '@services';
+import { firebaseService, utilsService } from '@services';
 import './Home.scss';
 
 function Home() {
@@ -16,12 +16,12 @@ function Home() {
   const navigate = useNavigate();
 
   const handleCreateBoardClick = async () => {
-    const newBoard = await dataService.createBoard('New Board');
+    const newBoard = await firebaseService.createBoard('New Board');
     navigate(`/boards/${newBoard.id}`);
   }
 
   const handleBoardTemplateClick = async (boardTemplate: IBoardTemplate) => {
-    const createdBoardId = await dataService.createBoardFromTemplate(boardTemplate);
+    const createdBoardId = await firebaseService.createBoardFromTemplate(boardTemplate);
     // updateBoardState(BOARD_INITIAL_STATE);
     navigate(`/boards/${createdBoardId}`);
   }

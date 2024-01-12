@@ -1,5 +1,5 @@
 import { IBoard } from '@models';
-import { dataService } from './index';
+import { firebaseService } from './index';
 
 export async function dragEndHandler(board: IBoard, result: any) {
   const { draggableId, source, destination } = result;
@@ -35,22 +35,22 @@ async function handleListReorderDrag(board: IBoard, sourceIndex: number, destina
   const list = boardLists.splice(sourceIndex, 1)[0];
   boardLists.splice(destinationIndex, 0, list);
   const newBoard = { ...board, lists: boardLists };
-  dataService.updateBoard(newBoard);
+  firebaseService.updateBoard(newBoard);
 }
 
 async function handleCardsReorderDrag(sourceIndex: number, destination: any): Promise<void> {
-  const list = await dataService.getCleanedList(destination.droppableId.split('_')[1]);
+  const list = await firebaseService.getCleanedList(destination.droppableId.split('_')[1]);
   const listCards = [...list.cards];
   const card = listCards.splice(sourceIndex, 1)[0];
   listCards.splice(destination.index, 0, card);
   const newList = { ...list, cards: listCards };
-  dataService.updateList(newList);
+  firebaseService.updateList(newList);
 }
 
 async function handleCardToAnotherListDrag(source: any, destination: any) {
   const [sourceList, destinationList] = await Promise.all([
-    dataService.getCleanedList(source.droppableId.split('_')[1]),
-    dataService.getCleanedList(destination.droppableId.split('_')[1]),
+    firebaseService.getCleanedList(source.droppableId.split('_')[1]),
+    firebaseService.getCleanedList(destination.droppableId.split('_')[1]),
   ]);
 
   const sourceListCards = [...sourceList.cards];
@@ -63,7 +63,7 @@ async function handleCardToAnotherListDrag(source: any, destination: any) {
   const newDestinationList = { ...destinationList, cards: destinationListCards };
 
   return Promise.all([
-    dataService.updateList(newSourceList),
-    dataService.updateList(newDestinationList),
+    firebaseService.updateList(newSourceList),
+    firebaseService.updateList(newDestinationList),
   ]);
 }

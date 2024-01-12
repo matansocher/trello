@@ -3,7 +3,7 @@ import { Dayjs } from 'dayjs';
 import { CardActions, CardContent, CardHeader, ColorPicker, DatePicker, LabelsPicker } from '@components';
 import { useCurrentCard } from '@context';
 import { ICard, IColorTile, ILabel, IList } from '@models';
-import { dataService } from '@services';
+import { firebaseService } from '@services';
 import './CardModal.scss';
 
 interface ICardModalProps {
@@ -23,7 +23,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   }
 
   const handleCloneClick = async () => {
-    await dataService.cloneCard(list, card);
+    await firebaseService.cloneCard(list, card);
     closeModal();
   }
 
@@ -44,16 +44,16 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   }
 
   const handleDueDateChange = async (newValue: Dayjs | null) => {
-    dataService.updateCardDueDate(card, newValue);
+    firebaseService.updateCardDueDate(card, newValue);
   }
 
   const handleLabelsChange = async (label: ILabel, isChecked: boolean) => {
-    dataService.updateCardLabels(card, label, isChecked);
+    firebaseService.updateCardLabels(card, label, isChecked);
   }
 
   const handleChecklistClick = async () => {
     if (card.checklistItems?.length || card.checklistTitle?.length) return;
-    dataService.createChecklist(card);
+    firebaseService.createChecklist(card);
   }
 
   const handleDueDateClick = () => {
@@ -69,7 +69,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   }
 
   const handleSaveCoverColorPicker = async (tile: IColorTile) => {
-    dataService.updateCardCoverColor(card, tile.backgroundColor);
+    firebaseService.updateCardCoverColor(card, tile.backgroundColor);
     setColorPickerModalOpen(false);
   }
 

@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { IBoard, IBoardTemplate, ICard, IChecklistItem, IComment, ILabel, IList } from '@models';
-import { firebaseStore } from './index';
+import { firebaseStore } from '../index';
 
 // *********************  LABEL  ********************* //
 export function replaceDefaultLabelWithNewUpdatedLabel(boardState: IBoard, defaultLabelId: string, updatedLabelId: string): IBoard  {

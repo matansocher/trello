@@ -16,7 +16,7 @@ import { earth } from '@assets';
 import { ImagePicker, DropdownMenu, EditableInput } from '@components';
 import { useBoard } from '@context';
 import { IDropdownItem } from '@models';
-import { dataService, utilsService } from '@services';
+import { firebaseService, utilsService } from '@services';
 import './BoardHeader.scss';
 
 function BoardHeader() {
@@ -54,17 +54,17 @@ function BoardHeader() {
 
   const handleCloseBoardClick = async () => {
     console.log('handleCloseBoardClick');
-    await dataService.closeBoard(board);
+    await firebaseService.closeBoard(board);
     navigate(`/`);
   }
 
   const handleTitleSave = (newValue: string) => {
     const newBoard = { ...board, title: newValue };
-    dataService.updateBoard(newBoard);
+    firebaseService.updateBoard(newBoard);
   }
 
   const handleSaveBackgroundPicker = async (selectedBackground: any) => {
-    const newBoard = dataService.updateBoardBackground(board, selectedBackground);
+    const newBoard = firebaseService.updateBoardBackground(board, selectedBackground);
     updateBoardState(newBoard);
     setBackgroundPickerModalOpen(false);
   }

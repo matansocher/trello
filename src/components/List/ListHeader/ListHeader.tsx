@@ -7,7 +7,7 @@ import {
 import { DropdownMenu, EditableInput } from '@components';
 import { useBoard } from '@context';
 import { IDropdownItem, IList } from '@models';
-import { dataService } from '@services';
+import { firebaseService } from '@services';
 import './ListHeader.scss';
 
 interface IListHeaderProps {
@@ -18,11 +18,11 @@ function ListHeader({ list }: IListHeaderProps) {
   const { boardState: board, updateBoardState } = useBoard();
 
   const handleTitleSave = async (newValue: string) => {
-    dataService.updateListTitle(list, newValue);
+    firebaseService.updateListTitle(list, newValue);
   }
 
   const handleCloneList = async () => {
-    const newBoard = await dataService.cloneList(board, list);
+    const newBoard = await firebaseService.cloneList(board, list);
     updateBoardState(newBoard);
   }
 
@@ -31,7 +31,7 @@ function ListHeader({ list }: IListHeaderProps) {
   }
 
   const handleArchiveList = async () => {
-    const newBoard = await dataService.archiveList(board, list.id as string);
+    const newBoard = await firebaseService.archiveList(board, list.id as string);
     updateBoardState(newBoard);
   }
 

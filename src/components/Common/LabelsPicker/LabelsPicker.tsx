@@ -3,7 +3,7 @@ import { Close as CloseIcon, RestoreOutlined as RestoreOutlinedIcon } from '@mui
 import { ModalWrapper, LabelsPickerItem, ColorPicker } from '@components';
 import { useBoard, useLabels } from '@context';
 import { IColorTile, ILabel, IModalStyles } from '@models';
-import { dataService, firebaseStore } from '@services';
+import { firebaseService, firebaseStore } from '@services';
 import './LabelsPicker.scss';
 
 const labelsModalStyles: IModalStyles = {
@@ -40,7 +40,7 @@ function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILa
       const relevantLabel = labels.find((label: ILabel) => label.id === editLabelId) as ILabel;
       if (relevantLabel.isDefault) {
         const newLabelId = await firebaseStore.createLabel(newLabel);
-        dataService.replaceDefaultLabelWithNewUpdatedLabel(boardState, editLabelId, newLabelId);
+        firebaseService.replaceDefaultLabelWithNewUpdatedLabel(boardState, editLabelId, newLabelId);
         labelIds = labelIds.filter((labelId: string) => labelId !== editLabelId);
         labelIds.push(newLabelId);
       } else {
@@ -50,7 +50,7 @@ function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILa
       const labelId = await firebaseStore.createLabel(newLabel);
       labelIds.push(labelId);
     }
-    dataService.updateBoardLabels(boardState, labelIds);
+    firebaseService.updateBoardLabels(boardState, labelIds);
 
     setColorPickerModalOpen(false);
   }
@@ -59,12 +59,12 @@ function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILa
     if (!label.isDefault) {
       firebaseStore.deleteLabel(label.id as string);
     }
-    dataService.removeLabelFromBoard(boardState, label.id as string);
-    dataService.deleteLabelFromUsingCards(boardState.lists, label.id as string);
+    firebaseService.removeLabelFromBoard(boardState, label.id as string);
+    firebaseService.deleteLabelFromUsingCards(boardState.lists, label.id as string);
   }
 
   const handleRestoreLabelsClick = async () => {
-    dataService.restoreBoardLabels(labels, boardState);
+    firebaseService.restoreBoardLabels(labels, boardState);
   }
 
   const renderLabels = () => {

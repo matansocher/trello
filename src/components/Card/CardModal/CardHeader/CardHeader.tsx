@@ -5,7 +5,7 @@ import {
 } from '@mui/icons-material';
 import { EditableInput } from '@components';
 import { useCurrentCard } from '@context';
-import { dataService } from '@services';
+import { firebaseService } from '@services';
 import './CardHeader.scss';
 
 interface ICardHeaderProps {
@@ -17,7 +17,7 @@ function CardHeader({ listTitle, handleCloseModal }: ICardHeaderProps) {
   const { currentCard: card } = useCurrentCard();
 
   const handleSave = async (title: string) => {
-    dataService.updateCardTitle(card, title);
+    firebaseService.updateCardTitle(card, title);
   }
 
   const handleWatchClick = () => {

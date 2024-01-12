@@ -12,7 +12,7 @@ import { DropdownMenu, UserAvatar } from '@components';
 import { useUser } from '@context';
 import { useGetBoards } from '@hooks';
 import { IBoard, IDropdownItem } from '@models';
-import { dataService } from '@services';
+import { firebaseService } from '@services';
 import './Navbar.scss';
 
 function Navbar() {
@@ -43,7 +43,7 @@ function Navbar() {
   }
 
   const handleCreateBoardClick = async () => {
-    const newBoard = await dataService.createBoard('New Board');
+    const newBoard = await firebaseService.createBoard('New Board');
     navigate(`/boards/${newBoard.id}`);
   }
 
