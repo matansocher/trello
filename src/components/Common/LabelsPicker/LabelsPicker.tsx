@@ -3,7 +3,7 @@ import { Close as CloseIcon, RestoreOutlined as RestoreOutlinedIcon } from '@mui
 import { ModalWrapper, LabelsPickerItem, ColorPicker } from '@components';
 import { useBoard, useLabels } from '@context';
 import { IColorTile, ILabel, IModalStyles } from '@models';
-import { firebaseService, firebaseStore } from '@services';
+import { firebaseService } from '@services';
 import './LabelsPicker.scss';
 
 const labelsModalStyles: IModalStyles = {
@@ -39,15 +39,15 @@ function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILa
     if (editLabelId) {
       const relevantLabel = labels.find((label: ILabel) => label.id === editLabelId) as ILabel;
       if (relevantLabel.isDefault) {
-        const newLabelId = await firebaseStore.createLabel(newLabel);
+        const newLabelId = await firebaseService.createLabel(newLabel);
         firebaseService.replaceDefaultLabelWithNewUpdatedLabel(boardState, editLabelId, newLabelId);
         labelIds = labelIds.filter((labelId: string) => labelId !== editLabelId);
         labelIds.push(newLabelId);
       } else {
-        firebaseStore.updateLabel({ ...newLabel, id: editLabelId });
+        firebaseService.updateLabel({ ...newLabel, id: editLabelId });
       }
     } else {
-      const labelId = await firebaseStore.createLabel(newLabel);
+      const labelId = await firebaseService.createLabel(newLabel);
       labelIds.push(labelId);
     }
     firebaseService.updateBoardLabels(boardState, labelIds);
@@ -57,7 +57,7 @@ function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILa
 
   const handleDeleteColorPickerItem = async (label: ILabel) => {
     if (!label.isDefault) {
-      firebaseStore.deleteLabel(label.id as string);
+      firebaseService.deleteLabel(label.id as string);
     }
     firebaseService.removeLabelFromBoard(boardState, label.id as string);
     firebaseService.deleteLabelFromUsingCards(boardState.lists, label.id as string);

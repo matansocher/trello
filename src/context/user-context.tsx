@@ -10,7 +10,7 @@ import {
 } from 'firebase/auth';
 import { USER_INITIAL_STATE } from '@constants';
 import { IUser } from '@models';
-import { firebaseInitService, firebaseStore, utilsService } from '@services';
+import { firebaseInitService, firebaseService, utilsService } from '@services';
 
 interface IUserContextType {
   user: IUser;
@@ -56,7 +56,7 @@ export const UserContextProvider: FC<UserContextProviderProps> = ({ children }) 
     const unsubscribe = onAuthStateChanged(firebaseInitService.auth, (authUser) => {
       const currentUser = utilsService.getUserFromGoogleUser(authUser) as IUser;
       setUser(currentUser);
-      firebaseStore.saveUser(currentUser);
+      firebaseService.saveUser(currentUser);
     });
 
     return () => unsubscribe();

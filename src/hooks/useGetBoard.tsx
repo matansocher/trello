@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BOARD_INITIAL_STATE } from '@constants';
 import { IBoard, ILabel } from '@models';
-import { firebaseStore } from '@services';
+import { firebaseService } from '@services';
 
 export const useGetBoard = (boardId: string = '') => {
   const [board, setBoard] = useState<IBoard>(BOARD_INITIAL_STATE);
@@ -14,7 +14,7 @@ export const useGetBoard = (boardId: string = '') => {
     const fetchBoard = async () => {
       try {
         setLoading(true);
-        firebaseStore.getBoardListener(boardId, async (querySnapshot: any) => {
+        firebaseService.getBoardListener(boardId, async (querySnapshot: any) => {
           const [board] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }));
           if (!board) {
             return;
@@ -34,7 +34,7 @@ export const useGetBoard = (boardId: string = '') => {
   },[boardId])
 
   const addDefaultLabels = async (board: IBoard) => {
-    const defaultLabelsRes = await firebaseStore.getDefaultLabels() as ILabel[];
+    const defaultLabelsRes = await firebaseService.getDefaultLabels() as ILabel[];
     const labelIds = defaultLabelsRes.map((label: any) => label.labelId);
     const newBoard = { ...board, labels: labelIds };
     setBoard(newBoard);

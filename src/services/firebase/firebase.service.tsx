@@ -2,7 +2,32 @@ import dayjs, { Dayjs } from 'dayjs';
 import { IBoard, IBoardTemplate, ICard, IChecklistItem, IComment, ILabel, IList } from '@models';
 import { firebaseStore } from '../index';
 
+export function getBackgrounds() {
+  return firebaseStore.getBackgrounds();
+}
+
+// *********************  USER  ********************* //
+export function saveUser(user: any) {
+  return firebaseStore.saveUser(user);
+}
+
 // *********************  LABEL  ********************* //
+export function getDefaultLabels() {
+  return firebaseStore.getDefaultLabels();
+}
+
+export function createLabel(label: ILabel) {
+  return firebaseStore.createLabel(label);
+}
+
+export function updateLabel(label: ILabel) {
+  return firebaseStore.updateLabel(label);
+}
+
+export function deleteLabel(labelId: string) {
+  return firebaseStore.deleteLabel(labelId);
+}
+
 export function replaceDefaultLabelWithNewUpdatedLabel(boardState: IBoard, defaultLabelId: string, updatedLabelId: string): IBoard  {
   const labels = boardState.labels || [];
   const newLabels = labels.map((labelId: string) => labelId === defaultLabelId ? updatedLabelId : labelId);
@@ -12,6 +37,22 @@ export function replaceDefaultLabelWithNewUpdatedLabel(boardState: IBoard, defau
 
 }
 // *********************  BOARD  ********************* //
+export function getBoardListener(id: string, callback: any) {
+  return firebaseStore.getBoardListener(id, callback);
+}
+
+export function getBoards() {
+  return firebaseStore.getBoards();
+}
+
+export function getBoardLabelsListener(labelIds: string[], callback: any) {
+  return firebaseStore.getBoardLabelsListener(labelIds, callback);
+}
+
+export function getBoardTemplates() {
+  return firebaseStore.getBoardTemplates();
+}
+
 export async function createBoard(title: string): Promise<IBoard> {
   const newBoard = { title, lists: [], createdAt: dayjs().format('YYYY-MM-DD') } as IBoard;
   const { id: createdBoardId } = await firebaseStore.createBoard(newBoard);
@@ -90,6 +131,10 @@ export async function closeBoard(board: IBoard) {
 
 }
 // *********************  LIST  ********************* //
+export function getListListener(listId: string = '', callback: any) {
+  return firebaseStore.getListListener(listId, callback);
+}
+
 export function getCleanedList(listId: string): any {
   return firebaseStore.getCleanedList(listId);
 }
@@ -161,8 +206,12 @@ export function updateListTitle(list: IList, title: string): IList {
 }
 
 // *********************  CARD  ********************* //
-export function getCard(cardId: string = '') {
-  return firebaseStore.getCard(cardId);
+export function getCardListener(cardId: string = '', callback: any) {
+  return firebaseStore.getCardListener(cardId, callback);
+}
+
+export function getCards(cardIds: string[]) {
+  return firebaseStore.getCards(cardIds);
 }
 
 export async function archiveCard(list: IList, card: ICard): Promise<void> {

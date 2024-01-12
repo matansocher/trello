@@ -13,9 +13,10 @@ import {
 } from '@mui/icons-material';
 import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label } from '@components';
 import { useCurrentCard, useLabels } from '@context';
+import { CARD_INITIAL_STATE } from '@constants';
 import { useToggleHover } from '@hooks';
 import { ICard, IList, ILabel, IDropdownItem, IFooterIcon, IModalStyles } from '@models';
-import { firebaseStore, utilsService } from '@services';
+import { firebaseService, utilsService } from '@services';
 import './CardPreview.scss';
 
 const modalWrapperModalStyles: IModalStyles = {
@@ -73,10 +74,11 @@ function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCa
   const closeModal = () => {
     setCardModalOpen(false);
     stopListeningToCardChanges();
+    updateCurrentCard(CARD_INITIAL_STATE);
   }
 
   const startListeningToCardChanges = () => {
-    unsubscribeRef.current = firebaseStore.getCardListener(card?.id, async (querySnapshot: any) => {
+    unsubscribeRef.current = firebaseService.getCardListener(card?.id, async (querySnapshot: any) => {
       const [card] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }));
       if (!card) return;
       updateCurrentCard(card);

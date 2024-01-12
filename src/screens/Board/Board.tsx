@@ -7,7 +7,7 @@ import { useBoard, useLabels } from '@context';
 import { LoaderSize } from '@constants';
 import { useGetBoard } from '@hooks';
 import { IList } from '@models';
-import { firebaseService, dndService, firebaseStore, utilsService } from '@services';
+import { firebaseService, dndService, utilsService } from '@services';
 import './Board.scss';
 
 function Board() {
@@ -23,7 +23,7 @@ function Board() {
       if (!boardFromDb?.labels?.length) return;
 
       try {
-        firebaseStore.getBoardLabelsListener(boardFromDb.labels, (querySnapshot: any) => {
+        firebaseService.getBoardLabelsListener(boardFromDb.labels, (querySnapshot: any) => {
           const labels = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }));
           updateLabelsState(labels || []);
         });

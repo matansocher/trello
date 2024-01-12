@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { IBoardTemplate } from '@models';
-import { firebaseStore } from '@services';
+import { firebaseService } from '@services';
 
 export const useGetBoardTemplates = () => {
   const [boardTemplates, setBoardTemplates] = useState<IBoardTemplate[]>([]);
@@ -11,7 +11,7 @@ export const useGetBoardTemplates = () => {
     const fetchBoardTemplates = async () => {
       try {
         setLoading(true)
-        const boardTemplatesRes = await firebaseStore.getBoardTemplates() as IBoardTemplate[];
+        const boardTemplatesRes = await firebaseService.getBoardTemplates() as IBoardTemplate[];
         setBoardTemplates(boardTemplatesRes)
       } catch(err) {
         setError(err as any)

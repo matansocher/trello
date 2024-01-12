@@ -1,9 +1,7 @@
 feat - add option to add cover to a ticket
 feat - add activity saving support
 feat - error state
-feat - add support for changing board background - storage
-feat - don't refresh list after closing modal if no changes were made - card preview line 41 - use the current card in the card preview too
-feat - never use firebaseService but from dataService
+feat - add support for uploading board background - storage
 feat - default image - remove earth image
 
 bug - drag and drop bump - check if you can set the state even before data comes from db
