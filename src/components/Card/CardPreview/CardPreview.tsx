@@ -15,7 +15,7 @@ import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label 
 import { useCurrentCard, useLabels } from '@context';
 import { useToggleHover } from '@hooks';
 import { ICard, IList, ILabel, IDropdownItem, IFooterIcon, IModalStyles } from '@models';
-import { firebaseService, utilsService } from '@services';
+import { firebaseStore, utilsService } from '@services';
 import './CardPreview.scss';
 
 const modalWrapperModalStyles: IModalStyles = {
@@ -76,7 +76,7 @@ function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCa
   }
 
   const startListeningToCardChanges = () => {
-    unsubscribeRef.current = firebaseService.getCardListener(card?.id, async (querySnapshot: any) => {
+    unsubscribeRef.current = firebaseStore.getCardListener(card?.id, async (querySnapshot: any) => {
       const [card] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }));
       if (!card) return;
       updateCurrentCard(card);

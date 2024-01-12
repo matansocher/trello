@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { LIST_INITIAL_STATE } from '@constants';
 import { ICard, IList } from '@models';
-import { firebaseService } from '@services';
+import { firebaseStore } from '@services';
 
 export const useGetList = (listId: string = '') => {
   const [list, setList] = useState<IList>(LIST_INITIAL_STATE);
@@ -16,10 +16,10 @@ export const useGetList = (listId: string = '') => {
     const fetchList = async () => {
       try {
         setLoading(true);
-        firebaseService.getListListener(listId, async (querySnapshot: any) => {
+        firebaseStore.getListListener(listId, async (querySnapshot: any) => {
           const [list] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }));
           setList(list)
-          const cards = list?.cards?.length ? await firebaseService.getCards(list.cards) : [];
+          const cards = list?.cards?.length ? await firebaseStore.getCards(list.cards) : [];
           setCards(cards);
           setLoading(false);
         });

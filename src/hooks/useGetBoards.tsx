@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { IBoard } from '@models';
-import { firebaseService } from '@services';
+import { firebaseStore } from '@services';
 
 export const useGetBoards = () => {
   const [boards, setBoards] = useState<IBoard[]>([]);
@@ -11,7 +11,7 @@ export const useGetBoards = () => {
     const fetchBoards = async () => {
       try {
         setLoading(true)
-        const boardsRes = await firebaseService.getBoards() as IBoard[];
+        const boardsRes = await firebaseStore.getBoards() as IBoard[];
         setBoards(boardsRes)
       } catch(err) {
         setError(err as any)

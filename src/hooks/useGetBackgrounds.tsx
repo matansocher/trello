@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { firebaseService } from '@services';
+import { firebaseStore } from '@services';
 
 export const useGetBackgrounds = () => {
   const [backgrounds, setBackgrounds] = useState<any[]>([]);
@@ -9,7 +9,7 @@ export const useGetBackgrounds = () => {
     const fetchBoards = async () => {
       try {
         setLoading(true)
-        const backgroundsRes = await firebaseService.getBackgrounds();
+        const backgroundsRes = await firebaseStore.getBackgrounds();
         setBackgrounds(backgroundsRes);
       } finally {
         setLoading(false)
