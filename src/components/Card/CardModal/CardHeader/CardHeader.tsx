@@ -5,12 +5,13 @@ import {
 } from '@mui/icons-material';
 import { EditableInput } from '@components';
 import { useCurrentCard } from '@context';
+import { ICard } from '@models';
 import { firebaseService } from '@services';
 import './CardHeader.scss';
 
 interface ICardHeaderProps {
   listTitle: string;
-  handleCloseModal: () => void;
+  handleCloseModal: (card: ICard) => void;
 }
 
 function CardHeader({ listTitle, handleCloseModal }: ICardHeaderProps) {
@@ -38,7 +39,7 @@ function CardHeader({ listTitle, handleCloseModal }: ICardHeaderProps) {
           <VisibilityOutlinedIcon />
           Watch
         </button>
-        <CloseIcon onClick={handleCloseModal} />
+        <CloseIcon onClick={() => handleCloseModal(card)} />
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { useState, MouseEvent, useEffect, useRef } from 'react';
+import { useState, MouseEvent } from 'react';
 import {
   AccessTimeOutlined as AccessTimeOutlinedIcon,
   ChatBubbleOutline as ChatBubbleOutlineIcon,
@@ -16,7 +16,7 @@ import { useCurrentCard, useLabels } from '@context';
 import { CARD_INITIAL_STATE } from '@constants';
 import { useToggleHover } from '@hooks';
 import { ICard, IList, ILabel, IDropdownItem, IFooterIcon, IModalStyles } from '@models';
-import { firebaseService, utilsService } from '@services';
+import { utilsService } from '@services';
 import './CardPreview.scss';
 
 const modalWrapperModalStyles: IModalStyles = {
@@ -39,24 +39,10 @@ interface ICardPreviewProps {
 function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCard }: ICardPreviewProps) {
   const { labels } = useLabels();
   const { currentCard, updateCurrentCard } = useCurrentCard();
+  const [thisCard, setThisCard] = useState<ICard>(card);
   const [isHovered, hoverEventHandlers] = useToggleHover(false);
-  // const [unsubscribeFromCardListener, setUnsubscribeFromCardListener] = useState<Function>();
-  const unsubscribeRef = useRef<() => void>();
   // modal
-  const [cardModalOpen, setCardModalOpen] = useState(false);
-
-  useEffect(() => {
-    updateCurrentCard(card);
-  }, []);
-
-  const getDropdownMenuItems = (): IDropdownItem[] => {
-    return [
-      { label: 'Move to Top', icon: <VerticalAlignTopOutlinedIcon fontSize='small' />, onClick: () => moveToTop(currentCard) },
-      { label: 'Move to Bottom', icon: <VerticalAlignBottomOutlinedIcon fontSize='small' />, onClick: () => moveToBottom(currentCard) },
-      { label: 'Clone Card', icon: <ContentCopyOutlinedIcon fontSize='small' />, onClick: () => cloneCard(currentCard) },
-      { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(currentCard) },
-    ];
-  }
+  const [cardModalOpen, setCardModalOpen] = useState<boolean>(false);
 
   const handleCardClick = (event: MouseEvent<HTMLDivElement>) => {
     const clickedElement = event.target as any;
@@ -66,44 +52,34 @@ function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCa
       return;
     }
     // clicked on card and not on more icon
-    // updateCurrentCard(card);
-    startListeningToCardChanges();
+    updateCurrentCard(thisCard);
     setCardModalOpen(true);
   }
 
-  const closeModal = () => {
+  const closeModal = (newCard?: ICard) => {
     setCardModalOpen(false);
-    stopListeningToCardChanges();
+    setThisCard(newCard || CARD_INITIAL_STATE);
     updateCurrentCard(CARD_INITIAL_STATE);
   }
 
-  const startListeningToCardChanges = () => {
-    unsubscribeRef.current = firebaseService.getCardListener(card?.id, async (querySnapshot: any) => {
-      const [card] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }));
-      if (!card) return;
-      updateCurrentCard(card);
-    });
-  }
-
-  const stopListeningToCardChanges = () => {
-    if (unsubscribeRef.current) {
-      unsubscribeRef.current();
-      unsubscribeRef.current = undefined;
-    }
-  }
-
   const renderDropdownMenu = () => {
-    if (isHovered) {
-      return (
-        <div className='card-preview__body__more-icon'>
-          <DropdownMenu menuHeader='' menuIcon={<ExpandMoreIcon/>} menuItems={getDropdownMenuItems()} />
-        </div>
-      );
-    }
+    if (!isHovered) return;
+
+    const dropdownMenuItems: IDropdownItem[] = [
+      { label: 'Move to Top', icon: <VerticalAlignTopOutlinedIcon fontSize='small' />, onClick: () => moveToTop(thisCard) },
+      { label: 'Move to Bottom', icon: <VerticalAlignBottomOutlinedIcon fontSize='small' />, onClick: () => moveToBottom(thisCard) },
+      { label: 'Clone Card', icon: <ContentCopyOutlinedIcon fontSize='small' />, onClick: () => cloneCard(thisCard) },
+      { label: 'Archive Card', icon: <DeleteIcon fontSize='small' />, onClick: () => archiveCard(thisCard) },
+    ]
+    return (
+      <div className='card-preview__body__more-icon'>
+        <DropdownMenu menuHeader='' menuIcon={<ExpandMoreIcon/>} menuItems={dropdownMenuItems} />
+      </div>
+    );
   }
 
   const renderLabels = () => {
-    return currentCard?.labels?.map((label: string) => {
+    return thisCard?.labels?.map((label: string) => {
       const relevantLabel: ILabel | null = labels.find((originalLabel: ILabel) => originalLabel.id === label) || null;
       if (!relevantLabel) return;
       return <Label key={label} label={relevantLabel} isBigLabel={false} />;
@@ -112,23 +88,23 @@ function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCa
 
   const renderFooterIcons = () => {
     const footerIcons: IFooterIcon[] = [];
-    if (currentCard?.description) {
-      footerIcons.push({ id: 'footerIcon__2', icon: <FormatAlignLeftIcon/>, tooltipText: 'This card has a description' });
+    if (thisCard?.description) {
+      footerIcons.push({ id: 'footerIcon__2', icon: <FormatAlignLeftIcon/>, tooltipText: 'This thisCard has a description' });
     }
-    if (currentCard?.comments && currentCard.comments?.length > 0) {
+    if (thisCard?.comments && thisCard.comments?.length > 0) {
       footerIcons.push({ id: 'footerIcon__3', icon: <ChatBubbleOutlineIcon/>, tooltipText: 'Comments' });
     }
-    if (currentCard?.checklistItems && currentCard.checklistItems?.length > 0) {
+    if (thisCard?.checklistItems && thisCard.checklistItems?.length > 0) {
       footerIcons.push({ id: 'footerIcon__4', icon: <CheckBoxOutlinedIcon/>, tooltipText: 'Checklist items' });
     }
-    if (currentCard?.dueDate && currentCard.dueDate?.length > 0) {
-      const numOfDaysDueAfterToday = utilsService.getNumOfDaysAfterToday(currentCard.dueDate)
+    if (thisCard?.dueDate && thisCard.dueDate?.length > 0) {
+      const numOfDaysDueAfterToday = utilsService.getNumOfDaysAfterToday(thisCard.dueDate)
       let component;
       if (numOfDaysDueAfterToday === 0) { // today
         component = <p className='side-label today'>Today</p>;
       }
       else if (numOfDaysDueAfterToday < 0) { // overdue
-        const date = utilsService.getOverdueDate(currentCard.dueDate);
+        const date = utilsService.getOverdueDate(thisCard.dueDate);
         component = (<p className='side-label overdue'><AccessTimeOutlinedIcon /> {date}</p>)
       } else {
         component = <ScheduleIcon/>;
@@ -147,15 +123,16 @@ function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCa
   return (
     <>
       <div className='card-preview' onClick={handleCardClick} {...(hoverEventHandlers as Object)}>
-        {currentCard?.coverColor ? <div className='card-preview__cover' style={{ backgroundColor: currentCard.coverColor }} /> : null}
-        <div className='card-preview__body' style={currentCard?.coverColor ? { paddingTop: 6 } : {}}>
-          <span className='card-id'>{currentCard.id}</span>
+        <p>{currentCard.id}</p>
+        {thisCard?.coverColor ? <div className='card-preview__cover' style={{ backgroundColor: thisCard.coverColor }} /> : null}
+        <div className='card-preview__body' style={thisCard?.coverColor ? { paddingTop: 6 } : {}}>
+          <span className='card-id'>{thisCard.id}</span>
           {renderDropdownMenu()}
           <div className='card-preview__body__labels'>
             {renderLabels()}
           </div>
           <div className='card-preview__body__content'>
-            <EllipsisText maxLines={3}>{currentCard.title}</EllipsisText>
+            <EllipsisText maxLines={3}>{thisCard.title}</EllipsisText>
           </div>
           <div className='card-preview__body__footer'>
             {renderFooterIcons()}

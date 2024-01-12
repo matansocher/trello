@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Dayjs } from 'dayjs';
 import { CardActions, CardContent, CardHeader, ColorPicker, DatePicker, LabelsPicker } from '@components';
 import { useCurrentCard } from '@context';
@@ -8,15 +8,27 @@ import './CardModal.scss';
 
 interface ICardModalProps {
   list: IList;
-  closeModal: () => void;
+  closeModal: (card?: ICard) => void;
   archiveCard: (card: ICard) => void;
 }
 
 function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
-  const { currentCard: card } = useCurrentCard();
+  const { currentCard: card, updateCurrentCard } = useCurrentCard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
   const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!card?.id) return;
+
+    const unsubscribe = firebaseService.getCardListener(card?.id, async (querySnapshot: any) => {
+      const [card] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }));
+      if (!card) return;
+      updateCurrentCard(card);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleMoveClick = () => {
     console.log('handleMoveClick');
@@ -24,7 +36,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
 
   const handleCloneClick = async () => {
     await firebaseService.cloneCard(list, card);
-    closeModal();
+    closeModal(card);
   }
 
   const handleArchiveClick = () => {
