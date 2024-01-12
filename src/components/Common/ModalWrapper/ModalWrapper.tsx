@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
-import './ModalWrapper.scss';
 import { Box, Modal } from '@mui/material';
 import { IModalStyles } from '@models';
+import './ModalWrapper.scss';
 
 const DEFAULT_MODAL_STYLE = {
   position: 'absolute',

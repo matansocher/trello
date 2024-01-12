@@ -1,8 +1,8 @@
-import './Login.scss';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { facebookLogo, googleLogo, trelloLogo } from '@assets';
 import { useUser } from '@context';
-import { useEffect, useState } from 'react';
+import './Login.scss';
 
 function Login() {
   const { user, credentialsSignUp, credentialsSignIn, googleSignIn, facebookSignIn } = useUser();

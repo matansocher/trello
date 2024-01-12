@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Add as AddIcon, Close as CloseIcon } from '@mui/icons-material';
+import { Textarea } from '@components';
 import { ICard } from '@models';
 import './AddNewCard.scss';
-import { Textarea } from '@components';
 
 interface IAddNewCardProps {
   addNewCardToList: (card: ICard) => void;

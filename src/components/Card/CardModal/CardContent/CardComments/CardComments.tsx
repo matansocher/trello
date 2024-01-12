@@ -9,21 +9,18 @@ interface ICardCommentsProps {
 }
 
 function CardComments({  }: ICardCommentsProps) {
-  const { currentCard: card, updateCurrentCard } = useCurrentCard();
+  const { currentCard: card } = useCurrentCard();
 
   const addNewComment = async (comment: IComment) => {
-    const cardToSave = dataService.addCommentToCard(card, comment);
-    updateCurrentCard(cardToSave);
+    dataService.addCommentToCard(card, comment);
   }
 
   const editComment = async (comment: IComment, newDescription: string) => {
-    const cardToSave = dataService.editComment(card, comment, newDescription);
-    updateCurrentCard(cardToSave);
+    dataService.editComment(card, comment, newDescription);
   }
 
   const deleteComment = async (comment: IComment) => {
-    const cardToSave = dataService.deleteCommentFromCard(card, comment);
-    updateCurrentCard(cardToSave);
+    dataService.deleteCommentFromCard(card, comment);
   }
 
   const renderComments = () => {

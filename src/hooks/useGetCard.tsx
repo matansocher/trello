@@ -17,7 +17,7 @@ export const useGetCard = () => {
       try {
         setLoading(true);
         firebaseService.getCardListener(cardId, (querySnapshot: any) => {
-          const [card] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
+          const [card] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }));
           setCard(card)
           setLoading(false);
         });

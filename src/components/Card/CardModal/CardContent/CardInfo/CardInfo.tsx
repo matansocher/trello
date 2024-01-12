@@ -12,18 +12,16 @@ interface ICardDescriptionProps {
 
 function CardInfo({  }: ICardDescriptionProps) {
   const { labels } = useLabels();
-  const { currentCard: card, updateCurrentCard } = useCurrentCard();
+  const { currentCard: card } = useCurrentCard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
   const handleDueDateChange = async (newValue: Dayjs | null) => {
-    const cardToSave = dataService.updateCardDueDate(card, newValue);
-    updateCurrentCard(cardToSave);
+    dataService.updateCardDueDate(card, newValue);
   }
 
   const handleLabelsChange = async (label: ILabel, isChecked: boolean) => {
-    const cardToSave = dataService.updateCardLabels(card, label, isChecked);
-    updateCurrentCard(cardToSave);
+    dataService.updateCardLabels(card, label, isChecked);
   }
 
   const renderLabelsSection = () => {

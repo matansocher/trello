@@ -161,6 +161,10 @@ export function updateListTitle(list: IList, title: string): IList {
 }
 
 // *********************  CARD  ********************* //
+export function getCard(cardId: string = '') {
+  return firebaseService.getCard(cardId);
+}
+
 export async function archiveCard(list: IList, card: ICard): Promise<void> {
   const cardId = card.id as string;
   await firebaseService.archiveCard(cardId);/**/

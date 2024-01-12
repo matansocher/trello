@@ -13,7 +13,7 @@ interface ICardModalProps {
 }
 
 function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
-  const { currentCard: card, updateCurrentCard } = useCurrentCard();
+  const { currentCard: card } = useCurrentCard();
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
   const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
@@ -44,20 +44,16 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   }
 
   const handleDueDateChange = async (newValue: Dayjs | null) => {
-    const cardToSave = dataService.updateCardDueDate(card, newValue);
-    updateCurrentCard(cardToSave);
+    dataService.updateCardDueDate(card, newValue);
   }
 
   const handleLabelsChange = async (label: ILabel, isChecked: boolean) => {
-    const cardToSave = dataService.updateCardLabels(card, label, isChecked);
-    updateCurrentCard(cardToSave);
+    dataService.updateCardLabels(card, label, isChecked);
   }
 
   const handleChecklistClick = async () => {
     if (card.checklistItems?.length || card.checklistTitle?.length) return;
-
-    const cardToSave = dataService.createChecklist(card);
-    updateCurrentCard(cardToSave);
+    dataService.createChecklist(card);
   }
 
   const handleDueDateClick = () => {
@@ -73,15 +69,14 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   }
 
   const handleSaveCoverColorPicker = async (tile: IColorTile) => {
-    const cardToSave = dataService.updateCardCoverColor(card, tile.backgroundColor);
-    updateCurrentCard(cardToSave);
+    dataService.updateCardCoverColor(card, tile.backgroundColor);
     setColorPickerModalOpen(false);
   }
 
   return (
     <div className='card-modal'>
       {card?.coverColor ? <div className='card-modal__cover' style={{ backgroundColor: card.coverColor }} /> : null}
-      <CardHeader list={list} handleCloseModal={closeModal} />
+      <CardHeader listTitle={list.title} handleCloseModal={closeModal} />
       <div className='card-modal__body'>
         <div className='card-modal__body__content'>
           <div className='card-modal__body__content__left'>

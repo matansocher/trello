@@ -24,7 +24,7 @@ function Board() {
 
       try {
         firebaseService.getBoardLabelsListener(boardFromDb.labels, (querySnapshot: any) => {
-          const labels = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
+          const labels = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }));
           updateLabelsState(labels || []);
         });
       } catch(err) {

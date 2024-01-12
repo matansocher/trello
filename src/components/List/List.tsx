@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
-
 import { AddNewCard, CardPreview, ListHeader, Loader } from '@components';
-import { CurrentCardContextProvider } from '@context';
 import { LoaderSize, LIST_INITIAL_STATE } from '@constants';
+import { CurrentCardContextProvider } from '@context';
+import { useGetList } from '@hooks';
 import { ICard, IList } from '@models';
 import { dataService, utilsService } from '@services';
-import { useGetList } from '@hooks';
 import './List.scss';
 
 interface IListProps {
@@ -14,18 +13,12 @@ interface IListProps {
 }
 
 function List({ listIdToFetch }: IListProps) {
-  const [listId, setListId] = useState(listIdToFetch);
-  const { list: listFromDb, cards, loading } = useGetList(listId);
+  const { list: listFromDb, cards, loading } = useGetList(listIdToFetch);
   const [list, setList] = useState<IList>(LIST_INITIAL_STATE);
 
   useEffect(()=>{
     setList(listFromDb);
   },[listFromDb]);
-
-  const refreshList = async () => {
-    setListId(''); // unset and then set listId so useGetList will fetch the list again
-    setTimeout(() => setListId(listIdToFetch), 0);
-  }
 
   const addNewCardToList = async (card: ICard) => {
     await dataService.addNewCardToList(list, card);
@@ -57,7 +50,6 @@ function List({ listIdToFetch }: IListProps) {
               <CardPreview
                 card={card}
                 list={list}
-                refreshList={refreshList}
                 moveToTop={moveToTop}
                 moveToBottom={moveToBottom}
                 cloneCard={cloneCard}

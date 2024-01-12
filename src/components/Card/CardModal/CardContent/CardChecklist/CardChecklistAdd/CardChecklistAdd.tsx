@@ -1,9 +1,9 @@
-import { Close as CloseIcon } from '@mui/icons-material';
-import { IChecklistItem } from '@models';
 import { useState } from 'react';
-import './CardChecklistAdd.scss';
+import { Close as CloseIcon } from '@mui/icons-material';
 import { Textarea } from '@components';
+import { IChecklistItem } from '@models';
 import { utilsService } from '@services';
+import './CardChecklistAdd.scss';
 
 interface ICardCheckListAddProps {
   addNewChecklistItem: (checklistItem: IChecklistItem) => void;

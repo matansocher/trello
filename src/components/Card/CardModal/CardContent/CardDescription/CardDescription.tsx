@@ -9,13 +9,12 @@ interface ICardDescriptionProps {
 }
 
 function CardDescription({  }: ICardDescriptionProps) {
-  const { currentCard: card, updateCurrentCard } = useCurrentCard();
+  const { currentCard: card } = useCurrentCard();
   const [input, setInput] = useState(card.description as string);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSaveClick = async () => {
-    const cardToSave = dataService.updateCardDescription(card, input);
-    updateCurrentCard(cardToSave);
+    dataService.updateCardDescription(card, input);
     setIsOpen(false);
   }
 

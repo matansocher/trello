@@ -22,18 +22,16 @@ interface ICardContentProps {
 }
 
 function CardContent({  }: ICardContentProps) {
-  const { currentCard: card, updateCurrentCard } = useCurrentCard();
+  const { currentCard: card } = useCurrentCard();
 
   const handleChecklistTitleSave = async (checklistTitle: string) => {
-    const cardToSave = dataService.updateChecklistTitle(card, checklistTitle);
-    updateCurrentCard(cardToSave);
+    dataService.updateChecklistTitle(card, checklistTitle);
   }
 
   const handleDeleteChecklistClick = async () => {
     if (!card.checklistItems?.length && !card.checklistTitle) return;
 
-    const cardToSave = dataService.deleteChecklist(card);
-    updateCurrentCard(cardToSave);
+    dataService.deleteChecklist(card);
   }
 
   const amountOfCheckListChecked = card.checklistItems?.filter((item) => item.isChecked).length || 0;

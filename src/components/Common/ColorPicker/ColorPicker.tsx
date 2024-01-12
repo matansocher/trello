@@ -1,9 +1,9 @@
+import { useState } from 'react';
+import { Close as CloseIcon } from '@mui/icons-material';
 import { ModalWrapper } from '@components';
 import { IColorTile, IModalStyles } from '@models';
 import { COLOR_TILES } from './ColorPicker.config';
 import './ColorPicker.scss';
-import { Close as CloseIcon } from '@mui/icons-material';
-import { useState } from 'react';
 
 const colorPickerModalStyles: IModalStyles = {
   width: 320,

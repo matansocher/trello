@@ -5,21 +5,19 @@ import {
 } from '@mui/icons-material';
 import { EditableInput } from '@components';
 import { useCurrentCard } from '@context';
-import { IList } from '@models';
 import { dataService } from '@services';
 import './CardHeader.scss';
 
 interface ICardHeaderProps {
-  list: IList;
+  listTitle: string;
   handleCloseModal: () => void;
 }
 
-function CardHeader({ list, handleCloseModal }: ICardHeaderProps) {
-  const { currentCard: card, updateCurrentCard } = useCurrentCard();
+function CardHeader({ listTitle, handleCloseModal }: ICardHeaderProps) {
+  const { currentCard: card } = useCurrentCard();
 
   const handleSave = async (title: string) => {
-    const cardToSave = dataService.updateCardTitle(card, title);
-    updateCurrentCard(cardToSave);
+    dataService.updateCardTitle(card, title);
   }
 
   const handleWatchClick = () => {
@@ -33,7 +31,7 @@ function CardHeader({ list, handleCloseModal }: ICardHeaderProps) {
         <div className='card-header__left__title'>
           <EditableInput handleSave={handleSave} initialValue={card.title} />
         </div>
-        <p className='card-header__left__list'>list: {list.title}</p>
+        <p className='card-header__left__list'>list: {listTitle}</p>
       </div>
       <div className='card-header__right'>
         <button className='card-header__right__watch' onClick={handleWatchClick}>

@@ -102,7 +102,7 @@ export const getList = async (id: string) => {
   const listRef = doc(db, COLLECTIONS.LIST, id);
   const listSnap = await getDoc(listRef);
   if (!listSnap.exists()) {
-    console.log('Board Does Not Exist');
+    console.log('List Does Not Exist');
   }
 
   const list = listSnap.data();
@@ -119,7 +119,7 @@ export const getCleanedList = async (id: string) => {
   const listRef = doc(db, COLLECTIONS.LIST, id);
   const listSnap = await getDoc(listRef);
   if (!listSnap.exists()) {
-    console.log('Board Does Not Exist');
+    console.log('List Does Not Exist');
   }
   return {
     ...listSnap.data(),
@@ -150,6 +150,18 @@ export const archiveList = async (listId: string) => {
 };
 
 // *********************  CARD  ********************* //
+export const getCard = async (id: string) => {
+  const cardRef = doc(db, COLLECTIONS.CARD, id);
+  const cardSnap = await getDoc(cardRef);
+  if (!cardSnap.exists()) {
+    console.log('Card Does Not Exist');
+  }
+  return {
+    ...cardSnap.data(),
+    id: cardSnap.id,
+  };
+}
+
 export const getCards = async (cardIds: string[]) => {
   const q = query(
     collection(db, COLLECTIONS.CARD),
@@ -159,9 +171,9 @@ export const getCards = async (cardIds: string[]) => {
   return querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as ICard[];
 }
 
-export const getCardListener = async (id: string, callback: any) => {
+export const getCardListener = (id: string = '', callback: any) => {
   const q = query(collection(db, COLLECTIONS.CARD), where(documentId(), '==', id));
-  return onSnapshot(q, callback)
+  return onSnapshot(q, callback);
 }
 
 export const createCard = async (card: ICard) => {

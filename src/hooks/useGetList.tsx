@@ -17,7 +17,7 @@ export const useGetList = (listId: string = '') => {
       try {
         setLoading(true);
         firebaseService.getListListener(listId, async (querySnapshot: any) => {
-          const [list] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
+          const [list] = querySnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }));
           setList(list)
           const cards = list?.cards?.length ? await firebaseService.getCards(list.cards) : [];
           setCards(cards);

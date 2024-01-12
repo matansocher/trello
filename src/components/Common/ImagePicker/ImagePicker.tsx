@@ -34,7 +34,6 @@ function ImagePicker({ isOpen, setIsOpen, initialSelectedBackground = '', handle
     return backgrounds.map((background: any) => {
       const isSelected = selectedBackground === background.fileName;
       const photoUrl = utilsService.getStorageLinkUrl(background.fileName);
-      console.log(photoUrl);
       return (
         <div
           key={background.fileName}

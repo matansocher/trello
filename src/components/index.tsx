@@ -21,7 +21,7 @@ import DropdownMenu from './Common/DropdownMenu/DropdownMenu';
 import EditableInput from './Common/EditableInput/EditableInput';
 import EllipsisText from './Common/EllipsisText/EllipsisText';
 import FooterIcon from './Card/CardPreview/FooterIcon/FooterIcon';
-import ImagePicker from './Common/ImagePicker/ImagePicker.tsx';
+import ImagePicker from './Common/ImagePicker/ImagePicker';
 import Label from './Card/CardPreview/Label/Label';
 import LabelsPicker from './Common/LabelsPicker/LabelsPicker';
 import LabelsPickerItem from './Common/LabelsPicker/LabelsPickerItem';

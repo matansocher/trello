@@ -9,21 +9,18 @@ interface ICardCheckListProps {
 }
 
 function CardChecklist({}: ICardCheckListProps) {
-  const { currentCard: card, updateCurrentCard } = useCurrentCard();
+  const { currentCard: card } = useCurrentCard();
 
   const addNewChecklistItem = async (checklistItem: IChecklistItem) => {
-    const cardToSave = dataService.addNewChecklistItem(card, checklistItem);
-    updateCurrentCard(cardToSave);
+    dataService.addNewChecklistItem(card, checklistItem);
   }
 
   const updateChecklistItem = async (checklistItem: IChecklistItem) => {
-    const cardToSave = dataService.updateChecklistItem(card, checklistItem);
-    updateCurrentCard(cardToSave);
+    dataService.updateChecklistItem(card, checklistItem);
   }
 
   const deleteChecklistItem = async (checklistItem: IChecklistItem) => {
-    const cardToSave = dataService.deleteChecklistItem(card, checklistItem);
-    updateCurrentCard(cardToSave);
+    dataService.deleteChecklistItem(card, checklistItem);
   }
 
   const renderChecklistItems = () => {

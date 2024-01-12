@@ -9,11 +9,11 @@ import {
 } from '@mui/icons-material';
 import { trelloLogo } from '@assets';
 import { DropdownMenu, UserAvatar } from '@components';
+import { useUser } from '@context';
+import { useGetBoards } from '@hooks';
 import { IBoard, IDropdownItem } from '@models';
 import { dataService } from '@services';
 import './Navbar.scss';
-import { useGetBoards } from '@hooks';
-import { useUser } from '@context';
 
 function Navbar() {
   const { user, logOut } = useUser();

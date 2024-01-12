@@ -2,13 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { earth } from '@assets';
 import { EllipsisText } from '@components';
 import { BOARD_INITIAL_STATE } from '@constants';
-import { useBoard } from '@context';
+import { useBoard, useUser } from '@context';
 import { useGetBoards, useGetBoardTemplates } from '@hooks';
 import { IBoard, IBoardTemplate } from '@models';
 import { dataService, utilsService } from '@services';
 import './Home.scss';
 
 function Home() {
+  const { user } = useUser();
   const { updateBoardState } = useBoard();
   const { boards } = useGetBoards();
   const { boardTemplates } = useGetBoardTemplates();
@@ -59,10 +60,10 @@ function Home() {
       <div className='home-wrapper__content'>
         <div className='home-wrapper__content__header'>
           <div className='home-wrapper__content__header__left'>
-            <span>M</span>
+            <span>{user?.displayName?.charAt(0).toUpperCase()}</span>
           </div>
           <div className='home-wrapper__content__header__right'>
-            <p>Matan Socher's workspace</p>
+            <p>{user?.displayName}'s workspace</p>
           </div>
         </div>
         <div className='home-wrapper__content__boards'>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ArchiveOutlined as ArchiveOutlinedIcon,
@@ -17,7 +18,6 @@ import { useBoard } from '@context';
 import { IDropdownItem } from '@models';
 import { dataService, utilsService } from '@services';
 import './BoardHeader.scss';
-import { useState } from 'react';
 
 function BoardHeader() {
   const navigate = useNavigate();
@@ -59,7 +59,8 @@ function BoardHeader() {
   }
 
   const handleTitleSave = (newValue: string) => {
-    console.log('handleTitleSave', newValue);
+    const newBoard = { ...board, title: newValue };
+    dataService.updateBoard(newBoard);
   }
 
   const handleSaveBackgroundPicker = async (selectedBackground: any) => {
