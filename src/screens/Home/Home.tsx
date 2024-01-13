@@ -17,18 +17,18 @@ function Home() {
 
   const handleCreateBoardClick = async () => {
     const newBoard = await firebaseService.createBoard('New Board');
-    navigate(`/boards/${newBoard.id}`);
+    navigate(`/board/${newBoard.id}`);
   }
 
   const handleBoardTemplateClick = async (boardTemplate: IBoardTemplate) => {
     const createdBoardId = await firebaseService.createBoardFromTemplate(boardTemplate);
     // updateBoardState(BOARD_INITIAL_STATE);
-    navigate(`/boards/${createdBoardId}`);
+    navigate(`/board/${createdBoardId}`);
   }
 
   const handleBoardClick = (boardId: string) => {
     updateBoardState(BOARD_INITIAL_STATE);
-    navigate(`/boards/${boardId}`);
+    navigate(`/board/${boardId}`);
   }
 
   const renderBoardTemplates = () => {

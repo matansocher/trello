@@ -37,14 +37,14 @@ function Navbar() {
       return {
         label: board.title,
         icon: <CalendarMonthIcon />,
-        onClick: () => navigate(`/boards/${board.id}`),
+        onClick: () => navigate(`/board/${board.id}`),
       }
     });
   }
 
   const handleCreateBoardClick = async () => {
     const newBoard = await firebaseService.createBoard('New Board');
-    navigate(`/boards/${newBoard.id}`);
+    navigate(`/board/${newBoard.id}`);
   }
 
   const getUserDropdownMenuItems = (): IDropdownItem[] => {

@@ -1,4 +1,5 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   AccessTimeOutlined as AccessTimeOutlinedIcon,
   ChatBubbleOutline as ChatBubbleOutlineIcon,
@@ -38,11 +39,20 @@ interface ICardPreviewProps {
 
 function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCard }: ICardPreviewProps) {
   const { labels } = useLabels();
+  const { boardId = '', cardId: cardIdFromUrl = '' } = useParams<{ boardId: string, cardId: string }>();
+  const navigate = useNavigate();
   const { updateCurrentCard } = useCurrentCard();
   const [thisCard, setThisCard] = useState<ICard>(card);
   const [isHovered, hoverEventHandlers] = useToggleHover(false);
   // modal
   const [cardModalOpen, setCardModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (cardIdFromUrl === card.id) {
+      updateCurrentCard(card);
+      setCardModalOpen(true);
+    }
+  }, []);
 
   const handleCardClick = (event: MouseEvent<HTMLDivElement>) => {
     const clickedElement = event.target as any;
@@ -54,12 +64,14 @@ function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCa
     // clicked on card and not on more icon
     updateCurrentCard(thisCard);
     setCardModalOpen(true);
+    navigate(`/board/${boardId}/${thisCard.id}`); // update url to have the cardId as a param
   }
 
   const closeModal = (newCard?: ICard) => {
     setCardModalOpen(false);
     setThisCard(newCard || CARD_INITIAL_STATE);
     updateCurrentCard(CARD_INITIAL_STATE);
+    navigate(`/board/${boardId}`); // update url not to have the cardId as a param
   }
 
   const renderDropdownMenu = () => {

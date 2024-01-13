@@ -11,7 +11,7 @@ import { firebaseService, dndService, utilsService } from '@services';
 import './Board.scss';
 
 function Board() {
-  const { boardId = '' } = useParams<{ boardId: string }>();
+  const { boardId = '' } = useParams<{ boardId: string, cardId: string }>();
   const { board: boardFromDb, loading } = useGetBoard(boardId);
   const { boardState: board, updateBoardState } = useBoard();
   const { updateLabelsState } = useLabels();
