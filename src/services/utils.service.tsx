@@ -1,4 +1,4 @@
-import { ICard, IUser } from '@models';
+import { ICard, ILabel, IUser } from '@models';
 
 export function generateId(): string {
   return Math.random().toString(36).substr(2, 9);
@@ -47,4 +47,17 @@ export function getStorageLinkUrl(fileName: string) {
 
 export function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function sortLabelsByListOrder(labels: ILabel[] = [], labelIdsToSortBy: string[] = []) {
+  return labels.sort((labelA, labelB) => {
+    let labelAIndex = labelIdsToSortBy.indexOf(labelA.id as string);
+    let labelBIndex = labelIdsToSortBy.indexOf(labelB.id as string);
+
+    // If one of the labels is not found in labelIdsToSortBy, it's placed at the end
+    if (labelAIndex === -1) labelAIndex = Number.MAX_VALUE;
+    if (labelBIndex === -1) labelBIndex = Number.MAX_VALUE;
+
+    return labelAIndex - labelBIndex;
+  });
 }
