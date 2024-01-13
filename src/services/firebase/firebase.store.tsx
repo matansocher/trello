@@ -98,7 +98,7 @@ export const getLists = async (listIds: string[]) => {
   return querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as IList[];
 }
 
-export const getList = async (id: string) => {
+export const getListWithCards = async (id: string) => {
   const listRef = doc(db, COLLECTIONS.LIST, id);
   const listSnap = await getDoc(listRef);
   if (!listSnap.exists()) {
@@ -115,7 +115,7 @@ export const getList = async (id: string) => {
   };
 };
 
-export const getCleanedList = async (id: string) => {
+export const getList = async (id: string) => {
   const listRef = doc(db, COLLECTIONS.LIST, id);
   const listSnap = await getDoc(listRef);
   if (!listSnap.exists()) {

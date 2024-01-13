@@ -1,7 +1,7 @@
-import { IBoard } from '@models';
+import { IBoard, ICard } from '@models';
 import { firebaseService } from './index';
 
-export async function dragEndHandler(board: IBoard, result: any) {
+export async function boardDragEndHandler(board: IBoard, result: any) {
   const { draggableId, source, destination } = result;
   if (!destination) return;
   if (destination.droppableId === source.droppableId && destination.index === source.index) return;
@@ -14,23 +14,23 @@ export async function dragEndHandler(board: IBoard, result: any) {
 
   // list drag
   if (isDragItemList && isDraggedFromBoard && isDroppedOnBoard) {
-    return handleListReorderDrag(board, source.index, destination.index);
+    return handleListReorder(board, source.index, destination.index);
   }
   // card drag
   if (isDragItemCard && isDroppedOnList) {
     // card drag to the same list
     if (destination.droppableId === source.droppableId) {
-      return handleCardsReorderDrag(source.index, destination);
+      return handleCardsReorder(source.index, destination);
     }
     // card drag to another list
     if (destination.droppableId !== source.droppableId) {
-      return handleCardToAnotherListDrag(source, destination);
+      return handleCardToAnotherList(source, destination);
     }
   }
-  console.log('dragEndHandler - nothing handled');
+  console.log('boardDragEndHandler - nothing handled');
 }
 
-async function handleListReorderDrag(board: IBoard, sourceIndex: number, destinationIndex: number): Promise<void> {
+async function handleListReorder(board: IBoard, sourceIndex: number, destinationIndex: number): Promise<void> {
   const boardLists = [...board.lists];
   const list = boardLists.splice(sourceIndex, 1)[0];
   boardLists.splice(destinationIndex, 0, list);
@@ -38,8 +38,8 @@ async function handleListReorderDrag(board: IBoard, sourceIndex: number, destina
   firebaseService.updateBoard(newBoard);
 }
 
-async function handleCardsReorderDrag(sourceIndex: number, destination: any): Promise<void> {
-  const list = await firebaseService.getCleanedList(destination.droppableId.split('_')[1]);
+async function handleCardsReorder(sourceIndex: number, destination: any): Promise<void> {
+  const list = await firebaseService.getList(destination.droppableId.split('_')[1]);
   const listCards = [...list.cards];
   const card = listCards.splice(sourceIndex, 1)[0];
   listCards.splice(destination.index, 0, card);
@@ -47,10 +47,10 @@ async function handleCardsReorderDrag(sourceIndex: number, destination: any): Pr
   firebaseService.updateList(newList);
 }
 
-async function handleCardToAnotherListDrag(source: any, destination: any) {
+async function handleCardToAnotherList(source: any, destination: any) {
   const [sourceList, destinationList] = await Promise.all([
-    firebaseService.getCleanedList(source.droppableId.split('_')[1]),
-    firebaseService.getCleanedList(destination.droppableId.split('_')[1]),
+    firebaseService.getList(source.droppableId.split('_')[1]),
+    firebaseService.getList(destination.droppableId.split('_')[1]),
   ]);
 
   const sourceListCards = [...sourceList.cards];
@@ -66,4 +66,16 @@ async function handleCardToAnotherListDrag(source: any, destination: any) {
     firebaseService.updateList(newSourceList),
     firebaseService.updateList(newDestinationList),
   ]);
+}
+
+export async function checklistDragEndHandler(card: ICard, result: any) {
+  const { source, destination } = result;
+  if (!destination) return;
+  if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+
+  const checklistItems = card.checklistItems || [];
+  const checklistItem = checklistItems.splice(source.index, 1)[0];
+  checklistItems.splice(destination.index, 0, checklistItem);
+
+  return firebaseService.updateChecklistItemsOrder(card, checklistItems)
 }

@@ -10,15 +10,21 @@
       display: flex;
       align-items: center;
       cursor: pointer;
+      & > svg {
+        margin-left: 12px;
+      }
+      .editable-input-wrapper {
+        margin-top: 3px;
+        margin-left: 0;
+      }
       .delete-icon {
         cursor: pointer;
         svg {
-          font-size: 22px;
+          font-size: 16px;
         }
       }
       span { // checkbox
         padding: 0;
-        margin-right: 18px;
       }
     }
   }

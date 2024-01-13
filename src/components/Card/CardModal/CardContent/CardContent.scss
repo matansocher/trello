@@ -52,21 +52,7 @@
     }
     .editable-input-wrapper {
       margin-left: 8px;
-      margin-top: -3px;
-    }
-    //.header-icon {
-    //  left: 0;
-    //}
-    .card-checklist {
-      &__items {
-        &__item {
-          .editable-input-wrapper {
-            margin-top: 3px;
-            margin-left: 0;
-          }
-        }
-      }
-
+      margin-top: 0;
     }
   }
   .comments-section {

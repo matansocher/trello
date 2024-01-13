@@ -18,20 +18,23 @@ const DEFAULT_MODAL_STYLE = {
 
 interface IModalProps {
   modalOpen: boolean;
-  closeModal: () => void;
+  closeModal?: () => void;
+  closeModalOnClickOutside?: boolean;
   modalStyle: IModalStyles;
   children: ReactNode;
 }
 
-function ModalWrapper({ modalOpen, closeModal, modalStyle, children }: IModalProps) {
+function ModalWrapper({ modalOpen, closeModal, closeModalOnClickOutside = true, modalStyle, children }: IModalProps) {
   const finalModalStyle = { ...DEFAULT_MODAL_STYLE, ...modalStyle };
+
+  const onClose = () => {
+    if (closeModalOnClickOutside && closeModal) {
+      closeModal();
+    }
+  }
+
   return (
-    <Modal
-      open={modalOpen}
-      onClose={() => closeModal()}
-      aria-labelledby='modal-modal-title'
-      aria-describedby='modal-modal-description'
-    >
+    <Modal open={modalOpen} onClose={onClose} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
       <Box sx={finalModalStyle}>
         {children}
       </Box>

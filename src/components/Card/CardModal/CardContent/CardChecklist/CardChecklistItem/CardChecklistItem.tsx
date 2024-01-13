@@ -1,4 +1,4 @@
-import { Delete as DeleteIcon } from '@mui/icons-material';
+import { Delete as DeleteIcon, DragIndicatorOutlined as DragIndicatorOutlinedIcon } from '@mui/icons-material';
 import Checkbox from '@mui/material/Checkbox';
 import { EditableInput } from '@components';
 import { useToggleHover } from '@hooks';
@@ -21,6 +21,7 @@ function CardChecklistItem({ checklistItem, handleChecklistItemChange, handleChe
         checked={isChecked}
         onChange={(event) => handleChecklistItemChange({ ...checklistItem, isChecked: event.target.checked } )}
         inputProps={{ 'aria-label': 'controlled' }} />
+      <DragIndicatorOutlinedIcon />
       <EditableInput handleSave={(newValue: string) => handleChecklistItemChange({ ...checklistItem, description: newValue })} initialValue={description} />
       {isHovered ? <div className='delete-icon' onClick={() => handleChecklistItemDelete(checklistItem)}>
         <DeleteIcon />

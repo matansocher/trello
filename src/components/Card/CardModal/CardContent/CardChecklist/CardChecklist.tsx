@@ -1,7 +1,8 @@
+import { DragDropContext, Draggable, Droppable, DroppableProvided } from 'react-beautiful-dnd';
 import { CardChecklistAdd, CardChecklistItem } from '@components';
 import { useCurrentCard } from '@context';
 import { IChecklistItem } from '@models';
-import { firebaseService } from '@services';
+import { dndService, firebaseService } from '@services';
 import './CardChecklist.scss';
 
 interface ICardCheckListProps {
@@ -23,23 +24,41 @@ function CardChecklist({}: ICardCheckListProps) {
     firebaseService.deleteChecklistItem(card, checklistItem);
   }
 
+  const onDragEnd = async (result: any) => {
+    await dndService.checklistDragEndHandler(card, result);
+  }
+
   const renderChecklistItems = () => {
-    return (
-      <>
-        {card.checklistItems?.map((checklistItem: IChecklistItem) => {
-          const key = Math.random();
-          return <CardChecklistItem key={key} checklistItem={checklistItem} handleChecklistItemChange={updateChecklistItem} handleChecklistItemDelete={deleteChecklistItem} />;
-        })}
-      </>
-    )
+    return card.checklistItems?.map((checklistItem: IChecklistItem, index: number) => {
+      return (
+        <Draggable key={checklistItem.id} draggableId={`checklistItem_${checklistItem.id}`} index={index}>
+          {(provided) => (
+            <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+              <CardChecklistItem
+                checklistItem={checklistItem}
+                handleChecklistItemChange={updateChecklistItem}
+                handleChecklistItemDelete={deleteChecklistItem}
+              />
+            </div>
+          )}
+        </Draggable>
+      )
+    });
   }
 
   return (
     <div className='card-checklist'>
-      <div className='card-checklist__items'>
-        {renderChecklistItems()}
-      </div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId='checklist' type='checklist' direction='vertical'>
+          {(provided: DroppableProvided) => (
+            <div className='card-checklist__items' ref={provided.innerRef} {...provided.droppableProps}>
+              {renderChecklistItems()}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       <CardChecklistAdd addNewChecklistItem={addNewChecklistItem} />
+      </DragDropContext>
     </div>
   )
 }

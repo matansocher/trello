@@ -70,7 +70,7 @@ function List({ listIdToFetch }: IListProps) {
             <ListHeader list={list} />
           </div>
           {list?.id ? <div className='list-wrapper__content__cards'>
-            <Droppable droppableId={`list_${list.id}`} direction='vertical' type='list'>
+            <Droppable droppableId={`list_${list.id}`} type='list' direction='vertical'>
               {(provided: DroppableProvided) => (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
                   {renderCards()}

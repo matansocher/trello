@@ -38,7 +38,7 @@ interface ICardPreviewProps {
 
 function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCard }: ICardPreviewProps) {
   const { labels } = useLabels();
-  const { currentCard, updateCurrentCard } = useCurrentCard();
+  const { updateCurrentCard } = useCurrentCard();
   const [thisCard, setThisCard] = useState<ICard>(card);
   const [isHovered, hoverEventHandlers] = useToggleHover(false);
   // modal
@@ -123,7 +123,6 @@ function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCa
   return (
     <>
       <div className='card-preview' onClick={handleCardClick} {...(hoverEventHandlers as Object)}>
-        <p>{currentCard.id}</p>
         {thisCard?.coverColor ? <div className='card-preview__cover' style={{ backgroundColor: thisCard.coverColor }} /> : null}
         <div className='card-preview__body' style={thisCard?.coverColor ? { paddingTop: 6 } : {}}>
           <span className='card-id'>{thisCard.id}</span>
@@ -139,7 +138,7 @@ function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCa
           </div>
         </div>
       </div>
-      <ModalWrapper modalOpen={cardModalOpen} closeModal={closeModal} modalStyle={modalWrapperModalStyles}>
+      <ModalWrapper modalOpen={cardModalOpen} modalStyle={modalWrapperModalStyles} closeModalOnClickOutside={false}>
         <CardModal list={list} closeModal={closeModal} archiveCard={archiveCard}/>
       </ModalWrapper>
     </>

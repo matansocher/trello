@@ -41,7 +41,7 @@ function Board() {
   }
 
   const onDragEnd = async (result: any) => {
-    await dndService.dragEndHandler(board, result);
+    await dndService.boardDragEndHandler(board, result);
   }
 
   const renderLists = () => {

@@ -135,8 +135,8 @@ export function getListListener(listId: string = '', callback: any) {
   return firebaseStore.getListListener(listId, callback);
 }
 
-export function getCleanedList(listId: string): any {
-  return firebaseStore.getCleanedList(listId);
+export function getList(listId: string): any {
+  return firebaseStore.getList(listId);
 }
 
 export function updateList(list: IList): void {
@@ -173,14 +173,14 @@ export async function cloneList(board: IBoard, list: IList): Promise<IBoard> {
 }
 
 export async function archiveList(board: IBoard, listId: string): Promise<IBoard> {
-  const list = await firebaseStore.getList(listId);
+  const list = await firebaseStore.getListWithCards(listId);
   const deleteCardPromises = list.cards.map((card: ICard) => firebaseStore.archiveCard(card.id as string));
   await Promise.all(deleteCardPromises);
 
   await firebaseStore.archiveList(listId);
   const newBoard = { ...board, lists: board.lists.filter((list: string) => list !== listId) } as IBoard;
   await firebaseStore.updateBoard(newBoard);
-  return newBoard
+  return newBoard;
 }
 
 export function moveCardToTop(list: IList, card: ICard): void {
@@ -325,6 +325,12 @@ export function deleteChecklistItem(card: ICard, checklistItem: IChecklistItem):
   const checklistItems = card.checklistItems || [];
   const newChecklistItems = checklistItems.filter((item: IChecklistItem) => item.id !== checklistItem.id);
   const cardToSave = { ...card, checklistItems: newChecklistItems };
+  firebaseStore.updateCard(cardToSave);
+  return cardToSave;
+}
+
+export function updateChecklistItemsOrder(card: ICard, checklistItems: IChecklistItem[]): ICard {
+  const cardToSave = { ...card, checklistItems };
   firebaseStore.updateCard(cardToSave);
   return cardToSave;
 }

@@ -1,11 +1,13 @@
-feat - add option to add cover to a ticket
 feat - add activity saving support
 feat - error state
 feat - add support for uploading board background - storage
 feat - default image - remove earth image
+feat - checklist items drag and drop
+feat - mobile support
+when in a ticket (modal), add card id to the url as a param, and also make sure when you refresh the page, the modal is opened
 
 bug - drag and drop bump - check if you can set the state even before data comes from db
-
+bug - drag and drop bump in checklist items
 
 
 [
