@@ -32,7 +32,7 @@ function CardHeader({ listTitle, handleCloseModal }: ICardHeaderProps) {
         <div className='card-header__left__title'>
           <EditableInput handleSave={handleSave} initialValue={card.title} />
         </div>
-        <p className='card-header__left__list'>list: {listTitle}</p>
+        <p className='card-header__left__list'>list: {listTitle}, created: {card.createdAt}</p>
       </div>
       <div className='card-header__right'>
         <button className='card-header__right__watch' onClick={handleWatchClick}>

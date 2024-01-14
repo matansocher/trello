@@ -64,7 +64,7 @@ function CardComment({ comment, handleCommentEdit, handleCommentDelete }: ICardC
       <div className='comment__items__item__right'>
         <div className='comment__items__item__right__author'>
           <p className='name'>{userId}</p>
-          <p className='date'>{timestamp}</p>
+          <p className='date'>{new Date(timestamp).toISOString().slice(0, 10)}</p>
         </div>
 
         {renderComment()}

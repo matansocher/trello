@@ -11,8 +11,9 @@ function CardActivity({}: ICardActivityProps) {
   const { currentCard: card } = useCurrentCard();
 
   const renderActivityItems = () => {
-    return card.activityItems?.map((activityItem: IActivityItem) => {
-      const key = `${activityItem.userId}_${activityItem.createdAt}`;
+    const sortedActivityItems = card.activityItems?.sort((a: IActivityItem, b: IActivityItem) => b.timestamp - a.timestamp) || [];
+    return sortedActivityItems.map((activityItem: IActivityItem) => {
+      const key = `${activityItem.userId}_${activityItem.timestamp}`;
       return (
         <div key={key} className='card-activities__activity'>
           <div className='card-activities__activity__left'>
@@ -20,7 +21,7 @@ function CardActivity({}: ICardActivityProps) {
           </div>
           <div className='card-activities__activity__right'>
             <p className='description'><span>{activityItem.userId}</span>: {activityItem.description}</p>
-            <p className='date'>{activityItem.createdAt}</p>
+            <p className='date'>{new Date(activityItem.timestamp).toISOString().slice(0, 10)}</p>
           </div>
         </div>
       )

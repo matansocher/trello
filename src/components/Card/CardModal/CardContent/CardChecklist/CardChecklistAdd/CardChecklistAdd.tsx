@@ -18,9 +18,8 @@ function CardChecklistAdd({ addNewChecklistItem }: ICardCheckListAddProps) {
       setIsOpen(false);
       return;
     }
-    const timestamp = new Date().toISOString().slice(0, 10);
     const id = utilsService.generateId();
-    const newChecklistItem: IChecklistItem = { id, description: input, isChecked: false, timestamp };
+    const newChecklistItem: IChecklistItem = { id, description: input, isChecked: false, timestamp: new Date().getTime() };
     addNewChecklistItem(newChecklistItem);
     setIsOpen(false);
     setInput('');

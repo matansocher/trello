@@ -24,9 +24,9 @@ function CardComments({  }: ICardCommentsProps) {
   }
 
   const renderComments = () => {
-    return card?.comments?.map((comment: IComment) => {
-      const key = Math.random();
-      return <CardComment key={key} comment={comment} handleCommentEdit={editComment} handleCommentDelete={deleteComment} />
+    const sortedComments = card?.comments?.sort((a: IComment, b: IComment) => b.timestamp - a.timestamp) || [];
+    return sortedComments.map((comment: IComment) => {
+      return <CardComment key={comment.id} comment={comment} handleCommentEdit={editComment} handleCommentDelete={deleteComment} />
     });
   }
 

@@ -29,8 +29,7 @@ function CardCommentAdd({ addNewComment }: ICardCommentAddProps) {
       return;
     }
     const id = utilsService.generateId();
-    const timestamp = new Date().toISOString().slice(0, 10);
-    const newComment: IComment = { id, description: input, timestamp, userId: user.id };
+    const newComment: IComment = { id, description: input, timestamp: new Date().getTime(), userId: user.id };
     addNewComment(newComment);
     setIsOpen(false);
     setInput('');

@@ -1,6 +1,6 @@
 
 export interface IActivityItem {
   userId: string;
-  createdAt: string;
+  timestamp: number;
   description: string;
 }
