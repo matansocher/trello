@@ -1,4 +1,4 @@
-import { IComment, IChecklistItem, IActivityItem } from '@models';
+import { IComment, IChecklistItem, IActivityItem, ILocation } from '@models';
 
 export interface ICard {
   id?: string;
@@ -12,4 +12,5 @@ export interface ICard {
   checklistItems?: IChecklistItem[];
   activityItems?: IActivityItem[];
   coverColor?: string;
+  location?: ILocation;
 }

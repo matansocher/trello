@@ -1,4 +1,4 @@
-@import '../../../styles/colors';
+@import 'src/styles/colors';
 
 .dropdown-menu {
   display: flex;
@@ -7,5 +7,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
 }

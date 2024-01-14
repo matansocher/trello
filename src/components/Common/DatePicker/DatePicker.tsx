@@ -14,10 +14,10 @@ const datePickerModalStyles: IModalStyles = {
 };
 
 interface IDatePickerProps {
-  handleChange: (newValue: Dayjs | null) => void;
-  dueDate: string;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  dueDate: string;
+  handleChange: (newValue: Dayjs | null) => void;
 }
 
 function DatePicker({ dueDate, isOpen, setIsOpen, handleChange }: IDatePickerProps) {

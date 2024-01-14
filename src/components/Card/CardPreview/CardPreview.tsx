@@ -8,9 +8,10 @@ import {
   Delete as DeleteIcon,
   ExpandMore as ExpandMoreIcon,
   FormatAlignLeft as FormatAlignLeftIcon,
+  LocationOnOutlined as LocationOnOutlinedIcon,
   Schedule as ScheduleIcon,
-  VerticalAlignTopOutlined as VerticalAlignTopOutlinedIcon,
   VerticalAlignBottomOutlined as VerticalAlignBottomOutlinedIcon,
+  VerticalAlignTopOutlined as VerticalAlignTopOutlinedIcon,
 } from '@mui/icons-material';
 import { CardModal, DropdownMenu, EllipsisText, ModalWrapper, FooterIcon, Label } from '@components';
 import { useCurrentCard, useLabels } from '@context';
@@ -101,13 +102,16 @@ function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCa
   const renderFooterIcons = () => {
     const footerIcons: IFooterIcon[] = [];
     if (thisCard?.description) {
-      footerIcons.push({ id: 'footerIcon__2', icon: <FormatAlignLeftIcon/>, tooltipText: 'This thisCard has a description' });
+      footerIcons.push({ id: 'footerIcon__1', icon: <FormatAlignLeftIcon/>, tooltipText: 'This card has a description' });
     }
     if (thisCard?.comments && thisCard.comments?.length > 0) {
-      footerIcons.push({ id: 'footerIcon__3', icon: <ChatBubbleOutlineIcon/>, tooltipText: 'Comments' });
+      footerIcons.push({ id: 'footerIcon__2', icon: <ChatBubbleOutlineIcon/>, tooltipText: 'Comments' });
     }
     if (thisCard?.checklistItems && thisCard.checklistItems?.length > 0) {
-      footerIcons.push({ id: 'footerIcon__4', icon: <CheckBoxOutlinedIcon/>, tooltipText: 'Checklist items' });
+      footerIcons.push({ id: 'footerIcon__3', icon: <CheckBoxOutlinedIcon/>, tooltipText: 'Checklist items' });
+    }
+    if (thisCard?.location) {
+      footerIcons.push({ id: 'footerIcon__4', icon: <LocationOnOutlinedIcon/>, tooltipText: 'This card has a location' });
     }
     if (thisCard?.dueDate && thisCard.dueDate?.length > 0) {
       const numOfDaysDueAfterToday = utilsService.getNumOfDaysAfterToday(thisCard.dueDate)

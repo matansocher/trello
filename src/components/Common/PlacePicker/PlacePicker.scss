@@ -1,0 +1,59 @@
+@import 'src/styles/colors';
+
+.place-picker-wrapper {
+  &__header {
+    position: relative;
+    p {
+      text-align: center;
+      font-weight: 600;
+    }
+    .close {
+      cursor: pointer;
+      position: absolute;
+      top: -4px;
+      right: 0;
+    }
+  }
+  &__divider {
+    margin-top: 8px;
+    height: 2px;
+    background: $dark-5;
+  }
+  .location-search-input {
+    margin-top: 10px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 8px 12px;
+    border-radius: 5px;
+    color: #b6c2cf;
+    background-color: #21272b;
+    box-sizing: border-box;
+    border: 1px solid rgba(164, 153, 137, 0.6);
+    resize: none;
+    outline: none;
+  }
+  .autocomplete-dropdown-container {
+    background-color: $dark-5;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    //padding: 6px;
+    .loader-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+    }
+    .suggestion-item {
+      background-color: $dark-5;
+      padding: 8px;
+      cursor: pointer;
+      &:hover {
+          opacity: 0.7;
+          transition: opacity 0.3s ease-in-out;
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import {
   ChatBubbleOutline as ChatBubbleOutlineIcon,
   CheckBoxOutlined as CheckBoxOutlinedIcon,
   CommentOutlined as CommentOutlinedIcon,
+  LocationOnOutlined as LocationOnOutlinedIcon,
   SubjectOutlined as SubjectOutlinedIcon,
 } from '@mui/icons-material';
 import {
@@ -10,6 +11,7 @@ import {
   CardComments,
   CardDescription,
   CardInfo,
+  CardLocation,
   EditableInput,
   ProgressBar
 } from '@components';
@@ -46,6 +48,11 @@ function CardContent({  }: ICardContentProps) {
         <p className='subheader'>Description</p>
         <CardDescription />
       </div>
+      {card?.location?.id ? <div className='card-modal__content__right__sections__section location-section'>
+        <div className='header-icon'><LocationOnOutlinedIcon/></div>
+        <p className='subheader'>Location</p>
+        <CardLocation />
+      </div> : null}
       {card.checklistItems?.length || card.checklistTitle ? <div className='card-modal__content__right__sections__section checklist-section'>
         <div className='checklist-section__header'>
           <div className='header-icon'><CheckBoxOutlinedIcon /></div>

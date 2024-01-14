@@ -9,6 +9,7 @@ import {
   PersonOutline as PersonOutlineIcon,
   Schedule as ScheduleIcon,
   Share as ShareIcon,
+  LocationOnOutlined as LocationOnOutlinedIcon,
 } from '@mui/icons-material';
 import './CardActions.scss';
 
@@ -25,6 +26,7 @@ interface ICardActionsProps {
   handleChecklistClick: () => void;
   handleAttachmentClick: () => void;
   handleCoverClick: () => void;
+  handleLocationClick: () => void;
   handleMoveClick: () => void;
   handleCloneClick: () => void;
   handleArchiveClick: () => void;
@@ -38,6 +40,7 @@ function CardActions({
   handleChecklistClick,
   handleAttachmentClick,
   handleCoverClick,
+  handleLocationClick,
   handleMoveClick,
   handleCloneClick,
   handleArchiveClick,
@@ -52,6 +55,7 @@ function CardActions({
       { label: 'Checklist', icon: <CheckBoxOutlinedIcon fontSize='small' />, onClick: () => handleChecklistClick() },
       { label: 'Attachment', icon: <AttachFileIcon fontSize='small' />, onClick: () => handleAttachmentClick() },
       { label: 'Cover', icon: <InventoryIcon fontSize='small' />, onClick: () => handleCoverClick() },
+      { label: 'Location', icon: <LocationOnOutlinedIcon fontSize='small' />, onClick: () => handleLocationClick() },
     ];
     return renderActions(actions);
   }

@@ -12,10 +12,10 @@ const labelsModalStyles: IModalStyles = {
 };
 
 interface ILabelsPickerProps {
-  handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
-  cardLabels: string[];
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  cardLabels: string[];
+  handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
 }
 
 function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILabelsPickerProps) {

@@ -1,4 +1,4 @@
-import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, deleteField } from 'firebase/firestore';
 import { IBoard, ICard, ILabel, IList, IUser } from '@models';
 import { db } from './firebase.init';
 
@@ -186,6 +186,13 @@ export const updateCard = async (card: ICard) => {
   delete cardToSave.id;
   const cardRef = doc(db, COLLECTIONS.CARD, card.id as string);
   await updateDoc(cardRef, { ...cardToSave });
+};
+
+export const deleteFieldFromCard = (card: ICard, field: string) => {
+  const cardRef = doc(db, COLLECTIONS.CARD, card.id as string);
+  const fieldsToDelete = {} as any;
+  fieldsToDelete[field] = deleteField();
+  return updateDoc(cardRef, fieldsToDelete);
 };
 
 export const archiveCard = async (cardId: string) => {

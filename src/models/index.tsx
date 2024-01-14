@@ -10,5 +10,6 @@ export type { IDropdownItem } from './DropdownItem';
 export type { IFooterIcon } from './FooterIcon';
 export type { ILabel } from './Label';
 export type { IList } from './List';
+export type { ILocation } from './Location';
 export type { IModalStyles } from './ModalStyles';
 export type { IUser } from './User';

@@ -1,4 +1,4 @@
-@import 'src/styles/colors.scss';
+@import 'src/styles/colors';
 
 .card-modal__content__right__sections {
   display: flex;
@@ -27,7 +27,7 @@
   }
   .card-info-section {
   }
-  .description-section {
+  .description-section, .location-section {
     .subheader {
       margin-top: 2px;
     }

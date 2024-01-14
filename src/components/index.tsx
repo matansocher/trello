@@ -13,6 +13,7 @@ import CardContent from './Card/CardModal/CardContent/CardContent';
 import CardDescription from './Card/CardModal/CardContent/CardDescription/CardDescription'
 import CardHeader from './Card/CardModal/CardHeader/CardHeader';
 import CardInfo from './Card/CardModal/CardContent/CardInfo/CardInfo'
+import CardLocation from './Card/CardModal/CardContent/CardLocation/CardLocation';
 import CardModal from './Card/CardModal/CardModal';
 import CardPreview from './Card/CardPreview/CardPreview';
 import ColorPicker from './Common/ColorPicker/ColorPicker';
@@ -30,6 +31,7 @@ import ListHeader from './List/ListHeader/ListHeader';
 import Loader from './Common/Loader/Loader';
 import ModalWrapper from './Common/ModalWrapper/ModalWrapper';
 import Navbar from './Navbar/Navbar';
+import PlacePicker from './Common/PlacePicker/PlacePicker';
 import ProgressBar from './Common/ProgressBar/ProgressBar';
 import Textarea from './Common/Textarea/Textarea';
 import UserAvatar from './Common/UserAvatar/UserAvatar';
@@ -50,6 +52,7 @@ export {
   CardDescription,
   CardHeader,
   CardInfo,
+  CardLocation,
   CardModal,
   CardPreview,
   ColorPicker,
@@ -67,6 +70,7 @@ export {
   Loader,
   ModalWrapper,
   Navbar,
+  PlacePicker,
   ProgressBar,
   Textarea,
   UserAvatar,

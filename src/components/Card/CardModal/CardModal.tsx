@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Dayjs } from 'dayjs';
-import { CardActions, CardContent, CardHeader, ColorPicker, DatePicker, LabelsPicker } from '@components';
+import { CardActions, CardContent, CardHeader, ColorPicker, DatePicker, LabelsPicker, PlacePicker } from '@components';
 import { useCurrentCard } from '@context';
-import { ICard, IColorTile, ILabel, IList } from '@models';
+import { ICard, IColorTile, ILabel, IList, ILocation } from '@models';
 import { firebaseService } from '@services';
 import './CardModal.scss';
 
@@ -17,6 +17,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   const [datePickerModalOpen, setDatePickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
   const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
+  const [locationPlaceModalOpen, setLocationPlaceModalOpen] = useState(false);
 
   useEffect(() => {
     if (!card?.id) return;
@@ -85,6 +86,15 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
     setColorPickerModalOpen(false);
   }
 
+  const handleLocationClick = () => {
+    setLocationPlaceModalOpen(true);
+  }
+
+  const handleSaveLocationClick = (location: ILocation) => {
+    firebaseService.updateCardLocation(card, location);
+    setLocationPlaceModalOpen(false);
+  }
+
   return (
     <div className='card-modal'>
       {card?.coverColor ? <div className='card-modal__cover' style={{ backgroundColor: card.coverColor }} /> : null}
@@ -102,6 +112,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
               handleChecklistClick={handleChecklistClick}
               handleAttachmentClick={handleAttachmentClick}
               handleCoverClick={handleCoverClick}
+              handleLocationClick={handleLocationClick}
               handleMoveClick={handleMoveClick}
               handleCloneClick={handleCloneClick}
               handleArchiveClick={handleArchiveClick}
@@ -112,8 +123,9 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
       </div>
 
       <ColorPicker isOpen={colorPickerModalOpen} setIsOpen={setColorPickerModalOpen} hasHeader={false} handleSaveColorPicker={handleSaveCoverColorPicker} handleCloseColorPicker={() => setColorPickerModalOpen(false)} />
-      <DatePicker dueDate={card.dueDate as string} handleChange={handleDueDateChange} isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} />
+      <DatePicker isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} dueDate={card.dueDate as string} handleChange={handleDueDateChange} />
       <LabelsPicker isOpen={labelsModalOpen} setIsOpen={setLabelsModalOpen} cardLabels={card.labels || []} handleLabelsChange={handleLabelsChange} />
+      <PlacePicker isOpen={locationPlaceModalOpen} setIsOpen={setLocationPlaceModalOpen} handleSave={handleSaveLocationClick} />
     </div>
   )
 }

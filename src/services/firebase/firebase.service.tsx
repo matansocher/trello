@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { IBoard, IBoardTemplate, ICard, IChecklistItem, IComment, ILabel, IList } from '@models';
+import { IBoard, IBoardTemplate, ICard, IChecklistItem, IComment, ILabel, IList, ILocation } from '@models';
 import { firebaseStore } from '../index';
 
 export function getBackgrounds() {
@@ -338,6 +338,19 @@ export function updateChecklistItemsOrder(card: ICard, checklistItems: IChecklis
 export function updateCardCoverColor(card: ICard, coverColor: string): ICard {
   const cardToSave = { ...card, coverColor };
   firebaseStore.updateCard(cardToSave);
+  return cardToSave;
+}
+
+export function updateCardLocation(card: ICard, location: ILocation): ICard {
+  const cardToSave = { ...card, location };
+  firebaseStore.updateCard(cardToSave);
+  return cardToSave;
+}
+
+export function deleteFieldFromCard(card: ICard, field: string): ICard {
+  const cardToSave = { ...card } as ICard;
+  cardToSave['location'] && delete cardToSave['location'];
+  firebaseStore.deleteFieldFromCard(cardToSave, field);
   return cardToSave;
 }
 
