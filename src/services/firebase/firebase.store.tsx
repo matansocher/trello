@@ -1,6 +1,6 @@
 import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, deleteField } from 'firebase/firestore';
 import { IBoard, ICard, ILabel, IList, IUser } from '@models';
-import { db } from './firebase.init';
+import { db, storage } from './firebase.init';
 
 const COLLECTIONS = {
   BACKGROUND: 'Background',

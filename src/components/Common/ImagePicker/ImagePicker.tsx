@@ -7,6 +7,8 @@ import './ImagePicker.scss';
 
 const backgroundPickerModalStyles: IModalStyles = {
   width: 450,
+  // @ts-ignore
+  overflow: 'scroll',
   height: 535,
   p: 2,
 };
