@@ -4,7 +4,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { ColorPicker } from '@components';
 import { IColorTile, ILabel } from '@models';
 import { useToggleHover } from '@hooks';
-import { COLOR_TILES } from '../ColorPicker/ColorPicker.config';
+import { COLOR_TILES } from '@constants';
 
 interface ILabelsPickerItemProps {
   label: ILabel;

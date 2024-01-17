@@ -4,6 +4,7 @@ import { USER_INITIAL_STATE } from './user-initial-state';
 import { BOARD_INITIAL_STATE } from './board-initial-state';
 import { LIST_INITIAL_STATE } from './list-initial-state';
 import { CARD_INITIAL_STATE } from './card-initial-state';
+import { COLOR_TILES } from './ColorPicker.config';
 
 export {
   UserAvatarSize,
@@ -12,4 +13,5 @@ export {
   BOARD_INITIAL_STATE,
   LIST_INITIAL_STATE,
   CARD_INITIAL_STATE,
+  COLOR_TILES,
 }

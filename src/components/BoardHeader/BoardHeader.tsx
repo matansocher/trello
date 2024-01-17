@@ -12,10 +12,9 @@ import {
   SettingsOutlined as SettingsOutlinedIcon,
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
-import { earth } from '@assets';
 import { ImagePicker, DropdownMenu, EditableInput } from '@components';
 import { useBoard } from '@context';
-import { IDropdownItem } from '@models';
+import { IBackground, IDropdownItem } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './BoardHeader.scss';
 
@@ -63,7 +62,7 @@ function BoardHeader() {
     firebaseService.updateBoard(newBoard);
   }
 
-  const handleSaveBackgroundPicker = async (selectedBackground: any) => {
+  const handleSaveBackgroundPicker = async (selectedBackground: IBackground) => {
     const newBoard = firebaseService.updateBoardBackground(board, selectedBackground);
     updateBoardState(newBoard);
     setBackgroundPickerModalOpen(false);
@@ -74,7 +73,7 @@ function BoardHeader() {
       { label: 'Activity', icon: <FormatListBulletedOutlinedIcon fontSize='small' />, onClick: () => handleActivityClick() },
       { label: 'Archived items', icon: <ArchiveOutlinedIcon fontSize='small' />, onClick: () => handleArchivedItemsClick() },
       { label: 'Settings', icon: <SettingsOutlinedIcon fontSize='small' />, onClick: () => handleSettingsClick() },
-      { label: 'Change background', icon: <div className='change-bg' style={{ backgroundImage: board?.background ? `url(${utilsService.getStorageLinkUrl(board?.background)})` : `url(${earth})` }} />, onClick: () => handleChangeBackgroundClick() },
+      { label: 'Change background', icon: <div className='change-bg' style={ utilsService.getBackgroundStyle(board?.background) } />, onClick: () => handleChangeBackgroundClick() },
       { label: 'Labels', icon: <LabelIcon fontSize='small' />, onClick: () => handleLabelsClick() },
       { label: 'Watch', icon: <WatchOutlinedIcon fontSize='small' />, onClick: () => handleWatchClick() },
       { label: 'Print, export, and share', icon: <EmailOutlinedIcon fontSize='small' />, onClick: () => handlePrintExportShareClick() },
@@ -102,7 +101,7 @@ function BoardHeader() {
       <ImagePicker
         isOpen={backgroundPickerModalOpen}
         setIsOpen={setBackgroundPickerModalOpen}
-        initialSelectedBackground={board.background || ''}
+        initialSelectedBackground={board.background}
         handleSaveBackgroundPicker={handleSaveBackgroundPicker} />
     </div>
   )

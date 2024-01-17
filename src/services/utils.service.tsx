@@ -1,4 +1,4 @@
-import { ICard, ILabel, IUser } from '@models';
+import { IBackground, ICard, ILabel, IUser } from '@models';
 
 export function generateId(): string {
   return Math.random().toString(36).substr(2, 9);
@@ -60,4 +60,20 @@ export function sortLabelsByListOrder(labels: ILabel[] = [], labelIdsToSortBy: s
 
     return labelAIndex - labelBIndex;
   });
+}
+
+export function getBackgroundStyle(background: IBackground) {
+  switch (background?.type) {
+    case 'color':
+      return { backgroundColor: background?.background };
+    case 'image':
+      return {
+        backgroundImage: `url(${getStorageLinkUrl(background?.background)})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      };
+    default:
+      return { backgroundColor: '#21272b' };
+  }
 }

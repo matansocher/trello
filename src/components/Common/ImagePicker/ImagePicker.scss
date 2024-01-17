@@ -3,32 +3,78 @@
 .background-picker {
   border-radius: 5px;
   box-sizing: border-box;
-  padding: 20px 10px 10px;
+  padding: 0 10px 10px;
   &__header {
     p {
-
+      margin-bottom: 10px;
     }
   }
   &__backgrounds {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 10px;
-    &__background {
-      box-sizing: border-box;
-      border-radius: 4px;
-      cursor: pointer;
-      &:hover {
-        opacity: .7;
-        transition: opacity .3s ease-in-out;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    &__images {
+      width: 49%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      .upload-item {
+        width: 180px;
+        height: 100px;
+        padding: 6px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+        &:hover {
+          opacity: 0.7;
+          transition: opacity 0.3s ease-in-out;
+        }
       }
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      .plus {
+        background: $dark-5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 55px;
         border-radius: 4px;
       }
+      &__image {
+        box-sizing: border-box;
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover {
+          opacity: .7;
+          transition: opacity .3s ease-in-out;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 4px;
+        }
+      }
     }
+    &__colors {
+      width: 49%;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px 4px;
+      &__color {
+        width: 75px;
+        height: 32px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover {
+          opacity: .7;
+          transition: opacity .3s ease-in-out;
+        }
+      }
+      .selected-tile {
+        border: 3px solid $light-blue;
+      }
+    }
+
     .selected-background {
       border: 3px solid $light-blue;
     }

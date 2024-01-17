@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Close as CloseIcon } from '@mui/icons-material';
 import { ModalWrapper } from '@components';
 import { IColorTile, IModalStyles } from '@models';
-import { COLOR_TILES } from './ColorPicker.config';
+import { COLOR_TILES } from '@constants';
 import './ColorPicker.scss';
 
 const colorPickerModalStyles: IModalStyles = {
@@ -58,7 +58,7 @@ function ColorPicker({ isOpen, setIsOpen, hasHeader = true, editLabelId, initial
         <div className='color-picker__colors'>
           <p>Select a color</p>
           <div className='color-picker__colors__tiles'>
-          {renderColorTiles()}
+            {renderColorTiles()}
           </div>
         </div>
         <div className='color-picker__footer'>

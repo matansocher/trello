@@ -1,5 +1,15 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { IBoard, IBoardTemplate, ICard, IChecklistItem, IComment, ILabel, IList, ILocation } from '@models';
+import {
+  IBackground,
+  IBoard,
+  IBoardTemplate,
+  ICard,
+  IChecklistItem,
+  IComment,
+  ILabel,
+  IList,
+  ILocation
+} from '@models';
 import { firebaseStore } from '../index';
 
 export function getBackgrounds() {
@@ -63,8 +73,8 @@ export function updateBoard(board: IBoard): void {
   firebaseStore.updateBoard(board);
 }
 
-export function updateBoardBackground(board: IBoard, selectedBackground: string): IBoard {
-  const newBoard = { ...board, background: selectedBackground } as IBoard;
+export function updateBoardBackground(board: IBoard, background: IBackground): IBoard {
+  const newBoard = { ...board, background } as IBoard;
   firebaseStore.updateBoard(newBoard);
   return newBoard;
 }

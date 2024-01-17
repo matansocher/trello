@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
-import { earth } from '@assets';
 import { List, BoardHeader, AddNewList, Loader } from '@components';
 import { useBoard, useLabels } from '@context';
 import { LoaderSize } from '@constants';
@@ -60,7 +59,7 @@ function Board() {
   }
 
   return (
-    <div className='board-wrapper' style={{ backgroundImage: board?.background ? `url(${utilsService.getStorageLinkUrl(board?.background)})` : `url(${earth})` }}>
+    <div className='board-wrapper' style={ utilsService.getBackgroundStyle(board?.background) }>
       {!board || loading ? <div className='loader-container'><Loader size={LoaderSize.L} /></div> :
       <>
         <BoardHeader />

@@ -34,7 +34,7 @@ function Home() {
   const renderBoardTemplates = () => {
     return boardTemplates?.map((boardTemplate: IBoardTemplate) => {
       return (
-        <div key={boardTemplate.id} className='boards-items-item' onClick={() => handleBoardTemplateClick(boardTemplate)} style={{ backgroundImage: `url(${earth})` }}>
+        <div key={boardTemplate.id} className='boards-items-item' onClick={() => handleBoardTemplateClick(boardTemplate)} style={ utilsService.getBackgroundStyle(boardTemplate.background) }>
           <EllipsisText maxLines={1}>{boardTemplate.title}</EllipsisText>
         </div>
       );
@@ -44,11 +44,7 @@ function Home() {
   const renderBoards = () => {
     return boards?.map((board: IBoard) => {
       return (
-        <div
-          key={board.id}
-          className='boards-items-item'
-          onClick={() => handleBoardClick(board.id as string)}
-          style={{ backgroundImage: board?.background ? `url(${utilsService.getStorageLinkUrl(board?.background)})` : `url(${earth})` }}>
+        <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id as string)} style={utilsService.getBackgroundStyle(board.background)}>
           <EllipsisText maxLines={1}>{board.title}</EllipsisText>
         </div>
       );
