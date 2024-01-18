@@ -1,12 +1,12 @@
 feat - add activity saving support
 feat - error state
 feat - add support for uploading board background - storage. also make sure you have default images, and images uploaded for each board
-feat - default image - remove earth image
 feat - mobile support
-
+feat - take ModalWrapper usages to outside of components
 
 bug - drag and drop bump - check if you can set the state even before data comes from db
 bug - drag and drop bump in checklist items
+bug - remove id?
 
 
 [

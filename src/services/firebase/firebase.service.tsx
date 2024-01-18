@@ -8,12 +8,21 @@ import {
   IComment,
   ILabel,
   IList,
-  ILocation
+  ILocation,
+  IUser,
 } from '@models';
 import { firebaseStore } from '../index';
 
-export function getBackgrounds() {
-  return firebaseStore.getBackgrounds();
+export function getDefaultBackgrounds() {
+  return firebaseStore.getDefaultBackgrounds();
+}
+
+export function getBackgrounds(boardId: string) {
+  return firebaseStore.getBackgrounds(boardId);
+}
+
+export function saveFileToBoardBackgrounds(boardBackground: IBackground) {
+  return firebaseStore.saveFileToBoardBackgrounds(boardBackground);
 }
 
 // *********************  USER  ********************* //
@@ -374,4 +383,12 @@ export async function deleteLabelFromUsingCards(listIds: string[], labelId: stri
   });
   const updateCardPromises = updatedCards.map((card: ICard) => firebaseStore.updateCard(card));
   await Promise.all(updateCardPromises);
+}
+
+// *********************  STORAGE  *********************
+export function uploadFile(user: IUser, file: File) {
+  const [fileName, fileExtension] = file.name.split('.');
+  const cleanedFileName = fileName.replace(new RegExp(' ', "g"), '');
+  const newFileName = `${cleanedFileName}-${user.id}-${Date.now()}.${fileExtension}`;
+  return firebaseStore.uploadFile(file, newFileName);
 }

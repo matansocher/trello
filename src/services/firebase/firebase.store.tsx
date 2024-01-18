@@ -1,9 +1,11 @@
 import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, deleteField } from 'firebase/firestore';
-import { IBoard, ICard, ILabel, IList, IUser } from '@models';
+import { ref, uploadBytes } from 'firebase/storage';
+import { IBackground, IBoard, ICard, ILabel, IList, IUser } from '@models';
 import { db, storage } from './firebase.init';
 
 const COLLECTIONS = {
-  BACKGROUND: 'Background',
+  BOARD_BACKGROUND: 'BoardBackground',
+  DEFAULT_BACKGROUND: 'DefaultBackground',
   USER: 'User',
   LABEL: 'Label',
   DEFAULT_LABEL: 'DefaultLabel',
@@ -14,9 +16,24 @@ const COLLECTIONS = {
 };
 
 // *********************  BACKGROUND  ********************* //
-export const getBackgrounds = async () => {
-  const backgroundsSnapshot = await getDocs(collection(db, COLLECTIONS.BACKGROUND));
+export const getDefaultBackgrounds = async () => {
+  const backgroundsSnapshot = await getDocs(collection(db, COLLECTIONS.DEFAULT_BACKGROUND));
   return backgroundsSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+}
+
+export const getBackgrounds = async (boardId: string) => {
+
+  const q = query(
+    collection(db, COLLECTIONS.BOARD_BACKGROUND),
+    where('boardId', '==', boardId),
+  );
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as IList[];
+}
+
+export const saveFileToBoardBackgrounds = async (boardBackground: IBackground) => {
+  const boardBackgroundsRef = collection(db, COLLECTIONS.BOARD_BACKGROUND);
+  return addDoc(boardBackgroundsRef, boardBackground);
 }
 
 // *********************  USER  ********************* //
@@ -200,9 +217,9 @@ export const archiveCard = async (cardId: string) => {
   await deleteDoc(cardToDeleteRef);
 };
 
-
-
-
-
-
 // *********************  STORAGE  ********************* //
+export const uploadFile = async (file: File, fileName: string): Promise<string> => {
+  const imageRef = ref(storage, `images/${fileName}`);
+  const snapshot = await uploadBytes(imageRef, file);
+  return snapshot.ref.name;
+}

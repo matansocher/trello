@@ -35,7 +35,7 @@ function ColorPicker({ isOpen, setIsOpen, hasHeader = true, editLabelId, initial
 
   const renderColorTiles = () => {
     return COLOR_TILES.map((tile: IColorTile) => {
-      const isSelected = selectedColor?.id === tile.id;
+      const isSelected = selectedColor?.id === tile.id || selectedColor?.backgroundColor === tile.backgroundColor;
       return (
         <div
           key={tile.id}

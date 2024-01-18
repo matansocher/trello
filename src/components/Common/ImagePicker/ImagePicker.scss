@@ -14,16 +14,17 @@
     align-items: flex-start;
     justify-content: space-between;
     &__images {
-      width: 49%;
-      display: grid;
+      display: flex;
+      flex-wrap: wrap;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       .upload-item {
-        width: 180px;
+        width: 190px;
         height: 100px;
         padding: 6px;
         border-radius: 5px;
         cursor: pointer;
+        box-sizing: border-box;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
         &:hover {
           opacity: 0.7;
@@ -39,6 +40,8 @@
         border-radius: 4px;
       }
       &__image {
+        width: 190px;
+        height: 100px;
         box-sizing: border-box;
         border-radius: 4px;
         cursor: pointer;
@@ -53,30 +56,9 @@
           border-radius: 4px;
         }
       }
-    }
-    &__colors {
-      width: 49%;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 4px 4px;
-      &__color {
-        width: 75px;
-        height: 32px;
-        box-sizing: border-box;
-        border-radius: 4px;
-        cursor: pointer;
-        &:hover {
-          opacity: .7;
-          transition: opacity .3s ease-in-out;
-        }
-      }
-      .selected-tile {
+      .selected-image {
         border: 3px solid $light-blue;
       }
-    }
-
-    .selected-background {
-      border: 3px solid $light-blue;
     }
   }
   &__footer {

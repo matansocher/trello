@@ -5,7 +5,7 @@ import { List, BoardHeader, AddNewList, Loader } from '@components';
 import { useBoard, useLabels } from '@context';
 import { LoaderSize } from '@constants';
 import { useGetBoard } from '@hooks';
-import { IList } from '@models';
+import { IBackground, IList } from '@models';
 import { firebaseService, dndService, utilsService } from '@services';
 import './Board.scss';
 
@@ -59,7 +59,7 @@ function Board() {
   }
 
   return (
-    <div className='board-wrapper' style={ utilsService.getBackgroundStyle(board?.background) }>
+    <div className='board-wrapper' style={ utilsService.getBackgroundStyle(board?.background as IBackground) }>
       {!board || loading ? <div className='loader-container'><Loader size={LoaderSize.L} /></div> :
       <>
         <BoardHeader />

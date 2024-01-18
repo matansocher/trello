@@ -12,7 +12,7 @@ import {
   SettingsOutlined as SettingsOutlinedIcon,
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
-import { ImagePicker, DropdownMenu, EditableInput } from '@components';
+import { BackgroundPicker, DropdownMenu, EditableInput } from '@components';
 import { useBoard } from '@context';
 import { IBackground, IDropdownItem } from '@models';
 import { firebaseService, utilsService } from '@services';
@@ -62,8 +62,12 @@ function BoardHeader() {
     firebaseService.updateBoard(newBoard);
   }
 
-  const handleSaveBackgroundPicker = async (selectedBackground: IBackground) => {
-    const newBoard = firebaseService.updateBoardBackground(board, selectedBackground);
+  const handleCloseBackgroundPicker = () => {
+    setBackgroundPickerModalOpen(false);
+  }
+
+  const handleSaveBackgroundPicker = (background: IBackground) => {
+    const newBoard = firebaseService.updateBoardBackground(board, background);
     updateBoardState(newBoard);
     setBackgroundPickerModalOpen(false);
   }
@@ -73,7 +77,7 @@ function BoardHeader() {
       { label: 'Activity', icon: <FormatListBulletedOutlinedIcon fontSize='small' />, onClick: () => handleActivityClick() },
       { label: 'Archived items', icon: <ArchiveOutlinedIcon fontSize='small' />, onClick: () => handleArchivedItemsClick() },
       { label: 'Settings', icon: <SettingsOutlinedIcon fontSize='small' />, onClick: () => handleSettingsClick() },
-      { label: 'Change background', icon: <div className='change-bg' style={ utilsService.getBackgroundStyle(board?.background) } />, onClick: () => handleChangeBackgroundClick() },
+      { label: 'Change background', icon: <div className='change-bg' style={ utilsService.getBackgroundStyle(board?.background as IBackground) } />, onClick: () => handleChangeBackgroundClick() },
       { label: 'Labels', icon: <LabelIcon fontSize='small' />, onClick: () => handleLabelsClick() },
       { label: 'Watch', icon: <WatchOutlinedIcon fontSize='small' />, onClick: () => handleWatchClick() },
       { label: 'Print, export, and share', icon: <EmailOutlinedIcon fontSize='small' />, onClick: () => handlePrintExportShareClick() },
@@ -98,10 +102,10 @@ function BoardHeader() {
         </div>
       </div>
 
-      <ImagePicker
+      <BackgroundPicker
         isOpen={backgroundPickerModalOpen}
         setIsOpen={setBackgroundPickerModalOpen}
-        initialSelectedBackground={board.background}
+        handleCloseBackgroundPicker={handleCloseBackgroundPicker}
         handleSaveBackgroundPicker={handleSaveBackgroundPicker} />
     </div>
   )

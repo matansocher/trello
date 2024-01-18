@@ -1,39 +1,44 @@
 import { useEffect, useState } from 'react';
 import { ModalWrapper } from '@components';
 import { useGetBackgrounds } from '@hooks';
-import { IBackground, IColorTile, IModalStyles } from '@models';
-import { utilsService } from '@services';
+import { IBackground, IModalStyles } from '@models';
+import { firebaseService, utilsService } from '@services';
 import './ImagePicker.scss';
+import { useBoard, useUser } from '@context';
 
 const backgroundPickerModalStyles: IModalStyles = {
   width: 850,
+  height: 535,
   // @ts-ignore
   overflow: 'scroll',
-  height: 535,
   p: 2,
 };
 
-interface ICardHeaderProps {
+interface IImagePickerProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   initialSelectedBackground: IBackground;
   handleSaveBackgroundPicker: (selectedBackground: any) => void;
 }
 
-function ImagePicker({ isOpen, setIsOpen, initialSelectedBackground, handleSaveBackgroundPicker }: ICardHeaderProps) {
-  const { backgrounds } = useGetBackgrounds();
+function ImagePicker({ isOpen, setIsOpen, initialSelectedBackground, handleSaveBackgroundPicker }: IImagePickerProps) {
+  const { user } = useUser();
+  const { boardState: board } = useBoard();
+  const { backgrounds, refreshBackgrounds } = useGetBackgrounds(board.id as string);
   const [selectedBackground, setSelectedBackground] = useState<IBackground>(initialSelectedBackground);
 
   useEffect(() => {
     setSelectedBackground(initialSelectedBackground);
   }, [initialSelectedBackground]);
 
-  const handleSaveBtnClick = () => {
-    handleSaveBackgroundPicker(selectedBackground);
-  }
+  const handleUploadClick = async (e: any) => {
+    if (!e.target.files[0]) return;
 
-  const handleUploadClick = async () => {
-    console.log('handleUploadClick');
+    const file = new File([e.target.files[0]], e.target.files[0].name);
+    const fileName = await firebaseService.uploadFile(user, file);
+    const boardBackground = { type: 'image', background: fileName, boardId: board.id } as IBackground;
+    await firebaseService.saveFileToBoardBackgrounds(boardBackground);
+    refreshBackgrounds();
   }
 
   const selectImage = (image: any) => {
@@ -41,30 +46,15 @@ function ImagePicker({ isOpen, setIsOpen, initialSelectedBackground, handleSaveB
     setSelectedBackground(background);
   }
 
-  const selectColor = (color: any) => {
-    const background = { type: 'color', background: color.backgroundColor } as IBackground;
-    setSelectedBackground(background);
-  }
-
   const renderBackgroundImages = () => {
     return backgrounds?.images?.map((image: any) => {
       const isSelected = selectedBackground.background === image.fileName;
       const photoUrl = utilsService.getStorageLinkUrl(image.fileName);
-      const className = `background-picker__backgrounds__images__image ${isSelected ? 'selected-background' : ''}`;
+      const className = `background-picker__backgrounds__images__image ${isSelected ? 'selected-image' : ''}`;
       return (
         <div key={image.fileName} className={className} onClick={() => selectImage(image)}>
           <img src={photoUrl} alt={image.fileName.split('.')[0]} />
         </div>
-      )
-    })
-  }
-
-  const renderBackgroundColors = () => {
-    return backgrounds?.colors?.map((tile: IColorTile) => {
-      const isSelected = selectedBackground.background === tile.backgroundColor;
-      const className = `background-picker__backgrounds__colors__color ${isSelected ? 'selected-tile' : ''}`;
-      return (
-        <div key={tile.id} className={className} style={{ backgroundColor: tile.backgroundColor }} onClick={() => selectColor(tile)} />
       )
     })
   }
@@ -77,15 +67,14 @@ function ImagePicker({ isOpen, setIsOpen, initialSelectedBackground, handleSaveB
         </div>
         <div className='background-picker__backgrounds'>
           <div className='background-picker__backgrounds__images'>
-            <div key='new' className='upload-item plus' onClick={handleUploadClick}>+</div>
+            <div key='new' className='upload-item plus' onClick={handleUploadClick}>
+              <input type='file' onChange={handleUploadClick} />
+            </div>
             {renderBackgroundImages()}
-          </div>
-          <div className='background-picker__backgrounds__colors'>
-            {renderBackgroundColors()}
           </div>
         </div>
         <div className='background-picker__footer'>
-          <button className='save' onClick={handleSaveBtnClick}>Save</button>
+          <button className='save' onClick={() => handleSaveBackgroundPicker(selectedBackground)}>Save</button>
         </div>
       </div>
     </ModalWrapper>

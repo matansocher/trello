@@ -1,10 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { earth } from '@assets';
 import { EllipsisText } from '@components';
 import { BOARD_INITIAL_STATE } from '@constants';
 import { useBoard, useUser } from '@context';
 import { useGetBoards, useGetBoardTemplates } from '@hooks';
-import { IBoard, IBoardTemplate } from '@models';
+import { IBackground, IBoard, IBoardTemplate } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './Home.scss';
 
@@ -44,7 +43,7 @@ function Home() {
   const renderBoards = () => {
     return boards?.map((board: IBoard) => {
       return (
-        <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id as string)} style={utilsService.getBackgroundStyle(board.background)}>
+        <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id as string)} style={utilsService.getBackgroundStyle(board.background as IBackground)}>
           <EllipsisText maxLines={1}>{board.title}</EllipsisText>
         </div>
       );
