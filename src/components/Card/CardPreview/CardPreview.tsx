@@ -22,7 +22,7 @@ import { utilsService } from '@services';
 import './CardPreview.scss';
 
 const modalWrapperModalStyles: IModalStyles = {
-  width: 800,
+  width: 900,
   height: 700,
   // @ts-ignore
   overflow: 'scroll',

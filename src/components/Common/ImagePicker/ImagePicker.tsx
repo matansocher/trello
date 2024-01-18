@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ModalWrapper } from '@components';
 import { useGetBackgrounds } from '@hooks';
 import { IBackground, IModalStyles } from '@models';
@@ -26,6 +26,7 @@ function ImagePicker({ isOpen, setIsOpen, initialSelectedBackground, handleSaveB
   const { boardState: board } = useBoard();
   const { backgrounds, refreshBackgrounds } = useGetBackgrounds(board.id as string);
   const [selectedBackground, setSelectedBackground] = useState<IBackground>(initialSelectedBackground);
+  const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setSelectedBackground(initialSelectedBackground);
@@ -67,8 +68,9 @@ function ImagePicker({ isOpen, setIsOpen, initialSelectedBackground, handleSaveB
         </div>
         <div className='background-picker__backgrounds'>
           <div className='background-picker__backgrounds__images'>
-            <div key='new' className='upload-item plus' onClick={handleUploadClick}>
-              <input type='file' onChange={handleUploadClick} />
+            <div key='new' className='upload-item plus' onClick={() => hiddenFileInput.current?.click()}>
+              <p>+</p>
+              <input type='file' onChange={handleUploadClick} ref={hiddenFileInput} />
             </div>
             {renderBackgroundImages()}
           </div>
