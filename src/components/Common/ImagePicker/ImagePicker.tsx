@@ -1,27 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import { ModalWrapper } from '@components';
 import { useGetBackgrounds } from '@hooks';
-import { IBackground, IModalStyles } from '@models';
+import { IBackground } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './ImagePicker.scss';
 import { useBoard, useUser } from '@context';
 
-const backgroundPickerModalStyles: IModalStyles = {
-  width: 850,
-  height: 535,
-  // @ts-ignore
-  overflow: 'scroll',
-  p: 2,
-};
-
 interface IImagePickerProps {
-  isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   initialSelectedBackground: IBackground;
   handleSaveBackgroundPicker: (selectedBackground: any) => void;
 }
 
-function ImagePicker({ isOpen, setIsOpen, initialSelectedBackground, handleSaveBackgroundPicker }: IImagePickerProps) {
+function ImagePicker({ initialSelectedBackground, handleSaveBackgroundPicker }: IImagePickerProps) {
   const { user } = useUser();
   const { boardState: board } = useBoard();
   const { backgrounds, refreshBackgrounds } = useGetBackgrounds(board.id as string);
@@ -61,25 +51,23 @@ function ImagePicker({ isOpen, setIsOpen, initialSelectedBackground, handleSaveB
   }
 
   return (
-    <ModalWrapper modalOpen={isOpen} closeModal={() => setIsOpen(false)} modalStyle={backgroundPickerModalStyles}>
-      <div className='background-picker'>
-        <div className='background-picker__header'>
-          <p>Change background</p>
-        </div>
-        <div className='background-picker__backgrounds'>
-          <div className='background-picker__backgrounds__images'>
-            <div key='new' className='upload-item plus' onClick={() => hiddenFileInput.current?.click()}>
-              <p>+</p>
-              <input type='file' onChange={handleUploadClick} ref={hiddenFileInput} />
-            </div>
-            {renderBackgroundImages()}
+    <div className='background-picker'>
+      <div className='background-picker__header'>
+        <p>Change background</p>
+      </div>
+      <div className='background-picker__backgrounds'>
+        <div className='background-picker__backgrounds__images'>
+          <div key='new' className='upload-item plus' onClick={() => hiddenFileInput.current?.click()}>
+            <p>+</p>
+            <input type='file' onChange={handleUploadClick} ref={hiddenFileInput} />
           </div>
-        </div>
-        <div className='background-picker__footer'>
-          <button className='save' onClick={() => handleSaveBackgroundPicker(selectedBackground)}>Save</button>
+          {renderBackgroundImages()}
         </div>
       </div>
-    </ModalWrapper>
+      <div className='background-picker__footer'>
+        <button className='save' onClick={() => handleSaveBackgroundPicker(selectedBackground)}>Save</button>
+      </div>
+    </div>
   )
 }
 

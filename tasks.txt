@@ -1,8 +1,8 @@
 feat - add activity saving support
 feat - error state
 feat - mobile support
-feat - take ModalWrapper usages to outside of components
 feat - have support on removing cover for a card
+feat - restrict image type and size in image picker
 
 bug - drag and drop bump - check if you can set the state even before data comes from db
 bug - drag and drop bump in checklist items

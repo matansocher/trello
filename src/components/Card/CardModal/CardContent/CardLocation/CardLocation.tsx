@@ -6,11 +6,16 @@ import {
   CallMadeOutlined as CallMadeOutlinedIcon,
   MoreVertOutlined as MoreVertOutlinedIcon,
 } from '@mui/icons-material';
-import { DropdownMenu, PlacePicker } from '@components';
+import { DropdownMenu, ModalWrapper, PlacePicker } from '@components';
 import { useCurrentCard } from '@context';
-import { ILocation } from '@models';
+import { ILocation, IModalStyles } from '@models';
 import { firebaseService } from '@services';
 import './CardLocation.scss';
+
+const placePickerModalStyles: IModalStyles = {
+  width: 350,
+  height: 450,
+};
 
 interface ICardLocationProps {
 
@@ -62,7 +67,9 @@ function CardLocation({  }: ICardLocationProps) {
         </div>
       </div>
 
-      <PlacePicker isOpen={locationPlaceModalOpen} setIsOpen={setLocationPlaceModalOpen} handleSave={handleSaveLocationClick} />
+      <ModalWrapper modalOpen={locationPlaceModalOpen} closeModal={() => setLocationPlaceModalOpen(false)} modalStyle={placePickerModalStyles}>
+        <PlacePicker isOpen={locationPlaceModalOpen} setIsOpen={setLocationPlaceModalOpen} handleSave={handleSaveLocationClick} />
+      </ModalWrapper>
     </div>
   )
 }

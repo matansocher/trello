@@ -1,10 +1,38 @@
 import { useEffect, useState } from 'react';
 import { Dayjs } from 'dayjs';
-import { CardActions, CardContent, CardHeader, ColorPicker, DatePicker, LabelsPicker, PlacePicker } from '@components';
+import {
+  CardActions,
+  CardContent,
+  CardHeader,
+  ColorPicker,
+  DatePicker,
+  LabelsPicker,
+  ModalWrapper,
+  PlacePicker
+} from '@components';
 import { useCurrentCard } from '@context';
-import { ICard, IColorTile, ILabel, IList, ILocation } from '@models';
+import { ICard, IColorTile, ILabel, IList, ILocation, IModalStyles } from '@models';
 import { firebaseService } from '@services';
 import './CardModal.scss';
+
+const datePickerModalStyles: IModalStyles = {
+  width: 350,
+  height: 400,
+};
+
+const placePickerModalStyles: IModalStyles = {
+  width: 350,
+  height: 450,
+};
+
+const labelsModalStyles: IModalStyles = {
+  width: 320,
+};
+
+const colorPickerModalStyles: IModalStyles = {
+  width: 320,
+  padding: 0,
+};
 
 interface ICardModalProps {
   list: IList;
@@ -122,10 +150,22 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
         </div>
       </div>
 
-      <ColorPicker isOpen={colorPickerModalOpen} setIsOpen={setColorPickerModalOpen} hasHeader={false} handleSaveColorPicker={handleSaveCoverColorPicker} handleCloseColorPicker={() => setColorPickerModalOpen(false)} />
-      <DatePicker isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} dueDate={card.dueDate as string} handleChange={handleDueDateChange} />
-      <LabelsPicker isOpen={labelsModalOpen} setIsOpen={setLabelsModalOpen} cardLabels={card.labels || []} handleLabelsChange={handleLabelsChange} />
-      <PlacePicker isOpen={locationPlaceModalOpen} setIsOpen={setLocationPlaceModalOpen} handleSave={handleSaveLocationClick} />
+      <ModalWrapper modalOpen={colorPickerModalOpen} closeModal={() => setColorPickerModalOpen(false)} modalStyle={colorPickerModalStyles}>
+        <ColorPicker setIsOpen={setColorPickerModalOpen} hasHeader={false} handleSaveColorPicker={handleSaveCoverColorPicker} handleCloseColorPicker={() => setColorPickerModalOpen(false)} />
+      </ModalWrapper>
+
+      <ModalWrapper modalOpen={datePickerModalOpen} closeModal={() => setDatePickerModalOpen(false)} modalStyle={datePickerModalStyles}>
+        <DatePicker setIsOpen={setDatePickerModalOpen} dueDate={card.dueDate as string} handleChange={handleDueDateChange} />
+      </ModalWrapper>
+
+      <ModalWrapper modalOpen={labelsModalOpen} closeModal={() => setLabelsModalOpen(false)} modalStyle={labelsModalStyles}>
+        <LabelsPicker setIsOpen={setLabelsModalOpen} cardLabels={card.labels || []} handleLabelsChange={handleLabelsChange} />
+      </ModalWrapper>
+
+      <ModalWrapper modalOpen={locationPlaceModalOpen} closeModal={() => setLocationPlaceModalOpen(false)} modalStyle={placePickerModalStyles}>
+        <PlacePicker isOpen={locationPlaceModalOpen} setIsOpen={setLocationPlaceModalOpen} handleSave={handleSaveLocationClick} />
+      </ModalWrapper>
+
     </div>
   )
 }

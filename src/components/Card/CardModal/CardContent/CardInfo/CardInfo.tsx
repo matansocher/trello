@@ -1,10 +1,19 @@
 import { useState } from 'react';
 import { Dayjs } from 'dayjs';
-import { DatePicker, Label, LabelsPicker } from '@components';
+import { DatePicker, Label, LabelsPicker, ModalWrapper } from '@components';
 import { useCurrentCard, useLabels } from '@context';
-import { ILabel } from '@models';
+import { ILabel, IModalStyles } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './CardInfo.scss';
+
+const datePickerModalStyles: IModalStyles = {
+  width: 350,
+  height: 400,
+};
+
+const labelsModalStyles: IModalStyles = {
+  width: 320,
+};
 
 interface ICardDescriptionProps {
 
@@ -70,8 +79,15 @@ function CardInfo({  }: ICardDescriptionProps) {
     <div className='card-info'>
       {card.labels?.length ? renderLabelsSection() : null}
       {card.dueDate?.length ? renderDueDateSection(): null}
-      <DatePicker dueDate={card.dueDate as string} handleChange={handleDueDateChange} isOpen={datePickerModalOpen} setIsOpen={setDatePickerModalOpen} />
-      <LabelsPicker isOpen={labelsModalOpen} setIsOpen={setLabelsModalOpen} cardLabels={card.labels || []} handleLabelsChange={handleLabelsChange} />
+
+      <ModalWrapper modalOpen={datePickerModalOpen} closeModal={() => setDatePickerModalOpen(false)} modalStyle={datePickerModalStyles}>
+        <DatePicker dueDate={card.dueDate as string} handleChange={handleDueDateChange} setIsOpen={setDatePickerModalOpen} />
+      </ModalWrapper>
+
+      <ModalWrapper modalOpen={labelsModalOpen} closeModal={() => setLabelsModalOpen(false)} modalStyle={labelsModalStyles}>
+        <LabelsPicker setIsOpen={setLabelsModalOpen} cardLabels={card.labels || []} handleLabelsChange={handleLabelsChange} />
+      </ModalWrapper>
+
     </div>
   )
 }

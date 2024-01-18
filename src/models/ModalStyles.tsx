@@ -9,4 +9,6 @@ export interface IModalStyles {
   outline?: string;
   p?: number;
   borderRadius?: string;
+  padding?: string | number;
+  overflow?: string;
 }

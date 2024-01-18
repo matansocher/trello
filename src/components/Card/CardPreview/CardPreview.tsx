@@ -24,7 +24,6 @@ import './CardPreview.scss';
 const modalWrapperModalStyles: IModalStyles = {
   width: 900,
   height: 700,
-  // @ts-ignore
   overflow: 'scroll',
   padding: 0,
 };

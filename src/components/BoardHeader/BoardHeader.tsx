@@ -12,11 +12,17 @@ import {
   SettingsOutlined as SettingsOutlinedIcon,
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
-import { BackgroundPicker, DropdownMenu, EditableInput } from '@components';
+import { BackgroundPicker, DropdownMenu, EditableInput, ModalWrapper } from '@components';
 import { useBoard } from '@context';
-import { IBackground, IDropdownItem } from '@models';
+import { IBackground, IDropdownItem, IModalStyles } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './BoardHeader.scss';
+
+const backgroundPickerModalStyles: IModalStyles = {
+  width: 450,
+  height: 350,
+  p: 2,
+};
 
 function BoardHeader() {
   const navigate = useNavigate();
@@ -102,11 +108,12 @@ function BoardHeader() {
         </div>
       </div>
 
-      <BackgroundPicker
-        isOpen={backgroundPickerModalOpen}
-        setIsOpen={setBackgroundPickerModalOpen}
-        handleCloseBackgroundPicker={handleCloseBackgroundPicker}
-        handleSaveBackgroundPicker={handleSaveBackgroundPicker} />
+      <ModalWrapper modalOpen={backgroundPickerModalOpen} closeModal={() => setBackgroundPickerModalOpen(false)} modalStyle={backgroundPickerModalStyles}>
+        <BackgroundPicker
+          setIsOpen={setBackgroundPickerModalOpen}
+          handleCloseBackgroundPicker={handleCloseBackgroundPicker}
+          handleSaveBackgroundPicker={handleSaveBackgroundPicker} />
+      </ModalWrapper>
     </div>
   )
 }

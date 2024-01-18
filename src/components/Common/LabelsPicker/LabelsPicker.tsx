@@ -6,19 +6,18 @@ import { IColorTile, ILabel, IModalStyles } from '@models';
 import { firebaseService } from '@services';
 import './LabelsPicker.scss';
 
-const labelsModalStyles: IModalStyles = {
-  width: 320,
-  p: 2,
-};
-
 interface ILabelsPickerProps {
-  isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   cardLabels: string[];
   handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
 }
 
-function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILabelsPickerProps) {
+const colorPickerModalStyles: IModalStyles = {
+  width: 320,
+  padding: 0,
+};
+
+function LabelsPicker({ setIsOpen, handleLabelsChange, cardLabels }: ILabelsPickerProps) {
   const { labels } = useLabels();
   const { boardState } = useBoard();
   const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
@@ -83,7 +82,7 @@ function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILa
   }
 
   return (
-    <ModalWrapper modalOpen={isOpen} closeModal={() => setIsOpen(false)} modalStyle={labelsModalStyles}>
+    <>
       <div className='labels-wrapper'>
         <div className='labels-wrapper__header'>
           <div className='restore' onClick={handleRestoreLabelsClick}>
@@ -101,13 +100,13 @@ function LabelsPicker({ isOpen, setIsOpen, handleLabelsChange, cardLabels }: ILa
         <button className='add-new-button' onClick={() => setColorPickerModalOpen(true)}>Add new label</button>
       </div>
 
-      <ColorPicker
-        isOpen={colorPickerModalOpen}
-        setIsOpen={setColorPickerModalOpen}
-        handleSaveColorPicker={handleSaveColorPicker}
-        handleCloseColorPicker={handleCloseColorPicker} />
-
-    </ModalWrapper>
+      <ModalWrapper modalOpen={colorPickerModalOpen} closeModal={() => setColorPickerModalOpen(false)} modalStyle={colorPickerModalStyles}>
+        <ColorPicker
+          setIsOpen={setColorPickerModalOpen}
+          handleSaveColorPicker={handleSaveColorPicker}
+          handleCloseColorPicker={handleCloseColorPicker} />
+      </ModalWrapper>
+    </>
   )
 }
 

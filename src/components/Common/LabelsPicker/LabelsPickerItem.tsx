@@ -1,10 +1,15 @@
 import { MouseEvent, useState } from 'react';
 import { Delete as DeleteIcon, EditOutlined as EditOutlinedIcon } from '@mui/icons-material';
 import Checkbox from '@mui/material/Checkbox';
-import { ColorPicker } from '@components';
-import { IColorTile, ILabel } from '@models';
+import { ColorPicker, ModalWrapper } from '@components';
+import { IColorTile, ILabel, IModalStyles } from '@models';
 import { useToggleHover } from '@hooks';
 import { COLOR_TILES } from '@constants';
+
+const colorPickerModalStyles: IModalStyles = {
+  width: 320,
+  padding: 0,
+};
 
 interface ILabelsPickerItemProps {
   label: ILabel;
@@ -59,14 +64,15 @@ function LabelsPickerItem({ label, isChecked, handleSaveColorPicker, handleDelet
         <EditOutlinedIcon/>
       </div>
 
-      <ColorPicker
-        isOpen={colorPickerModalOpen}
-        setIsOpen={setColorPickerModalOpen}
-        editLabelId={label.id}
-        initialTitle={label.displayName}
-        initialTile={relevantColorTile}
-        handleSaveColorPicker={saveColorPickerItem}
-        handleCloseColorPicker={handleCloseColorPicker}/>
+      <ModalWrapper modalOpen={colorPickerModalOpen} closeModal={() => setColorPickerModalOpen(false)} modalStyle={colorPickerModalStyles}>
+        <ColorPicker
+          setIsOpen={setColorPickerModalOpen}
+          editLabelId={label.id}
+          initialTitle={label.displayName}
+          initialTile={relevantColorTile}
+          handleSaveColorPicker={saveColorPickerItem}
+          handleCloseColorPicker={handleCloseColorPicker}/>
+      </ModalWrapper>
     </div>
   )
 }

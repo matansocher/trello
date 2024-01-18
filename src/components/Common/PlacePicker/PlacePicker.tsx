@@ -1,16 +1,10 @@
 import { useState } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { Close as CloseIcon } from '@mui/icons-material';
-import { Loader, ModalWrapper } from '@components';
+import { Loader } from '@components';
 import { LoaderSize } from '@constants';
-import { ILocation, IModalStyles } from '@models';
+import { ILocation } from '@models';
 import './PlacePicker.scss';
-
-const datePickerModalStyles: IModalStyles = {
-  width: 350,
-  height: 450,
-  p: 2,
-};
 
 interface IPlacePickerProps {
   isOpen: boolean;
@@ -18,12 +12,8 @@ interface IPlacePickerProps {
   handleSave: (newValue: ILocation) => void;
 }
 
-function PlacePicker({ isOpen, setIsOpen, handleSave }: IPlacePickerProps) {
+function PlacePicker({ setIsOpen, handleSave }: IPlacePickerProps) {
   const [address, setAddress] = useState('');
-
-  const closeModal = () => {
-    setIsOpen(false);
-  }
 
   async function geocodePlaceId(placeId: string) {
     const { results } = await new google.maps.Geocoder().geocode({ placeId });
@@ -42,11 +32,11 @@ function PlacePicker({ isOpen, setIsOpen, handleSave }: IPlacePickerProps) {
       lng: geocodePlaceData.geometry.location.lng(),
     } as ILocation;
     handleSave(place);
-    closeModal();
+    setIsOpen(false);
   }
 
   return (
-    <ModalWrapper modalOpen={isOpen} closeModal={closeModal} modalStyle={datePickerModalStyles}>
+    <>
       <div id="map"></div>
       <div className='place-picker-wrapper'>
 
@@ -77,7 +67,7 @@ function PlacePicker({ isOpen, setIsOpen, handleSave }: IPlacePickerProps) {
           )}
         </PlacesAutocomplete>
       </div>
-    </ModalWrapper>
+    </>
   )
 }
 

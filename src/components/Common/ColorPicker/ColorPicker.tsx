@@ -1,19 +1,10 @@
 import { useState } from 'react';
 import { Close as CloseIcon } from '@mui/icons-material';
-import { ModalWrapper } from '@components';
-import { IColorTile, IModalStyles } from '@models';
+import { IColorTile } from '@models';
 import { COLOR_TILES } from '@constants';
 import './ColorPicker.scss';
 
-const colorPickerModalStyles: IModalStyles = {
-  width: 320,
-  // @ts-ignore
-  padding: 0,
-  p: 2,
-};
-
 interface IColorPickerProps {
-  isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   hasHeader?: boolean;
   editLabelId?: string;
@@ -23,7 +14,7 @@ interface IColorPickerProps {
   handleCloseColorPicker: () => void;
 }
 
-function ColorPicker({ isOpen, setIsOpen, hasHeader = true, editLabelId, initialTitle, initialTile, handleSaveColorPicker, handleCloseColorPicker }: IColorPickerProps) {
+function ColorPicker({ hasHeader = true, editLabelId, initialTitle, initialTile, handleSaveColorPicker, handleCloseColorPicker }: IColorPickerProps) {
   const [selectedColor, setSelectedColor] = useState<IColorTile | null>(initialTile || null);
   const [title, setTitle] = useState(initialTitle || '');
 
@@ -48,24 +39,22 @@ function ColorPicker({ isOpen, setIsOpen, hasHeader = true, editLabelId, initial
   }
 
   return (
-    <ModalWrapper modalOpen={isOpen} closeModal={() => setIsOpen(false)} modalStyle={colorPickerModalStyles}>
-      <div className='color-picker'>
-        {hasHeader ? <div className='color-picker__header'>
-          <p>Title</p>
-          <input type='text' placeholder='Choose a title' value={title} onInput={e => setTitle((e.target as HTMLInputElement).value)}/>
-          <CloseIcon onClick={handleCloseColorPicker}/>
-        </div> : null}
-        <div className='color-picker__colors'>
-          <p>Select a color</p>
-          <div className='color-picker__colors__tiles'>
-            {renderColorTiles()}
-          </div>
-        </div>
-        <div className='color-picker__footer'>
-          <button className='save' onClick={handleSaveBtnClick}>Save</button>
+    <div className='color-picker'>
+      {hasHeader ? <div className='color-picker__header'>
+        <p>Title</p>
+        <input type='text' placeholder='Choose a title' value={title} onInput={e => setTitle((e.target as HTMLInputElement).value)}/>
+        <CloseIcon onClick={handleCloseColorPicker}/>
+      </div> : null}
+      <div className='color-picker__colors'>
+        <p>Select a color</p>
+        <div className='color-picker__colors__tiles'>
+          {renderColorTiles()}
         </div>
       </div>
-    </ModalWrapper>
+      <div className='color-picker__footer'>
+        <button className='save' onClick={handleSaveBtnClick}>Save</button>
+      </div>
+    </div>
   )
 }
 
