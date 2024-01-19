@@ -12,7 +12,7 @@ import {
   SettingsOutlined as SettingsOutlinedIcon,
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
-import { BackgroundPicker, DropdownMenu, EditableInput, ModalWrapper } from '@components';
+import { BackgroundPicker, DropdownMenu, EditableInput, LabelsPicker, ModalWrapper } from '@components';
 import { useBoard } from '@context';
 import { IBackground, IDropdownItem, IModalStyles } from '@models';
 import { firebaseService, utilsService } from '@services';
@@ -20,10 +20,13 @@ import './BoardHeader.scss';
 
 const backgroundPickerModalStyles: IModalStyles = { width: 450, height: 350 };
 
+const labelsModalStyles: IModalStyles = { width: 320 };
+
 function BoardHeader() {
   const navigate = useNavigate();
   const { boardState: board, updateBoardState } = useBoard();
   const [backgroundPickerModalOpen, setBackgroundPickerModalOpen] = useState(false);
+  const [labelsModalOpen, setLabelsModalOpen] = useState(false);
 
   const handleActivityClick = () => {
     console.log('handleActivityClick');
@@ -42,7 +45,7 @@ function BoardHeader() {
   }
 
   const handleLabelsClick = () => {
-    console.log('handleLabelsClick');
+    setLabelsModalOpen(true);
   }
 
   const handleWatchClick = () => {
@@ -110,6 +113,11 @@ function BoardHeader() {
           handleCloseBackgroundPicker={handleCloseBackgroundPicker}
           handleSaveBackgroundPicker={handleSaveBackgroundPicker} />
       </ModalWrapper>
+
+      <ModalWrapper modalOpen={labelsModalOpen} closeModal={() => setLabelsModalOpen(false)} modalStyle={labelsModalStyles}>
+        <LabelsPicker setIsOpen={setLabelsModalOpen} cardLabels={board.labels || []} />
+      </ModalWrapper>
+
     </div>
   )
 }

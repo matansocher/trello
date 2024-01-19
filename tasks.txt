@@ -3,13 +3,14 @@ feat - mobile support
 feat - have support on removing cover for a card
 feat - a few unit tests
 feat - add about this board modal
-feat - add labels picker to main board options
 feat - add option to star a board
 feat - add template label to a template in home page
 
 bug - drag and drop bump - check if you can set the state even before data comes from db
 bug - drag and drop bump in checklist items
 bug - remove id?
+bug - due date order
+bug - labels - test everything, and update the labels in the db from board and from within a card
 
 sergio ramos
 thiago silva

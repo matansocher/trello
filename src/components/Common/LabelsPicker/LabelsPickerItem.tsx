@@ -11,12 +11,13 @@ const colorPickerModalStyles: IModalStyles = { width: 320, padding: 0 };
 interface ILabelsPickerItemProps {
   label: ILabel;
   isChecked: boolean;
+  isInCardModal: boolean;
   handleSaveColorPicker: (selectedColor: IColorTile, editLabelId: string, title: string) => void;
   handleDeleteColorPickerItem: (label: ILabel) => void;
   handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
 }
 
-function LabelsPickerItem({ label, isChecked, handleSaveColorPicker, handleDeleteColorPickerItem, handleLabelsChange }: ILabelsPickerItemProps) {
+function LabelsPickerItem({ label, isChecked, isInCardModal, handleSaveColorPicker, handleDeleteColorPickerItem, handleLabelsChange }: ILabelsPickerItemProps) {
   const [isHovered, hoverEventHandlers] = useToggleHover(false);
   const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
   const relevantColorTile: IColorTile = COLOR_TILES.find((tile: IColorTile) => tile.backgroundColor.toLowerCase() === label.backgroundColor.toLowerCase()) as IColorTile;
@@ -41,10 +42,10 @@ function LabelsPickerItem({ label, isChecked, handleSaveColorPicker, handleDelet
 
   return (
     <div className='label-select'>
-      <Checkbox
+      {isInCardModal ? <Checkbox
         checked={isChecked}
         onChange={(event) => handleLabelsChange(label, event.target.checked)}
-        inputProps={{'aria-label': 'controlled'}}/>
+        inputProps={{'aria-label': 'controlled'}}/> : null}
       <div
         className='label-color'
         style={{backgroundColor: label.backgroundColor}}

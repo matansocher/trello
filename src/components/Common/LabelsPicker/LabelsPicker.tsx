@@ -9,7 +9,7 @@ import './LabelsPicker.scss';
 interface ILabelsPickerProps {
   setIsOpen: (isOpen: boolean) => void;
   cardLabels: string[];
-  handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
+  handleLabelsChange?: (label: ILabel, isChecked: boolean) => void;
 }
 
 const colorPickerModalStyles: IModalStyles = { width: 320, padding: 0 };
@@ -18,10 +18,7 @@ function LabelsPicker({ setIsOpen, handleLabelsChange, cardLabels }: ILabelsPick
   const { labels } = useLabels();
   const { boardState } = useBoard();
   const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
-
-  const handleCloseColorPicker = () => {
-    setColorPickerModalOpen(false);
-  }
+  const isLabelsPickerInCardModal = !!handleLabelsChange;
 
   const handleSaveColorPicker = async (tile: IColorTile, editLabelId: string, title: string) => {
     const newLabel: ILabel = {
@@ -71,9 +68,10 @@ function LabelsPicker({ setIsOpen, handleLabelsChange, cardLabels }: ILabelsPick
           key={label.id}
           label={label}
           isChecked={isChecked}
+          isInCardModal={isLabelsPickerInCardModal}
           handleSaveColorPicker={handleSaveColorPicker}
           handleDeleteColorPickerItem={handleDeleteColorPickerItem}
-          handleLabelsChange={handleLabelsChange} />
+          handleLabelsChange={handleLabelsChange || (() => {})} />
       );
     })
   }
@@ -101,7 +99,7 @@ function LabelsPicker({ setIsOpen, handleLabelsChange, cardLabels }: ILabelsPick
         <ColorPicker
           setIsOpen={setColorPickerModalOpen}
           handleSaveColorPicker={handleSaveColorPicker}
-          handleCloseColorPicker={handleCloseColorPicker} />
+          handleCloseColorPicker={() => setColorPickerModalOpen(false)} />
       </ModalWrapper>
     </>
   )
