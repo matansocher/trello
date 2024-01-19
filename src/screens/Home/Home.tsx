@@ -35,6 +35,9 @@ function Home() {
       return (
         <div key={boardTemplate.id} className='boards-items-item' onClick={() => handleBoardTemplateClick(boardTemplate)} style={ utilsService.getBackgroundStyle(boardTemplate.background) }>
           <EllipsisText maxLines={1}>{boardTemplate.title}</EllipsisText>
+          <div className='template-label'>
+            <p>Template</p>
+          </div>
         </div>
       );
     });
