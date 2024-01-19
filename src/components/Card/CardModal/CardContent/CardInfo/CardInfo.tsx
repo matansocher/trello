@@ -6,14 +6,9 @@ import { ILabel, IModalStyles } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './CardInfo.scss';
 
-const datePickerModalStyles: IModalStyles = {
-  width: 350,
-  height: 400,
-};
+const datePickerModalStyles: IModalStyles = { width: 350, height: 400 };
 
-const labelsModalStyles: IModalStyles = {
-  width: 320,
-};
+const labelsModalStyles: IModalStyles = { width: 320 };
 
 interface ICardDescriptionProps {
 

@@ -1,22 +1,14 @@
 import { useState } from 'react';
 import { Close as CloseIcon } from '@mui/icons-material';
 import { ColorPicker, ImagePicker, ModalWrapper } from '@components';
-import { BackgroundType } from '@constants';
+import { BACKGROUND_DEFAULT_COLOR, BackgroundType } from '@constants';
 import { useBoard } from '@context';
 import { IBackground, IColorTile, IModalStyles } from '@models';
 import './BackgroundPicker.scss';
 
-const imagePickerModalStyles: IModalStyles = {
-  width: 850,
-  height: 535,
-  overflow: 'scroll',
-  p: 2,
-};
+const imagePickerModalStyles: IModalStyles = { width: 850, height: 535, overflow: 'scroll' };
 
-const colorPickerModalStyles: IModalStyles = {
-  width: 320,
-  padding: 0,
-};
+const colorPickerModalStyles: IModalStyles = { width: 320, padding: 0 };
 
 interface IBackgroundPickerProps {
   setIsOpen: (isOpen: boolean) => void;
@@ -31,6 +23,12 @@ function BackgroundPicker({ handleCloseBackgroundPicker, handleSaveBackgroundPic
 
   const handleSaveColorPicker = (background: IColorTile) => {
     const backgroundToSave = { type: BackgroundType.COLOR, background: background.backgroundColor } as IBackground;
+    handleSaveBackgroundPicker(backgroundToSave);
+    setColorPickerModalOpen(false);
+  }
+
+  const returnToDefaultBackgroundColor = () => {
+    const backgroundToSave = { type: BackgroundType.COLOR, background: BACKGROUND_DEFAULT_COLOR } as IBackground;
     handleSaveBackgroundPicker(backgroundToSave);
     setColorPickerModalOpen(false);
   }
@@ -71,6 +69,7 @@ function BackgroundPicker({ handleCloseBackgroundPicker, handleSaveBackgroundPic
           setIsOpen={setColorPickerModalOpen}
           hasHeader={false}
           initialTile={{ id: '', backgroundColor: board?.background?.background as string,  hoverColor: '',  textColor: '' }}
+          returnToDefaultColor={() => returnToDefaultBackgroundColor()}
           handleSaveColorPicker={handleSaveColorPicker}
           handleCloseColorPicker={() => setColorPickerModalOpen(false)} />
       </ModalWrapper>

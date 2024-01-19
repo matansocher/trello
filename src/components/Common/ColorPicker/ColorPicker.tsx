@@ -10,11 +10,12 @@ interface IColorPickerProps {
   editLabelId?: string;
   initialTitle?: string;
   initialTile?: IColorTile;
+  returnToDefaultColor?: () => void;
   handleSaveColorPicker: (selectedColor: IColorTile, editLabelId: string, title: string) => void;
   handleCloseColorPicker: () => void;
 }
 
-function ColorPicker({ hasHeader = true, editLabelId, initialTitle, initialTile, handleSaveColorPicker, handleCloseColorPicker }: IColorPickerProps) {
+function ColorPicker({ hasHeader = true, editLabelId, initialTitle, initialTile, returnToDefaultColor, handleSaveColorPicker, handleCloseColorPicker }: IColorPickerProps) {
   const [selectedColor, setSelectedColor] = useState<IColorTile | null>(initialTile || null);
   const [title, setTitle] = useState(initialTitle || '');
 
@@ -53,6 +54,7 @@ function ColorPicker({ hasHeader = true, editLabelId, initialTitle, initialTile,
       </div>
       <div className='color-picker__footer'>
         <button className='save' onClick={handleSaveBtnClick}>Save</button>
+        {returnToDefaultColor ? <button className='default-color' onClick={() => returnToDefaultColor()}>Remove cover</button> : null}
       </div>
     </div>
   )

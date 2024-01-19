@@ -12,10 +12,7 @@ interface ILabelsPickerProps {
   handleLabelsChange: (label: ILabel, isChecked: boolean) => void;
 }
 
-const colorPickerModalStyles: IModalStyles = {
-  width: 320,
-  padding: 0,
-};
+const colorPickerModalStyles: IModalStyles = { width: 320, padding: 0 };
 
 function LabelsPicker({ setIsOpen, handleLabelsChange, cardLabels }: ILabelsPickerProps) {
   const { labels } = useLabels();

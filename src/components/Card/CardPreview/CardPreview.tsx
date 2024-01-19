@@ -21,12 +21,7 @@ import { ICard, IList, ILabel, IDropdownItem, IFooterIcon, IModalStyles } from '
 import { utilsService } from '@services';
 import './CardPreview.scss';
 
-const modalWrapperModalStyles: IModalStyles = {
-  width: 900,
-  height: 700,
-  overflow: 'scroll',
-  padding: 0,
-};
+const modalWrapperModalStyles: IModalStyles = { width: 900, height: 700, overflow: 'scroll', padding: 0 };
 
 interface ICardPreviewProps {
   card: ICard;

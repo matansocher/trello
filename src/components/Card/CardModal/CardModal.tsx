@@ -10,29 +10,19 @@ import {
   ModalWrapper,
   PlacePicker
 } from '@components';
+import { COLOR_TILES } from '@constants';
 import { useCurrentCard } from '@context';
 import { ICard, IColorTile, ILabel, IList, ILocation, IModalStyles } from '@models';
 import { firebaseService } from '@services';
 import './CardModal.scss';
 
-const datePickerModalStyles: IModalStyles = {
-  width: 350,
-  height: 400,
-};
+const datePickerModalStyles: IModalStyles = { width: 350, height: 400 };
 
-const placePickerModalStyles: IModalStyles = {
-  width: 350,
-  height: 450,
-};
+const placePickerModalStyles: IModalStyles = { width: 350, height: 450 };
 
-const labelsModalStyles: IModalStyles = {
-  width: 320,
-};
+const labelsModalStyles: IModalStyles = { width: 320 };
 
-const colorPickerModalStyles: IModalStyles = {
-  width: 320,
-  padding: 0,
-};
+const colorPickerModalStyles: IModalStyles = { width: 320, padding: 0 };
 
 interface ICardModalProps {
   list: IList;
@@ -46,6 +36,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
   const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
   const [locationPlaceModalOpen, setLocationPlaceModalOpen] = useState(false);
+  const relevantColorTile: IColorTile = COLOR_TILES.find((tile: IColorTile) => tile.backgroundColor.toLowerCase() === card?.coverColor?.toLowerCase()) as IColorTile;
 
   useEffect(() => {
     if (!card?.id) return;
@@ -114,6 +105,12 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
     setColorPickerModalOpen(false);
   }
 
+  const returnToDefaultCoverColor = () => {
+    console.log('returnToDefaultCoverColor');
+    firebaseService.removeCardCoverColor(card);
+    setColorPickerModalOpen(false);
+  }
+
   const handleLocationClick = () => {
     setLocationPlaceModalOpen(true);
   }
@@ -151,7 +148,7 @@ function CardModal({ list, closeModal, archiveCard }: ICardModalProps) {
       </div>
 
       <ModalWrapper modalOpen={colorPickerModalOpen} closeModal={() => setColorPickerModalOpen(false)} modalStyle={colorPickerModalStyles}>
-        <ColorPicker setIsOpen={setColorPickerModalOpen} hasHeader={false} handleSaveColorPicker={handleSaveCoverColorPicker} handleCloseColorPicker={() => setColorPickerModalOpen(false)} />
+        <ColorPicker setIsOpen={setColorPickerModalOpen} hasHeader={false} initialTile={relevantColorTile} returnToDefaultColor={() => returnToDefaultCoverColor()} handleSaveColorPicker={handleSaveCoverColorPicker} handleCloseColorPicker={() => setColorPickerModalOpen(false)} />
       </ModalWrapper>
 
       <ModalWrapper modalOpen={datePickerModalOpen} closeModal={() => setDatePickerModalOpen(false)} modalStyle={datePickerModalStyles}>

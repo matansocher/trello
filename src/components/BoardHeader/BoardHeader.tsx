@@ -18,11 +18,7 @@ import { IBackground, IDropdownItem, IModalStyles } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './BoardHeader.scss';
 
-const backgroundPickerModalStyles: IModalStyles = {
-  width: 450,
-  height: 350,
-  p: 2,
-};
+const backgroundPickerModalStyles: IModalStyles = { width: 450, height: 350 };
 
 function BoardHeader() {
   const navigate = useNavigate();

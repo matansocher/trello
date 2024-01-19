@@ -12,10 +12,7 @@ import { ILocation, IModalStyles } from '@models';
 import { firebaseService } from '@services';
 import './CardLocation.scss';
 
-const placePickerModalStyles: IModalStyles = {
-  width: 350,
-  height: 450,
-};
+const placePickerModalStyles: IModalStyles = { width: 350, height: 450 };
 
 interface ICardLocationProps {
 
@@ -31,7 +28,7 @@ function CardLocation({  }: ICardLocationProps) {
   }
 
   const handleRemoveClick = () => {
-    firebaseService.deleteFieldFromCard(card, 'location');
+    firebaseService.removeLocationFromCard(card);
   }
 
   const handleSaveLocationClick = (location: ILocation) => {

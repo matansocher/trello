@@ -13,7 +13,7 @@ import {
   IUser,
 } from '@models';
 import { firebaseStore } from '../index';
-import { BACKGROUND_DEFAULT_COLOR } from '../../constants/ColorPicker.config.tsx';
+import { BACKGROUND_DEFAULT_COLOR } from '@constants';
 
 export function getDefaultBackgrounds() {
   return firebaseStore.getDefaultBackgrounds();
@@ -362,16 +362,29 @@ export function updateCardCoverColor(card: ICard, coverColor: string): ICard {
   return cardToSave;
 }
 
-export function updateCardLocation(card: ICard, location: ILocation): ICard {
-  const cardToSave = { ...card, location };
-  firebaseStore.updateCard(cardToSave);
+export function removeCardCoverColor(card: ICard): ICard {
+  if (!card.coverColor) {
+    return card;
+  }
+  const cardToSave = { ...card };
+  delete cardToSave.coverColor;
+  firebaseStore.deleteFieldFromCard(cardToSave, 'coverColor');
   return cardToSave;
 }
 
-export function deleteFieldFromCard(card: ICard, field: string): ICard {
-  const cardToSave = { ...card } as ICard;
-  cardToSave['location'] && delete cardToSave['location'];
-  firebaseStore.deleteFieldFromCard(cardToSave, field);
+export function removeLocationFromCard(card: ICard): ICard {
+  if (!card.location) {
+    return card;
+  }
+  const cardToSave = { ...card };
+  delete cardToSave.location;
+  firebaseStore.deleteFieldFromCard(cardToSave, 'location');
+  return cardToSave;
+}
+
+export function updateCardLocation(card: ICard, location: ILocation): ICard {
+  const cardToSave = { ...card, location };
+  firebaseStore.updateCard(cardToSave);
   return cardToSave;
 }
 

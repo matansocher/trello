@@ -6,10 +6,7 @@ import { IColorTile, ILabel, IModalStyles } from '@models';
 import { useToggleHover } from '@hooks';
 import { COLOR_TILES } from '@constants';
 
-const colorPickerModalStyles: IModalStyles = {
-  width: 320,
-  padding: 0,
-};
+const colorPickerModalStyles: IModalStyles = { width: 320, padding: 0 };
 
 interface ILabelsPickerItemProps {
   label: ILabel;

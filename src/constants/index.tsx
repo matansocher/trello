@@ -1,3 +1,4 @@
+import { BACKGROUND_DEFAULT_COLOR } from './ColorPicker.config';
 import { BOARD_INITIAL_STATE } from './board-initial-state';
 import { BackgroundType } from './background-types';
 import { CARD_INITIAL_STATE } from './card-initial-state';
@@ -8,6 +9,7 @@ import { USER_INITIAL_STATE } from './user-initial-state';
 import { UserAvatarSize } from './user-avatar-size';
 
 export {
+  BACKGROUND_DEFAULT_COLOR,
   BOARD_INITIAL_STATE,
   BackgroundType,
   CARD_INITIAL_STATE,
