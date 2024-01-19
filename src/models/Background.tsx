@@ -1,6 +1,7 @@
+import { BackgroundType } from '@constants';
 
 export interface IBackground {
-  type: 'image' | 'color';
+  type: BackgroundType;
   background: string;
   boardId?: string;
 }

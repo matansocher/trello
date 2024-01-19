@@ -1,4 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
+import { BackgroundType } from '@constants';
 import {
   IBackground,
   IBoard,
@@ -12,6 +13,7 @@ import {
   IUser,
 } from '@models';
 import { firebaseStore } from '../index';
+import { BACKGROUND_DEFAULT_COLOR } from '../../constants/ColorPicker.config.tsx';
 
 export function getDefaultBackgrounds() {
   return firebaseStore.getDefaultBackgrounds();
@@ -73,7 +75,7 @@ export function getBoardTemplates() {
 }
 
 export async function createBoard(title: string): Promise<IBoard> {
-  const newBoard = { title, lists: [], createdAt: dayjs().format('YYYY-MM-DD') } as IBoard;
+  const newBoard = { title, lists: [], createdAt: dayjs().format('YYYY-MM-DD'), background: { type: BackgroundType.COLOR, background: BACKGROUND_DEFAULT_COLOR } } as IBoard;
   const { id: createdBoardId } = await firebaseStore.createBoard(newBoard);
   return { ...newBoard, id: createdBoardId };
 }

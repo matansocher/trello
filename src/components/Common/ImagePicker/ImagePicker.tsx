@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
+import { BackgroundType } from '@constants';
+import { useBoard, useUser } from '@context';
 import { useGetBackgrounds } from '@hooks';
 import { IBackground } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './ImagePicker.scss';
-import { useBoard, useUser } from '@context';
 
 interface IImagePickerProps {
   setIsOpen: (isOpen: boolean) => void;
@@ -27,13 +28,13 @@ function ImagePicker({ initialSelectedBackground, handleSaveBackgroundPicker }: 
 
     const file = new File([e.target.files[0]], e.target.files[0].name);
     const fileName = await firebaseService.uploadFile(user, file);
-    const boardBackground = { type: 'image', background: fileName, boardId: board.id } as IBackground;
+    const boardBackground = { type: BackgroundType.IMAGE, background: fileName, boardId: board.id } as IBackground;
     await firebaseService.saveFileToBoardBackgrounds(boardBackground);
     refreshBackgrounds();
   }
 
   const selectImage = (image: any) => {
-    const background = { type: 'image', background: image.fileName } as IBackground;
+    const background = { type: BackgroundType.IMAGE, background: image.fileName } as IBackground;
     setSelectedBackground(background);
   }
 

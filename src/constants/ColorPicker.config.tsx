@@ -110,3 +110,5 @@ export const COLOR_TILES: IColorTile[] = [
   { id: 'pattern-magenta-bolder', backgroundColor: backgroundMagentaBolder, hoverColor: backgroundMagentaBolderHovered, textColor: textInverse },
   { id: 'pattern-gray-bolder', backgroundColor: backgroundGrayBolder, hoverColor: backgroundGrayBolderHovered, textColor: textInverse },
 ];
+
+export const BACKGROUND_DEFAULT_COLOR = backgroundGraySubtleHovered;

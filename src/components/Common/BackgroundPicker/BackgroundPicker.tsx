@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { Close as CloseIcon } from '@mui/icons-material';
 import { ColorPicker, ImagePicker, ModalWrapper } from '@components';
+import { BackgroundType } from '@constants';
+import { useBoard } from '@context';
 import { IBackground, IColorTile, IModalStyles } from '@models';
 import './BackgroundPicker.scss';
-import { useBoard } from '@context';
-import { Close as CloseIcon } from '@mui/icons-material';
 
 const imagePickerModalStyles: IModalStyles = {
   width: 850,
@@ -29,7 +30,7 @@ function BackgroundPicker({ handleCloseBackgroundPicker, handleSaveBackgroundPic
   const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
 
   const handleSaveColorPicker = (background: IColorTile) => {
-    const backgroundToSave = { type: 'color', background: background.backgroundColor } as IBackground;
+    const backgroundToSave = { type: BackgroundType.COLOR, background: background.backgroundColor } as IBackground;
     handleSaveBackgroundPicker(backgroundToSave);
     setColorPickerModalOpen(false);
   }

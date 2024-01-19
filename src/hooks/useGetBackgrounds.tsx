@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { firebaseService } from '@services';
-import { COLOR_TILES } from '@constants';
+import { BackgroundType, COLOR_TILES } from '@constants';
 import { IBackground } from '@models';
+import { firebaseService } from '@services';
 
 export const useGetBackgrounds = (boardId: string) => {
   const [backgrounds, setBackgrounds] = useState<any>(null);
@@ -43,7 +43,7 @@ export const useGetBackgrounds = (boardId: string) => {
     const backgroundImages: any[] = [];
 
     backgrounds.forEach((background: IBackground | any) => {
-      const bg = { fileName: background.background, type: 'image' };
+      const bg = { fileName: background.background, type: BackgroundType.IMAGE };
       backgroundImages.push(bg);
     });
 

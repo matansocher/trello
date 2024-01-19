@@ -1,7 +1,7 @@
 feat - add activity saving support
-feat - error state
 feat - mobile support
 feat - have support on removing cover for a card
+feat - a few unit tests
 
 bug - drag and drop bump - check if you can set the state even before data comes from db
 bug - drag and drop bump in checklist items

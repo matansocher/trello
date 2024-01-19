@@ -1,3 +1,4 @@
+import { BackgroundType } from '@constants';
 import { IBackground, ICard, ILabel, IUser } from '@models';
 
 export function generateId(): string {
@@ -64,9 +65,9 @@ export function sortLabelsByListOrder(labels: ILabel[] = [], labelIdsToSortBy: s
 
 export function getBackgroundStyle(background: IBackground) {
   switch (background?.type) {
-    case 'color':
+    case BackgroundType.COLOR:
       return { backgroundColor: background?.background };
-    case 'image':
+    case BackgroundType.IMAGE:
       return {
         backgroundImage: `url(${getStorageLinkUrl(background?.background)})`,
         backgroundRepeat: 'no-repeat',
