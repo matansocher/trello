@@ -11,6 +11,7 @@ const COLLECTIONS = {
   DEFAULT_LABEL: 'DefaultLabel',
   BOARD_TEMPLATE: 'BoardTemplate',
   BOARD: 'Board',
+  STARRED_BOARD: 'StarredBoard',
   LIST: 'List',
   CARD: 'Card',
 };
@@ -76,6 +77,17 @@ export const getBoardTemplates = async () => {
   const boardTemplatesSnapshot = await getDocs(collection(db, COLLECTIONS.BOARD_TEMPLATE));
   return boardTemplatesSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 }
+
+// *********************  STARRED_BOARD  ********************* //
+export const getStarredBoardsListener = async (id: string, callback: any) => {
+  const q = query(collection(db, COLLECTIONS.STARRED_BOARD), where(documentId(), '==', id));
+  return onSnapshot(q, callback);
+};
+
+export const updateStarredBoards = (userId: string, starredBoards: string[]) => {
+  const starredBoardsRef = doc(db, COLLECTIONS.STARRED_BOARD, userId);
+  return setDoc(starredBoardsRef, { userId, boardIds: starredBoards });
+};
 
 // *********************  BOARD  ********************* //
 export const createBoard = async (board: IBoard) => {

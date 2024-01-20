@@ -13,6 +13,7 @@ function Home() {
   const { boards } = useGetBoards();
   const { boardTemplates } = useGetBoardTemplates();
   const navigate = useNavigate();
+  const starredBoards = boards?.filter((board: IBoard) => user.starredBoards?.includes(board.id as string));
 
   const handleCreateBoardClick = async () => {
     const newBoard = await firebaseService.createBoard('New Board');
@@ -43,11 +44,16 @@ function Home() {
     });
   }
 
-  const renderBoards = () => {
+  const renderBoards = (boards: IBoard[], isStarredBoard: boolean) => {
     return boards?.map((board: IBoard) => {
       return (
         <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id as string)} style={utilsService.getBackgroundStyle(board.background as IBackground)}>
           <EllipsisText maxLines={1}>{board.title}</EllipsisText>
+          {isStarredBoard && (
+            <div className='starred-label'>
+              <p>Starred</p>
+            </div>
+          )}
         </div>
       );
     });
@@ -70,13 +76,18 @@ function Home() {
             <p className='description'>Get going faster with a template from the Trello community</p>
             <div className='boards-items'>
               {renderBoardTemplates()}
-              {/*<div key='new' className='boards-items-item plus' onClick={handleCreateBoardClick}>+</div>*/}
             </div>
           </div>
+          {user.starredBoards?.length && <div className='starred'>
+            <p className='header'>Starred Boards</p>
+            <div className='boards-items'>
+              {renderBoards(starredBoards, true)}
+            </div>
+          </div>}
           <div className='boards'>
             <p className='header'>Your Boards</p>
             <div className='boards-items'>
-              {renderBoards()}
+              {renderBoards(boards, false)}
               <div key='new' className='boards-items-item plus' onClick={handleCreateBoardClick}>+</div>
             </div>
           </div>

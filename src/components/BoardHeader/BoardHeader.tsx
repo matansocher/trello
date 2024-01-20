@@ -10,13 +10,16 @@ import {
   MoreHoriz as MoreHorizIcon,
   NotInterestedOutlined as NotInterestedOutlinedIcon,
   SettingsOutlined as SettingsOutlinedIcon,
+  Star as StarIcon,
+  StarBorderOutlined as StarBorderOutlinedIcon,
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
 import { BackgroundPicker, DropdownMenu, EditableInput, LabelsPicker, ModalWrapper } from '@components';
-import { useBoard } from '@context';
+import { useBoard, useUser } from '@context';
 import { IBackground, IDropdownItem, IModalStyles } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './BoardHeader.scss';
+import { useGetStarredBoards } from '@hooks';
 
 const backgroundPickerModalStyles: IModalStyles = { width: 450, height: 350 };
 
@@ -24,9 +27,25 @@ const labelsModalStyles: IModalStyles = { width: 320 };
 
 function BoardHeader() {
   const navigate = useNavigate();
+  const { user } = useUser();
   const { boardState: board, updateBoardState } = useBoard();
   const [backgroundPickerModalOpen, setBackgroundPickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
+  const { starredBoards } = useGetStarredBoards(user.id);
+  const isBoardStarred = starredBoards?.includes(board.id as string);
+
+  const handleStarClick = () => {
+    if (!board?.id) return;
+
+    let newStarredBoards = [...starredBoards];
+    if (isBoardStarred) {
+      newStarredBoards = newStarredBoards.filter((boardId: string) => board.id !== boardId);
+    } else {
+      newStarredBoards.push(board.id);
+      newStarredBoards = [...new Set(newStarredBoards)];
+    }
+    firebaseService.updateStarredBoards(user.id, newStarredBoards);
+  }
 
   const handleActivityClick = () => {
     console.log('handleActivityClick');
@@ -94,6 +113,9 @@ function BoardHeader() {
     <div className='board-header'>
       <div className='board-header__left'>
         <EditableInput handleSave={handleTitleSave} initialValue={board.title} fontSize={18} />
+        <div className='board-header__left__star' onClick={handleStarClick}>
+          {isBoardStarred ? <StarIcon /> : <StarBorderOutlinedIcon />}
+        </div>
       </div>
       <div className='board-header__right'>
         <div className='board-header-icon'>

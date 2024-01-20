@@ -20,6 +20,9 @@
       font-weight: 600;
       color: $light-main;
     }
+    &__star {
+      cursor: pointer;
+    }
   }
   &__right {
     display: flex;

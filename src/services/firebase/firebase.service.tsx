@@ -28,8 +28,17 @@ export function saveFileToBoardBackgrounds(boardBackground: IBackground) {
 }
 
 // *********************  USER  ********************* //
-export function saveUser(user: any) {
+export function saveUser(user: IUser) {
   return firebaseStore.saveUser(user);
+}
+
+// *********************  STARRED BOARD  ********************* //
+export function getStarredBoardsListener(userId: string, callback: any) {
+  return firebaseStore.getStarredBoardsListener(userId, callback);
+}
+
+export function updateStarredBoards(userId: string, newStarredBoards: any = []) {
+  firebaseStore.updateStarredBoards(userId, newStarredBoards);
 }
 
 // *********************  LABEL  ********************* //
