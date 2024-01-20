@@ -5,5 +5,4 @@ export interface IUser {
   email: string;
   phoneNumber?: string;
   photoURL?: string;
-  starredBoards?: string[];
 }

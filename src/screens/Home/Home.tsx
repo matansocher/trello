@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
+import { Star as StarIcon } from '@mui/icons-material';
 import { EllipsisText } from '@components';
 import { BOARD_INITIAL_STATE } from '@constants';
 import { useBoard, useUser } from '@context';
-import { useGetBoards, useGetBoardTemplates } from '@hooks';
+import { useGetBoards, useGetBoardTemplates, useGetStarredBoards } from '@hooks';
 import { IBackground, IBoard, IBoardTemplate } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './Home.scss';
@@ -13,7 +14,7 @@ function Home() {
   const { boards } = useGetBoards();
   const { boardTemplates } = useGetBoardTemplates();
   const navigate = useNavigate();
-  const starredBoards = boards?.filter((board: IBoard) => user.starredBoards?.includes(board.id as string));
+  const { starredBoards } = useGetStarredBoards(user.id);
 
   const handleCreateBoardClick = async () => {
     const newBoard = await firebaseService.createBoard('New Board');
@@ -44,14 +45,31 @@ function Home() {
     });
   }
 
-  const renderBoards = (boards: IBoard[], isStarredBoard: boolean) => {
+  const renderStarredBoards = (starredBoards: string[]) => {
+    const starredBoardsToRender = starredBoards
+      .filter((boardId: string) => boards?.find((board: IBoard) => board.id === boardId))
+      .map((boardId: string) => boards?.find((board: IBoard) => board.id === boardId)) as IBoard[];
+    return starredBoardsToRender?.map((board: IBoard) => {
+      return (
+        <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id as string)} style={utilsService.getBackgroundStyle(board.background as IBackground)}>
+          <EllipsisText maxLines={1}>{board.title}</EllipsisText>
+          <div className='starred-label'>
+            <StarIcon />
+          </div>
+        </div>
+      );
+    });
+  }
+
+  const renderBoards = (boards: IBoard[]) => {
     return boards?.map((board: IBoard) => {
+      const isStarredBoard = starredBoards?.includes(board.id as string);
       return (
         <div key={board.id} className='boards-items-item' onClick={() => handleBoardClick(board.id as string)} style={utilsService.getBackgroundStyle(board.background as IBackground)}>
           <EllipsisText maxLines={1}>{board.title}</EllipsisText>
           {isStarredBoard && (
             <div className='starred-label'>
-              <p>Starred</p>
+              <StarIcon />
             </div>
           )}
         </div>
@@ -78,16 +96,16 @@ function Home() {
               {renderBoardTemplates()}
             </div>
           </div>
-          {user.starredBoards?.length && <div className='starred'>
+          {starredBoards?.length ? <div className='starred'>
             <p className='header'>Starred Boards</p>
             <div className='boards-items'>
-              {renderBoards(starredBoards, true)}
+              {renderStarredBoards(starredBoards)}
             </div>
-          </div>}
+          </div> : null}
           <div className='boards'>
             <p className='header'>Your Boards</p>
             <div className='boards-items'>
-              {renderBoards(boards, false)}
+              {renderBoards(boards)}
               <div key='new' className='boards-items-item plus' onClick={handleCreateBoardClick}>+</div>
             </div>
           </div>

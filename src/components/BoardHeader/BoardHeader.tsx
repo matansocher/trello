@@ -113,24 +113,25 @@ function BoardHeader() {
     <div className='board-header'>
       <div className='board-header__left'>
         <EditableInput handleSave={handleTitleSave} initialValue={board.title} fontSize={18} />
-        <div className='board-header__left__star' onClick={handleStarClick}>
-          {isBoardStarred ? <StarIcon /> : <StarBorderOutlinedIcon />}
-        </div>
       </div>
       <div className='board-header__right'>
-        <div className='board-header-icon'>
-          <FilterListIcon />
+        <div className='board-header__right__star' onClick={handleStarClick}>
+          {isBoardStarred ? <StarIcon/> : <StarBorderOutlinedIcon/>}
         </div>
         <div className='board-header-icon'>
-          <CalendarMonthIcon />
+          <FilterListIcon/>
         </div>
         <div className='board-header-icon'>
-          <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon />} menuItems={getDropdownMenuItems()} />
+          <CalendarMonthIcon/>
+        </div>
+        <div className='board-header-icon'>
+          <DropdownMenu menuHeader='' menuIcon={<MoreHorizIcon/>} menuItems={getDropdownMenuItems()}/>
         </div>
       </div>
 
-      <ModalWrapper modalOpen={backgroundPickerModalOpen} closeModal={() => setBackgroundPickerModalOpen(false)} modalStyle={backgroundPickerModalStyles}>
-        <BackgroundPicker
+      <ModalWrapper modalOpen={backgroundPickerModalOpen} closeModal={() => setBackgroundPickerModalOpen(false)}
+                    modalStyle={backgroundPickerModalStyles}>
+      <BackgroundPicker
           setIsOpen={setBackgroundPickerModalOpen}
           handleCloseBackgroundPicker={handleCloseBackgroundPicker}
           handleSaveBackgroundPicker={handleSaveBackgroundPicker} />
