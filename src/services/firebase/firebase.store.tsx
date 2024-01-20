@@ -14,6 +14,7 @@ const COLLECTIONS = {
   STARRED_BOARD: 'StarredBoard',
   LIST: 'List',
   CARD: 'Card',
+  CARD_ARCHIVE: 'CardArchive',
 };
 
 // *********************  BACKGROUND  ********************* //
@@ -224,9 +225,13 @@ export const deleteFieldFromCard = (card: ICard, field: string) => {
   return updateDoc(cardRef, fieldsToDelete);
 };
 
-export const archiveCard = async (cardId: string) => {
-  const cardToDeleteRef = doc(db, COLLECTIONS.CARD, cardId);
-  await deleteDoc(cardToDeleteRef);
+export const archiveCard = async (card: ICard) => {
+  const cardToDeleteRef = doc(db, COLLECTIONS.CARD, card.id as string);
+  const archiveCardsRef = collection(db, COLLECTIONS.CARD_ARCHIVE);
+  await Promise.all([
+    addDoc(archiveCardsRef, card),
+    deleteDoc(cardToDeleteRef),
+  ])
 };
 
 // *********************  STORAGE  ********************* //

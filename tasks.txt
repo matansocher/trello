@@ -8,7 +8,6 @@ feat - handle archived cards
 bug - drag and drop bump - check if you can set the state even before data comes from db
 bug - drag and drop bump in checklist items
 bug - remove id?
-bug - due date order
 bug - labels - test everything, and update the labels in the db from board and from within a card
 
 sergio ramos

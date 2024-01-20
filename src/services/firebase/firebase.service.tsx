@@ -155,7 +155,7 @@ export async function closeBoard(board: IBoard) {
     const cardIds = lists.flatMap((list: IList) => list.cards);
     if (cardIds?.length) {
       const cards = await firebaseStore.getCards(cardIds);
-      const archiveCardPromises = cards.map((card: ICard) => firebaseStore.archiveCard(card.id as string));
+      const archiveCardPromises = cards.map((card: ICard) => firebaseStore.archiveCard(card));
       promisesArr = [...archiveCardPromises];
     }
     const archiveListPromises = lists.map((list: IList) => firebaseStore.archiveList(list.id as string));
@@ -210,7 +210,7 @@ export async function cloneList(board: IBoard, list: IList): Promise<IBoard> {
 
 export async function archiveList(board: IBoard, listId: string): Promise<IBoard> {
   const list = await firebaseStore.getListWithCards(listId);
-  const deleteCardPromises = list.cards.map((card: ICard) => firebaseStore.archiveCard(card.id as string));
+  const deleteCardPromises = list.cards.map((card: ICard) => firebaseStore.archiveCard(card));
   await Promise.all(deleteCardPromises);
 
   await firebaseStore.archiveList(listId);
@@ -252,7 +252,7 @@ export function getCards(cardIds: string[]) {
 
 export async function archiveCard(list: IList, card: ICard): Promise<void> {
   const cardId = card.id as string;
-  await firebaseStore.archiveCard(cardId);/**/
+  await firebaseStore.archiveCard(card);
   const newList = { ...list, cards: list.cards.filter((card: string) => card !== cardId) };
   await firebaseStore.updateList(newList);
 }
