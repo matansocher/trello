@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.19",
     "@mui/material": "^5.14.19",
     "@mui/x-date-pickers": "^6.18.4",
@@ -24,11 +23,10 @@
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
-    "react-google-places-autocomplete": "^4.0.1",
     "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^6.20.1",
     "react-tooltip": "^5.25.0",
-    "use-places-autocomplete": "^4.0.1"
+    "react-trix": "^0.10.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
