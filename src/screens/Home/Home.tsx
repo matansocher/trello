@@ -17,12 +17,12 @@ function Home() {
   const { starredBoards } = useGetStarredBoards(user.id);
 
   const handleCreateBoardClick = async () => {
-    const newBoard = await firebaseService.createBoard('New Board');
+    const newBoard = await firebaseService.createBoard(user.id, 'New Board');
     navigate(`/board/${newBoard.id}`);
   }
 
   const handleBoardTemplateClick = async (boardTemplate: IBoardTemplate) => {
-    const createdBoardId = await firebaseService.createBoardFromTemplate(boardTemplate);
+    const createdBoardId = await firebaseService.createBoardFromTemplate(user.id, boardTemplate);
     // updateBoardState(BOARD_INITIAL_STATE);
     navigate(`/board/${createdBoardId}`);
   }

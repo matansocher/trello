@@ -83,8 +83,8 @@ export function getBoardTemplates() {
   return firebaseStore.getBoardTemplates();
 }
 
-export async function createBoard(title: string): Promise<IBoard> {
-  const newBoard = { title, lists: [], createdAt: dayjs().format('YYYY-MM-DD'), background: { type: BackgroundType.COLOR, background: BACKGROUND_DEFAULT_COLOR } } as IBoard;
+export async function createBoard(userId:string, title: string): Promise<IBoard> {
+  const newBoard = { createdBy: userId, title, lists: [], createdAt: dayjs().format('YYYY-MM-DD'), background: { type: BackgroundType.COLOR, background: BACKGROUND_DEFAULT_COLOR } } as IBoard;
   const { id: createdBoardId } = await firebaseStore.createBoard(newBoard);
   return { ...newBoard, id: createdBoardId };
 }
@@ -99,14 +99,14 @@ export function updateBoardBackground(board: IBoard, background: IBackground): I
   return newBoard;
 }
 
-export async function createBoardFromTemplate(boardTemplate: IBoardTemplate): Promise<string> {
+export async function createBoardFromTemplate(userId: string, boardTemplate: IBoardTemplate): Promise<string> {
   const createListPromises = boardTemplate.lists.map(async (list: string) => {
     const newList = { title: list, cards: [], createdAt: dayjs().format('YYYY-MM-DD') } as IList;
     return firebaseStore.createList(newList);
   });
   const createdLists = await Promise.all(createListPromises);
   const createdListIds = createdLists.map((list) => list.id);
-  const newBoard = { title: boardTemplate.title, lists: createdListIds, createdAt: dayjs().format('YYYY-MM-DD') } as IBoard;
+  const newBoard = { createdBy: userId, title: boardTemplate.title, lists: createdListIds, createdAt: dayjs().format('YYYY-MM-DD') } as IBoard;
 
   const { id: createdBoardId } = await firebaseStore.createBoard(newBoard);
   return createdBoardId;
@@ -137,6 +137,12 @@ export function removeLabelFromBoard(board: IBoard, labelId: string): IBoard {
   const boardLabels = board.labels || [];
   const newLabels = boardLabels.filter((label: string) => label !== labelId);
   const boardToSave = { ...board, labels: newLabels };
+  firebaseStore.updateBoard(boardToSave);
+  return boardToSave;
+}
+
+export function updateBoardDescription(board: IBoard, description: string): ICard {
+  const boardToSave = { ...board, description };
   firebaseStore.updateBoard(boardToSave);
   return boardToSave;
 }

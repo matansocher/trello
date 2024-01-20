@@ -17,11 +17,8 @@ import { firebaseService } from '@services';
 import './CardModal.scss';
 
 const datePickerModalStyles: IModalStyles = { width: 350, height: 400 };
-
 const placePickerModalStyles: IModalStyles = { width: 350, height: 450 };
-
 const labelsModalStyles: IModalStyles = { width: 320 };
-
 const colorPickerModalStyles: IModalStyles = { width: 320, padding: 0 };
 
 interface ICardModalProps {

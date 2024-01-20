@@ -43,7 +43,7 @@ function Navbar() {
   }
 
   const handleCreateBoardClick = async () => {
-    const newBoard = await firebaseService.createBoard('New Board');
+    const newBoard = await firebaseService.createBoard(user.id, 'New Board');
     navigate(`/board/${newBoard.id}`);
   }
 

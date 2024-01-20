@@ -7,7 +7,6 @@ import { IBackground, IColorTile, IModalStyles } from '@models';
 import './BackgroundPicker.scss';
 
 const imagePickerModalStyles: IModalStyles = { width: 850, height: 535, overflow: 'scroll' };
-
 const colorPickerModalStyles: IModalStyles = { width: 320, padding: 0 };
 
 interface IBackgroundPickerProps {

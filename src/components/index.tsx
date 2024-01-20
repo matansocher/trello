@@ -1,6 +1,7 @@
 import AddNewCard from './List/AddNewCard/AddNewCard';
 import AddNewList from './List/AddNewList/AddNewList';
 import BackgroundPicker from './Common/BackgroundPicker/BackgroundPicker';
+import BoardAbout from './Common/BoardAbout/BoardAbout';
 import BoardHeader from './BoardHeader/BoardHeader';
 import CardActions from './Card/CardModal/CardActions/CardActions';
 import CardActivity from './Card/CardModal/CardContent/CardActivity/CardActivity';
@@ -41,6 +42,7 @@ export {
   AddNewCard,
   AddNewList,
   BackgroundPicker,
+  BoardAbout,
   BoardHeader,
   CardActions,
   CardActivity,

@@ -6,13 +6,13 @@ import { IColorTile, ILabel, IModalStyles } from '@models';
 import { firebaseService } from '@services';
 import './LabelsPicker.scss';
 
+const colorPickerModalStyles: IModalStyles = { width: 320, padding: 0 };
+
 interface ILabelsPickerProps {
   setIsOpen: (isOpen: boolean) => void;
   cardLabels: string[];
   handleLabelsChange?: (label: ILabel, isChecked: boolean) => void;
 }
-
-const colorPickerModalStyles: IModalStyles = { width: 320, padding: 0 };
 
 function LabelsPicker({ setIsOpen, handleLabelsChange, cardLabels }: ILabelsPickerProps) {
   const { labels } = useLabels();

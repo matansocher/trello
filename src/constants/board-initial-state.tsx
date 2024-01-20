@@ -5,4 +5,5 @@ export const BOARD_INITIAL_STATE: IBoard = {
   title: '',
   lists: [],
   createdAt: '',
+  createdBy: '',
 }

@@ -11,4 +11,5 @@ export interface IModalStyles {
   borderRadius?: string;
   padding?: string | number;
   overflow?: string;
+  minHeight?: number;
 }

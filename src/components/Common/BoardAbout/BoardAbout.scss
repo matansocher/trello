@@ -1,0 +1,84 @@
+@import 'src/styles/colors';
+
+.background-about {
+  border-radius: 5px;
+  box-sizing: border-box;
+  &__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    p {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    svg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+    }
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    &__admins, &__description {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-left: 40px;
+      .header-icon {
+        position: absolute;
+        top: 0;
+        left: -40px;
+      }
+      .subheader {
+        font-size: 16px;
+        font-weight: 600;
+        margin-left: 4px;
+        margin-top: 2px;
+      }
+    }
+    &__admins {
+
+      &__admin {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+    &__description {
+      .board-description {
+        &-open {
+          &__actions {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 4px;
+            margin: 8px 0;
+            .save {
+              background-color: $light-blue;
+              &:hover {
+                opacity: 0.7;
+              }
+            }
+            .cancel {
+              background-color: transparent;
+              &:hover {
+                transition: 0.3s;
+                background-color: #a6c5e229;
+              }
+            }
+          }
+        }
+        &-closed {
+
+        }
+      }
+    }
+  }
+}

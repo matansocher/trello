@@ -6,6 +6,7 @@ import {
   EmailOutlined as EmailOutlinedIcon,
   FilterList as FilterListIcon,
   FormatListBulletedOutlined as FormatListBulletedOutlinedIcon,
+  InfoOutlined as InfoOutlinedIcon,
   Label as LabelIcon,
   MoreHoriz as MoreHorizIcon,
   NotInterestedOutlined as NotInterestedOutlinedIcon,
@@ -20,10 +21,11 @@ import { IBackground, IDropdownItem, IModalStyles } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './BoardHeader.scss';
 import { useGetStarredBoards } from '@hooks';
+import BoardAbout from '../Common/BoardAbout/BoardAbout.tsx';
 
 const backgroundPickerModalStyles: IModalStyles = { width: 450, height: 350 };
-
 const labelsModalStyles: IModalStyles = { width: 320 };
+const aboutModalStyles: IModalStyles = { width: 400, minHeight: 400, overflow: 'scroll' };
 
 function BoardHeader() {
   const navigate = useNavigate();
@@ -31,6 +33,7 @@ function BoardHeader() {
   const { boardState: board, updateBoardState } = useBoard();
   const [backgroundPickerModalOpen, setBackgroundPickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
+  const [aboutsModalOpen, setAboutModalOpen] = useState(false);
   const { starredBoards } = useGetStarredBoards(user.id);
   const isBoardStarred = starredBoards?.includes(board.id as string);
 
@@ -45,6 +48,10 @@ function BoardHeader() {
       newStarredBoards = [...new Set(newStarredBoards)];
     }
     firebaseService.updateStarredBoards(user.id, newStarredBoards);
+  }
+
+  const handleAboutClick = () => {
+    setAboutModalOpen(true);
   }
 
   const handleActivityClick = () => {
@@ -98,6 +105,7 @@ function BoardHeader() {
 
   const getDropdownMenuItems = (): IDropdownItem[] => {
     return [
+      { label: 'About this board', icon: <InfoOutlinedIcon fontSize='small' />, onClick: () => handleAboutClick() },
       { label: 'Activity', icon: <FormatListBulletedOutlinedIcon fontSize='small' />, onClick: () => handleActivityClick() },
       { label: 'Archived items', icon: <ArchiveOutlinedIcon fontSize='small' />, onClick: () => handleArchivedItemsClick() },
       { label: 'Settings', icon: <SettingsOutlinedIcon fontSize='small' />, onClick: () => handleSettingsClick() },
@@ -139,6 +147,10 @@ function BoardHeader() {
 
       <ModalWrapper modalOpen={labelsModalOpen} closeModal={() => setLabelsModalOpen(false)} modalStyle={labelsModalStyles}>
         <LabelsPicker setIsOpen={setLabelsModalOpen} cardLabels={board.labels || []} />
+      </ModalWrapper>
+
+      <ModalWrapper modalOpen={aboutsModalOpen} closeModal={() => setAboutModalOpen(false)} modalStyle={aboutModalStyles}>
+        <BoardAbout handleCloseBoardAboutModal={() => setAboutModalOpen(false)} />
       </ModalWrapper>
 
     </div>
