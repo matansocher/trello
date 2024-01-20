@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Droppable, Draggable, DroppableProvided } from 'react-beautiful-dnd';
 import { AddNewCard, CardPreview, ListHeader, Loader } from '@components';
 import { LoaderSize, LIST_INITIAL_STATE } from '@constants';
-import { CurrentCardContextProvider } from '@context';
+import { CurrentCardContextProvider, useBoard } from '@context';
 import { useGetList } from '@hooks';
 import { ICard, IList } from '@models';
 import { firebaseService, utilsService } from '@services';
@@ -13,6 +13,7 @@ interface IListProps {
 }
 
 function List({ listIdToFetch }: IListProps) {
+  const { boardState: board } = useBoard();
   const { list: listFromDb, cards, loading } = useGetList(listIdToFetch);
   const [list, setList] = useState<IList>(LIST_INITIAL_STATE);
 
@@ -29,7 +30,7 @@ function List({ listIdToFetch }: IListProps) {
   }
 
   const archiveCard = async (card: ICard) => {
-    await firebaseService.archiveCard(list, card);
+    await firebaseService.archiveCard(board.id as string, list, card);
   }
 
   const moveToTop = async (card: ICard) => {

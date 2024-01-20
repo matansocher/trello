@@ -1,6 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { BackgroundType } from '@constants';
 import {
+  IArchivedCard,
   IBackground,
   IBoard,
   IBoardTemplate,
@@ -14,6 +15,7 @@ import {
 } from '@models';
 import { firebaseStore } from '../index';
 import { BACKGROUND_DEFAULT_COLOR } from '@constants';
+import { createCard } from './firebase.store.tsx';
 
 export function getDefaultBackgrounds() {
   return firebaseStore.getDefaultBackgrounds();
@@ -155,7 +157,7 @@ export async function closeBoard(board: IBoard) {
     const cardIds = lists.flatMap((list: IList) => list.cards);
     if (cardIds?.length) {
       const cards = await firebaseStore.getCards(cardIds);
-      const archiveCardPromises = cards.map((card: ICard) => firebaseStore.archiveCard(card));
+      const archiveCardPromises = cards.map((card: ICard) => firebaseStore.archiveCard(board.id as string, card));
       promisesArr = [...archiveCardPromises];
     }
     const archiveListPromises = lists.map((list: IList) => firebaseStore.archiveList(list.id as string));
@@ -175,8 +177,8 @@ export function getList(listId: string): any {
   return firebaseStore.getList(listId);
 }
 
-export function updateList(list: IList): void {
-  firebaseStore.updateList(list);
+export function updateList(list: IList) {
+  return firebaseStore.updateList(list);
 }
 
 export async function addNewList(board: IBoard, list: IList): Promise<IBoard> {
@@ -210,7 +212,7 @@ export async function cloneList(board: IBoard, list: IList): Promise<IBoard> {
 
 export async function archiveList(board: IBoard, listId: string): Promise<IBoard> {
   const list = await firebaseStore.getListWithCards(listId);
-  const deleteCardPromises = list.cards.map((card: ICard) => firebaseStore.archiveCard(card));
+  const deleteCardPromises = list.cards.map((card: ICard) => firebaseStore.archiveCard(board.id as string, card));
   await Promise.all(deleteCardPromises);
 
   await firebaseStore.archiveList(listId);
@@ -241,6 +243,24 @@ export function updateListTitle(list: IList, title: string): IList {
   return listToSave;
 }
 
+// *********************  ARCHIVED_CARD  ********************* //
+export function getArchivedCards(boardId: string) {
+  return firebaseStore.getArchivedCards(boardId);
+}
+
+export async function sendArchivedCardToBoard(board: IBoard, archivedCard: IArchivedCard) {
+  // get the first list
+  const list = await getList(board.lists[0]);
+  // add the card to the cards collection
+  const newCreatedCard = await createCard(archivedCard);
+  return Promise.all([
+    // remove the card from the archived cards collection
+    firebaseStore.removeArchivedCards(archivedCard),
+    // add the card id to the cards of the list
+    updateList({ ...list, cards: [newCreatedCard.id, ...list.cards] }),
+  ]);
+}
+
 // *********************  CARD  ********************* //
 export function getCardListener(cardId: string = '', callback: any) {
   return firebaseStore.getCardListener(cardId, callback);
@@ -250,9 +270,9 @@ export function getCards(cardIds: string[]) {
   return firebaseStore.getCards(cardIds);
 }
 
-export async function archiveCard(list: IList, card: ICard): Promise<void> {
+export async function archiveCard(boardId: string, list: IList, card: ICard): Promise<void> {
   const cardId = card.id as string;
-  await firebaseStore.archiveCard(card);
+  await firebaseStore.archiveCard(boardId, card);
   const newList = { ...list, cards: list.cards.filter((card: string) => card !== cardId) };
   await firebaseStore.updateList(newList);
 }

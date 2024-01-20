@@ -15,7 +15,7 @@ import {
   StarBorderOutlined as StarBorderOutlinedIcon,
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
-import { BackgroundPicker, DropdownMenu, EditableInput, LabelsPicker, ModalWrapper } from '@components';
+import { BackgroundPicker, CardsArchive, DropdownMenu, EditableInput, LabelsPicker, ModalWrapper } from '@components';
 import { useBoard, useUser } from '@context';
 import { IBackground, IDropdownItem, IModalStyles } from '@models';
 import { firebaseService, utilsService } from '@services';
@@ -26,6 +26,7 @@ import BoardAbout from '../Common/BoardAbout/BoardAbout.tsx';
 const backgroundPickerModalStyles: IModalStyles = { width: 450, height: 350 };
 const labelsModalStyles: IModalStyles = { width: 320 };
 const aboutModalStyles: IModalStyles = { width: 400, minHeight: 400, overflow: 'scroll' };
+const archivedItemsModalStyles: IModalStyles = { width: 400, minHeight: 400, overflow: 'scroll', padding: 0 };
 
 function BoardHeader() {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ function BoardHeader() {
   const [backgroundPickerModalOpen, setBackgroundPickerModalOpen] = useState(false);
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
   const [aboutsModalOpen, setAboutModalOpen] = useState(false);
+  const [archivedItemsModalOpen, setArchivedItemsModalOpen] = useState(false);
   const { starredBoards } = useGetStarredBoards(user.id);
   const isBoardStarred = starredBoards?.includes(board.id as string);
 
@@ -59,7 +61,7 @@ function BoardHeader() {
   }
 
   const handleArchivedItemsClick = () => {
-    console.log('handleArchivedItemsClick');
+    setArchivedItemsModalOpen(true);
   }
 
   const handleSettingsClick = () => {
@@ -139,7 +141,7 @@ function BoardHeader() {
 
       <ModalWrapper modalOpen={backgroundPickerModalOpen} closeModal={() => setBackgroundPickerModalOpen(false)}
                     modalStyle={backgroundPickerModalStyles}>
-      <BackgroundPicker
+        <BackgroundPicker
           setIsOpen={setBackgroundPickerModalOpen}
           handleCloseBackgroundPicker={handleCloseBackgroundPicker}
           handleSaveBackgroundPicker={handleSaveBackgroundPicker} />
@@ -151,6 +153,10 @@ function BoardHeader() {
 
       <ModalWrapper modalOpen={aboutsModalOpen} closeModal={() => setAboutModalOpen(false)} modalStyle={aboutModalStyles}>
         <BoardAbout handleCloseBoardAboutModal={() => setAboutModalOpen(false)} />
+      </ModalWrapper>
+
+      <ModalWrapper modalOpen={archivedItemsModalOpen} closeModal={() => setArchivedItemsModalOpen(false)} modalStyle={archivedItemsModalStyles}>
+        <CardsArchive handleCloseCardsArchiveModal={() => setArchivedItemsModalOpen(false)} />
       </ModalWrapper>
 
     </div>

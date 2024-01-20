@@ -126,7 +126,7 @@ function CardPreview({ list, card, moveToTop, moveToBottom, cloneCard, archiveCa
     }
 
     return footerIcons.map((footerIcon: IFooterIcon) => {
-      return <FooterIcon key={footerIcon.id} footerIcon={footerIcon} />;
+      return <FooterIcon key={footerIcon.id} card={card} footerIcon={footerIcon} />;
     });
   }
 

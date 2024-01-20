@@ -1,6 +1,6 @@
 import { collection, documentId, doc, onSnapshot, query, where, addDoc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, deleteField } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
-import { IBackground, IBoard, ICard, ILabel, IList, IUser } from '@models';
+import { IArchivedCard, IBackground, IBoard, ICard, ILabel, IList, IUser } from '@models';
 import { db, storage } from './firebase.init';
 
 const COLLECTIONS = {
@@ -179,6 +179,21 @@ export const archiveList = async (listId: string) => {
   return deleteDoc(listToDeleteRef);
 };
 
+// *********************  ARCHIVED_CARD  ********************* //
+export async function getArchivedCards(boardId: string) {
+  const q = query(
+    collection(db, COLLECTIONS.CARD_ARCHIVE),
+    where('boardId', '==', boardId),
+  );
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as IArchivedCard[];
+}
+
+export async function removeArchivedCards(archivedCard: IArchivedCard) {
+  const archivedCardToDeleteRef = doc(db, COLLECTIONS.CARD_ARCHIVE, archivedCard.id as string);
+  return deleteDoc(archivedCardToDeleteRef);
+}
+
 // *********************  CARD  ********************* //
 export const getCard = async (id: string) => {
   const cardRef = doc(db, COLLECTIONS.CARD, id);
@@ -225,11 +240,12 @@ export const deleteFieldFromCard = (card: ICard, field: string) => {
   return updateDoc(cardRef, fieldsToDelete);
 };
 
-export const archiveCard = async (card: ICard) => {
+export const archiveCard = async (boardId: string, card: ICard) => {
   const cardToDeleteRef = doc(db, COLLECTIONS.CARD, card.id as string);
+  const cardToArchive = { ...card, boardId } as IArchivedCard;
   const archiveCardsRef = collection(db, COLLECTIONS.CARD_ARCHIVE);
   await Promise.all([
-    addDoc(archiveCardsRef, card),
+    addDoc(archiveCardsRef, cardToArchive),
     deleteDoc(cardToDeleteRef),
   ])
 };

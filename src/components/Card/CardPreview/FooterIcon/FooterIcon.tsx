@@ -1,16 +1,15 @@
 import { Tooltip } from 'react-tooltip';
-import { useCurrentCard } from '@context';
-import { IFooterIcon } from '@models';
+import { ICard, IFooterIcon } from '@models';
 import './FooterIcon.scss';
 
 interface IFooterIconProps {
+  card: ICard;
   footerIcon: IFooterIcon;
 }
 
-function FooterIcon({ footerIcon }: IFooterIconProps) {
-  const { currentCard: card } = useCurrentCard();
-
+function FooterIcon({ card, footerIcon }: IFooterIconProps) {
   const uniqueClassId = `${card.id}_${footerIcon.id}`;
+
   return (
     <>
     <div className={`card-preview__footer__icon ${uniqueClassId}`}>

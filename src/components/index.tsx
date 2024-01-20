@@ -1,5 +1,6 @@
 import AddNewCard from './List/AddNewCard/AddNewCard';
 import AddNewList from './List/AddNewList/AddNewList';
+import ArchivedCard from './CardsArchive/ArchivedCard/ArchivedCard';
 import BackgroundPicker from './Common/BackgroundPicker/BackgroundPicker';
 import BoardAbout from './Common/BoardAbout/BoardAbout';
 import BoardHeader from './BoardHeader/BoardHeader';
@@ -18,6 +19,7 @@ import CardInfo from './Card/CardModal/CardContent/CardInfo/CardInfo'
 import CardLocation from './Card/CardModal/CardContent/CardLocation/CardLocation';
 import CardModal from './Card/CardModal/CardModal';
 import CardPreview from './Card/CardPreview/CardPreview';
+import CardsArchive from './CardsArchive/CardsArchive';
 import ColorPicker from './Common/ColorPicker/ColorPicker';
 import DatePicker from './Common/DatePicker/DatePicker';
 import DropdownMenu from './Common/DropdownMenu/DropdownMenu';
@@ -41,6 +43,7 @@ import UserAvatar from './Common/UserAvatar/UserAvatar';
 export {
   AddNewCard,
   AddNewList,
+  ArchivedCard,
   BackgroundPicker,
   BoardAbout,
   BoardHeader,
@@ -59,6 +62,7 @@ export {
   CardLocation,
   CardModal,
   CardPreview,
+  CardsArchive,
   ColorPicker,
   DatePicker,
   DropdownMenu,
