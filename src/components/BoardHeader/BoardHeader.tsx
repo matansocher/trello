@@ -15,13 +15,12 @@ import {
   StarBorderOutlined as StarBorderOutlinedIcon,
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
-import { BackgroundPicker, CardsArchive, DropdownMenu, EditableInput, LabelsPicker, ModalWrapper } from '@components';
+import { BackgroundPicker, BoardAbout, CardsArchive, DropdownMenu, EditableInput, LabelsPicker, ModalWrapper } from '@components';
 import { useBoard, useUser } from '@context';
+import { useGetStarredBoards } from '@hooks';
 import { IBackground, IDropdownItem, IModalStyles } from '@models';
 import { firebaseService, utilsService } from '@services';
 import './BoardHeader.scss';
-import { useGetStarredBoards } from '@hooks';
-import BoardAbout from '../Common/BoardAbout/BoardAbout.tsx';
 
 const backgroundPickerModalStyles: IModalStyles = { width: 450, height: 350 };
 const labelsModalStyles: IModalStyles = { width: 320 };

@@ -60,7 +60,7 @@ function ImagePicker({ initialSelectedBackground, handleSaveBackgroundPicker }: 
         <div className='background-picker__backgrounds__images'>
           <div key='new' className='upload-item plus' onClick={() => hiddenFileInput.current?.click()}>
             <p>+</p>
-            <input type='file' onChange={handleUploadClick} ref={hiddenFileInput} accept="image/*" />
+            <input type='file' onChange={handleUploadClick} ref={hiddenFileInput} accept='image/*' />
           </div>
           {renderBackgroundImages()}
         </div>

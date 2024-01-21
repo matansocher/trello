@@ -25,8 +25,7 @@
     "react-dom": "^18.2.0",
     "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^6.20.1",
-    "react-tooltip": "^5.25.0",
-    "react-trix": "^0.10.2"
+    "react-tooltip": "^5.25.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",

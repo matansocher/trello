@@ -37,7 +37,7 @@ function PlacePicker({ setIsOpen, handleSave }: IPlacePickerProps) {
 
   return (
     <>
-      <div id="map"></div>
+      <div id='map'></div>
       <div className='place-picker-wrapper'>
 
         <div className='place-picker-wrapper__header'>

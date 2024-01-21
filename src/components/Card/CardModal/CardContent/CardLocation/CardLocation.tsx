@@ -57,7 +57,7 @@ function CardLocation({  }: ICardLocationProps) {
           <p className='secondary'>{description}</p>
         </div>
         <div className='card-location__footer__right'>
-          <a className='link' href={`https://www.google.com/maps/search/?api=1&query=${lat}%2C${lng}`} target="_blank" rel="noreferrer">
+          <a className='link' href={`https://www.google.com/maps/search/?api=1&query=${lat}%2C${lng}`} target='_blank' rel='noreferrer'>
             <CallMadeOutlinedIcon />
           </a>
           <DropdownMenu menuHeader='' menuIcon={<MoreVertOutlinedIcon/>} menuItems={getDropdownMenuItems()}/>

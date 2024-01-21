@@ -15,7 +15,6 @@ import {
 } from '@models';
 import { firebaseStore } from '../index';
 import { BACKGROUND_DEFAULT_COLOR } from '@constants';
-import { createCard } from './firebase.store.tsx';
 
 export function getDefaultBackgrounds() {
   return firebaseStore.getDefaultBackgrounds();
@@ -252,7 +251,7 @@ export async function sendArchivedCardToBoard(board: IBoard, archivedCard: IArch
   // get the first list
   const list = await getList(board.lists[0]);
   // add the card to the cards collection
-  const newCreatedCard = await createCard(archivedCard);
+  const newCreatedCard = await firebaseStore.createCard(archivedCard);
   return Promise.all([
     // remove the card from the archived cards collection
     firebaseStore.removeArchivedCards(archivedCard),
@@ -438,7 +437,7 @@ export async function deleteLabelFromUsingCards(listIds: string[], labelId: stri
 // *********************  STORAGE  *********************
 export function uploadFile(user: IUser, file: File) {
   const [fileName, fileExtension] = file.name.split('.');
-  const cleanedFileName = fileName.replace(new RegExp(' ', "g"), '');
+  const cleanedFileName = fileName.replace(new RegExp(' ', 'g'), '');
   const newFileName = `${cleanedFileName}-${user.id}-${Date.now()}.${fileExtension}`;
   return firebaseStore.uploadFile(file, newFileName);
 }
