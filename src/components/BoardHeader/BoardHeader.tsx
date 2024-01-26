@@ -15,7 +15,7 @@ import {
   StarBorderOutlined as StarBorderOutlinedIcon,
   WatchOutlined as WatchOutlinedIcon,
 } from '@mui/icons-material';
-import { BackgroundPicker, BoardAbout, CardsArchive, DropdownMenu, EditableInput, LabelsPicker, ModalWrapper } from '@components';
+import { BackgroundPicker, BoardAbout, BoardActivity, CardsArchive, DropdownMenu, EditableInput, LabelsPicker, ModalWrapper } from '@components';
 import { useBoard, useUser } from '@context';
 import { useGetStarredBoards } from '@hooks';
 import { IBackground, IDropdownItem, IModalStyles } from '@models';
@@ -26,6 +26,7 @@ const backgroundPickerModalStyles: IModalStyles = { width: 450, height: 350 };
 const labelsModalStyles: IModalStyles = { width: 320 };
 const aboutModalStyles: IModalStyles = { width: 400, minHeight: 400, overflow: 'scroll' };
 const archivedItemsModalStyles: IModalStyles = { width: 400, minHeight: 400, overflow: 'scroll', padding: 0 };
+const boardActivityModalStyles: IModalStyles = { width: 400, minHeight: 400, overflow: 'scroll', padding: 0 };
 
 function BoardHeader() {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ function BoardHeader() {
   const [labelsModalOpen, setLabelsModalOpen] = useState(false);
   const [aboutsModalOpen, setAboutModalOpen] = useState(false);
   const [archivedItemsModalOpen, setArchivedItemsModalOpen] = useState(false);
+  const [boardActivityModalOpen, setBoardActivityModalOpen] = useState(false);
   const { starredBoards } = useGetStarredBoards(user.id);
   const isBoardStarred = starredBoards?.includes(board.id as string);
 
@@ -56,7 +58,7 @@ function BoardHeader() {
   }
 
   const handleActivityClick = () => {
-    console.log('handleActivityClick');
+    setBoardActivityModalOpen(true);
   }
 
   const handleArchivedItemsClick = () => {
@@ -156,6 +158,10 @@ function BoardHeader() {
 
       <ModalWrapper modalOpen={archivedItemsModalOpen} closeModal={() => setArchivedItemsModalOpen(false)} modalStyle={archivedItemsModalStyles}>
         <CardsArchive handleCloseCardsArchiveModal={() => setArchivedItemsModalOpen(false)} />
+      </ModalWrapper>
+
+      <ModalWrapper modalOpen={boardActivityModalOpen} closeModal={() => setBoardActivityModalOpen(false)} modalStyle={boardActivityModalStyles}>
+        <BoardActivity />
       </ModalWrapper>
 
     </div>

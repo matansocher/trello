@@ -3,6 +3,7 @@ import AddNewList from './List/AddNewList/AddNewList';
 import ArchivedCard from './CardsArchive/ArchivedCard/ArchivedCard';
 import BackgroundPicker from './Common/BackgroundPicker/BackgroundPicker';
 import BoardAbout from './Common/BoardAbout/BoardAbout';
+import BoardActivity from './BoardActivity/BoardActivity';
 import BoardHeader from './BoardHeader/BoardHeader';
 import CardActions from './Card/CardModal/CardActions/CardActions';
 import CardActivity from './Card/CardModal/CardContent/CardActivity/CardActivity';
@@ -46,6 +47,7 @@ export {
   ArchivedCard,
   BackgroundPicker,
   BoardAbout,
+  BoardActivity,
   BoardHeader,
   CardActions,
   CardActivity,

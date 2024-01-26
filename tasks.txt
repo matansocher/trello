@@ -8,3 +8,9 @@ bug - labels - test everything, and update the labels in the db from board and f
 
 sergio ramos
 thiago silva
+ronaldo
+neuer
+messi
+modric
+benzema
+lewandowski

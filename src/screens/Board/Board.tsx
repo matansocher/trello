@@ -40,8 +40,8 @@ function Board() {
     updateBoardState(newBoard);
   }
 
-  const onDragEnd = async (result: any) => {
-    await dndService.boardDragEndHandler(board, result);
+  const onDragEnd = (result: any) => {
+    dndService.boardDragEndHandler(board, result);
   }
 
   const renderLists = () => {
